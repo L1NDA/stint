@@ -1,13 +1,107 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*, *:before, *:after {
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
+a {
+  text-decoration: none;
+  display: inline-flex;
+}
+
+.button {
+  background: #8F8DFF;
+  /* border-radius: 8px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+
+  color: white;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: bold;
+  font-size: 14px;
+  border: none;
+}
+
+.button:hover {
+  cursor: pointer;
+  box-shadow: 0px 8px 8px rgba(71, 68, 72, 0.15);
+  transition: all 0.2s linear;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 54px;
+  margin: 10px 0;
+
+  color: #474448;
+}
+
+h2 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: bold;
+  font-size: 26px;
+
+  color: #8F8DFF;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: normal;
+
+  color: #474448;
+}
+
+.interstitial-text > p {
+  color: #FFFFFF;
+}
+
+p {
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: 300;
+  letter-spacing: 0.75px;
+}
+
+.input {
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 5px 10px;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid #8F8DFF;
+  height: 32px;
+  font-size: 14px;
+  background-color: none;
+}
+
+.dropdown {
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 5px 10px;
+  outline: none;
+  border: none;
+  border-radius: 0;
+  height: 32px;
+  font-size: 14px;
+  background-color: none;
+
 }
