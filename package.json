@@ -9,6 +9,10 @@
     "firebase": "^7.14.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+<<<<<<< HEAD
+=======
+    "react-router-dom": "^5.2.0",
+>>>>>>> 2b90759ff080702227371fddf40ca06269477d29
     "react-scripts": "3.4.1",
     "react-typist": "^2.0.5"
   },
