@@ -77,7 +77,7 @@ class Company extends React.Component {
           <h3>We’re redefining the way students and companies connect through shorter, project-based stints.</h3>
           <div onClick={this.handleButtonClick}><Button text="Join the revolution" margin="50px"/></div>
         </div>
-        <img src={homepageImage} className="homepage-image"/>
+        <img src={companyImage} className="homepage-image"/>
       </div>
 
       <div className="flex-row interstitial">
@@ -116,14 +116,6 @@ class Company extends React.Component {
         <div className="browser">
 
           <div className="flex-column">
-
-            <p className="typing">{typingText[this.state.selectedNum][0]}</p>
-            <p className="typing">{typingText[this.state.selectedNum][1]}</p>
-            <p className="typing">{typingText[this.state.selectedNum][2]}</p>
-            <p className="typing">{typingText[this.state.selectedNum][3]}</p>
-            <p className="typing">{typingText[this.state.selectedNum][4]}</p>
-            <p className="typing">{typingText[this.state.selectedNum][5]}</p>
-            <p className="typing">{typingText[this.state.selectedNum][6]}</p>
 
           </div>
 
