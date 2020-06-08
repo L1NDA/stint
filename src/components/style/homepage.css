@@ -90,7 +90,7 @@
 }
 
 .browser {
-  background-image: url("./imgs/browser.svg");
+  background-image: url("../imgs/browser.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: right top;
