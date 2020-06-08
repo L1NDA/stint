@@ -1,3 +1,4 @@
+import "../firebase"
 var firebase = require("firebase");
 var firebaseui = require("firebaseui");
 
