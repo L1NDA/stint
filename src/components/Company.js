@@ -1,90 +1,21 @@
 import React from 'react';
-import './homepage.css';
+import './company.css';
 import logo from './imgs/logo.png'
-import homepageImage from './imgs/homepage.svg'
+import companyImage from './imgs/company.svg'
 import Button from './Button.js'
-import designers from './imgs/designers.svg'
-import coders from './imgs/coders.svg'
-import creatives from './imgs/creatives.svg'
-import analysts from './imgs/analysts.svg'
-import Typist from 'react-typist';
-import 'react-typist/dist/Typist.css'
 
 import app from 'firebase/app';
 import 'firebase/database';
 import firebase from '../firebase';
 
-const typingText = [
-  [`Wireframes`, `User journeys`, `Lo-fi & hi-fi mockups`, `Website redesign`, `Prototyping`, `Branding`, `Logo design`],
-  [`Web development`, `App development`, `QA Testing`, `Back-end & servers`, `Machine Learning`, ``, ``],
-  [`Graphic design`, `Promotional materials`, `Photography`, `Videography`, `Social Media`, `Animations`, ``],
-  [`Data analysis`, `Data-driven strategy`, `Visual analytics`, `Presentation of data`, `Data modeling`, ``, ``]]
-
-class Homepage extends React.Component {
+class Company extends React.Component {
 
   constructor(){
     super();
     this.state = {
-      selectedName: './imgs/designers.svg',
-      selectedNum: '0',
-      showModal: false,
-      text: '',
-      email: '',
-      dropdown: '',
-      modal: false,
+
     }
   }
-
-  changeName = (item, num) => {
-    this.setState({
-      selectedName: item,
-      selectedNum: num
-    })
-  }
-
-  handleButtonClick = () => {
-    let temp = this.state.modal
-    this.setState({
-      modal: !temp
-    })
-  }
-
-  onChangeName = event => {
-    this.setState({ name: event.target.value });
-  };
-
-  onChangeEmail = event => {
-    this.setState({ email: event.target.value });
-  };
-
-  onChangeDropdown = event => {
-    this.setState({ dropdown: event.target.value });
-  };
-
-  guidGenerator() {
-    var S4 = function() {
-       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-    };
-    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-  }
-
-  onCreateMessage = event => {
-
-    firebase.database().ref('users/' + this.guidGenerator()).set({
-      email: this.state.email,
-      name: this.state.name,
-      dropdown: this.state.dropdown
-    });
-
-    this.setState({
-      email: '',
-      name: '',
-      dropdown: '',
-      modal: false });
-
-    event.preventDefault();
-
-  };
 
   render() {
 
@@ -214,6 +145,4 @@ class Homepage extends React.Component {
   }
 }
 
-export default Homepage;
-
-// <Typist cursor={{ show: false }}>
+export default Company;
