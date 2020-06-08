@@ -12,7 +12,7 @@ import 'react-typist/dist/Typist.css'
 
 import app from 'firebase/app';
 import 'firebase/database';
-import firebase from './firebase';
+import firebase from '../firebase';
 
 const typingText = [
   [`Wireframes`, `User journeys`, `Lo-fi & hi-fi mockups`, `Website redesign`, `Prototyping`, `Branding`, `Logo design`],
