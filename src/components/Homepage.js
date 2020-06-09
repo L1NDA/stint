@@ -10,7 +10,9 @@ import analysts from './imgs/analysts.svg'
 import Typist from 'react-typist';
 import 'react-typist/dist/Typist.css'
 
-import {authUi, authUiConfig} from '../api/auth'
+import '../firebase'
+
+const {authUi, authUiConfig} = require('../api/auth')
 
 const typingText = [
   [`Wireframes`, `User journeys`, `Lo-fi & hi-fi mockups`, `Website redesign`, `Prototyping`, `Branding`, `Logo design`],

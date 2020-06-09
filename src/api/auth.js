@@ -1,6 +1,9 @@
-import "../firebase"
 var firebase = require("firebase");
 var firebaseui = require("firebaseui");
+var {linkedinConfig} = require("../config")
+
+const LINKEDIN_API_URL = "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=78jv0jjr40mh6x&redirect_uri=https%3A%2F%2Flocalhost%3A3000%0A&scope=r_liteprofile%20r_emailaddress%20w_member_social"
+const REDIRECT_URI = "https%3A%2F%2Flocalhost%3A3000%2F"
 
 var authUi = new firebaseui.auth.AuthUI(firebase.auth());
 var authUiConfig = {
@@ -68,7 +71,7 @@ var authUiConfig = {
   privacyPolicyUrl: "<your-privacy-policy-url>",
 };
 
-const checkAuth = function () {
+const checkAuth = () => {
   firebase.auth().onAuthStateChanged(
     function (user) {
       if (user) {
@@ -85,4 +88,20 @@ const checkAuth = function () {
   );
 };
 
-export { authUi, authUiConfig, checkAuth };
+const linkedInAuth = () => {
+	const linkedinScope = ""
+	var apiUrl = LINKEDIN_API_URL + "?response_type=code&client_id=" + linkedinConfig.apiId + "&redirect_uri=" + REDIRECT_URI + "&scope=" + linkedinScope
+}
+
+const linkedinCallback = (code, state, error, error_description) => {
+	if (!error) {
+		// TODO: Check state with already generated state in apiUrl to prevent CSRF attack
+		// TODO: exchange code with LinkedIn for OAuth2.0 token 
+	}
+	else {
+		console.err(error)
+		console.err(error_description)
+	}
+}
+
+module.exports =  { authUi, authUiConfig, checkAuth, linkedinCallback };
