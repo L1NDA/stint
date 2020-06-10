@@ -18,8 +18,44 @@ class Company extends React.Component {
   constructor(){
     super();
     this.state = {
-
+      showModal: false,
+      company: '',
+      email: '',
+      categories: '',
+      modal: false,
     }
+  }
+
+  handleButtonClick = () => {
+    let temp = this.state.modal
+    this.setState({
+      modal: !temp
+    })
+  }
+
+  onChangeCompany = event => {
+    this.setState({ company: event.target.value });
+  };
+
+  onChangeEmail = event => {
+    this.setState({ email: event.target.value });
+  };
+
+  onChangeCategories = event => {
+    this.setState({ categories: event.target.value });
+  };
+
+  guidGenerator() {
+    var S4 = function() {
+       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    };
+    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+  }
+
+  handleCheckbox = (item) => {
+    this.setState({
+      [item]: !(this.state[item])
+    })
   }
 
   render() {
@@ -33,6 +69,80 @@ class Company extends React.Component {
           <div className="logo">Stint</div>
         </div>
       </div>
+
+      <div className="modal" style={{display: this.state.modal ? 'block' : 'none'}}>
+            <form>
+              <div className="flex-column" style={{marginBottom: "40px"}}>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Company name"
+                  className="input"
+                  onChange={this.onChangeCompany}/>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  className="input"
+                  onChange={this.onChangeEmail}/>
+              </div>
+
+              <h4>Areas of interest</h4>
+              <div className="flex-column">
+                <div><input type="checkbox"
+                       name="analytics"
+                       checked={this.state.analytics}
+                       onChange={() => this.handleCheckbox("analytics")}/>
+                <label for="analytics"> Analytics </label></div>
+
+                <div>
+                  <input type="checkbox"
+                       name="business"
+                       checked={this.state.business}
+                       onChange={() => this.handleCheckbox("business")}/>
+                <label for="business"> Business </label>
+              </div>
+
+              <div><input type="checkbox"
+                     name="digitalmarketing"
+                     checked={this.state.digitalmarketing}
+                     onChange={() => this.handleCheckbox("digitalmarketing")}/>
+              <label for="digitalmarketing"> Digital Marketing </label></div>
+
+              <div><input type="checkbox"
+                     inline={true}
+                     name="engineering"
+                     checked={this.state.engineering}
+                     onChange={() => this.handleCheckbox("engineering")}/>
+              <label for="engineering"> Engineering </label></div>
+
+            <div><input type="checkbox"
+                   name="graphicsdesign"
+                   checked={this.state.graphicsdesign}
+                   onChange={() => this.handleCheckbox("graphicsdesign")}/>
+            <label for="graphicsdesign"> Graphics & Design </label>
+            </div>
+
+                <div><input type="checkbox"
+                       name="videomedia"
+                       checked={this.state.videomedia}
+                       onChange={() => this.handleCheckbox("videomedia")}/>
+                <label for="videomedia"> Video & Media </label></div>
+
+              <div><input type="checkbox"
+                     name="writing"
+                     checked={this.state.writing}
+                     onChange={() => this.handleCheckbox("writing")}/>
+              <label for="writing"> Writing </label></div>
+
+              </div>
+              <button type="submit"
+                className="button">Join our beta →</button>
+            </form>
+        </div>
+        <div className="modal-screen"
+             style={{display: this.state.modal ? 'block' : 'none'}}
+             onClick={this.handleButtonClick}></div>
 
       <div className="flex-row center padding homepage-1" style={{paddingBottom: "100px"}}>
         <div className="company-text">
