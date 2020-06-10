@@ -41,6 +41,13 @@
 
 .company-carousel {
   width: 100%;
+  position: relative;
+}
+
+.carousel-container {
+  padding: 32px 32px;
+  margin-top: -20px;
+  overflow: hidden;
 }
 
 .horizontalSlider___281Ls {
@@ -85,10 +92,44 @@
   transition: 0.2s all linear;
 }
 
-/* .company-slide:hover .company-p {
-  filter: opacity(1);
-  transition: 0.2s all linear;
-} */
+.button-back, .button-next {
+  position: absolute;
+  top: 45%;
+  z-index: 10;
+  font-size: 50px;
+  background-color: transparent;
+  border: none;
+}
+
+.button-back:hover {
+  color: #8F8DFF;
+  left: -8.5%;
+  transition: all 0.2s linear;
+}
+
+.button-next:hover {
+  color: #8F8DFF;
+  right: -8.5%;
+  transition: all 0.2s linear;
+}
+
+.button-back:focus, .button-next:focus {
+  outline: none;
+}
+
+.button-back {
+  left: -8%;
+}
+
+.button-next {
+  right: -8%;
+}
+
+.uni {
+  width: 200px;
+  margin: 0 50px;
+  filter: opacity(0.5);
+}
 
 /* Media Queries */
 

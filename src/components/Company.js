@@ -11,6 +11,7 @@ import 'firebase/database';
 import firebase from '../firebase';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
+import { TiMediaPlayReverse, TiMediaPlay } from "react-icons/ti";
 
 class Company extends React.Component {
 
@@ -70,48 +71,63 @@ class Company extends React.Component {
 
       </div>
 
-      <div className="flex-column center" style={{backgroundColor: "#f5f5f5", padding: "150px 10%"}}>
-        <h1>Past stints have included</h1>
+      <div className="flex-column center" style={{backgroundColor: "#f5f5f5", padding: "75px 10%"}}>
+        <h3>Our students span 3 different colleges and 5 majors, offering a variety of skills.</h3>
           <CarouselProvider
           naturalSlideWidth={345}
           naturalSlideHeight={345}
+          isIntrinsicHeight={true}
           totalSlides={4}
           infinite={true}
           visibleSlides={3}
           className="company-carousel">
+          <ButtonBack className="button-back"><TiMediaPlayReverse/></ButtonBack>
+          <div className="carousel-container">
             <Slider className="slider-container">
               <Slide index={0} className="company-slide-container">
                 <div className="company-slide">
                   <img src={require('./imgs/past-stints/0.svg')} className="company-slide-img"></img>
-                  <h2 style={{textAlign: "center"}}>Data analytics</h2>
+                  <h2 style={{textAlign: "center"}}>Data Analytics</h2>
                   <div className="company-p">Measure outreach to customers and track company growth.</div>
                 </div>
               </Slide>
               <Slide index={1} className="company-slide-container">
                 <div className="company-slide">
                   <img src={require('./imgs/past-stints/1.svg')} className="company-slide-img"></img>
-                  <h2 style={{textAlign: "center"}}>Web development</h2>
+                  <h2 style={{textAlign: "center"}}>Web Development</h2>
                   <div className="company-p">Build your online platform.</div>
                 </div>
               </Slide>
               <Slide index={2} className="company-slide-container">
                 <div className="company-slide">
                   <img src={require('./imgs/past-stints/2.svg')} className="company-slide-img"></img>
-                  <h2 style={{textAlign: "center"}}>Blog writing</h2>
+                  <h2 style={{textAlign: "center"}}>Blog Writing</h2>
                   <div className="company-p">Populate your company blog with initial posts to reach customers.</div>
                 </div>
               </Slide>
               <Slide index={3} className="company-slide-container">
                 <div className="company-slide">
                   <img src={require('./imgs/past-stints/2.svg')} className="company-slide-img"></img>
-                  <h2 style={{textAlign: "center"}}>Blog writing</h2>
-                  <div className="company-p">Populate your company blog with initial posts to reach customers.</div>
+                  <h2 style={{textAlign: "center"}}>Video Editing</h2>
+                  <div className="company-p">Create digital media material for marketing</div>
                 </div>
               </Slide>
             </Slider>
-            <ButtonBack>Back</ButtonBack>
-            <ButtonNext>Next</ButtonNext>
+            </div>
+            <ButtonNext className="button-next"><TiMediaPlay/></ButtonNext>
         </CarouselProvider>
+        <div className="flex-row center">
+          <img src={require('./imgs/unis/bu.png')} className="uni"/>
+          <img src={require('./imgs/unis/harvard.png')} className="uni"/>
+          <img src={require('./imgs/unis/bc.png')} className="uni"/>
+        </div>
+      </div>
+
+      <div className="flex-column center" style={{padding: "150px 30%"}}>
+        <h1>Hire now.</h1>
+        <h3 style={{textAlign: "center"}}>Got a task you need extra hands for? Don’t have the resources to recruit for full-time? No problem! <br/><br/>
+          Connect with talented and capable students who are itching to put their time and skills to good use.</h3>
+        <div onClick={this.handleButtonClick}><Button text="Join our beta" margin="50px"/></div>
       </div>
 
       </div>
