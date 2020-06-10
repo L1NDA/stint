@@ -13,6 +13,18 @@ import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-re
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import { TiMediaPlayReverse, TiMediaPlay } from "react-icons/ti";
 
+const {setCompanyBetaInfo} = require('../api/company')
+
+const ANALYTICS = "analytics"
+const BUSINESS = "business"
+const DIGITAL_MARKETING = "digitalmarketing"
+const ENGINEERING = "engineering"
+const GRAPHICS_DESIGN = "graphicsdesign"
+const VIDEO_MEDIA = "videomedia"
+const WRITING = "writing"
+
+const CATEGORIES = [ANALYTICS, BUSINESS, DIGITAL_MARKETING, ENGINEERING, GRAPHICS_DESIGN, VIDEO_MEDIA, WRITING]
+
 class Company extends React.Component {
 
   constructor(){
@@ -21,7 +33,7 @@ class Company extends React.Component {
       showModal: false,
       company: '',
       email: '',
-      categories: '',
+      categories: {},
       modal: false,
     }
   }
@@ -58,6 +70,20 @@ class Company extends React.Component {
     })
   }
 
+  uploadCompanyData = (event) => {
+    event.preventDefault()
+
+    const name = this.state.company
+    const email = this.state.email
+    var interestAreas = []
+    Object.keys(this.state).forEach(function(item) {
+      if (CATEGORIES.includes(item)) {
+        interestAreas.push(item)
+      }
+    })
+    setCompanyBetaInfo(name, email, interestAreas)
+  }
+
   render() {
 
     return (
@@ -92,52 +118,52 @@ class Company extends React.Component {
                 <div><input type="checkbox"
                        name="analytics"
                        checked={this.state.analytics}
-                       onChange={() => this.handleCheckbox("analytics")}/>
+                       onChange={() => this.handleCheckbox(ANALYTICS)}/>
                 <label for="analytics"> Analytics </label></div>
 
                 <div>
                   <input type="checkbox"
                        name="business"
                        checked={this.state.business}
-                       onChange={() => this.handleCheckbox("business")}/>
+                       onChange={() => this.handleCheckbox(BUSINESS)}/>
                 <label for="business"> Business </label>
               </div>
 
               <div><input type="checkbox"
                      name="digitalmarketing"
                      checked={this.state.digitalmarketing}
-                     onChange={() => this.handleCheckbox("digitalmarketing")}/>
+                     onChange={() => this.handleCheckbox(DIGITAL_MARKETING)}/>
               <label for="digitalmarketing"> Digital Marketing </label></div>
 
               <div><input type="checkbox"
                      inline={true}
                      name="engineering"
                      checked={this.state.engineering}
-                     onChange={() => this.handleCheckbox("engineering")}/>
+                     onChange={() => this.handleCheckbox(ENGINEERING)}/>
               <label for="engineering"> Engineering </label></div>
 
             <div><input type="checkbox"
                    name="graphicsdesign"
                    checked={this.state.graphicsdesign}
-                   onChange={() => this.handleCheckbox("graphicsdesign")}/>
+                   onChange={() => this.handleCheckbox(GRAPHICS_DESIGN)}/>
             <label for="graphicsdesign"> Graphics & Design </label>
             </div>
 
                 <div><input type="checkbox"
                        name="videomedia"
                        checked={this.state.videomedia}
-                       onChange={() => this.handleCheckbox("videomedia")}/>
+                       onChange={() => this.handleCheckbox(VIDEO_MEDIA)}/>
                 <label for="videomedia"> Video & Media </label></div>
 
               <div><input type="checkbox"
                      name="writing"
                      checked={this.state.writing}
-                     onChange={() => this.handleCheckbox("writing")}/>
+                     onChange={() => this.handleCheckbox(WRITING)}/>
               <label for="writing"> Writing </label></div>
 
               </div>
               <button type="submit"
-                className="button">Join our beta →</button>
+                className="button" onClick={this.uploadCompanyData}>Join our beta →</button>
             </form>
         </div>
         <div className="modal-screen"
