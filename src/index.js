@@ -1,3 +1,5 @@
+import './firebase' // always import this first to initialize app, or else anything using firebase that gets imported won't work
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';

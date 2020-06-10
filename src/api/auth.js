@@ -1,34 +1,40 @@
-var firebase = require("firebase");
-var firebaseui = require("firebaseui");
-var {linkedinConfig} = require("../config")
+const { USERS_REF_PATH,
+		FREELANCER_NAME,
+		FREELANCER_EMAIL,
+		FREELANCER_PHONE_NUMBER,
+		FREELANCER_PHOTO_URL } = require('./DB_CONSTANTS')
+
+const firebase = require("firebase");
+const firebaseui = require("firebaseui");
+const {linkedinConfig} = require("../config")
 
 const LINKEDIN_API_URL = "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=78jv0jjr40mh6x&redirect_uri=https%3A%2F%2Flocalhost%3A3000%0A&scope=r_liteprofile%20r_emailaddress%20w_member_social"
 const REDIRECT_URI = "https%3A%2F%2Flocalhost%3A3000%2F"
 
-var authUi = new firebaseui.auth.AuthUI(firebase.auth());
-var authUiConfig = {
+const authUi = new firebaseui.auth.AuthUI(firebase.auth());
+const authUiConfig = {
   callbacks: {
     signInSuccessWithAuthResult: function (authResult, redirectUrl) {
       // User successfully signed in.
       // Return type determines whether we continue the redirect automatically
       // or whether we leave that to developer to handle.
       const user = authResult.user
-      var displayName = user.displayName;
-	  var email = user.email;
-	  var emailVerified = user.emailVerified;
-	  var photoURL = user.photoURL;
-	  var uid = user.uid;
-	  var phoneNumber = user.phoneNumber;
-	  var providerData = user.providerData;
-
-	  var userRef = firebase.database().ref("users/"+uid)
+      const displayName = user.displayName;
+	  const email = user.email;
+	  const emailVerified = user.emailVerified;
+	  const photoURL = user.photoURL;
+	  const uid = user.uid;
+	  const phoneNumber = user.phoneNumber;
+	  const providerData = user.providerData;
+	  // TODO: get rid of transaction here to speed up database update
+	  const userRef = firebase.database().ref(USERS_REF_PATH + "/" +uid)
 	  userRef.transaction(function(current_data) {
 		if (current_data === null) {
 			return {
-				name: displayName,
-				email: email,
-				photoUrl: photoURL,
-				phoneNumber: phoneNumber
+				FREELANCER_NAME: displayName,
+				FREELANCER_EMAIL: email,
+				FREELANCER_PHOTO_URL: photoURL,
+				FREELANCER_PHONE_NUMBER: phoneNumber
 			}
 		}
 		else {
@@ -57,8 +63,8 @@ var authUiConfig = {
     },
   },
   // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-  signInFlow: "",
-  signInSuccessUrl: "",
+  signInFlow: "popup",
+  signInSuccessUrl: "/form",
   signInOptions: [
     // Leave the lines as is for the providers you want to offer your users.
 
@@ -75,11 +81,12 @@ const checkAuth = () => {
   firebase.auth().onAuthStateChanged(
     function (user) {
       if (user) {
+      	console.log(user)
         // User is signed in.
-        return [true, user]
+        return [true, user];
       } else {
         // User is signed out.
-        return [false, null]
+        return [false, null];
       }
     },
     function (error) {
