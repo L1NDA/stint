@@ -14,8 +14,9 @@ function App() {
         <Switch>
           <Route exact path='/' component={Homepage}/>
           <Route exact path='/freelancerInfo' component={Form}/>
+          <Route exact path='/hire' component={Company}/>
           <Route path = '/auth/linkedin/callback'>
-          <Route path='/hire' component={Company}/>
+
 
           </Route>
         </Switch>
