@@ -72,7 +72,7 @@ class Company extends React.Component {
 
       <div className="modal" style={{display: this.state.modal ? 'block' : 'none'}}>
             <form>
-              <div className="flex-column" style={{marginBottom: "40px"}}>
+              <div className="flex-column" style={{marginBottom: "20px"}}>
                 <input
                   type="text"
                   name="name"
@@ -136,8 +136,10 @@ class Company extends React.Component {
               <label for="writing"> Writing </label></div>
 
               </div>
-              <button type="submit"
-                className="button">Join our beta →</button>
+              <button
+                type="submit"
+                className="button"
+                style={{marginTop: "50px"}}>Join our beta →</button>
             </form>
         </div>
         <div className="modal-screen"
