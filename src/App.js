@@ -5,7 +5,6 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Homepage from './components/Homepage.js'
 import Form from './components/Form.js'
 import Company from './components/Company.js'
-
 const {linkedinCallback} = require('./api/auth')
 
 function App() {

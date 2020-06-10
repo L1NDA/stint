@@ -10,7 +10,8 @@ import analysts from './imgs/analysts.svg'
 import Typist from 'react-typist';
 import 'react-typist/dist/Typist.css'
 
-import '../firebase'
+import {checkAuth} from '../api/auth'
+import {setCompanyBetaInfo} from '../api/company'
 
 const {authUi, authUiConfig} = require('../api/auth')
 
@@ -45,10 +46,12 @@ class Homepage extends React.Component {
   }
 
   handleButtonClick = () => {
-    let temp = this.state.modal
+    let temp = this.state.modal;
     this.setState({
       modal: !temp
-    })
+    });
+    console.log(checkAuth());
+    setCompanyBetaInfo("stint", "wearestint@gmail.com", ["tech", "business"])
   }
 
   onChangeName = event => {
