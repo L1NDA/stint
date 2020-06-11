@@ -1,6 +1,7 @@
 import React from 'react';
 import './style/company.css';
 import Menu from './Menu.js'
+import Footer from './Footer.js'
 import companyImage from './imgs/company.svg'
 import tri1 from './imgs/tri-1.svg'
 import tri2 from './imgs/tri-2.svg'
@@ -303,6 +304,8 @@ class Company extends React.Component {
           Connect with talented and capable students who are itching to put their time and skills to good use.</h3>
         <div onClick={this.handleButtonClick}><Button text="Join our beta" margin="50px"/></div>
       </div>
+
+      <Footer/>
 
       </div>
 

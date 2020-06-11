@@ -1,6 +1,7 @@
 import React from 'react';
 import './style/homepage.css';
 import Menu from './Menu.js'
+import Footer from './Footer.js'
 import homepageImage from './imgs/homepage.svg'
 import Button from './Button.js'
 import designers from './imgs/designers.svg'
@@ -169,6 +170,8 @@ class Homepage extends React.Component {
         <h3 style={{textAlign: "center"}}>We're hard at work bringing Stint to life – <br/>be the first to know when we launch.</h3>
         <div onClick={this.handleButtonClick}><Button text="Join the revolution" margin="50px"/></div>
       </div>
+
+      <Footer/>
 
       </div>
 

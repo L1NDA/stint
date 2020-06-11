@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Homepage from './components/Homepage.js'
 import Form from './components/Form.js'
 import Company from './components/Company.js'
+import About from './components/About.js'
 const {linkedinCallback} = require('./api/auth')
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route exact path='/' component={Homepage}/>
           <Route exact path='/form' component={Form}/>
           <Route exact path='/hire' component={Company}/>
+          <Route exact path='/our-mission' component={About}/>
           <Route path='/auth/linkedin/callback'>
           </Route>
         </Switch>
