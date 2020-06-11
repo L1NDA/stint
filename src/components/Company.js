@@ -78,12 +78,14 @@ class Company extends React.Component {
                   name="name"
                   placeholder="Company name"
                   className="input"
+                  autocomplete="off"
                   onChange={this.onChangeCompany}/>
                 <input
                   type="email"
                   name="email"
                   placeholder="Email"
                   className="input"
+                  autocomplete="off"
                   onChange={this.onChangeEmail}/>
               </div>
 
@@ -189,7 +191,8 @@ class Company extends React.Component {
           naturalSlideWidth={345}
           naturalSlideHeight={345}
           isIntrinsicHeight={true}
-          totalSlides={4}
+          totalSlides={7}
+          step={2}
           infinite={true}
           visibleSlides={3}
           className="company-carousel">
@@ -219,9 +222,30 @@ class Company extends React.Component {
               </Slide>
               <Slide index={3} className="company-slide-container">
                 <div className="company-slide">
-                  <img src={require('./imgs/past-stints/2.svg')} className="company-slide-img"></img>
-                  <h2 style={{textAlign: "center"}}>Video Editing</h2>
+                  <img src={require('./imgs/past-stints/3.svg')} className="company-slide-img"></img>
+                  <h2 style={{textAlign: "center"}}>Video & Photo</h2>
                   <div className="company-p">Create digital media material for marketing</div>
+                </div>
+              </Slide>
+              <Slide index={4} className="company-slide-container">
+                <div className="company-slide">
+                  <img src={require('./imgs/past-stints/4.svg')} className="company-slide-img"></img>
+                  <h2 style={{textAlign: "center"}}>Branding & Design</h2>
+                  <div className="company-p">Create your company brand</div>
+                </div>
+              </Slide>
+              <Slide index={5} className="company-slide-container">
+                <div className="company-slide">
+                  <img src={require('./imgs/past-stints/5.svg')} className="company-slide-img"></img>
+                  <h2 style={{textAlign: "center"}}>Social Media</h2>
+                  <div className="company-p">Engage your audience and increase your following</div>
+                </div>
+              </Slide>
+              <Slide index={6} className="company-slide-container">
+                <div className="company-slide">
+                  <img src={require('./imgs/past-stints/6.svg')} className="company-slide-img"></img>
+                  <h2 style={{textAlign: "center"}}>Data Visualization</h2>
+                  <div className="company-p">Present numerical data in a digestible way</div>
                 </div>
               </Slide>
             </Slider>
