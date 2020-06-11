@@ -10,9 +10,8 @@ import analysts from './imgs/analysts.svg'
 import Typist from 'react-typist';
 import 'react-typist/dist/Typist.css'
 
-import {checkAuth} from '../api/auth'
-import {setCompanyBetaInfo} from '../api/company'
-
+const {setCompanyBetaInfo} = require('../api/company')
+const {updateFreelancerInfo} = require('../api/freelancer')
 const {authUi, authUiConfig} = require('../api/auth')
 
 const typingText = [
@@ -45,13 +44,13 @@ class Homepage extends React.Component {
     })
   }
 
-  handleButtonClick = () => {
+  handleButtonClick = (event) => {
+    event.preventDefault()
     let temp = this.state.modal;
     this.setState({
       modal: !temp
     });
-    console.log(checkAuth());
-    setCompanyBetaInfo("stint", "wearestint@gmail.com", ["tech", "business"])
+    // updateFreelancerInfo("BaLJplr8HyYnyYz8oo5SlORshIE2", "Chuck Ma", "charlesma4@gmail.com")
   }
 
   onChangeName = event => {

@@ -1,4 +1,4 @@
-const { USERS_REF_PATH,
+const { FREELANCERS_REF_PATH,
 		FREELANCER_NAME,
 		FREELANCER_EMAIL,
 		FREELANCER_PHONE_NUMBER,
@@ -11,6 +11,31 @@ const {linkedinConfig} = require("../config")
 const LINKEDIN_API_URL = "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=78jv0jjr40mh6x&redirect_uri=https%3A%2F%2Flocalhost%3A3000%0A&scope=r_liteprofile%20r_emailaddress%20w_member_social"
 const REDIRECT_URI = "https%3A%2F%2Flocalhost%3A3000%2F"
 
+let SIGNED_IN_USER = null
+
+const getSignedInUser = async() => {
+	return SIGNED_IN_USER
+}
+
+const initCheckAuth = async () => {
+  firebase.auth().onAuthStateChanged(
+    (freelancer) => {
+      if (freelancer) {
+        // User is signed in.
+        SIGNED_IN_USER = freelancer
+      } else {
+        // User is signed out.
+        SIGNED_IN_USER = null
+      }
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+};
+
+initCheckAuth()
+
 const authUi = new firebaseui.auth.AuthUI(firebase.auth());
 const authUiConfig = {
   callbacks: {
@@ -22,40 +47,44 @@ const authUiConfig = {
       const displayName = user.displayName;
 	  const email = user.email;
 	  const emailVerified = user.emailVerified;
-	  const photoURL = user.photoURL;
+	  const photoUrl = user.photoURL;
 	  const uid = user.uid;
 	  const phoneNumber = user.phoneNumber;
 	  const providerData = user.providerData;
-	  // TODO: get rid of transaction here to speed up database update
-	  const userRef = firebase.database().ref(USERS_REF_PATH + "/" +uid)
-	  userRef.transaction(function(current_data) {
-		if (current_data === null) {
-			return {
-				FREELANCER_NAME: displayName,
-				FREELANCER_EMAIL: email,
-				FREELANCER_PHOTO_URL: photoURL,
-				FREELANCER_PHONE_NUMBER: phoneNumber
-			}
-		}
-		else {
-			console.log("Email " + email + " already exists.")
-			return
-		}
-	}, 
-	function(error, committed, snapshot) {
-		if (error) {
-			console.log("Transaction failed abnormally!", error);
-		} 
-		else if (!committed) {
-		  console.log("We aborted the transaction (because " + email + " already exists).");
-		} 
-		else {
-		    console.log("Email " + email + " added!");
-		}
-		console.log(displayName + "'s data: ", snapshot.val());
-	})
+
+	  const isNewUser = authResult.additionalUserInfo.isNewUser
+
+	  let newFreelancer = {}
+	  newFreelancer[FREELANCER_NAME] = displayName
+	  newFreelancer[FREELANCER_EMAIL] = email
+	  newFreelancer[FREELANCER_PHOTO_URL] = photoUrl
+	  newFreelancer[FREELANCER_PHONE_NUMBER] = phoneNumber
+	  const freelancerRef = firebase.database().ref(FREELANCERS_REF_PATH + "/" +uid)
+	  if (isNewUser) {
+	  	freelancerRef.set(newFreelancer, function(error) {
+	  		if (error) {
+	  			console.log("Error: freelancer info not added.", newFreelancer)
+	  		}
+	  		else {
+	  			console.log("Freelancer info added successfully.")
+	  		}
+	  	})
+	  }
+	  else {
+	  	freelancerRef.update(newFreelancer, function(error) {
+	  		if (error) {
+	  			console.log("Error: freelancer info not updated.", newFreelancer)
+	  		}
+	  		else {
+	  			console.log("Freelancer info updated successfully.")
+	  		}
+	  	})
+	  }
       return true;
     },
+    signInFailure: function(error) {
+	    console.log("sign in failed")
+	},
     uiShown: function () {
       // The widget is rendered.
       // Hide the loader.
@@ -77,23 +106,21 @@ const authUiConfig = {
   privacyPolicyUrl: "<your-privacy-policy-url>",
 };
 
-const checkAuth = () => {
-  firebase.auth().onAuthStateChanged(
-    function (user) {
-      if (user) {
-      	console.log(user)
-        // User is signed in.
-        return [true, user];
-      } else {
-        // User is signed out.
-        return [false, null];
-      }
-    },
-    function (error) {
-      console.log(error);
-    }
-  );
-};
+const signOutFreelancer = async () => {
+	if (SIGNED_IN_USER) {
+		firebase.auth().signOut().then(function(){
+			console.log("Signed out the following freelancer successfully:", SIGNED_IN_USER)
+			return true
+		}, function(error) {
+			console.log("Sign out failed:", error)
+			return false
+		})
+	}
+	else {
+		console.log("Freelancer not signed in.")
+		return false
+	}
+}
 
 const linkedInAuth = () => {
 	const linkedinScope = ""
@@ -111,4 +138,11 @@ const linkedinCallback = (code, state, error, error_description) => {
 	}
 }
 
-module.exports =  { authUi, authUiConfig, checkAuth, linkedinCallback };
+module.exports =  { 
+	getSignedInUser,
+	// initCheckAuth,
+	authUi,
+	authUiConfig,
+	linkedinCallback,
+	signOutFreelancer 
+};

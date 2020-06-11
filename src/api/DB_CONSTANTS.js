@@ -1,7 +1,7 @@
 /******************************************************
 FREELANCERS
 *******************************************************/
-const USERS_REF_PATH = "freelancers"
+const FREELANCERS_REF_PATH = "freelancers"
 
 const FREELANCER_NAME = "name"
 const FREELANCER_EMAIL = "email"
@@ -20,7 +20,7 @@ const COMPANY_INTEREST_AREAS = "interestAreas"
 
 
 module.exports = {
-	USERS_REF_PATH,
+	FREELANCERS_REF_PATH,
 	FREELANCER_NAME,
 	FREELANCER_EMAIL,
 	FREELANCER_PHONE_NUMBER,
