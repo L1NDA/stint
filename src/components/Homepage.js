@@ -1,6 +1,6 @@
 import React from 'react';
 import './style/homepage.css';
-import logo from './imgs/logo.png'
+import Menu from './Menu.js'
 import homepageImage from './imgs/homepage.svg'
 import Button from './Button.js'
 import designers from './imgs/designers.svg'
@@ -90,7 +90,7 @@ class Homepage extends React.Component {
       <div className="homepage">
         <div className="modal" style={{display: this.state.modal ? 'block' : 'none'}} id="firebaseui-auth-container"></div>
         <div id="loader">Loading...</div>
-        
+
         <div className="modal-screen"
              style={{display: this.state.modal ? 'block' : 'none'}}
              onClick={this.handleButtonClick}></div>
@@ -101,12 +101,7 @@ class Homepage extends React.Component {
       to&nbsp;<a href="mailto:wearestint@gmail.com" className="url">hear from you.</a>
       </div>
 
-      <div className="menu flex-row" style={{justifyContent: 'flex-start'}}>
-        <div className="flex-row center">
-          <img src={logo} style={{width: '36px'}}/>
-          <div className="logo">Stint</div>
-        </div>
-      </div>
+      <Menu/>
 
       <div className="flex-row center padding homepage-1" style={{paddingBottom: "100px"}}>
         <div className="homepage-text">

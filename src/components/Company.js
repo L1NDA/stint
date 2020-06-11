@@ -1,6 +1,6 @@
 import React from 'react';
 import './style/company.css';
-import logo from './imgs/logo.png'
+import Menu from './Menu.js'
 import companyImage from './imgs/company.svg'
 import tri1 from './imgs/tri-1.svg'
 import tri2 from './imgs/tri-2.svg'
@@ -106,12 +106,7 @@ class Company extends React.Component {
     return (
       <div className="container">
 
-      <div className="menu flex-row" style={{justifyContent: 'flex-start'}}>
-        <div className="flex-row center">
-          <img src={logo} style={{width: '36px'}}/>
-          <div className="logo">Stint</div>
-        </div>
-      </div>
+      <Menu/>
 
       <div className="modal center" style={{display: this.state.modal ? 'flex' : 'none'}}>
           <TiTimes className="modal-x" onClick={this.handleButtonClick}/>

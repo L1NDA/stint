@@ -29,6 +29,22 @@ a {
   display: inline-flex;
 }
 
+.logo {
+  color: #474448;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: bold;
+  font-size: 24px;
+  margin-left: 10px;
+}
+
+.logo-img {
+  height: 36px;
+}
+
+.menu {
+  padding: 20px 10%;
+}
+
 .button {
   background: #8F8DFF;
   /* border-radius: 8px; */
@@ -137,5 +153,56 @@ p {
   height: 32px;
   font-size: 14px;
   background-color: none;
+
+}
+
+/* Media Queries */
+
+/* Smaller Laptops ----------- */
+@media only screen and (max-width : 1200px) {
+
+
+}
+
+/* Mini Screens */
+@media only screen and (max-height : 1024px) {
+
+}
+
+/* Large Phones */
+@media only screen and (max-height : 850px) and (max-width: 800px) {
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .logo-img {
+    height: 28px;
+  }
+
+}
+
+/* iPhone 6 */
+@media only screen and (max-height : 670px) {
+
+
+}
+
+/* Small Phones */
+@media only screen and (max-height : 570px) {
+
+  .logo {
+    font-size: 16px;
+  }
+
+  .logo-img {
+    height: 20px;
+  }
+
+}
+
+/* Smaller Phones */
+@media only screen and (max-width : 320px) {
+
 
 }
