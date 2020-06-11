@@ -30,6 +30,11 @@
   width: 50%;
 }
 
+.stipulation {
+  font-size: 14px;
+  font-weight: 300;
+}
+
 .tri-title {
   font-family: 'IBM Plex Mono', monospace;
   font-weight: bold;
@@ -131,11 +136,18 @@
   filter: opacity(0.5);
 }
 
+.company-cta {
+  padding: 150px 30%;
+}
+
 /* Media Queries */
 
 /* Smaller Laptops ----------- */
 @media only screen and (max-width : 1200px) {
 
+  .tri-title {
+    font-size: 25px;
+  }
 
 
 }
@@ -148,14 +160,82 @@
 /* Large Phones */
 @media only screen and (max-height : 850px) and (max-width: 800px) {
 
+  .company-text {
+    margin-top: 25px;
+  }
 
+  .company-image {
+    width: 100%;
+  }
+
+  .tri {
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    margin-bottom: 50px;
+  }
+
+  .reverse {
+    flex-direction: column-reverse;
+  }
+
+  .tri-image {
+    width: 100%;
+  }
+
+  .tri-text {
+    width: 100%
+  }
+
+  .tri-title {
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+  }
+
+  .tri-text > h3 {
+    text-align: center;
+  }
+
+  .stipulation {
+    font-size: 10px;
+    text-align: center;
+  }
+
+  .company-slide {
+    padding: 40px 20px;
+  }
+
+  .carousel-container {
+    padding: 20px;;
+  }
+
+  .carousel-section > h3 {
+    text-align: center
+  }
+
+  .unis {
+    flex-direction: column;
+  }
+
+  .uni {
+    width: 150px;
+    margin: 0;
+    margin-bottom: 15px;
+  }
+
+  .company-cta {
+    padding: 150px 20%;
+  }
 
 }
 
 /* iPhone 6 */
 @media only screen and (max-height : 670px) {
 
-
+  .company-image {
+    width: 80%;
+  }
 
 
 }
@@ -163,7 +243,10 @@
 /* Small Phones */
 @media only screen and (max-height : 570px) {
 
-
+  .input {
+    width: auto;
+    min-width: 200px;
+  }
 
 
 }

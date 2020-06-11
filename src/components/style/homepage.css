@@ -8,14 +8,15 @@
 }
 
 .covid {
-  height: 50px;
+  height: auto;
   width: 100%;
   background-color: #474448;
   color: white;
-  display: flex;
-  align-items: center;
+  /* display: flex;
+  align-items: center; */
   font-size: 14px;
-  padding: 0 10%;
+  padding: 10px 10%;
+  text-align: center
 }
 
 .padding {
@@ -24,7 +25,8 @@
 
 .url {
   text-decoration: underline;
-  color: white
+  color: white;
+  display: inline;
 }
 
 .url:hover {
@@ -132,6 +134,22 @@
   padding: 50px 100px;
 }
 
+.modal-x {
+  top: 10px;
+  right: 10px;
+  position: absolute;
+  font-size: 20px;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease-in;
+}
+
+.modal-x:hover {
+  color: #8F8DFF;
+  cursor: pointer;
+  transform: rotate(90deg);
+  transition: transform 0.2s ease-in;
+}
+
 .modal-screen {
   background-color: rgba(0, 0, 0, 0.9);
   width: 100%;
@@ -220,10 +238,9 @@
   }
 
   .covid {
-    flex-direction: column;
-    align-items: flex-start;
+    /* flex-direction: column;
+    align-items: flex-start; */
     height: auto;
-    text-align: left;
     padding: 15px 10%;
   }
 
@@ -237,6 +254,17 @@
 
   .homepage-text {
     margin-top: 25px;
+  }
+
+  .modal {
+    height: 100vh;
+    width: 100%;
+  }
+
+  .modal-x {
+    font-size: 28px;
+    top: 20px;
+    right: 20px;
   }
 
   .interstitial {
