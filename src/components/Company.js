@@ -8,7 +8,6 @@ import tri3 from './imgs/tri-3.svg'
 import Button from './Button.js'
 import app from 'firebase/app';
 import 'firebase/database';
-import firebase from '../firebase';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import { TiMediaPlayReverse, TiMediaPlay, TiTimes } from "react-icons/ti";

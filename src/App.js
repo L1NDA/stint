@@ -12,7 +12,7 @@ function App() {
     <Router>
         <Switch>
           <Route exact path='/' component={Homepage}/>
-          <Route exact path='/freelancerInfo' component={Form}/>
+          <Route exact path='/form' component={Form}/>
           <Route exact path='/hire' component={Company}/>
           <Route path='/auth/linkedin/callback'>
           </Route>
