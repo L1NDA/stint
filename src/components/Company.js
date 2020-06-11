@@ -1,6 +1,6 @@
 import React from 'react';
 import './style/company.css';
-import logo from './imgs/logo.png'
+import Menu from './Menu.js'
 import companyImage from './imgs/company.svg'
 import tri1 from './imgs/tri-1.svg'
 import tri2 from './imgs/tri-2.svg'
@@ -10,7 +10,8 @@ import app from 'firebase/app';
 import 'firebase/database';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
-import { TiMediaPlayReverse, TiMediaPlay } from "react-icons/ti";
+import { TiMediaPlayReverse, TiMediaPlay, TiTimes } from "react-icons/ti";
+import { debounce } from 'lodash'
 
 const {setCompanyBetaInfo} = require('../api/company')
 
@@ -34,7 +35,23 @@ class Company extends React.Component {
       email: '',
       categories: {},
       modal: false,
+      screenWidth: null
     }
+  }
+
+  updateWindowDimensions = debounce(() => {
+    this.setState({
+      screenWidth: window.innerWidth
+    })
+  }, 300);
+
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener("resize", this.updateWindowDimensions)
+  }
+
+  componentWillUnmount() {
+      window.removeEventListener("resize", this.updateWindowDimensions)
   }
 
   handleButtonClick = () => {
@@ -88,14 +105,10 @@ class Company extends React.Component {
     return (
       <div className="container">
 
-      <div className="menu flex-row" style={{justifyContent: 'flex-start'}}>
-        <div className="flex-row center">
-          <img src={logo} style={{width: '36px'}}/>
-          <div className="logo">Stint</div>
-        </div>
-      </div>
+      <Menu/>
 
-      <div className="modal" style={{display: this.state.modal ? 'block' : 'none'}}>
+      <div className="modal center" style={{display: this.state.modal ? 'flex' : 'none'}}>
+          <TiTimes className="modal-x" onClick={this.handleButtonClick}/>
             <form>
               <div className="flex-column" style={{marginBottom: "20px"}}>
                 <input
@@ -103,12 +116,14 @@ class Company extends React.Component {
                   name="name"
                   placeholder="Company name"
                   className="input"
+                  autocomplete="off"
                   onChange={this.onChangeCompany}/>
                 <input
                   type="email"
                   name="email"
                   placeholder="Email"
                   className="input"
+                  autocomplete="off"
                   onChange={this.onChangeEmail}/>
               </div>
 
@@ -162,7 +177,7 @@ class Company extends React.Component {
 
               </div>
               <button type="submit"
-                className="button" 
+                className="button"
                 style={{marginTop: "50px"}}
                 onClick={this.uploadCompanyData}>Join our beta →</button>
             </form>
@@ -177,7 +192,7 @@ class Company extends React.Component {
           <h3>Experience an easier way to find immediate student hires for your company tasks.</h3>
           <div onClick={this.handleButtonClick}><Button text="Join our beta" margin="50px"/></div>
         </div>
-        <img src={companyImage} className="homepage-image"/>
+        <img src={companyImage} className="homepage-image company-image"/>
       </div>
 
       <div className="flex-column center padding company-2">
@@ -189,11 +204,11 @@ class Company extends React.Component {
           </div>
         </div>
 
-        <div className="tri flex-row">
+        <div className="tri flex-row reverse">
           <div className="tri-text">
             <div className="tri-title">Low risk, high reward.</div>
             <h3>Unsatisfied with how the project is rolling out? No worries. We’ll fully refund any stints cancelled before the end of the project’s first quarter.</h3>
-            <div style={{fontSize: "14px", fontWeight: "300"}}>*for jobs requiring a total of more than 20 hours or four days.</div>
+            <div className="stipulation">*for jobs requiring a total of more than 20 hours or four days.</div>
           </div>
           <img src={tri2} className="tri-image"/>
         </div>
@@ -208,15 +223,16 @@ class Company extends React.Component {
 
       </div>
 
-      <div className="flex-column center" style={{backgroundColor: "#f5f5f5", padding: "75px 10%"}}>
+      <div className="flex-column center carousel-section" style={{backgroundColor: "#f5f5f5", padding: "75px 10%"}}>
         <h3>Our students span 3 different colleges and 5 majors, offering a variety of skills.</h3>
           <CarouselProvider
           naturalSlideWidth={345}
           naturalSlideHeight={345}
           isIntrinsicHeight={true}
-          totalSlides={4}
+          totalSlides={7}
+          step={this.state.screenWidth > 850 ? 2 : 1}
           infinite={true}
-          visibleSlides={3}
+          visibleSlides={this.state.screenWidth > 850 ? 3 : 1}
           className="company-carousel">
           <ButtonBack className="button-back"><TiMediaPlayReverse/></ButtonBack>
           <div className="carousel-container">
@@ -244,23 +260,44 @@ class Company extends React.Component {
               </Slide>
               <Slide index={3} className="company-slide-container">
                 <div className="company-slide">
-                  <img src={require('./imgs/past-stints/2.svg')} className="company-slide-img"></img>
-                  <h2 style={{textAlign: "center"}}>Video Editing</h2>
+                  <img src={require('./imgs/past-stints/3.svg')} className="company-slide-img"></img>
+                  <h2 style={{textAlign: "center"}}>Video & Photo</h2>
                   <div className="company-p">Create digital media material for marketing</div>
+                </div>
+              </Slide>
+              <Slide index={4} className="company-slide-container">
+                <div className="company-slide">
+                  <img src={require('./imgs/past-stints/4.svg')} className="company-slide-img"></img>
+                  <h2 style={{textAlign: "center"}}>Branding & Design</h2>
+                  <div className="company-p">Create your company brand</div>
+                </div>
+              </Slide>
+              <Slide index={5} className="company-slide-container">
+                <div className="company-slide">
+                  <img src={require('./imgs/past-stints/5.svg')} className="company-slide-img"></img>
+                  <h2 style={{textAlign: "center"}}>Social Media</h2>
+                  <div className="company-p">Engage your audience and increase your following</div>
+                </div>
+              </Slide>
+              <Slide index={6} className="company-slide-container">
+                <div className="company-slide">
+                  <img src={require('./imgs/past-stints/6.svg')} className="company-slide-img"></img>
+                  <h2 style={{textAlign: "center"}}>Data Visualization</h2>
+                  <div className="company-p">Present numerical data in a digestible way</div>
                 </div>
               </Slide>
             </Slider>
             </div>
             <ButtonNext className="button-next"><TiMediaPlay/></ButtonNext>
         </CarouselProvider>
-        <div className="flex-row center">
+        <div className="flex-row center unis">
           <img src={require('./imgs/unis/bu.png')} className="uni"/>
           <img src={require('./imgs/unis/harvard.png')} className="uni"/>
           <img src={require('./imgs/unis/bc.png')} className="uni"/>
         </div>
       </div>
 
-      <div className="flex-column center" style={{padding: "150px 30%"}}>
+      <div className="flex-column center company-cta">
         <h1>Hire now.</h1>
         <h3 style={{textAlign: "center"}}>Got a task you need extra hands for? Don’t have the resources to recruit for full-time? No problem! <br/><br/>
           Connect with talented and capable students who are itching to put their time and skills to good use.</h3>
