@@ -39,11 +39,61 @@ a {
 
 .logo-img {
   height: 36px;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease-in;
+}
+
+.logo-container:hover .logo-img {
+  transform: rotate(180deg);
+  transition: transform 0.2s ease-in;
 }
 
 .menu {
   padding: 20px 10%;
 }
+
+.menu-item {
+  font-weight: bold;
+  color: #474448;
+  position: relative;
+  display: inline-block;
+  margin: 0
+}
+
+.menu-item:after {
+  display:block;
+  content: '';
+  border-bottom: solid 4px #8F8DFF;
+  transform: scaleX(0);
+  transition: transform 250ms ease-in-out;
+  transform-origin:  0% 50%;
+}
+
+.menu-item:hover:after {
+  transform: scaleX(1);
+ }
+
+.active-item:after {
+   display:block;
+   content: '';
+   border-bottom: solid 4px #8F8DFF;
+   transform: scaleX(1);
+ }
+
+/* .menu-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 4px;
+  background: #8F8DFF;
+  transition: width .3s;
+}
+
+.menu-item:hover::after {
+  width: 100%;
+} */
 
 .button {
   background: #8F8DFF;
