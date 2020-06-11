@@ -23,8 +23,6 @@ const GRAPHICS_DESIGN = "graphicsdesign"
 const VIDEO_MEDIA = "videomedia"
 const WRITING = "writing"
 
-const CATEGORIES = [ANALYTICS, BUSINESS, DIGITAL_MARKETING, ENGINEERING, GRAPHICS_DESIGN, VIDEO_MEDIA, WRITING]
-
 class Company extends React.Component {
 
   constructor(){
@@ -32,8 +30,8 @@ class Company extends React.Component {
     this.state = {
       showModal: false,
       company: '',
+      categories: new Set(),
       email: '',
-      categories: {},
       modal: false,
       screenWidth: null
     }
@@ -81,22 +79,23 @@ class Company extends React.Component {
   }
 
   handleCheckbox = (item) => {
+    let updatedCategories = this.state.categories
+    if (this.state.categories.has(item)) {
+      updatedCategories.delete(item)
+    }
+    else {
+      updatedCategories.add(item)
+    }
     this.setState({
-      [item]: !(this.state[item])
+      categories: updatedCategories
     })
   }
 
   uploadCompanyData = (event) => {
-    event.preventDefault()
-
     const name = this.state.company
     const email = this.state.email
-    var interestAreas = []
-    Object.keys(this.state).forEach(function(item) {
-      if (CATEGORIES.includes(item)) {
-        interestAreas.push(item)
-      }
-    })
+    const interestAreas = Array.from(this.state.categories)
+
     setCompanyBetaInfo(name, email, interestAreas)
   }
 
@@ -131,49 +130,56 @@ class Company extends React.Component {
               <div className="flex-column">
                 <div><input type="checkbox"
                        name="analytics"
-                       checked={this.state.analytics}
+                       checked={this.state.categories.has(ANALYTICS)}
                        onChange={() => this.handleCheckbox(ANALYTICS)}/>
-                <label for="analytics"> Analytics </label></div>
+                <label for="analytics" 
+                       onClick={() => this.handleCheckbox(ANALYTICS)}> Analytics </label></div>
 
                 <div>
                   <input type="checkbox"
                        name="business"
-                       checked={this.state.business}
+                       checked={this.state.categories.has(BUSINESS)}
                        onChange={() => this.handleCheckbox(BUSINESS)}/>
-                <label for="business"> Business </label>
+                <label for="business"
+                       onClick={() => this.handleCheckbox(BUSINESS)}> Business </label>
               </div>
 
               <div><input type="checkbox"
                      name="digitalmarketing"
-                     checked={this.state.digitalmarketing}
+                     checked={this.state.categories.has(DIGITAL_MARKETING)}
                      onChange={() => this.handleCheckbox(DIGITAL_MARKETING)}/>
-              <label for="digitalmarketing"> Digital Marketing </label></div>
+              <label for="digitalmarketing"
+                     onClick={() => this.handleCheckbox(DIGITAL_MARKETING)}> Digital Marketing </label></div>
 
               <div><input type="checkbox"
                      inline={true}
                      name="engineering"
-                     checked={this.state.engineering}
+                     checked={this.state.categories.has(ENGINEERING)}
                      onChange={() => this.handleCheckbox(ENGINEERING)}/>
-              <label for="engineering"> Engineering </label></div>
+              <label for="engineering"
+                     onClick={() => this.handleCheckbox(ENGINEERING)}> Engineering </label></div>
 
             <div><input type="checkbox"
                    name="graphicsdesign"
-                   checked={this.state.graphicsdesign}
+                   checked={this.state.categories.has(GRAPHICS_DESIGN)}
                    onChange={() => this.handleCheckbox(GRAPHICS_DESIGN)}/>
-            <label for="graphicsdesign"> Graphics & Design </label>
+            <label for="graphicsdesign"
+                   onClick={() => this.handleCheckbox(GRAPHICS_DESIGN)}> Graphics & Design </label>
             </div>
 
                 <div><input type="checkbox"
                        name="videomedia"
-                       checked={this.state.videomedia}
+                       checked={this.state.categories.has(VIDEO_MEDIA)}
                        onChange={() => this.handleCheckbox(VIDEO_MEDIA)}/>
-                <label for="videomedia"> Video & Media </label></div>
+                <label for="videomedia"
+                       onClick={() => this.handleCheckbox(VIDEO_MEDIA)}> Video & Media </label></div>
 
               <div><input type="checkbox"
                      name="writing"
-                     checked={this.state.writing}
+                     checked={this.state.categories.has(WRITING)}
                      onChange={() => this.handleCheckbox(WRITING)}/>
-              <label for="writing"> Writing </label></div>
+              <label for="writing"
+                     onClick={() => this.handleCheckbox(WRITING)}> Writing </label></div>
 
               </div>
               <button type="submit"
