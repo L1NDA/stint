@@ -1,0 +1,315 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Source+Sans+Pro:wght@300;400;700&display=swap');
+
+.homepage {
+  font-family: 'Source Sans Pro', sans-serif;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.covid {
+  height: auto;
+  width: 100%;
+  background-color: #474448;
+  color: white;
+  /* display: flex;
+  align-items: center; */
+  font-size: 14px;
+  padding: 10px 10%;
+  text-align: center
+}
+
+.padding {
+  padding: 0 10%;
+}
+
+.url {
+  text-decoration: underline;
+  color: white;
+  display: inline;
+}
+
+.url:hover {
+  color: #05D9B2;
+}
+
+.interstitial-item > h2 {
+  margin-bottom: 16px;
+}
+
+.interstitial-item > p {
+  color: #FFFFFF;
+}
+
+.homepage-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: -50px;
+}
+
+.homepage-image {
+  width: 40vw
+}
+
+.interstitial {
+  justify-content: space-between;
+  background-color: #474448;
+  padding: 75px 10%;
+}
+
+.interstitial-item {
+  width: 25%;
+  min-width: 200px
+}
+
+.audience {
+  padding: 100px 10%;
+  justify-content: space-between;
+}
+
+.talent {
+  margin: 0 0;
+  color: #E7E7E7;
+}
+
+.talent:hover {
+  color: #474448 !important;
+  cursor: pointer;
+}
+
+.browser {
+  background-image: url("../imgs/browser.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right top;
+  height: 70vh;
+  width: 70%;
+  padding: 8vw 5vw 1vw 5vw;
+  position: relative;
+  display: flex;
+}
+
+.typing {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 40px;
+  margin: 0;
+  display: inline-block;
+  color: #474448
+}
+
+.typing-image {
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  height: 40vh
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+
+  background-color: #474448;
+  color: white;
+  box-shadow: 0px 4px 32px rgba(71, 68, 72, 0.15);
+
+  padding: 50px 100px;
+}
+
+.modal-x {
+  top: 10px;
+  right: 10px;
+  position: absolute;
+  font-size: 20px;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease-in;
+}
+
+.modal-x:hover {
+  color: #8F8DFF;
+  cursor: pointer;
+  transform: rotate(90deg);
+  transition: transform 0.2s ease-in;
+}
+
+.modal-screen {
+  background-color: rgba(0, 0, 0, 0.9);
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.modal-screen:hover {
+  cursor: pointer;
+}
+
+/* Media Queries */
+
+/* Smaller Laptops ----------- */
+@media only screen and (max-width : 1200px) {
+
+  h1 {
+    font-size: 44px
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  .audience {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .audience-text {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .audience-text > h1 {
+    margin: 0 10px;
+  }
+
+  .browser {
+    width: 80%;
+    padding: 10vw 7vw 1vw 7vw;
+    margin-top: 50px
+  }
+
+  .typing {
+    font-size: 18px;
+    line-height: 32px;
+  }
+
+  .typing-image {
+    height: auto;
+    width: 30vw
+  }
+
+}
+
+/* Mini Screens */
+@media only screen and (max-height : 1024px) {
+
+}
+
+/* Large Phones */
+@media only screen and (max-height : 850px) and (max-width: 800px) {
+
+  h1 {
+    font-size: 32px
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .covid {
+    /* flex-direction: column;
+    align-items: flex-start; */
+    height: auto;
+    padding: 15px 10%;
+  }
+
+  .homepage-1 {
+    flex-direction: column-reverse;
+  }
+
+  .homepage-image {
+    width: 75%;
+  }
+
+  .homepage-text {
+    margin-top: 25px;
+  }
+
+  .modal {
+    height: 100vh;
+    width: 100%;
+  }
+
+  .modal-x {
+    font-size: 28px;
+    top: 20px;
+    right: 20px;
+  }
+
+  .interstitial {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .interstitial-item {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .audience {
+    align-items: flex-start;
+    overflow: hidden;
+  }
+
+  .browser {
+    width: 250%;
+    padding: 100px 50% 10px 50px;
+  }
+
+  .typing-image {
+    left: 0;
+    width: 250px
+  }
+
+}
+
+/* iPhone 6 */
+@media only screen and (max-height : 670px) {
+
+  .browser {
+    margin-left: -50px;
+    padding: 100px 50% 10px 80px;
+  }
+
+  .typing-image {
+    bottom: -100px;
+    left: 50px;
+  }
+
+
+}
+
+/* Small Phones */
+@media only screen and (max-height : 570px) {
+
+
+
+
+}
+
+/* Smaller Phones */
+@media only screen and (max-width : 320px) {
+
+
+
+}
