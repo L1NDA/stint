@@ -16,13 +16,17 @@ const WRITING = "writing"
 
 const {setCompanyBetaInfo} = require('../api/company')
 
+const COMPANY = "company"
+const STUDENT = "student"
+
 class Button extends React.Component {
 
   constructor(){
     super();
     this.state = {
       modal: false,
-      company: '',
+      companyName: '',
+      studentName: '',
       categories: new Set(),
       companyEmail: '',
       text: '',
@@ -35,8 +39,6 @@ class Button extends React.Component {
     let temp = this.state.modal
     this.setState({
       modal: !temp
-    }, function() {
-      console.log("handle button click called")
     })
   }
 
@@ -54,23 +56,28 @@ class Button extends React.Component {
   }
 
   uploadCompanyData = (event) => {
-    const name = this.state.company
+    event.preventDefault()
+    const name = this.state.companyName
     const companyEmail = this.state.companyEmail
     const interestAreas = Array.from(this.state.categories)
-
     setCompanyBetaInfo(name, companyEmail, interestAreas)
+    this.handleButtonClick()
   }
 
   // Students
 
-  onChangeName = event => {
-    this.setState({ name: event.target.value });
+  onChangeName = (audience, e) => {
+    if (audience === COMPANY) {
+      this.setState({ companyName: e.target.value });
+    } else if (audience === STUDENT) {
+      this.setState({ studentName: e.target.value });
+    }
   };
 
   onChangeEmail = (audience, e) => {
-    if (audience === "company") {
+    if (audience === COMPANY) {
       this.setState({ companyEmail: e.target.value });
-    } else if (audience === "student") {
+    } else if (audience === STUDENT) {
       this.setState({ studentEmail: e.target.value });
     }
   };
@@ -87,10 +94,10 @@ class Button extends React.Component {
   }
 
   onCreateMessage = event => {
-
+    event.preventDefault()
     firebase.database().ref('users/' + this.guidGenerator()).set({
       studentEmail: this.state.studentEmail,
-      name: this.state.name,
+      name: this.state.studentName,
       dropdown: this.state.dropdown
     });
 
@@ -99,9 +106,6 @@ class Button extends React.Component {
       name: '',
       dropdown: '',
       modal: false });
-
-    event.preventDefault();
-
   };
 
   render() {
@@ -110,7 +114,7 @@ class Button extends React.Component {
       <div>
         <div className="modal center" style={{display: this.state.modal ? 'flex' : 'none'}}>
             <TiTimes className="modal-x" onClick={this.handleButtonClick}/>
-            {this.props.type === "company" ?
+            {this.props.type === COMPANY ?
 
               <form>
                 <div className="flex-column" style={{marginBottom: "20px"}}>
@@ -120,7 +124,7 @@ class Button extends React.Component {
                     placeholder="Company name *"
                     className="input"
                     autocomplete="off"
-                    onChange={this.onChangeCompany}
+                    onChange={(e) => this.onChangeName(COMPANY, e)}
                     required/>
                   <input
                     type="email"
@@ -128,7 +132,7 @@ class Button extends React.Component {
                     placeholder="Email *"
                     className="input"
                     autocomplete="off"
-                    onChange={(e) => this.onChangeEmail("company", e)}
+                    onChange={(e) => this.onChangeEmail(COMPANY, e)}
                     required/>
                 </div>
 
@@ -196,7 +200,7 @@ class Button extends React.Component {
 
               : null}
 
-              {this.props.type === "student" ?
+              {this.props.type === STUDENT ?
                 <form onSubmit={this.onCreateMessage}>
                 <div className="flex-row" style={{marginBottom: "40px"}}>
                   <input
@@ -204,14 +208,14 @@ class Button extends React.Component {
                     name="name"
                     placeholder="Name *"
                     className="input"
-                    onChange={this.onChangeName}
+                    onChange={(e) => this.onChangeName(STUDENT, e)}
                     required/>
                   <input
                     type="email"
                     name="email"
                     placeholder="Student email *"
                     className="input"
-                    onChange={(e) => this.onChangeEmail("student", e)}
+                    onChange={(e) => this.onChangeEmail(STUDENT, e)}
                     style={{width: "250px", marginLeft: "20px"}}
                     required/>
                 </div>
