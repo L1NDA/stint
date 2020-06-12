@@ -8,6 +8,7 @@ html, body, #root {
   width: 100%;
   height: 100%;
   margin: 0;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .flex-row {
@@ -30,6 +31,89 @@ a {
   display: inline-flex;
 }
 
+.logo {
+  color: #474448;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: bold;
+  font-size: 24px;
+  margin-left: 10px;
+}
+
+.logo-img {
+  height: 36px;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease-in;
+}
+
+.logo-container:hover .logo-img {
+  transform: rotate(180deg);
+  transition: transform 0.2s ease-in;
+}
+
+.menu {
+  padding: 20px 10%;
+}
+
+.menu-item {
+  font-weight: bold;
+  color: #474448;
+  position: relative;
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.menu-item:after {
+  display:block;
+  content: '';
+  border-bottom: solid 4px #8F8DFF;
+  transform: scaleX(0);
+  transition: transform 250ms ease-in-out;
+  transform-origin:  0% 50%;
+}
+
+.menu-item:hover:after {
+  transform: scaleX(1);
+ }
+
+.active-item:after {
+   display:block;
+   content: '';
+   border-bottom: solid 4px #8F8DFF;
+   transform: scaleX(1);
+ }
+
+ .modal-x {
+  top: 10px;
+  right: 10px;
+  position: absolute;
+  font-size: 20px;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease-in;
+  z-index: 10;
+ }
+
+ .modal-x:hover {
+  color: #8F8DFF;
+  cursor: pointer;
+  transform: rotate(90deg);
+  transition: transform 0.2s ease-in;
+ }
+
+ .footer {
+   padding: 30px 50px;
+   font-size: 12px;
+   background-color: #474448;
+   color: white;
+ }
+
+ .contact-us {
+   color: white;
+ }
+
+ .contact-us:hover {
+   text-decoration: underline;
+ }
+
 .button {
   background: #8F8DFF;
   /* border-radius: 8px; */
@@ -43,12 +127,28 @@ a {
   font-weight: bold;
   font-size: 14px;
   border: none;
+  position: relative;
 }
 
 .button:hover {
   cursor: pointer;
   box-shadow: 0px 8px 8px rgba(71, 68, 72, 0.15);
   transition: all 0.2s linear;
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 4px;
+  background: white;
+  transition: width .3s;
+}
+
+.button:hover::after {
+  width: 100%;
 }
 
 h1 {
@@ -69,9 +169,17 @@ h2 {
 
 h3 {
   font-size: 24px;
-  font-weight: normal;
+  font-weight: 400;
 
   color: #474448;
+}
+
+h4 {
+  color: white;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: bold;
+  font-size: 14px;
+  border: none;
 }
 
 .interstitial-text > p {
@@ -81,8 +189,9 @@ h3 {
 p {
   font-size: 20px;
   line-height: 25px;
-  font-weight: 300;
-  letter-spacing: 0.75px;
+  font-weight: 400;
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #474448;
 }
 
 .input {
@@ -90,10 +199,18 @@ p {
   padding: 5px 10px;
   outline: none;
   border: none;
-  border-bottom: 2px solid #8F8DFF;
-  height: 32px;
+  border-bottom: 4px solid rgba(0,0,0,0);
+  height: 36px;
   font-size: 14px;
-  background-color: none;
+  width: 300px;
+  display: inline-block;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input:focus {
+  border-bottom: 4px solid #8F8DFF;
+  transition: all 0.2s ease-in;
 }
 
 .dropdown {
@@ -105,5 +222,75 @@ p {
   height: 32px;
   font-size: 14px;
   background-color: none;
+
+}
+
+.about-text {
+  /* height: 90vh; */
+  align-items: space-between;
+  justify-content: center;
+  padding: 100px 20%;
+}
+
+.about-card-container {
+  justify-content: space-between;
+}
+
+.about-card {
+  width: 45%;
+}
+
+/* Media Queries */
+
+/* Smaller Laptops ----------- */
+@media only screen and (max-width : 1200px) {
+
+
+}
+
+/* Mini Screens */
+@media only screen and (max-height : 1024px) {
+
+}
+
+/* Large Phones */
+@media only screen and (max-height : 850px) and (max-width: 800px) {
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .logo-img {
+    height: 28px;
+  }
+
+  .menu-item {
+    font-size: 10px;
+  }
+
+}
+
+/* iPhone 6 */
+@media only screen and (max-height : 670px) {
+
+
+}
+
+/* Small Phones */
+@media only screen and (max-height : 570px) {
+
+  .logo {
+    font-size: 16px;
+  }
+
+  .logo-img {
+    height: 20px;
+  }
+
+}
+
+/* Smaller Phones */
+@media only screen and (max-width : 320px) {
+
 
 }

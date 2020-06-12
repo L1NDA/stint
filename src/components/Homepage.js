@@ -1,5 +1,5 @@
 import React from 'react';
-import './style/homepage.css';
+import './homepage.css';
 import logo from './imgs/logo.png'
 import homepageImage from './imgs/homepage.svg'
 import Button from './Button.js'
@@ -10,15 +10,15 @@ import analysts from './imgs/analysts.svg'
 import Typist from 'react-typist';
 import 'react-typist/dist/Typist.css'
 
-import {authUi, authUiConfig} from '../api/auth'
+import app from 'firebase/app';
+import 'firebase/database';
+import firebase from '../firebase';
 
 const typingText = [
   [`Wireframes`, `User journeys`, `Lo-fi & hi-fi mockups`, `Website redesign`, `Prototyping`, `Branding`, `Logo design`],
   [`Web development`, `App development`, `QA Testing`, `Back-end & servers`, `Machine Learning`, ``, ``],
   [`Graphic design`, `Promotional materials`, `Photography`, `Videography`, `Social Media`, `Animations`, ``],
   [`Data analysis`, `Data-driven strategy`, `Visual analytics`, `Presentation of data`, `Data modeling`, ``, ``]]
-
-authUi.start('#firebaseui-auth-container', authUiConfig);
 
 class Homepage extends React.Component {
 
@@ -61,31 +61,68 @@ class Homepage extends React.Component {
     this.setState({ dropdown: event.target.value });
   };
 
-  // guidGenerator() {
-  //   var S4 = function() {
-  //      return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-  //   };
-  //   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-  // }
+  guidGenerator() {
+    var S4 = function() {
+       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    };
+    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+  }
 
-  // onCreateMessage = async (event) => {
-  //   event.preventDefault();
-  //   await createProfile(this.state.email, this.state.name, this.state.dropdown, "password")
+  onCreateMessage = event => {
 
-  //   this.setState({
-  //     email: '',
-  //     name: '',
-  //     dropdown: '',
-  //     modal: false });
-  // };
+    firebase.database().ref('users/' + this.guidGenerator()).set({
+      email: this.state.email,
+      name: this.state.name,
+      dropdown: this.state.dropdown
+    });
+
+    this.setState({
+      email: '',
+      name: '',
+      dropdown: '',
+      modal: false });
+
+    event.preventDefault();
+
+  };
 
   render() {
 
     return (
-      <div className="container">
-        <div className="modal" style={{display: this.state.modal ? 'block' : 'none'}} id="firebaseui-auth-container"></div>
-        <div id="loader">Loading...</div>
+      <div className="homepage">
 
+        <div className="modal" style={{display: this.state.modal ? 'block' : 'none'}}>
+            <form onSubmit={this.onCreateMessage}>
+              <div className="flex-row" style={{marginBottom: "40px"}}>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  className="input"
+                  onChange={this.onChangeName}/>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Student email"
+                  className="input"
+                  onChange={this.onChangeEmail}
+                  style={{width: "250px", marginLeft: "20px"}}/>
+              </div>
+
+              <select name="Interest"
+                      className="dropdown"
+                      onChange={this.onChangeDropdown}
+                      style={{width: "300px", marginBottom: "40px"}}>
+                  <option value="" disabled selected>Area of interest</option>
+                  <option value="design" className="dropdown-item">Design</option>
+                  <option value="engineering" className="dropdown-item">Engineering</option>
+                  <option value="creatives" className="dropdown-item">Creatives</option>
+                  <option value="analytics" className="dropdown-item">Analytics</option>
+                </select>
+              <button type="submit"
+                className="button">Join our beta →</button>
+            </form>
+        </div>
         <div className="modal-screen"
              style={{display: this.state.modal ? 'block' : 'none'}}
              onClick={this.handleButtonClick}></div>

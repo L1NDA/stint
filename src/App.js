@@ -4,13 +4,15 @@ import './App.css';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Homepage from './components/Homepage.js'
 import Company from './components/Company.js'
+import About from './components/About.js'
 
 function App() {
   return (
     <Router>
         <Switch>
           <Route exact path='/' component={Homepage}/>
-          <Route path='/hire' component={Company}/>
+          <Route exact path='/hire' component={Company}/>
+          <Route exact path='/our-mission' component={About}/>
         </Switch>
       </Router>
   );

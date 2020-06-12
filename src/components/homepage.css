@@ -1,4 +1,7 @@
-.container {
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Source+Sans+Pro:wght@300;400;700&display=swap');
+
+.homepage {
   font-family: 'Source Sans Pro', sans-serif;
   display: flex;
   flex-direction: column;

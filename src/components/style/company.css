@@ -1,0 +1,263 @@
+.container {
+  font-family: 'Source Sans Pro', sans-serif;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.company-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-right: 50px;
+}
+
+/* .company-2 {
+  padding-top: 100px;
+  padding-bottom: 100px;
+} */
+
+.tri {
+  justify-content: space-between;
+  margin: 50px 0;
+}
+
+.tri-image {
+}
+
+.tri-text {
+  width: 50%;
+}
+
+.stipulation {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.tri-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 45px;
+
+  color: #8F8DFF;
+}
+
+.company-carousel {
+  width: 100%;
+  position: relative;
+}
+
+.carousel-container {
+  padding: 32px 32px;
+  margin-top: -20px;
+  overflow: hidden;
+}
+
+.horizontalSlider___281Ls {
+  overflow: visible !important;
+}
+
+.company-slide {
+  padding: 50px 40px;
+  display: flex !important;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.company-slide > h2 {
+  filter: grayscale(1);
+}
+
+.company-slide:hover {
+  background-color: white;
+  box-shadow: 0px 4px 32px rgba(71, 68, 72, 0.15);
+  transition: 0.2s all linear;
+}
+
+.company-slide-img {
+  height: 150px;
+}
+
+.company-p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 25px;
+  text-align: center;
+
+  color: #474448;
+  /* filter: opacity(0); */
+}
+
+.company-slide:hover h2 {
+  filter: grayscale(0);
+  transition: 0.2s all linear;
+}
+
+.button-back, .button-next {
+  position: absolute;
+  top: 45%;
+  z-index: 10;
+  font-size: 50px;
+  background-color: transparent;
+  border: none;
+}
+
+.button-back:hover {
+  color: #8F8DFF;
+  left: -8.5%;
+  transition: all 0.2s linear;
+}
+
+.button-next:hover {
+  color: #8F8DFF;
+  right: -8.5%;
+  transition: all 0.2s linear;
+}
+
+.button-back:focus, .button-next:focus {
+  outline: none;
+}
+
+.button-back {
+  left: -8%;
+}
+
+.button-next {
+  right: -8%;
+}
+
+.uni {
+  width: 200px;
+  margin: 0 50px;
+  filter: opacity(0.5);
+}
+
+.competitors {
+  margin: 50px 0;
+}
+
+.company-cta {
+  padding: 150px 30%;
+}
+
+/* Media Queries */
+
+/* Smaller Laptops ----------- */
+@media only screen and (max-width : 1200px) {
+
+  .tri-title {
+    font-size: 25px;
+  }
+
+
+}
+
+/* Mini Screens */
+@media only screen and (max-height : 1024px) {
+
+}
+
+/* Large Phones */
+@media only screen and (max-height : 850px) and (max-width: 800px) {
+
+  .company-text {
+    margin-top: 25px;
+  }
+
+  .company-image {
+    width: 100%;
+  }
+
+  .tri {
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    margin-bottom: 50px;
+  }
+
+  .reverse {
+    flex-direction: column-reverse;
+  }
+
+  .tri-image {
+    width: 100%;
+  }
+
+  .tri-text {
+    width: 100%
+  }
+
+  .tri-title {
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+  }
+
+  .tri-text > h3 {
+    text-align: center;
+  }
+
+  .stipulation {
+    font-size: 10px;
+    text-align: center;
+  }
+
+  .company-slide {
+    padding: 40px 20px;
+  }
+
+  .carousel-container {
+    padding: 20px;;
+  }
+
+  .carousel-section > h3 {
+    text-align: center
+  }
+
+  .unis {
+    flex-direction: column;
+  }
+
+  .uni {
+    width: 150px;
+    margin: 0;
+    margin-bottom: 15px;
+  }
+
+  .company-cta {
+    padding: 150px 20%;
+  }
+
+}
+
+/* iPhone 6 */
+@media only screen and (max-height : 670px) {
+
+  .company-image {
+    width: 80%;
+  }
+
+
+}
+
+/* Small Phones */
+@media only screen and (max-height : 570px) {
+
+  .input {
+    width: auto;
+    min-width: 200px;
+  }
+
+
+}
+
+/* Smaller Phones */
+@media only screen and (max-width : 320px) {
+
+
+
+}
