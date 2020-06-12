@@ -122,22 +122,6 @@
   padding: 50px 100px;
 }
 
-.modal-x {
-  top: 10px;
-  right: 10px;
-  position: absolute;
-  font-size: 20px;
-  transform: rotate(0deg);
-  transition: transform 0.2s ease-in;
-}
-
-.modal-x:hover {
-  color: #8F8DFF;
-  cursor: pointer;
-  transform: rotate(90deg);
-  transition: transform 0.2s ease-in;
-}
-
 .modal-screen {
   background-color: rgba(0, 0, 0, 0.9);
   width: 100%;

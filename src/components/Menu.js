@@ -12,9 +12,14 @@ class Menu extends React.Component {
           <div className="logo">Stint</div>
         </a>
 
-        <NavLink to="/hire"
-                 className="menu-item"
-                 activeClassName="active-item">For Companies</NavLink>
+        <div>
+          <NavLink to="/hire"
+                   className="menu-item"
+                   activeClassName="active-item">For Companies</NavLink>
+           <NavLink to="/our-mission"
+                  className="menu-item"
+                  activeClassName="active-item">Our Mission</NavLink>
+        </div>
       </div>
 		)
 	}
