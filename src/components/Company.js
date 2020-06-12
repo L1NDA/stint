@@ -1,6 +1,6 @@
 import React from 'react';
 import './style/company.css';
-import Menu from './Menu.js'
+import Menu from './Menu.js';
 import Footer from './Footer.js'
 import companyImage from './imgs/company.svg'
 import tri1 from './imgs/tri-1.svg'
@@ -83,7 +83,7 @@ class Company extends React.Component {
       </div>
 
       <div className="flex-column center carousel-section" style={{backgroundColor: "#f5f5f5", padding: "75px 10%"}}>
-        <h3>Our students span 3 different colleges and 5 majors, offering a variety of skills.</h3>
+        <h3>Stint taps into the overlooked talent pool of college students.</h3>
           <CarouselProvider
           naturalSlideWidth={345}
           naturalSlideHeight={345}

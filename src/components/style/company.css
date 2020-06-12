@@ -136,6 +136,10 @@
   filter: opacity(0.5);
 }
 
+.competitors {
+  margin: 50px 0;
+}
+
 .company-cta {
   padding: 150px 30%;
 }
