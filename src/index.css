@@ -57,7 +57,7 @@ a {
   color: #474448;
   position: relative;
   display: inline-block;
-  margin: 0
+  margin: 0 10px;
 }
 
 .menu-item:after {
@@ -87,6 +87,7 @@ a {
   font-size: 20px;
   transform: rotate(0deg);
   transition: transform 0.2s ease-in;
+  z-index: 10;
  }
 
  .modal-x:hover {
@@ -224,9 +225,17 @@ p {
 
 .about-text {
   /* height: 90vh; */
-  align-items: flex-start;
+  align-items: space-between;
   justify-content: center;
   padding: 100px 20%;
+}
+
+.about-card-container {
+  justify-content: space-between;
+}
+
+.about-card {
+  width: 45%;
 }
 
 /* Media Queries */
@@ -251,6 +260,10 @@ p {
 
   .logo-img {
     height: 28px;
+  }
+
+  .menu-item {
+    font-size: 10px;
   }
 
 }

@@ -11,29 +11,14 @@ import app from 'firebase/app';
 import 'firebase/database';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
-import { TiMediaPlayReverse, TiMediaPlay, TiTimes } from "react-icons/ti";
+import { TiMediaPlayReverse, TiMediaPlay } from "react-icons/ti";
 import { debounce } from 'lodash'
-
-const {setCompanyBetaInfo} = require('../api/company')
-
-const ANALYTICS = "analytics"
-const BUSINESS = "business"
-const DIGITAL_MARKETING = "digitalmarketing"
-const ENGINEERING = "engineering"
-const GRAPHICS_DESIGN = "graphicsdesign"
-const VIDEO_MEDIA = "videomedia"
-const WRITING = "writing"
 
 class Company extends React.Component {
 
   constructor(){
     super();
     this.state = {
-      showModal: false,
-      company: '',
-      categories: new Set(),
-      email: '',
-      modal: false,
       screenWidth: null
     }
   }
@@ -53,53 +38,6 @@ class Company extends React.Component {
       window.removeEventListener("resize", this.updateWindowDimensions)
   }
 
-  handleButtonClick = () => {
-    let temp = this.state.modal
-    this.setState({
-      modal: !temp
-    })
-  }
-
-  onChangeCompany = event => {
-    this.setState({ company: event.target.value });
-  };
-
-  onChangeEmail = event => {
-    this.setState({ email: event.target.value });
-  };
-
-  onChangeCategories = event => {
-    this.setState({ categories: event.target.value });
-  };
-
-  guidGenerator() {
-    var S4 = function() {
-       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-    };
-    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-  }
-
-  handleCheckbox = (item) => {
-    let updatedCategories = this.state.categories
-    if (this.state.categories.has(item)) {
-      updatedCategories.delete(item)
-    }
-    else {
-      updatedCategories.add(item)
-    }
-    this.setState({
-      categories: updatedCategories
-    })
-  }
-
-  uploadCompanyData = (event) => {
-    const name = this.state.company
-    const email = this.state.email
-    const interestAreas = Array.from(this.state.categories)
-
-    setCompanyBetaInfo(name, email, interestAreas)
-  }
-
   render() {
 
     return (
@@ -107,97 +45,11 @@ class Company extends React.Component {
 
       <Menu/>
 
-      <div className="modal center" style={{display: this.state.modal ? 'flex' : 'none'}}>
-          <TiTimes className="modal-x" onClick={this.handleButtonClick}/>
-            <form>
-              <div className="flex-column" style={{marginBottom: "20px"}}>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Company name"
-                  className="input"
-                  autocomplete="off"
-                  onChange={this.onChangeCompany}/>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  className="input"
-                  autocomplete="off"
-                  onChange={this.onChangeEmail}/>
-              </div>
-
-              <h4>Areas of interest</h4>
-              <div className="flex-column">
-                <div><input type="checkbox"
-                       name="analytics"
-                       checked={this.state.categories.has(ANALYTICS)}
-                       onChange={() => this.handleCheckbox(ANALYTICS)}/>
-                <label for="analytics" 
-                       onClick={() => this.handleCheckbox(ANALYTICS)}> Analytics </label></div>
-
-                <div>
-                  <input type="checkbox"
-                       name="business"
-                       checked={this.state.categories.has(BUSINESS)}
-                       onChange={() => this.handleCheckbox(BUSINESS)}/>
-                <label for="business"
-                       onClick={() => this.handleCheckbox(BUSINESS)}> Business </label>
-              </div>
-
-              <div><input type="checkbox"
-                     name="digitalmarketing"
-                     checked={this.state.categories.has(DIGITAL_MARKETING)}
-                     onChange={() => this.handleCheckbox(DIGITAL_MARKETING)}/>
-              <label for="digitalmarketing"
-                     onClick={() => this.handleCheckbox(DIGITAL_MARKETING)}> Digital Marketing </label></div>
-
-              <div><input type="checkbox"
-                     inline={true}
-                     name="engineering"
-                     checked={this.state.categories.has(ENGINEERING)}
-                     onChange={() => this.handleCheckbox(ENGINEERING)}/>
-              <label for="engineering"
-                     onClick={() => this.handleCheckbox(ENGINEERING)}> Engineering </label></div>
-
-            <div><input type="checkbox"
-                   name="graphicsdesign"
-                   checked={this.state.categories.has(GRAPHICS_DESIGN)}
-                   onChange={() => this.handleCheckbox(GRAPHICS_DESIGN)}/>
-            <label for="graphicsdesign"
-                   onClick={() => this.handleCheckbox(GRAPHICS_DESIGN)}> Graphics & Design </label>
-            </div>
-
-                <div><input type="checkbox"
-                       name="videomedia"
-                       checked={this.state.categories.has(VIDEO_MEDIA)}
-                       onChange={() => this.handleCheckbox(VIDEO_MEDIA)}/>
-                <label for="videomedia"
-                       onClick={() => this.handleCheckbox(VIDEO_MEDIA)}> Video & Media </label></div>
-
-              <div><input type="checkbox"
-                     name="writing"
-                     checked={this.state.categories.has(WRITING)}
-                     onChange={() => this.handleCheckbox(WRITING)}/>
-              <label for="writing"
-                     onClick={() => this.handleCheckbox(WRITING)}> Writing </label></div>
-
-              </div>
-              <button type="submit"
-                className="button"
-                style={{marginTop: "50px"}}
-                onClick={this.uploadCompanyData}>Join our beta →</button>
-            </form>
-        </div>
-        <div className="modal-screen"
-             style={{display: this.state.modal ? 'block' : 'none'}}
-             onClick={this.handleButtonClick}></div>
-
       <div className="flex-row center padding homepage-1" style={{paddingBottom: "100px"}}>
         <div className="company-text">
           <h1>Access student talent anywhere, anytime.</h1>
           <h3>Experience an easier way to find immediate student hires for your company tasks.</h3>
-          <div onClick={this.handleButtonClick}><Button text="Join our beta" margin="50px"/></div>
+          <Button text="Join our beta" margin="50px" type="company"/>
         </div>
         <img src={companyImage} className="homepage-image company-image"/>
       </div>
@@ -308,7 +160,7 @@ class Company extends React.Component {
         <h1>Hire now.</h1>
         <h3 style={{textAlign: "center"}}>Got a task you need extra hands for? Don’t have the resources to recruit for full-time? No problem! <br/><br/>
           Connect with talented and capable students who are itching to put their time and skills to good use.</h3>
-        <div onClick={this.handleButtonClick}><Button text="Join our beta" margin="50px"/></div>
+        <Button text="Join our beta" margin="50px" type="company"/>
       </div>
 
       <Footer/>
