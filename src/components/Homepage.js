@@ -1,8 +1,10 @@
 import React from 'react';
-import './homepage.css';
+import './style/homepage.css';
 import logo from './imgs/logo.png'
 import homepageImage from './imgs/homepage.svg'
 import Button from './Button.js'
+import Menu from './Menu.js'
+import Footer from './Footer.js'
 import designers from './imgs/designers.svg'
 import coders from './imgs/coders.svg'
 import creatives from './imgs/creatives.svg'
@@ -42,109 +44,24 @@ class Homepage extends React.Component {
     })
   }
 
-  handleButtonClick = () => {
-    let temp = this.state.modal
-    this.setState({
-      modal: !temp
-    })
-  }
-
-  onChangeName = event => {
-    this.setState({ name: event.target.value });
-  };
-
-  onChangeEmail = event => {
-    this.setState({ email: event.target.value });
-  };
-
-  onChangeDropdown = event => {
-    this.setState({ dropdown: event.target.value });
-  };
-
-  guidGenerator() {
-    var S4 = function() {
-       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-    };
-    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-  }
-
-  onCreateMessage = event => {
-
-    firebase.database().ref('users/' + this.guidGenerator()).set({
-      email: this.state.email,
-      name: this.state.name,
-      dropdown: this.state.dropdown
-    });
-
-    this.setState({
-      email: '',
-      name: '',
-      dropdown: '',
-      modal: false });
-
-    event.preventDefault();
-
-  };
 
   render() {
 
     return (
       <div className="homepage">
 
-        <div className="modal" style={{display: this.state.modal ? 'block' : 'none'}}>
-            <form onSubmit={this.onCreateMessage}>
-              <div className="flex-row" style={{marginBottom: "40px"}}>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  className="input"
-                  onChange={this.onChangeName}/>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Student email"
-                  className="input"
-                  onChange={this.onChangeEmail}
-                  style={{width: "250px", marginLeft: "20px"}}/>
-              </div>
-
-              <select name="Interest"
-                      className="dropdown"
-                      onChange={this.onChangeDropdown}
-                      style={{width: "300px", marginBottom: "40px"}}>
-                  <option value="" disabled selected>Area of interest</option>
-                  <option value="design" className="dropdown-item">Design</option>
-                  <option value="engineering" className="dropdown-item">Engineering</option>
-                  <option value="creatives" className="dropdown-item">Creatives</option>
-                  <option value="analytics" className="dropdown-item">Analytics</option>
-                </select>
-              <button type="submit"
-                className="button">Join our beta →</button>
-            </form>
-        </div>
-        <div className="modal-screen"
-             style={{display: this.state.modal ? 'block' : 'none'}}
-             onClick={this.handleButtonClick}></div>
-
-
       <div className="covid">
       In light of COVID-19, we hope to support students and companies in any way we can. If you are a company looking to hire, we’d love
       to&nbsp;<a href="mailto:wearestint@gmail.com" className="url">hear from you.</a>
       </div>
 
-      <div className="menu flex-row" style={{justifyContent: 'flex-start'}}>
-        <div className="flex-row center">
-          <img src={logo} style={{width: '36px'}}/>
-          <div className="logo">Stint</div>
-        </div>
-      </div>
+      <Menu/>
 
       <div className="flex-row center padding homepage-1" style={{paddingBottom: "100px"}}>
         <div className="homepage-text">
           <h1>No internship? <br/>No problem.</h1>
           <h3>We’re redefining the way students and companies connect through shorter, project-based stints.</h3>
-          <div onClick={this.handleButtonClick}><Button text="Join the revolution" margin="50px"/></div>
+          <Button text="Join our waitlist" margin="50px" type="student"/>
         </div>
         <img src={homepageImage} className="homepage-image"/>
       </div>
@@ -205,8 +122,10 @@ class Homepage extends React.Component {
       <div className="cta flex-column center" style={{backgroundColor: "#f5f5f5", padding: "150px 10%"}}>
         <h1>For everyone.</h1>
         <h3 style={{textAlign: "center"}}>We're hard at work bringing Stint to life – <br/>be the first to know when we launch.</h3>
-        <div onClick={this.handleButtonClick}><Button text="Join the revolution" margin="50px"/></div>
+        <Button text="Join our waitlist" margin="50px" type="student"/>
       </div>
+
+      <Footer/>
 
       </div>
 
