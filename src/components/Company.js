@@ -89,9 +89,9 @@ class Company extends React.Component {
           naturalSlideHeight={345}
           isIntrinsicHeight={true}
           totalSlides={7}
-          step={this.state.screenWidth > 850 ? 2 : 1}
+          step={this.state.screenWidth > 925 ? 2 : 1}
           infinite={true}
-          visibleSlides={this.state.screenWidth > 850 ? 3 : 1}
+          visibleSlides={this.state.screenWidth > 925 ? 3 : 1}
           className="company-carousel">
           <ButtonBack className="button-back"><TiMediaPlayReverse/></ButtonBack>
           <div className="carousel-container">
