@@ -45,8 +45,6 @@ const updateFreelancerInfo = async (uid, name=null, email=null, photoUrl=null) =
 	})
 }
 
-const 
-
 module.exports = {
 	getFreelancerInfo,
 	updateFreelancerInfo 
