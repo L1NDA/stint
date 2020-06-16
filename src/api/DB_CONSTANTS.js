@@ -5,7 +5,6 @@ const FREELANCERS_REF_PATH = "freelancers"
 
 const FREELANCER_NAME = "name"
 const FREELANCER_EMAIL = "email"
-const FREELANCER_PHONE_NUMBER = "phoneNumber"
 const FREELANCER_PHOTO_URL = "photoUrl"
 
 /******************************************************
@@ -23,7 +22,6 @@ module.exports = {
 	FREELANCERS_REF_PATH,
 	FREELANCER_NAME,
 	FREELANCER_EMAIL,
-	FREELANCER_PHONE_NUMBER,
 	FREELANCER_PHOTO_URL,
 
 	COMPANIES_REF_PATH,

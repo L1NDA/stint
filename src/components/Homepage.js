@@ -51,7 +51,6 @@ class Homepage extends React.Component {
     this.setState({
       modal: !temp
     });
-    // updateFreelancerInfo("BaLJplr8HyYnyYz8oo5SlORshIE2", "Chuck Ma", "charlesma4@gmail.com")
   }
 
   onChangeName = event => {
