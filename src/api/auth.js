@@ -1,7 +1,6 @@
 const { FREELANCERS_REF_PATH,
 		FREELANCER_NAME,
 		FREELANCER_EMAIL,
-		FREELANCER_PHONE_NUMBER,
 		FREELANCER_PHOTO_URL } = require('./DB_CONSTANTS')
 
 const firebase = require("firebase");
@@ -49,8 +48,6 @@ const authUiConfig = {
 	  const emailVerified = user.emailVerified;
 	  const photoUrl = user.photoURL;
 	  const uid = user.uid;
-	  const phoneNumber = user.phoneNumber;
-	  const providerData = user.providerData;
 
 	  const isNewUser = authResult.additionalUserInfo.isNewUser
 
@@ -58,7 +55,6 @@ const authUiConfig = {
 	  newFreelancer[FREELANCER_NAME] = displayName
 	  newFreelancer[FREELANCER_EMAIL] = email
 	  newFreelancer[FREELANCER_PHOTO_URL] = photoUrl
-	  newFreelancer[FREELANCER_PHONE_NUMBER] = phoneNumber
 	  const freelancerRef = firebase.database().ref(FREELANCERS_REF_PATH + "/" +uid)
 	  if (isNewUser) {
 	  	freelancerRef.set(newFreelancer, function(error) {

@@ -1,7 +1,6 @@
 const { FREELANCERS_REF_PATH,
 		FREELANCER_NAME,
 		FREELANCER_EMAIL,
-		FREELANCER_PHONE_NUMBER,
 		FREELANCER_PHOTO_URL } = require('./DB_CONSTANTS')
 const firebase = require("firebase");
 
@@ -18,11 +17,10 @@ const getFreelancerInfo = async (uid) => {
  *	@param {string} name: new name to update to
  *	@param {string} email: new email to update to
  *	@param {string} photoUrl: new photoUrl to update to
- *	@param {} phoneNumber: new phone number to update to
  *
  *	@return {boolean} true: on success, false: on failure
  */
-const updateFreelancerInfo = async (uid, name=null, email=null, photoUrl=null, phoneNumber=null) => {
+const updateFreelancerInfo = async (uid, name=null, email=null, photoUrl=null) => {
 	const freelancerRef = firebase.database().ref(FREELANCERS_REF_PATH + "/" + uid)
 	var updatedFreelancer = {}
 	if (name) {
@@ -33,9 +31,6 @@ const updateFreelancerInfo = async (uid, name=null, email=null, photoUrl=null, p
 	}
 	if (photoUrl) {
 		updatedFreelancer[FREELANCER_PHOTO_URL] = photoUrl
-	}
-	if (phoneNumber) {
-		updatedFreelancer[FREELANCER_PHONE_NUMBER] = phoneNumber
 	}
 	console.log(updatedFreelancer)
 	freelancerRef.update(updatedFreelancer, function(error) {
