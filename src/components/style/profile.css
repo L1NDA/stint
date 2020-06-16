@@ -1,0 +1,124 @@
+.profile-container {
+  margin: 100px 0;
+}
+
+.profile-container > * {
+  margin-bottom: 50px
+}
+
+.profile-container > :last-child {
+  margin-bottom: 0px
+}
+
+.stint-dialogue {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(290.7deg, #8F8DFF 46.67%, #05D9B2 100%);
+  box-shadow: 0px 4px 32px rgba(71, 68, 72, 0.15);
+
+  padding: 50px;
+}
+
+@keyframes gradient {
+    0% {background-position: 0%}
+    100% {background-position: 100%}
+}
+
+.loading {
+  box-shadow: 0px 4px 32px rgba(71, 68, 72, 0.15);
+  background: linear-gradient(270deg, #8F8DFF 0%, #05D9B2 100%);
+  background-size: 200% 100%;
+  animation: gradient 2s linear infinite;
+  animation-direction: alternate;
+
+  padding: 50px;
+  filter: opacity(0.25);
+}
+
+.loading > * {
+  visibility: hidden;
+}
+
+.stint-dialogue > * {
+  color: white;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.stint-dialogue > :last-child {
+  margin-bottom: 0;
+}
+
+.hline {
+  border: 2px solid #F5F5F5;
+  width: 100%;
+}
+
+.student-dialogue {
+  box-shadow: 0px 4px 32px rgba(71, 68, 72, 0.15);
+  padding: 50px;
+}
+
+.student-dialogue > * {
+  margin-bottom: 40px
+}
+
+.student-dialogue > :last-child {
+  margin-bottom: 0;
+}
+
+.student-dialogue-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.student-dialogue-block > * {
+  margin: 0;
+  margin-bottom: 20px
+}
+
+.student-dialogue-block > :last-child {
+  margin-bottom: 0
+}
+
+/* Media Queries */
+
+/* Smaller Laptops ----------- */
+@media only screen and (max-width : 1200px) {
+
+
+
+}
+
+/* Mini Screens */
+@media only screen and (max-height : 1024px) {
+
+}
+
+/* Large Phones */
+@media only screen and (max-height : 850px) and (max-width: 800px) {
+
+
+}
+
+/* iPhone 6 */
+@media only screen and (max-height : 670px) {
+
+
+
+}
+
+/* Small Phones */
+@media only screen and (max-height : 570px) {
+
+
+
+}
+
+/* Smaller Phones */
+@media only screen and (max-width : 320px) {
+
+
+
+}
