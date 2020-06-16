@@ -6,7 +6,7 @@ class Footer extends React.Component {
 	render() {
 		return (
       <div className="footer flex-row" style={{justifyContent: 'space-between'}}>
-        Stint is made with ♥ from our (socially distant) living rooms
+        Made with ♥ from our (socially distant) living rooms
 
         <a href="mailto:wearestint@gmail.com" className="contact-us">Contact Us</a>
       </div>
