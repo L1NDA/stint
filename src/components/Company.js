@@ -2,6 +2,7 @@ import React from 'react';
 import './style/company.css';
 import Menu from './Menu.js';
 import Footer from './Footer.js'
+import hcs from './imgs/hcs.svg'
 import companyImage from './imgs/company.svg'
 import tri1 from './imgs/tri-1.svg'
 import tri2 from './imgs/tri-2.svg'
@@ -52,6 +53,10 @@ class Company extends React.Component {
           <Button text="Join our beta" margin="50px" type="company"/>
         </div>
         <img src={companyImage} className="homepage-image company-image"/>
+      </div>
+
+      <div className="flex-row center padding" style={{backgroundColor: "#f5f5f5", padding: "30px 10%"}}>
+        <a href="https://medium.com/hcs-builders-incubation-program/welcome-91f8e5c27f21" target="_blank"><img src={hcs} className="hcs"/></a>
       </div>
 
       <div className="flex-column center padding company-2">

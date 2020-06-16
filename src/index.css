@@ -50,6 +50,13 @@ a {
   transition: transform 0.2s ease-in;
 }
 
+.container {
+  font-family: 'Source Sans Pro', sans-serif;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .menu {
   padding: 20px 10%;
 }

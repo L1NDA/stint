@@ -12,7 +12,7 @@ class Menu extends React.Component {
           <div className="logo">Stint</div>
         </a>
 
-        <div>
+        <div className="flex-row center">
           <NavLink to="/hire"
                    className="menu-item"
                    activeClassName="active-item">For Companies</NavLink>

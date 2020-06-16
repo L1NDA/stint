@@ -5,6 +5,7 @@ import homepageImage from './imgs/homepage.svg'
 import Button from './Button.js'
 import Menu from './Menu.js'
 import Footer from './Footer.js'
+import hcs from './imgs/hcs.svg'
 import designers from './imgs/designers.svg'
 import coders from './imgs/coders.svg'
 import creatives from './imgs/creatives.svg'
@@ -69,17 +70,17 @@ class Homepage extends React.Component {
       <div className="flex-row interstitial">
         <div className="interstitial-item">
           <h2>Build skills.</h2>
-          <p>Bootcamps and extracurriculars are not the only way to obtain real-world experience while still being a full-time student. Gain industry experience, straight from the source.</p>
+          <p>Bootcamps and extracurriculars aren’t the only way to get real-world experience as a full-time student. Gain industry experience, straight from the source.</p>
         </div>
 
         <div className="interstitial-item">
           <h2>Stay productive.</h2>
-          <p>Have some extra time on your hands? Receive stints and earn some money for those next few burritos on your own time and pace.  </p>
+          <p>Got extra time on your hands? Do stints and earn some money for those next few burritos – on your own time, at your own pace.</p>
         </div>
 
         <div className="interstitial-item">
           <h2>Break boundaries.</h2>
-          <p>We believe in challenging the status quo. Spend your time doing meaningful projects, instead of networking. Highlight your skills, not your connections.</p>
+          <p>We believe in challenging the status quo. Spend your time doing meaningful work instead of networking. Highlight your skills, not your connections.</p>
         </div>
       </div>
 
