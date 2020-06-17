@@ -3,6 +3,7 @@ import './style/profile.css';
 import Menu from './Menu.js';
 import Footer from './Footer.js'
 import Button from './Button.js'
+import Colleges from './Colleges.js'
 import Select from './Select.js'
 import Autocomplete from './Autocomplete.js'
 import app from 'firebase/app';
@@ -41,7 +42,7 @@ class ProfileCreation extends React.Component {
         <div className="student-dialogue">
           <div className="student-dialogue-block">
             <h3>I am a <Select items={Year} name="year"/> at
-            <Autocomplete options={["BU", "BC", "Harvard"]} name="colleges" placeholder="(insert college*)"/>.</h3>
+            <Autocomplete options={Colleges} name="colleges" placeholder="(insert college*)"/>.</h3>
             <h3>I’m currently residing in
               <Autocomplete options={["Boston", "New York City", "San Francisco"]} name="city" placeholder="(insert city*)"/>,
               <Select items={State} name="state"/>.</h3>

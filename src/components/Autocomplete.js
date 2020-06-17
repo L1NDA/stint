@@ -5,12 +5,16 @@ export class Autocomplete extends Component {
   static propTypes = {
     options: PropTypes.instanceOf(Array).isRequired
   };
-  state = {
-    activeOption: 0,
-    filteredOptions: [],
-    showOptions: false,
-    userInput: ''
-  };
+
+  constructor() {
+    super();
+    this.state = {
+      activeOption: 0,
+      filteredOptions: [],
+      showOptions: false,
+      userInput: ''
+    };
+  }
 
   componentDidMount() {
     this.setWidth()
@@ -19,12 +23,13 @@ export class Autocomplete extends Component {
   setWidth = (text) => {
     let hide = document.getElementById(`hide-${this.props.name}`);
     let show = document.getElementById(`show-${this.props.name}`);
-    if (!this.state.userInput) {
+    if (!text) {
       hide.textContent = this.props.placeholder;
     } else {
       hide.textContent = text;
     }
-    show.style.width = hide.offsetWidth + "px";
+    let extraWidth = hide.offsetWidth + 5
+    show.style.width = extraWidth + "px";
   };
 
   onChange = (e) => {
@@ -32,9 +37,14 @@ export class Autocomplete extends Component {
     const { options } = this.props;
     const userInput = e.currentTarget.value;
 
+    // const filteredOptions = options.filter(
+    //   (optionName) =>
+    //     optionName.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+    // );
+
     const filteredOptions = options.filter(
       (optionName) =>
-        optionName.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+        optionName.toLowerCase().startsWith(userInput.toLowerCase())
     );
 
     this.setState({
