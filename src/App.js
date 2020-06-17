@@ -6,6 +6,7 @@ import Homepage from './components/Homepage.js'
 import Form from './components/Form.js'
 import Company from './components/Company.js'
 import About from './components/About.js'
+import ProfileCreation from './components/ProfileCreation.js'
 const {linkedinCallback} = require('./api/auth')
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route exact path='/form' component={Form}/>
           <Route exact path='/hire' component={Company}/>
           <Route exact path='/our-mission' component={About}/>
+          <Route path='/login=TRUE' component={ProfileCreation}/>
           <Route path='/auth/linkedin/callback'>
           </Route>
         </Switch>

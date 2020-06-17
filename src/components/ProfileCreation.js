@@ -3,8 +3,14 @@ import './style/profile.css';
 import Menu from './Menu.js';
 import Footer from './Footer.js'
 import Button from './Button.js'
+import Select from './Select.js'
+import Autocomplete from './Autocomplete.js'
 import app from 'firebase/app';
 import 'firebase/database';
+
+const Year = [ "(select year*)", "freshman", "sophomore", "junior", "senior"]
+
+const State = ["(select state*)", "Outside US", "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District Of Columbia", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]
 
 class ProfileCreation extends React.Component {
 
@@ -13,6 +19,10 @@ class ProfileCreation extends React.Component {
     this.state = {
       continue: false
     }
+  }
+
+  handleChange = () => {
+
   }
 
   render() {
@@ -30,19 +40,17 @@ class ProfileCreation extends React.Component {
 
         <div className="student-dialogue">
           <div className="student-dialogue-block">
-            <h3>I am a <select name="year">
-                          <option value="" selected>select year</option>
-                          <option value="freshman">freshman</option>
-                          <option value="sophomore">sophomore</option>
-                          <option value="junior">junior</option>
-                          <option value="senior">senior</option>
-                      </select>
-                      at (insert college*).</h3>
-            <h3>I’m currently residing in (insert city*), (insert state*).</h3>
+            <h3>I am a <Select items={Year} name="year"/> at
+            <Autocomplete options={["BU", "BC", "Harvard"]} name="colleges" placeholder="(insert college*)"/>.</h3>
+            <h3>I’m currently residing in
+              <Autocomplete options={["Boston", "New York City", "San Francisco"]} name="city" placeholder="(insert city*)"/>,
+              <Select items={State} name="state"/>.</h3>
           </div>
           <div className="hline"></div>
           <div className="student-dialogue-block">
-            <h3>My most recent work experience was as a(n) (role) at (company).*</h3>
+            <h3>My most recent work experience was as a(n)
+              <Autocomplete options={[]} name="role-1" placeholder="(role*)"/>
+              at <Autocomplete options={[]} name="company-1" placeholder="(company*)"/>.</h3>
             <h3>Another recent work experience was as a(n) (role) at (company).</h3>
             <h3>Another recent work experience was as a(n) (role) at (company).</h3>
           </div>

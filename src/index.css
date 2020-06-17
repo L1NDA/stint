@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Source+Sans+Pro:wght@300;400;700&display=swap');
+
 *, *:before, *:after {
   box-sizing: border-box;
 }
@@ -236,6 +238,81 @@ p {
 
 .about-card {
   width: 45%;
+}
+
+/* Autocomplete */
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #8F8DFF;
+  opacity: 1; /* Firefox */
+}
+
+.search-box {
+  min-width: 25px;
+  border: none;
+  border-bottom: 4px solid #8F8DFF;
+  border-radius: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+
+  color: #8F8DFF;
+
+  margin: 0 4px;
+  display: inline-block;
+
+  transition: border-bottom 0.2s ease-in;
+}
+
+.search-box:focus {
+  border-bottom: 4px solid #474448;
+  outline: none;
+  transition: border-bottom 0.2s ease-in;
+}
+
+.hide {
+  position: absolute;
+  visibility: hidden;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+
+  color: #8F8DFF;
+}
+
+ul.options {
+  display: block;
+  list-style: none;
+  width: 30rem;
+  transition: width 0.3s;
+  margin: auto;
+  position: relative;
+}
+
+ul.options li {
+  display: block;
+  background: white;
+  margin: 10px auto;
+  padding: 10px;
+  font-size: 1.2rem;
+  width: 100%;
+  border-radius: 2px;
+}
+ul.options li:hover {
+  font-weight: bold;
+  color: #00b4cc;
+  cursor: pointer;
+  transition: 0.3s all;
+}
+
+ul.options li.option-active {
+  background: whitesmoke;
+  font-size: 1.5rem;
+  color: #00b4cc;
+}
+
+.no-options {
+  color: white;
 }
 
 /* Media Queries */

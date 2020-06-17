@@ -14,7 +14,11 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(290.7deg, #8F8DFF 46.67%, #05D9B2 100%);
+  /* background: linear-gradient(290.7deg, #8F8DFF 46.67%, #05D9B2 100%); */
+  background: linear-gradient(270deg, #8F8DFF 0%, #05D9B2 100%);
+  background-size: 200% 100%;
+  animation: gradient 2s linear infinite;
+  animation-direction: alternate;
   box-shadow: 0px 4px 32px rgba(71, 68, 72, 0.15);
 
   padding: 50px;
@@ -80,6 +84,26 @@
 
 .student-dialogue-block > :last-child {
   margin-bottom: 0
+}
+
+.custom-select {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 4px solid #8F8DFF;
+  border-radius: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+
+  color: #8F8DFF;
+
+  margin: 0 4px;
+  display: inline-block;
 }
 
 /* Media Queries */
