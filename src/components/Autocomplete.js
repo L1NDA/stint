@@ -14,7 +14,8 @@ export class Autocomplete extends Component {
       activeOption: 0,
       filteredOptions: [],
       showOptions: false,
-      userInput: ''
+      userInput: '',
+      focus: false
     };
   }
 
@@ -36,6 +37,20 @@ export class Autocomplete extends Component {
   //   let extraWidth = hide.offsetWidth + 5
   //   show.style.width = extraWidth + "px";
   // };
+
+  handleFocus = () => {
+
+      this.setState({
+        focus: true
+      })
+  }
+
+  handleBlur = () => {
+    this.setState({
+        focus: false
+      })
+
+  }
 
   onChange = (e) => {
 
@@ -132,10 +147,10 @@ export class Autocomplete extends Component {
       onClick,
       onKeyDown,
 
-      state: { activeOption, filteredOptions, showOptions, userInput }
+      state: { activeOption, filteredOptions, showOptions, userInput , focus}
     } = this;
     let optionList;
-    if (showOptions && userInput) {
+    if (showOptions && userInput && focus) {
       if (filteredOptions.length) {
         optionList = (
           <div className="ac-dropdown">
@@ -171,6 +186,8 @@ export class Autocomplete extends Component {
             placeholder={this.props.placeholder}
           	onChange={onChange}
             onKeyDown={onKeyDown}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
             className="search-box-container"
             style={{fontFamily: 'Source Sans Pro, sans-serif', fontSize: "24px", fontWeight: "bold"}}
           />

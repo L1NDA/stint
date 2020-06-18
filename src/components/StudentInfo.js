@@ -12,9 +12,6 @@ class StudentInfo extends React.Component {
 
   constructor(){
     super();
-    this.state = {
-      continue: false
-    }
   }
 
   handleChange = (stateName, content, index = null) => {
@@ -24,11 +21,12 @@ class StudentInfo extends React.Component {
   render() {
       return (
 
-      <div className="student-dialogue">
+      <form className="student-dialogue" autocomplete="off">
         <div className="student-dialogue-block">
 
         <h3>I am a <Select items={Year} name="year" saveData={this.handleChange}/> at
         <Autocomplete options={Colleges} name="colleges" placeholder="(insert college*)" saveData={this.handleChange}/>.</h3>
+
         <h3>I'm majoring in <Autocomplete options={Majors} name="majors" placeholder="(insert major*)" saveData={this.handleChange}/> and minoring in
         <Autocomplete options={Majors} name="minors" placeholder="(insert minor)" saveData={this.handleChange}/>.</h3>
 
@@ -42,11 +40,11 @@ class StudentInfo extends React.Component {
             <Autocomplete options={[]} name="role-1" placeholder="(role*)" index="0" saveData={this.handleChange}/>
             at <Autocomplete options={[]} name="company-1" placeholder="(company*)" index="0" saveData={this.handleChange}/>.</h3>
           <h3>Another recent work experience was as a(n)
-          <Autocomplete options={[]} name="role-2" placeholder="(role)" index="1" saveData={this.handleChange}/> at
-          <Autocomplete options={[]} name="company-2" placeholder="(company)" index="1" saveData={this.handleChange}/>.</h3>
+          <Autocomplete options={[]} name="role-2" placeholder="(role)" index="1" saveData={this.handleChange}/>
+          at <Autocomplete options={[]} name="company-2" placeholder="(company)" index="1" saveData={this.handleChange}/>.</h3>
           <h3>Another recent work experience was as a(n)
-          <Autocomplete options={[]} name="role-3" placeholder="(role)" index="2" saveData={this.handleChange}/> at
-          <Autocomplete options={[]} name="company-3" placeholder="(company)" index="2" saveData={this.handleChange}/>.</h3>
+          <Autocomplete options={[]} name="role-3" placeholder="(role)" index="2" saveData={this.handleChange}/>
+          at <Autocomplete options={[]} name="company-3" placeholder="(company)" index="2" saveData={this.handleChange}/>.</h3>
         </div>
         <div className="hline"></div>
         <div className="student-dialogue-block">
@@ -57,7 +55,7 @@ class StudentInfo extends React.Component {
           <h3>I’ve also been involved in
           <Autocomplete options={[]} name="ec-2" placeholder="(organization)" index="2" saveData={this.handleChange}/> as a(n) <Autocomplete options={[]} name="ecrole-2" placeholder="(role)" index="2" saveData={this.handleChange}/>.</h3>
         </div>
-      </div>
+      </form>
     )}
   }
 

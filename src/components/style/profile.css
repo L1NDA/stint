@@ -11,17 +11,20 @@
 }
 
 .stint-dialogue {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0px 4px 32px rgba(71, 68, 72, 0.15);
   /* background: linear-gradient(290.7deg, #8F8DFF 46.67%, #05D9B2 100%); */
   background: linear-gradient(270deg, #8F8DFF 0%, #05D9B2 100%);
   background-size: 200% 100%;
   animation: gradient 2s linear infinite;
   animation-direction: alternate;
-  box-shadow: 0px 4px 32px rgba(71, 68, 72, 0.15);
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 
   padding: 50px;
+  filter: opacity(1);
+  transition: opacity 0.2s ease-in
 }
 
 @keyframes gradient {
@@ -36,18 +39,33 @@
   animation: gradient 2s linear infinite;
   animation-direction: alternate;
 
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
   padding: 50px;
+
   filter: opacity(0.25);
+  transition: opacity 0.2s ease-in
 }
 
 .loading > * {
-  visibility: hidden;
+  margin: 0;
+  margin-bottom: 20px;
+  filter: opacity(0);
+  transition: opacity 0.2s ease-in
+}
+
+.loading > :last-child {
+  margin-bottom: 0;
 }
 
 .stint-dialogue > * {
   color: white;
   margin: 0;
   margin-bottom: 20px;
+  filter: opacity(1);
+  transition: opacity 0.2s ease-in
 }
 
 .stint-dialogue > :last-child {
@@ -104,6 +122,39 @@
 
   margin: 0 4px;
   display: inline-block;
+}
+
+.custom-select:hover {
+  cursor: pointer;
+}
+
+/* Second student form */
+
+.skills-header:hover {
+  cursor: pointer;
+}
+
+.skills-header:hover .skills-header-row > h3 {
+  color: #8F8DFF;
+}
+
+.skills-header-row {
+  display: flex;
+  align-items: center;
+}
+
+.skills-header-row > * {
+  margin: 0;
+  margin-right: 10px;
+}
+
+.student-skill-status {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 5px 10px;
+
+  /* color: #FFFFFF; */
 }
 
 /* Media Queries */
