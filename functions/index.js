@@ -1,6 +1,7 @@
 const functions = require('firebase-functions');
 const nodemailer = require("nodemailer")
 const cors = require('cors')({origin: true});
+const axios = require('axios')
 const { mailConfig } = require("./config")
 
 const HOST_NAME = "smtp.gmail.com"
@@ -36,3 +37,20 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
         });
     });    
 });
+
+exports.getCityPredictions = functions.https.onRequest((req, res) => {
+	cors(req, res, () => {
+		const {textInput} = req.body
+		let predictionResults = []
+		return axios.get(apiUrl + encodeURI(textInput))
+			.then(function (response) {
+				if (response.predictions) {
+					response.predictions.forEach(prediction => predictionResults.push(prediction.structuredFormatting.mainText))
+				}
+				return res.status(200).send(predictionResults)
+			})
+			.catch(function (error) {
+				return res.send(error.toString())
+			})
+	})
+})

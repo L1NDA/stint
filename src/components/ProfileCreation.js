@@ -4,8 +4,6 @@ import Menu from './Menu.js';
 import Footer from './Footer.js'
 import Button from './Button.js'
 import StudentInfo from './StudentInfo.js'
-import app from 'firebase/app';
-import 'firebase/database';
 
 class ProfileCreation extends React.Component {
 
