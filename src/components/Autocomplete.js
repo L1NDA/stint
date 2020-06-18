@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import AutosizeInput from 'react-input-autosize';
 
 export class Autocomplete extends Component {
   static propTypes = {
@@ -16,36 +17,42 @@ export class Autocomplete extends Component {
     };
   }
 
-  componentDidMount() {
-    this.setWidth()
-  }
+  // componentDidMount() {
+  //   this.setWidth()
+  // }
 
-  setWidth = (text) => {
-    let hide = document.getElementById(`hide-${this.props.name}`);
-    let show = document.getElementById(`show-${this.props.name}`);
-    if (!text) {
-      hide.textContent = this.props.placeholder;
-    } else {
-      hide.textContent = text;
-    }
-    let extraWidth = hide.offsetWidth + 5
-    show.style.width = extraWidth + "px";
-  };
+  // setWidth = (text) => {
+  //   console.log("text", text)
+  //   let hide = document.getElementById(`hide-${this.props.name}`);
+  //   let show = document.getElementById(`show-${this.props.name}`);
+  //   if (!text) {
+  //     hide.textContent = this.props.placeholder;
+  //   } else {
+  //     hide.textContent = text;
+  //   }
+  //   console.log("hide", hide)
+  //   console.log("offset width", hide.offsetWidth + 5)
+  //   let extraWidth = hide.offsetWidth + 5
+  //   show.style.width = extraWidth + "px";
+  // };
 
   onChange = (e) => {
 
     const { options } = this.props;
     const userInput = e.currentTarget.value;
+    let filteredOptions = [];
+
+    if (userInput.length > 2) {
+      filteredOptions = options.filter(
+        (optionName) =>
+          optionName.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+      );
+    }
 
     // const filteredOptions = options.filter(
     //   (optionName) =>
-    //     optionName.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+    //     optionName.toLowerCase().startsWith(userInput.toLowerCase())
     // );
-
-    const filteredOptions = options.filter(
-      (optionName) =>
-        optionName.toLowerCase().startsWith(userInput.toLowerCase())
-    );
 
     this.setState({
       activeOption: 0,
@@ -54,7 +61,7 @@ export class Autocomplete extends Component {
       userInput: e.currentTarget.value
     });
 
-    this.setWidth(e.currentTarget.value)
+    // this.setWidth(e.currentTarget.value)
   };
 
   onClick = (e) => {
@@ -64,7 +71,7 @@ export class Autocomplete extends Component {
       showOptions: false,
       userInput: e.currentTarget.innerText
     });
-    this.setWidth(e.currentTarget.innerText)
+    // this.setWidth(e.currentTarget.innerText)
   };
 
   onKeyDown = (e) => {
@@ -76,7 +83,6 @@ export class Autocomplete extends Component {
         showOptions: false,
         userInput: filteredOptions[activeOption]
       });
-      this.setWidth(filteredOptions[activeOption])
     } else if (e.keyCode === 38) {
       if (activeOption === 0) {
         return;
@@ -102,19 +108,21 @@ export class Autocomplete extends Component {
     if (showOptions && userInput) {
       if (filteredOptions.length) {
         optionList = (
-          <ul className="options">
+          <div className="ac-dropdown">
             {filteredOptions.map((optionName, index) => {
               let className;
               if (index === activeOption) {
-                className = 'option-active';
+                className = 'option-active ac-dropdown-item';
+              } else {
+                className = 'ac-dropdown-item'
               }
               return (
-                <li className={className} key={optionName} onClick={onClick}>
+                <div className={className} key={optionName} onClick={onClick}>
                   {optionName}
-                </li>
+                </div>
               );
             })}
-          </ul>
+          </div>
         );
       } else {
         // optionList = (
@@ -125,22 +133,34 @@ export class Autocomplete extends Component {
       }
     }
     return (
-      <React.Fragment>
-          <input
-            type="text"
-            className="search-box"
-            onChange={onChange}
-            onKeyDown={onKeyDown}
-            value={userInput}
+      <span className="autocomplete-container">
+          <AutosizeInput
+          	name={`show-${this.props.name}`}
             id={`show-${this.props.name}`}
+          	value={userInput}
             placeholder={this.props.placeholder}
-            style={{ width: this.state.width }}
+          	onChange={onChange}
+            onKeyDown={onKeyDown}
+            className="search-box-container"
+            style={{fontFamily: 'Source Sans Pro, sans-serif', fontSize: "24px", fontWeight: "bold"}}
           />
-        <span id={`hide-${this.props.name}`} className="hide"></span>
         {optionList}
-      </React.Fragment>
+      </span>
     );
   }
 }
 
 export default Autocomplete;
+
+// <input
+//   type="text"
+//   className="search-box"
+//   onChange={onChange}
+//   onKeyDown={onKeyDown}
+//   value={userInput}
+//   id={`show-${this.props.name}`}
+//   placeholder={this.props.placeholder}
+//   style={{ width: this.state.width }}
+// />
+
+// <span id={`hide-${this.props.name}`} className="hide"></span>

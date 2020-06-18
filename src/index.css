@@ -242,12 +242,16 @@ p {
 
 /* Autocomplete */
 
+.autocomplete-container {
+  position: relative;
+}
+
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #8F8DFF;
   opacity: 1; /* Firefox */
 }
 
-.search-box {
+.search-box-container > input {
   min-width: 25px;
   border: none;
   border-bottom: 4px solid #8F8DFF;
@@ -264,7 +268,7 @@ p {
   transition: border-bottom 0.2s ease-in;
 }
 
-.search-box:focus {
+.search-box-container > input:focus {
   border-bottom: 4px solid #474448;
   outline: none;
   transition: border-bottom 0.2s ease-in;
@@ -280,39 +284,39 @@ p {
   color: #8F8DFF;
 }
 
-ul.options {
-  display: block;
+.ac-dropdown {
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
   list-style: none;
-  width: 30rem;
   transition: width 0.3s;
-  margin: auto;
-  position: relative;
+  position: absolute;
+  left: 4px;
+  z-index: 10;
 }
 
-ul.options li {
-  display: block;
-  background: white;
-  margin: 10px auto;
-  padding: 10px;
-  font-size: 1.2rem;
-  width: 100%;
-  border-radius: 2px;
-}
-ul.options li:hover {
+.ac-dropdown-item {
+  background-color: #474448;
+  color: white;
   font-weight: bold;
-  color: #00b4cc;
+  padding: 10px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  width: 100%;
+}
+
+.ac-dropdown-item:hover {
+  background-color: #8F8DFF;
   cursor: pointer;
   transition: 0.3s all;
 }
 
-ul.options li.option-active {
-  background: whitesmoke;
-  font-size: 1.5rem;
-  color: #00b4cc;
+.option-active {
+  color: #8F8DFF;
 }
 
-.no-options {
-  color: white;
+.option-active:hover {
+  color: #474448;
 }
 
 /* Media Queries */
