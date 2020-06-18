@@ -10,6 +10,7 @@ import creatives from './imgs/creatives.svg'
 import analysts from './imgs/analysts.svg'
 import Typist from 'react-typist';
 import 'react-typist/dist/Typist.css'
+import axios from 'axios'
 
 const {setCompanyBetaInfo} = require('../api/company')
 const {updateFreelancerInfo} = require('../api/freelancer')
@@ -51,6 +52,17 @@ class Homepage extends React.Component {
     this.setState({
       modal: !temp
     });
+    // axios.post('http://localhost:5001/stint-landing/us-central1/sendEmail', {
+    //   recipientAddress: "cma4@bu.edu",
+    //   subjectLine: "Hello",
+    //   htmlBody: "<b>Hello world?</b>"
+    // })
+    // .then(res => {
+    //   console.log(res)
+    // })
+    // .catch(error => {
+    //   console.error(error)
+    // })
   }
 
   onChangeName = event => {
