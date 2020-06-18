@@ -4,6 +4,7 @@ import Menu from './Menu.js';
 import Footer from './Footer.js'
 import Button from './Button.js'
 import StudentInfo from './StudentInfo.js'
+import StudentSkills from './StudentSkills.js'
 import app from 'firebase/app';
 import 'firebase/database';
 
@@ -12,7 +13,7 @@ class ProfileCreation extends React.Component {
   constructor(){
     super();
     this.state = {
-      continue: false,
+      continue: true,
       role: [null, null, null],
       company: [null, null, null],
       ec: [null, null, null],
@@ -21,18 +22,28 @@ class ProfileCreation extends React.Component {
   }
 
   updateChildInfo = (stateName, content, index) => {
+    let cleanedState;
+    let temp;
     if (index) {
-      let cleanedState = stateName.replace(/[^A-Za-z]+/g, '')
-      let temp = this.state[cleanedState]
+      cleanedState = stateName.replace(/[^A-Za-z]+/g, '')
+      temp = this.state[cleanedState]
       temp[index] = content
-      this.setState({
-        [cleanedState]: temp
-      })
     } else {
-      this.setState({
-        [stateName]: content
-      })
+      cleanedState = stateName
+      temp = content
     }
+
+    this.setState({
+      [cleanedState]: temp
+    }, function() {
+      if (this.state.year && this.state.colleges && this.state.majors && this.state.minors && this.state.city && this.state.state && this.state.role[0] && this.state.company[0] && this.state.ec[0] && this.state.ecrole[0]) {
+        this.setState({continue: true})
+      }
+      // else if (this.state.continue === true) {
+      //   this.setState({continue: false})
+      // }
+    })
+
   }
 
   render() {
@@ -50,11 +61,12 @@ class ProfileCreation extends React.Component {
 
         <StudentInfo saveToParent={this.updateChildInfo}/>
 
-
         <div className={this.state.continue ? "stint-dialogue" : "loading"}>
           <h2>Look at you, out there doing things!</h2>
           <h3>You’re almost there – just let us know which skills you'd like to provide to companies and you’ll have your very own Stint profile.</h3>
         </div>
+
+        <StudentSkills saveToParent={this.updateChildInfo}/>
 
       </div>
 

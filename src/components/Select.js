@@ -12,6 +12,9 @@ class Select extends React.Component {
 
   componentDidMount(){
     this.setWidth()
+    if (this.props.have) {
+      this.props.saveData(this.props.name, this.state.selected)
+    }
   }
 
   setWidth = () => {
