@@ -59,7 +59,14 @@ export class Autocomplete extends Component {
       filteredOptions,
       showOptions: true,
       userInput: e.currentTarget.value
-    });
+    }, function() {
+      if (!this.props.index) {
+        this.props.saveData(this.props.name, this.state.userInput)
+      } else {
+        this.props.saveData(this.props.name, this.state.userInput, this.props.index)
+      }
+
+      });
 
     // this.setWidth(e.currentTarget.value)
   };
@@ -70,7 +77,14 @@ export class Autocomplete extends Component {
       filteredOptions: [],
       showOptions: false,
       userInput: e.currentTarget.innerText
-    });
+    }, function() {
+      if (!this.props.index) {
+        this.props.saveData(this.props.name, this.state.userInput)
+      } else {
+        this.props.saveData(this.props.name, this.state.userInput, this.props.index)
+      }
+
+      });
     // this.setWidth(e.currentTarget.innerText)
   };
 
@@ -82,7 +96,14 @@ export class Autocomplete extends Component {
         activeOption: 0,
         showOptions: false,
         userInput: filteredOptions[activeOption]
-      });
+      }, function() {
+        if (!this.props.index) {
+          this.props.saveData(this.props.name, this.state.userInput)
+        } else {
+          this.props.saveData(this.props.name, this.state.userInput, this.props.index)
+        }
+
+        });
     } else if (e.keyCode === 38) {
       if (activeOption === 0) {
         return;
