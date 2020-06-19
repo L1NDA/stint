@@ -52,26 +52,19 @@ export class Autocomplete extends Component {
 
   }
 
-  onChange = (e) => {
+  onChange = async (e) => {
 
     const { options } = this.props;
     const userInput = e.currentTarget.value;
     let filteredOptions = [];
 
     if (userInput.length > 2) {
-      if (this.props.name === "city") {
-        console.log('hi')
-        filteredOptions = axios.get("http://localhost:5001/stint-landing/us-central1/getCityPredictions", {textInput:userInput})
-                            .then(res => {
-                              return res
-                            })
-      }
-      else {
+      
       filteredOptions = options.filter(
         (optionName) =>
           optionName.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-      )};
-    }
+    )};
+    
 
     // const filteredOptions = options.filter(
     //   (optionName) =>
@@ -89,8 +82,7 @@ export class Autocomplete extends Component {
       } else {
         this.props.saveData(this.props.name, this.state.userInput, this.props.index)
       }
-
-      });
+    });
 
     // this.setWidth(e.currentTarget.value)
   };
