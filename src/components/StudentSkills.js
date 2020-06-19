@@ -69,6 +69,7 @@ class StudentSkills extends React.Component {
           subtitle="Given messy data scraped from a webpage, you can clean it up nicely and identify customer profiles or pinpoint key trends."
           section="da"
           content={["a personal website"]}
+          skills={DATA_SKILLS}
         />
 
         <div className="hline"></div>
@@ -78,13 +79,14 @@ class StudentSkills extends React.Component {
           subtitle="You’re experienced in designing logos, web pages, icons, or building up a specific brand image."
           section="db"
           content={["a portfolio or personal website"]}
+          skills={DESIGN_SKILLS}
         />
 
         <div className="hline"></div>
 
         <StudentSkillsDropdown
           title="Content Creation & Management"
-          subtitle="You’re a content creator. Blogging, photography, videography, upping your Instagram follower game – you know how it’s done."
+          subtitle="You’re a content creator. Blogging, photography, illustration, upping your Instagram follower game – you know how it’s done."
           section="ccm"
           content={[
             "a Medium account",
@@ -92,6 +94,7 @@ class StudentSkills extends React.Component {
             "a Youtube account",
             "a portfolio or personal website",
           ]}
+          skills={CONTENT_SKILLS}
         />
 
         <div className="hline"></div>
@@ -101,6 +104,7 @@ class StudentSkills extends React.Component {
           subtitle="You can pull a few programming languages out of your toolbox and use them for front-end or back-end work."
           section="sd"
           content={["a Github profile", "a personal website"]}
+          skills={SOFTWARE_SKILLS}
         />
       </form>
     );
