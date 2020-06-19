@@ -157,6 +157,88 @@
   /* color: #FFFFFF; */
 }
 
+.skill-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.skill {
+  padding: 5px 40px;
+  margin-right: 10px;
+  background-color: #F5F5F5;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.skill:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: transform 0.3s linear;
+  box-shadow: 0px 4px 32px rgba(71, 68, 72, 0.15);
+}
+
+.skill-name {
+  display: inline-flex;
+  z-index: 5;
+}
+
+.skill-level {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.skill:hover > .skill-name {
+  display: none;
+}
+
+.skill-level, .plus, .minus {
+  visibility: hidden;
+}
+
+.skill:hover > .skill-level, .skill:hover > .plus, .skill:hover > .minus {
+  visibility: visible;
+  z-index: 5;
+}
+
+.plus {
+  position: absolute;
+  right: 0px;
+  padding: 5px 10px;
+  z-index: 6;
+  background-color: none;
+}
+
+.minus {
+  position: absolute;
+  left: 0px;
+  padding: 5px 10px;
+  z-index: 6;
+  background-color: none;
+}
+
+.plus:hover, .minus:hover {
+  background-color: rgb(0,0,0,0.1);
+  transition: all 0.1s linear;
+}
+
+.skill-bar {
+  background-color: #05D9B2;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  z-index: 0;
+  width: 0%;
+  transition: width 0.1s ease-in;
+}
+
+#hidden-skill-level {
+  visibility: hidden;
+  position: absolute;
+}
+
 /* Media Queries */
 
 /* Smaller Laptops ----------- */

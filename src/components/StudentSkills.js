@@ -35,7 +35,7 @@ class StudentSkills extends React.Component {
 
         <StudentSkillsDropdown
           title="Content Creation & Management"
-          subtitle="You’re a content creator. Blogging, photography, videography, upping your Instagram follower game – you know how it’s done."
+          subtitle="You’re a content creator. Blogging, photography, illustration, upping your Instagram follower game – you know how it’s done."
           section="ccm"
           content={["a Medium account", "an Instagram", "a Youtube account", "a portfolio or personal website"]}/>
 

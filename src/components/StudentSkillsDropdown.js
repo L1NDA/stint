@@ -12,6 +12,19 @@ class StudentSkillsDropdown extends React.Component {
     }
   }
 
+  componentDidUpdate() {
+    if (this.state.details && !this.state.width) {
+      this.setWidth();
+    }
+  }
+
+  setWidth = () => {
+    const optionEle = document.getElementById(`hidden-skill-level`);
+    console.log(optionEle)
+    const width = optionEle.offsetWidth + 5; // padding width or arrows
+    this.setState({ width: `${width}px` });
+  };
+
   handleHaves = (stateName, content, index = null) => {
     if (content === "have") {
       this.setState({
@@ -32,6 +45,31 @@ class StudentSkillsDropdown extends React.Component {
     this.setState({
       details: !this.state.details
     })
+  }
+
+  handleSkillClick = (e, skill, type) => {
+    e.stopPropagation();
+    let tempLevel = this.state[skill]
+    if (tempLevel === undefined) {
+      tempLevel = 0
+    }
+    if (tempLevel && type === 'default') {
+      this.setState({
+        [skill]: 0
+      })
+    } else if (type === 'plus') {
+      this.setState({
+        [skill]: tempLevel + 1
+      })
+    } else if (type === 'minus') {
+      this.setState({
+        [skill]: tempLevel - 1
+      })
+    } else {
+      this.setState({
+        [skill]: 3
+      })
+    }
   }
 
   render() {
@@ -64,6 +102,46 @@ class StudentSkillsDropdown extends React.Component {
               </React.Fragment> : <React.Fragment>.</React.Fragment>}</h3>
               );
             })}
+            <p>I have the following skills (optional):</p>
+            <div className="skill-container">
+              <div className="skill"
+                   onClick={(e) => this.handleSkillClick(e, "Java", 'default')}
+                   style={{ minWidth: this.state.width }}>
+                <span className="skill-name">Java</span>
+                <span className="minus" onClick={(e) => this.handleSkillClick(e, "Java", 'minus')}>-</span>
+                <span className="skill-level">Skill Level</span>
+                <span className="plus" onClick={(e) => this.handleSkillClick(e, "Java", 'plus')}>+</span>
+                <div className="skill-bar" style={{width: `${this.state.Java * 20}%`}}></div>
+              </div>
+              <div className="skill">Python</div>
+              <div className="skill" id="hidden-skill-level">Skill Level</div>
+            </div>
+
+            <h3>I <Select
+              items={["have", "have not"]}
+              name={`${this.props.section}HaveAward`}
+              saveData={this.handleHaves}
+              have="true"/>
+            won a relevant
+
+            {this.state[`${this.props.section}HaveAward`] ?
+            <Select
+              items={["(insert category*)", "competition", "academic", "other"]}
+              name={`${this.props.section}HaveAwardCategory`}
+              saveData={this.handleChange}/>
+            : null}
+
+            &nbsp; award
+            {this.state[`${this.props.section}HaveAward`] ?
+            <React.Fragment>
+            : <Autocomplete
+                options={[]}
+                name={`${this.props.section}HaveAwardContent`}
+                placeholder="(award name*)"
+                saveData={this.handleChange}
+                required={true}/>
+            </React.Fragment>
+            : null}.</h3>
           </div>
           : null}
 
