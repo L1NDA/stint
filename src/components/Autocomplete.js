@@ -61,10 +61,15 @@ export class Autocomplete extends Component {
     if (userInput.length > 2) {
       if (this.props.name === "city") {
         console.log('hi')
-        filteredOptions = axios.get("http://localhost:5001/stint-landing/us-central1/getCityPredictions", {textInput:userInput})
+        filteredOptions = axios.post("http://localhost:5001/stint-landing/us-central1/getCityPredictions", {textInput:userInput})
                             .then(res => {
-                              return res
+                              console.log(res)
+                              return res.data
                             })
+                            .catch(error => {
+                              console.error(error)
+                            })
+      console.log(filteredOptions)
       }
       else {
       filteredOptions = options.filter(

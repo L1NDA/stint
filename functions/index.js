@@ -2,7 +2,7 @@ const functions = require('firebase-functions');
 const nodemailer = require("nodemailer")
 const cors = require('cors')({origin: true});
 const axios = require('axios')
-const { mailConfig } = require("./config")
+const { mailConfig, googleApiKey } = require("./config")
 
 const HOST_NAME = "smtp.gmail.com"
 const PORT = 465
@@ -38,16 +38,18 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
     });    
 });
 
+const apiUrl = "https://maps.googleapis.com/maps/api/place/autocomplete/json?types=(cities)&key=" + googleApiKey + "&input="
+
 exports.getCityPredictions = functions.https.onRequest((req, res) => {
 	cors(req, res, () => {
 		const {textInput} = req.body
-		let predictionResults = []
+		let predictionResults = new Set()
 		return axios.get(apiUrl + encodeURI(textInput))
 			.then(function (response) {
-				if (response.predictions) {
-					response.predictions.forEach(prediction => predictionResults.push(prediction.structuredFormatting.mainText))
+				if (response.data.predictions) {
+					response.data.predictions.forEach(prediction => predictionResults.add(prediction.structured_formatting.main_text))
 				}
-				return res.status(200).send(predictionResults)
+				return res.status(200).send(Array.from(predictionResults))
 			})
 			.catch(function (error) {
 				return res.send(error.toString())

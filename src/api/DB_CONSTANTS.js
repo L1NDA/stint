@@ -31,7 +31,7 @@ JSON Structure:
 			softwareDev: {
 				githubUrl: string
 				personalWebsite: string
-				softwareSkills: list[string]
+				softwareSkills: dict[string]
 				softwareAwardCategories: list[string]
 				softwareAwards: list[string]
 			}
