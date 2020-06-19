@@ -52,7 +52,7 @@ export class Autocomplete extends Component {
 
   }
 
-  onChange = (e) => {
+  onChange = async (e) => {
 
     const { options } = this.props;
     const userInput = e.currentTarget.value;
@@ -61,15 +61,13 @@ export class Autocomplete extends Component {
     if (userInput.length > 2) {
       if (this.props.name === "city") {
         console.log('hi')
-        filteredOptions = axios.post("http://localhost:5001/stint-landing/us-central1/getCityPredictions", {textInput:userInput})
-                            .then(res => {
-                              console.log(res)
-                              return res.data
-                            })
-                            .catch(error => {
-                              console.error(error)
-                            })
-      console.log(filteredOptions)
+        filteredOptions = await axios.post("http://localhost:5001/stint-landing/us-central1/getCityPredictions", {textInput:userInput})
+          .then(res => {
+            return res.data
+          })
+          .catch(error => {
+            console.error(error)
+          })
       }
       else {
       filteredOptions = options.filter(
@@ -94,6 +92,7 @@ export class Autocomplete extends Component {
       } else {
         this.props.saveData(this.props.name, this.state.userInput, this.props.index)
       }
+      console.log(this.state)
 
       });
 
