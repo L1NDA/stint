@@ -181,12 +181,17 @@ export class Autocomplete extends Component {
             onBlur={this.handleBlur}
             className="search-box-container"
             style={{fontFamily: 'Source Sans Pro, sans-serif', fontSize: "24px", fontWeight: "bold"}}
+            required={this.props.required}
           />
         {optionList}
       </span>
     );
   }
 }
+
+Autocomplete.defaultProps = {
+  required: false,
+};
 
 export default Autocomplete;
 
