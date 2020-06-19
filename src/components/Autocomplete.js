@@ -46,9 +46,15 @@ export class Autocomplete extends Component {
   }
 
   handleBlur = () => {
-    this.setState({
-        focus: false
-      })
+
+    setTimeout(
+        function() {
+            this.setState({focus: false});
+        }
+        .bind(this),
+        5000
+    );
+
 
   }
 
@@ -59,12 +65,12 @@ export class Autocomplete extends Component {
     let filteredOptions = [];
 
     if (userInput.length > 2) {
-      
+
       filteredOptions = options.filter(
         (optionName) =>
           optionName.toLowerCase().indexOf(userInput.toLowerCase()) > -1
     )};
-    
+
 
     // const filteredOptions = options.filter(
     //   (optionName) =>

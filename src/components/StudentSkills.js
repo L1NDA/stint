@@ -16,12 +16,13 @@ const DATA_SKILLS = [
 ];
 const CONTENT_SKILLS = [
   "Blogging",
-  "Digital Media",
-  "Adobe Premiere Pro",
+  "Content Strategy",
+  "Digital Marketing",
+  "Premiere Pro",
   "iMovie",
   "Final Cut Pro",
-  "Adobe After Effects",
-  "Adobe Lightroom",
+  "After Effects",
+  "Lightroom",
 ];
 const DESIGN_SKILLS = [
   "UI Design",
@@ -34,6 +35,9 @@ const DESIGN_SKILLS = [
   "Figma",
   "Photoshop",
   "Illustrator",
+  "Animation",
+  "Digital Illustration",
+  "Physical Illustration"
 ];
 const SOFTWARE_SKILLS = [
   "Java",
@@ -76,7 +80,7 @@ class StudentSkills extends React.Component {
 
         <StudentSkillsDropdown
           title="Design & Branding"
-          subtitle="You’re experienced in designing logos, web pages, icons, or building up a specific brand image."
+          subtitle="You’re experienced in designing logos, web pages, illustrations, or building up a specific brand image."
           section="db"
           content={["a portfolio or personal website"]}
           skills={DESIGN_SKILLS}
@@ -86,7 +90,7 @@ class StudentSkills extends React.Component {
 
         <StudentSkillsDropdown
           title="Content Creation & Management"
-          subtitle="You’re a content creator. Blogging, photography, illustration, upping your Instagram follower game – you know how it’s done."
+          subtitle="You’re a content creator. Blogging, photography, videography, upping your Instagram follower game – you know how it’s done."
           section="ccm"
           content={[
             "a Medium account",

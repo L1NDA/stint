@@ -67,7 +67,7 @@ class StudentSkillsDropdown extends React.Component {
       })
     } else {
       this.setState({
-        [skill]: 3
+        [skill]: 2
       })
     }
   }

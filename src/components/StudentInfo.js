@@ -24,9 +24,6 @@ class StudentInfo extends React.Component {
       <form className="student-dialogue" autocomplete="off">
         <div className="student-dialogue-block">
 
-        <h3>I am a <Select items={Year} name="year" saveData={this.handleChange}/> at
-        <Autocomplete options={Colleges} name="colleges" placeholder="(insert college*)" saveData={this.handleChange}/>.</h3>
-
         <h3>I am a <Select items={Year} name="year" saveData={this.handleChange}/>
         at <Autocomplete
              options={Colleges}
