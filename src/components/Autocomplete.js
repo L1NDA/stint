@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AutosizeInput from 'react-input-autosize';
+import axios from 'axios'
 
 export class Autocomplete extends Component {
   static propTypes = {
@@ -58,10 +59,18 @@ export class Autocomplete extends Component {
     let filteredOptions = [];
 
     if (userInput.length > 2) {
+      if (this.props.name === "city") {
+        console.log('hi')
+        filteredOptions = axios.get("http://localhost:5001/stint-landing/us-central1/getCityPredictions", {textInput:userInput})
+                            .then(res => {
+                              return res
+                            })
+      }
+      else {
       filteredOptions = options.filter(
         (optionName) =>
           optionName.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-      );
+      )};
     }
 
     // const filteredOptions = options.filter(
