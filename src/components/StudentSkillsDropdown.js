@@ -102,19 +102,23 @@ class StudentSkillsDropdown extends React.Component {
               </React.Fragment> : <React.Fragment>.</React.Fragment>}</h3>
               );
             })}
+            <div style={{margin: "50px 0"}}>
             <p>I have the following skills (optional):</p>
             <div className="skill-container">
-              <div className="skill"
-                   onClick={(e) => this.handleSkillClick(e, "Java", 'default')}
-                   style={{ minWidth: this.state.width }}>
-                <span className="skill-name">Java</span>
-                <span className="minus" onClick={(e) => this.handleSkillClick(e, "Java", 'minus')}>-</span>
-                <span className="skill-level">Skill Level</span>
-                <span className="plus" onClick={(e) => this.handleSkillClick(e, "Java", 'plus')}>+</span>
-                <div className="skill-bar" style={{width: `${this.state.Java * 20}%`}}></div>
-              </div>
-              <div className="skill">Python</div>
+              {this.props.skills.map((skill, index) => {
+                return (
+                  <div className="skill"
+                       onClick={(e) => this.handleSkillClick(e, skill, 'default')}
+                       style={{ minWidth: this.state.width }}>
+                    <span className="skill-name">{skill}</span>
+                    <span className="minus" onClick={(e) => this.handleSkillClick(e, skill, 'minus')}>-</span>
+                    <span className="skill-level">Skill Level</span>
+                    <span className="plus" onClick={(e) => this.handleSkillClick(e, skill, 'plus')}>+</span>
+                    <div className="skill-bar" style={{width: `${this.state[skill] * 20}%`}}></div>
+                  </div>
+                )})}
               <div className="skill" id="hidden-skill-level">Skill Level</div>
+            </div>
             </div>
 
             <h3>I <Select
@@ -131,7 +135,7 @@ class StudentSkillsDropdown extends React.Component {
               saveData={this.handleChange}/>
             : null}
 
-            &nbsp; award
+            &nbsp;award
             {this.state[`${this.props.section}HaveAward`] ?
             <React.Fragment>
             : <Autocomplete

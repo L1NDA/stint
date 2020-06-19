@@ -164,7 +164,7 @@
 
 .skill {
   padding: 5px 40px;
-  margin-right: 10px;
+  margin: 5px;
   background-color: #F5F5F5;
   position: relative;
   display: flex;
@@ -174,9 +174,8 @@
 
 .skill:hover {
   cursor: pointer;
-  transform: scale(1.05);
-  transition: transform 0.3s linear;
   box-shadow: 0px 4px 32px rgba(71, 68, 72, 0.15);
+  background-color: #E0E0E0
 }
 
 .skill-name {
@@ -191,7 +190,7 @@
 }
 
 .skill:hover > .skill-name {
-  display: none;
+  visibility: hidden;
 }
 
 .skill-level, .plus, .minus {
