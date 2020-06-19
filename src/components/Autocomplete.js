@@ -59,22 +59,12 @@ export class Autocomplete extends Component {
     let filteredOptions = [];
 
     if (userInput.length > 2) {
-      if (this.props.name === "city") {
-        console.log('hi')
-        filteredOptions = await axios.post("http://localhost:5001/stint-landing/us-central1/getCityPredictions", {textInput:userInput})
-          .then(res => {
-            return res.data
-          })
-          .catch(error => {
-            console.error(error)
-          })
-      }
-      else {
+      
       filteredOptions = options.filter(
         (optionName) =>
           optionName.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-      )};
-    }
+    )};
+    
 
     // const filteredOptions = options.filter(
     //   (optionName) =>
@@ -92,9 +82,7 @@ export class Autocomplete extends Component {
       } else {
         this.props.saveData(this.props.name, this.state.userInput, this.props.index)
       }
-      console.log(this.state)
-
-      });
+    });
 
     // this.setWidth(e.currentTarget.value)
   };
