@@ -24,7 +24,11 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-typist": "^2.0.5",
+<<<<<<< HEAD
     "surge": "^0.21.3"
+=======
+    "stripe": "^8.64.0"
+>>>>>>> 31e88a92db486063f70903ddeec0cf8b5c8bc501
   },
   "scripts": {
     "start": "react-scripts start",
