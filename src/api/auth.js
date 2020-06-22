@@ -49,34 +49,21 @@ const authUiConfig = {
 	  const photoUrl = user.photoURL;
 	  const uid = user.uid;
 
-	  const isNewUser = authResult.additionalUserInfo.isNewUser
-
 	  let newFreelancer = {}
 	  newFreelancer[FREELANCER_NAME] = displayName
 	  newFreelancer[FREELANCER_EMAIL] = email
 	  newFreelancer[FREELANCER_PHOTO_URL] = photoUrl
 	  const freelancerRef = firebase.database().ref(FREELANCERS_REF_PATH + "/" +uid)
-	  if (isNewUser) {
-	  	freelancerRef.set(newFreelancer, function(error) {
-	  		if (error) {
-	  			console.log("Error: freelancer info not added.", newFreelancer)
-	  		}
-	  		else {
-	  			console.log("Freelancer info added successfully.")
-	  		}
-	  	})
-	  }
-	  else {
-	  	freelancerRef.update(newFreelancer, function(error) {
-	  		if (error) {
-	  			console.log("Error: freelancer info not updated.", newFreelancer)
-	  		}
-	  		else {
-	  			console.log("Freelancer info updated successfully.")
-	  		}
-	  	})
-	  }
-      return true;
+	  return freelancerRef.update(newFreelancer, function(error) {
+  		if (error) {
+  			console.log("Error: freelancer info not updated.", error)
+  		}
+  		else {
+  			console.log("Freelancer info updated successfully.")
+  		}
+  	  }).then(function() {
+  	  	window.location.pathname = "/hire"
+  	  })
     },
     signInFailure: function(error) {
 	    console.log("sign in failed")
@@ -89,7 +76,7 @@ const authUiConfig = {
   },
   // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
   signInFlow: "popup",
-  signInSuccessUrl: "/hire",
+  signInSuccessUrl: "",
   signInOptions: [
     // Leave the lines as is for the providers you want to offer your users.
 
@@ -136,7 +123,6 @@ const linkedinCallback = (code, state, error, error_description) => {
 
 module.exports =  { 
 	getSignedInUser,
-	// initCheckAuth,
 	authUi,
 	authUiConfig,
 	linkedinCallback,

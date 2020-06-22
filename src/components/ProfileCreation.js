@@ -7,6 +7,7 @@ import StudentInfo from './StudentInfo.js'
 import StudentSkills from './StudentSkills.js'
 import app from 'firebase/app';
 import 'firebase/database';
+const {setFreelancerProfile} = require('../api/freelancer')
 
 class ProfileCreation extends React.Component {
 
@@ -45,7 +46,23 @@ class ProfileCreation extends React.Component {
       //   this.setState({continue: false})
       // }
     })
+  }
 
+  saveStateToDb = (e) => {
+    e.preventDefault()
+    const temp = this.state
+    let doesData
+    let doesDesign
+    let doesContent
+    let doesSoftware
+    setFreelancerProfile(temp.year, temp.school, temp.major, temp.minor,
+                         temp.city, temp.state,
+                         temp.role, temp.company,
+                         temp.ecrole, temp.ec,
+                         doesData,
+                         doesDesign,
+                         doesContent,
+                         doesSoftware, temp.githubUrl, temp.personalWebsiteUrl, temp.skills, temp.awardCategories, temp.awards)
   }
 
   render() {
