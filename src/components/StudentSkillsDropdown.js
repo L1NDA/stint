@@ -126,7 +126,7 @@ class StudentSkillsDropdown extends React.Component {
               name={`${this.props.section}HaveAward`}
               saveData={this.handleHaves}
               have="true"/>
-            won a relevant
+            won a relevant&nbsp;
 
             {this.state[`${this.props.section}HaveAward`] ?
             <Select

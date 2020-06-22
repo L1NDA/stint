@@ -1,5 +1,5 @@
 import React from 'react';
-import {Colleges, Majors} from './LoginDropdowns.js'
+import {Colleges, Majors, Cities} from './LoginDropdowns.js'
 import Select from './Select.js'
 import Autocomplete from './Autocomplete.js'
 import firebaseConfig from '../config.js'
@@ -12,10 +12,16 @@ class StudentInfo extends React.Component {
 
   constructor(){
     super();
+    this.state = {}
   }
 
-  handleChange = (stateName, content, index = null) => {
+  handleChange = (stateName, content, index = null, finished = null) => {
     this.props.saveToParent(stateName, content, index)
+    if (stateName === "major" || stateName === "major2") {
+      this.setState({
+        [stateName]: true
+      })
+    }
   }
 
   render() {
@@ -33,15 +39,29 @@ class StudentInfo extends React.Component {
              required={true}/>.</h3>
         <h3>I'm majoring in <Autocomplete
                               options={Majors}
-                              name="majors"
+                              name="major"
+                              index="0"
                               placeholder="(insert major*)"
                               saveData={this.handleChange}
-                              required={true}/> and minoring in
+                              required={true}
+                              optionalParent/>
+          {this.state.major ?
+            <span className="optional-chunk" style={{filter: this.state.major2 ? "opacity(1)" : null}}>and <Autocomplete
+                                  className="optional-input"
+                                  options={Majors}
+                                  name="major2"
+                                  index="1"
+                                  placeholder="(insert second major)"
+                                  saveData={this.handleChange}
+                                  required={false}
+                                  /> </span>
+              : null}
+                          and minoring in
         <Autocomplete options={Majors} name="minors" placeholder="(insert minor)" saveData={this.handleChange}/>.</h3>
 
         <h3>I’m currently residing in
             <Autocomplete
-              options={["Boston", "New York City", "San Francisco"]}
+              options={Cities}
               name="city"
               placeholder="(insert city*)"
               saveData={this.handleChange}

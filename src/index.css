@@ -266,6 +266,7 @@ p {
   display: inline-block;
 
   transition: border-bottom 0.2s ease-in;
+  z-index: 3
 }
 
 .search-box-container > input:focus {
@@ -303,6 +304,7 @@ p {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
   width: 100%;
+  z-index: 10;
 }
 
 .ac-dropdown-item:hover {
@@ -318,6 +320,8 @@ p {
 .option-active:hover {
   color: #474448;
 }
+
+
 
 /* Media Queries */
 

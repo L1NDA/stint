@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AutosizeInput from 'react-input-autosize';
-import axios from 'axios'
+import axios from 'axios';
+import { debounce } from 'lodash'
+
+var clickedDropdown = false
 
 export class Autocomplete extends Component {
-  static propTypes = {
-    options: PropTypes.instanceOf(Array).isRequired
-  };
+  // static propTypes = {
+  //   options: PropTypes.instanceOf(Array).isRequired
+  // };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       activeOption: 0,
       filteredOptions: [],
@@ -17,6 +20,7 @@ export class Autocomplete extends Component {
       userInput: '',
       focus: false
     };
+    this.finishedTypingDebounced = debounce(this.finishedTyping, 1500);
   }
 
   // componentDidMount() {
@@ -38,6 +42,15 @@ export class Autocomplete extends Component {
   //   show.style.width = extraWidth + "px";
   // };
 
+  finishedTyping = () => {
+    if (!this.props.index) {
+      this.props.saveData(this.props.name, this.state.userInput, null, true)
+    } else {
+      this.props.saveData(this.props.name, this.state.userInput, this.props.index, true)
+    }
+
+  }
+
   handleFocus = () => {
 
       this.setState({
@@ -47,19 +60,24 @@ export class Autocomplete extends Component {
 
   handleBlur = () => {
 
-    setTimeout(
-        function() {
-            this.setState({focus: false});
-        }
-        .bind(this),
-        5000
-    );
+    if (clickedDropdown) {
+      clickedDropdown = false
+    } else {
+      this.setState({focus: false});
+    }
+
+    // setTimeout(
+    //     function() {
+    //         this.setState({focus: false});
+    //     }
+    //     .bind(this),
+    //     5000
+    // );
 
 
   }
 
   onChange = async (e) => {
-
     const { options } = this.props;
     const userInput = e.currentTarget.value;
     let filteredOptions = [];
@@ -83,7 +101,9 @@ export class Autocomplete extends Component {
       showOptions: true,
       userInput: e.currentTarget.value
     }, function() {
-      if (!this.props.index) {
+      if (this.props.optionalParent) {
+        this.finishedTypingDebounced()
+      } else if (!this.props.index) {
         this.props.saveData(this.props.name, this.state.userInput)
       } else {
         this.props.saveData(this.props.name, this.state.userInput, this.props.index)
@@ -93,7 +113,8 @@ export class Autocomplete extends Component {
     // this.setWidth(e.currentTarget.value)
   };
 
-  onClick = (e) => {
+  onMouseDown = (e) => {
+    clickedDropdown = true
     this.setState({
       activeOption: 0,
       filteredOptions: [],
@@ -102,6 +123,8 @@ export class Autocomplete extends Component {
     }, function() {
       if (!this.props.index) {
         this.props.saveData(this.props.name, this.state.userInput)
+      } else if (this.props.optionalParent) {
+        this.props.saveData(this.props.name, this.state.userInput, true)
       } else {
         this.props.saveData(this.props.name, this.state.userInput, this.props.index)
       }
@@ -121,7 +144,10 @@ export class Autocomplete extends Component {
       }, function() {
         if (!this.props.index) {
           this.props.saveData(this.props.name, this.state.userInput)
-        } else {
+        } else if (this.props.optionalParent) {
+          this.props.saveData(this.props.name, this.state.userInput, true)
+        }
+        else {
           this.props.saveData(this.props.name, this.state.userInput, this.props.index)
         }
 
@@ -142,7 +168,7 @@ export class Autocomplete extends Component {
   render() {
     const {
       onChange,
-      onClick,
+      onMouseDown,
       onKeyDown,
 
       state: { activeOption, filteredOptions, showOptions, userInput , focus}
@@ -160,7 +186,7 @@ export class Autocomplete extends Component {
                 className = 'ac-dropdown-item'
               }
               return (
-                <div className={className} key={optionName} onClick={onClick}>
+                <div className={className} key={optionName} onMouseDown={onMouseDown}>
                   {optionName}
                 </div>
               );

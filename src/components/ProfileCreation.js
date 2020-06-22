@@ -14,6 +14,8 @@ class ProfileCreation extends React.Component {
     super();
     this.state = {
       continue: true,
+      major: [null, null],
+      minor: [null, null],
       role: [null, null, null],
       company: [null, null, null],
       ec: [null, null, null],
