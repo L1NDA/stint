@@ -17,7 +17,7 @@ class StudentInfo extends React.Component {
 
   handleChange = (stateName, content, index = null, finished = null) => {
     this.props.saveToParent(stateName, content, index)
-    if (stateName === "major" || stateName === "major2") {
+    if (stateName === "major" || stateName === "major2" || stateName==="minor" || stateName==="minor2") {
       this.setState({
         [stateName]: true
       })
@@ -57,7 +57,25 @@ class StudentInfo extends React.Component {
                                   /> </span>
               : null}
                           and minoring in
-        <Autocomplete options={Majors} name="minors" placeholder="(insert minor)" saveData={this.handleChange}/>.</h3>
+        <Autocomplete
+          options={Majors}
+          name="minor"
+          placeholder="(insert minor)"
+          saveData={this.handleChange}
+          index="0"
+          required={false}
+          optionalParent/>
+          {this.state.minor ?
+            <span className="optional-chunk" style={{filter: this.state.minor2 ? "opacity(1)" : null}}>and <Autocomplete
+                                  className="optional-input"
+                                  options={Majors}
+                                  name="minor2"
+                                  index="1"
+                                  placeholder="(insert second minor)"
+                                  saveData={this.handleChange}
+                                  required={false}
+                                  /> </span>
+              : null}.</h3>
 
         <h3>I’m currently residing in
             <Autocomplete
