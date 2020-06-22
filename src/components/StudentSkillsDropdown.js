@@ -1,6 +1,7 @@
 import React from 'react';
 import Select from './Select.js'
 import Autocomplete from './Autocomplete.js'
+import Button from './Button.js'
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 
 class StudentSkillsDropdown extends React.Component {
@@ -25,6 +26,14 @@ class StudentSkillsDropdown extends React.Component {
     this.setState({ width: `${width}px` });
   };
 
+  // For component that needs a function prop
+
+  saveState = (stateName, content, index = null) => {
+    this.setState({
+      [stateName]: content
+    })
+  }
+
   handleHaves = (stateName, content, index = null) => {
     if (content === "have") {
       this.setState({
@@ -37,8 +46,12 @@ class StudentSkillsDropdown extends React.Component {
     }
   }
 
+  // handleChange = (stateName, content, index = null) => {
+  //   this.props.handleChange(stateName, content, index)
+  // }
+
   handleChange = (stateName, content, index = null) => {
-    // this.props.saveToParent(stateName, content, index)
+    this.props.saveEntireState()
   }
 
   handleClick = () => {
@@ -98,7 +111,7 @@ class StudentSkillsDropdown extends React.Component {
                 {text}
                 {this.state[`${this.props.section}Have${index}`] ?
                 <React.Fragment>
-                  : <Autocomplete options={[]} name={`${this.props.section}${index}`} placeholder="(insert URL*)" saveData={this.handleChange}/>.
+                  : <Autocomplete options={[]} name={`${this.props.section}${index}`} placeholder="(insert URL*)" saveData={this.saveState}/>.
               </React.Fragment> : <React.Fragment>.</React.Fragment>}</h3>
               );
             })}
@@ -132,7 +145,7 @@ class StudentSkillsDropdown extends React.Component {
             <Select
               items={["(insert category*)", "competition", "academic", "other"]}
               name={`${this.props.section}HaveAwardCategory`}
-              saveData={this.handleChange}/>
+              saveData={this.saveState}/>
             : null}
 
             &nbsp;award
@@ -142,12 +155,15 @@ class StudentSkillsDropdown extends React.Component {
                 options={[]}
                 name={`${this.props.section}HaveAwardContent`}
                 placeholder="(award name*)"
-                saveData={this.handleChange}
+                saveData={this.saveState}
                 required={true}/>
             </React.Fragment>
             : null}.</h3>
+          <Button margin="50px" text={`List me under ${this.props.title}!`} onClick={this.props.handleButton(this.props.section, this.state)}/>
           </div>
           : null}
+
+
 
         </div>
     )}

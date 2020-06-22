@@ -61,8 +61,9 @@ class StudentSkills extends React.Component {
     super();
   }
 
-  handleChange = (stateName, content, index = null) => {
-    this.props.saveToParent(stateName, content, index);
+  saveEntireState = (section, state) => {
+    this.props.saveToParent(section, state);
+    // console.log(state)
   };
 
   render() {
@@ -74,6 +75,7 @@ class StudentSkills extends React.Component {
           section="da"
           content={["a personal website"]}
           skills={DATA_SKILLS}
+          handleButton={this.saveEntireState}
         />
 
         <div className="hline"></div>
@@ -84,6 +86,7 @@ class StudentSkills extends React.Component {
           section="db"
           content={["a portfolio or personal website"]}
           skills={DESIGN_SKILLS}
+          handleButton={this.saveEntireState}
         />
 
         <div className="hline"></div>
@@ -99,6 +102,7 @@ class StudentSkills extends React.Component {
             "a portfolio or personal website",
           ]}
           skills={CONTENT_SKILLS}
+          handleButton={this.saveEntireState}
         />
 
         <div className="hline"></div>
@@ -109,6 +113,7 @@ class StudentSkills extends React.Component {
           section="sd"
           content={["a Github profile", "a personal website"]}
           skills={SOFTWARE_SKILLS}
+          handleButton={this.saveEntireState}
         />
       </form>
     );

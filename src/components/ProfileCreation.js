@@ -42,6 +42,7 @@ class ProfileCreation extends React.Component {
       if (this.state.year && this.state.colleges && this.state.majors && this.state.minors && this.state.city && this.state.state && this.state.role[0] && this.state.company[0] && this.state.ec[0] && this.state.ecrole[0]) {
         this.setState({continue: true})
       }
+      console.log(this.state)
       // else if (this.state.continue === true) {
       //   this.setState({continue: false})
       // }
@@ -65,6 +66,10 @@ class ProfileCreation extends React.Component {
                          doesSoftware, temp.githubUrl, temp.personalWebsiteUrl, temp.skills, temp.awardCategories, temp.awards)
   }
 
+  saveAllChildren = (section, state) => {
+    
+  }
+
   render() {
 
     return (
@@ -85,7 +90,7 @@ class ProfileCreation extends React.Component {
           <h3>You’re almost there – just let us know which skills you'd like to provide to companies and you’ll have your very own Stint profile.</h3>
         </div>
 
-        <StudentSkills saveToParent={this.updateChildInfo}/>
+        <StudentSkills saveToParent={this.saveAllChildren}/>
 
       </div>
 
