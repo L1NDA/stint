@@ -4,12 +4,15 @@ import Autocomplete from './Autocomplete.js'
 import Button from './Button.js'
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 
+const SKILLS = "skills"
+
 class StudentSkillsDropdown extends React.Component {
 
   constructor(){
     super();
     this.state = {
-      details: false
+      details: false,
+      [SKILLS]: {}
     }
   }
 
@@ -62,28 +65,53 @@ class StudentSkillsDropdown extends React.Component {
 
   handleSkillClick = (e, skill, type) => {
     e.stopPropagation();
-    let tempLevel = this.state[skill]
+    let tempLevel = this.state[SKILLS][skill]
     if (tempLevel === undefined) {
       tempLevel = 0
     }
     if (tempLevel && type === 'default') {
-      this.setState({
-        [skill]: 0
-      })
+      tempLevel = 0
     } else if (type === 'plus') {
-      this.setState({
-        [skill]: tempLevel + 1
-      })
+      tempLevel += 1
     } else if (type === 'minus') {
-      this.setState({
-        [skill]: tempLevel - 1
-      })
+      tempLevel -= 1
     } else {
-      this.setState({
-        [skill]: 2
-      })
+      tempLevel = 2
     }
+
+    let newSkills = {...this.state[SKILLS], [skill]: Math.min(5, Math.max(0,tempLevel))}
+    if (tempLevel <= 0) {
+      delete newSkills[skill]
+    }
+    this.setState({
+      [SKILLS]: newSkills
+    })
   }
+
+  // handleSkillClick = (e, skill, type) => {
+  //   e.stopPropagation();
+  //   let tempLevel = this.state[skill]
+  //   if (tempLevel === undefined) {
+  //     tempLevel = 0
+  //   }
+  //   if (tempLevel && type === 'default') {
+  //     this.setState({
+  //       [skill]: 0
+  //     })
+  //   } else if (type === 'plus') {
+  //     this.setState({
+  //       [skill]: tempLevel + 1
+  //     })
+  //   } else if (type === 'minus') {
+  //     this.setState({
+  //       [skill]: tempLevel - 1
+  //     })
+  //   } else {
+  //     this.setState({
+  //       [skill]: 2
+  //     })
+  //   }
+  // }
 
   render() {
       return (
