@@ -49,7 +49,7 @@ class Company extends React.Component {
         <div className="company-text">
           <h1>Access student talent anywhere, anytime.</h1>
           <h3>Experience an easier way to find immediate student hires for your company tasks.</h3>
-          <Button text="Join our beta" style={{marginTop: "50px"}} type="company"/>
+          <Button text="Join our beta" style={{marginTop: "50px"}} category="company"/>
         </div>
         <img src={companyImage} className="homepage-image company-image"/>
       </div>
@@ -160,7 +160,7 @@ class Company extends React.Component {
         <h1>Hire now.</h1>
         <h3 style={{textAlign: "center"}}>Got a task you need extra hands for? Don’t have the resources to recruit for full-time? No problem! <br/><br/>
           Connect with talented and capable students who are itching to put their time and skills to good use.</h3>
-        <Button text="Join our beta" style={{marginTop: "50px"}} type="company"/>
+        <Button text="Join our beta" style={{marginTop: "50px"}} category="company"/>
       </div>
 
       <Footer/>

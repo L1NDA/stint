@@ -112,11 +112,11 @@ class Button extends React.Component {
 
     return (
       <>
-        {this.props.type ?
+        {this.props.category ?
           <>
           <div className="modal center" style={{display: this.state.modal ? 'flex' : 'none'}}>
               <TiTimes className="modal-x" onClick={this.handleButtonClick}/>
-              {this.props.type === COMPANY ?
+              {this.props.category === COMPANY ?
 
                 <form>
                   <div className="flex-column" style={{marginBottom: "20px"}}>
@@ -202,7 +202,7 @@ class Button extends React.Component {
 
                 : null}
 
-                {this.props.type === STUDENT ?
+                {this.props.category === STUDENT ?
                   <form onSubmit={this.onCreateMessage}>
                   <div className="flex-row" style={{marginBottom: "40px"}}>
                     <input
@@ -246,7 +246,8 @@ class Button extends React.Component {
 
            <div className="button"
                 style={this.props.style}
-                onClick={this.handleButtonClick}>
+                onClick={this.props.onClick}
+                type={this.props.type}>
 
              {this.props.text}
 

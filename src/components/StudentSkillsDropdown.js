@@ -24,7 +24,6 @@ class StudentSkillsDropdown extends React.Component {
 
   setWidth = () => {
     const optionEle = document.getElementById(`hidden-skill-level`);
-    console.log(optionEle)
     const width = optionEle.offsetWidth + 5; // padding width or arrows
     this.setState({ width: `${width}px` });
   };
@@ -64,6 +63,7 @@ class StudentSkillsDropdown extends React.Component {
   }
 
   handleButtonClick = () => {
+    console.log('hi')
     this.props.handleButton(this.props.section, this.state)
   }
 
@@ -196,7 +196,11 @@ class StudentSkillsDropdown extends React.Component {
                 required={true}/>
             </React.Fragment>
             : null}.</h3>
-          <Button style={{marginTop: "75px", marginBottom: "50px"}} text={`I'm done here – list me under ${this.props.title}.`} onClick={this.props.handleButton}/>
+          <Button
+            style={{marginTop: "75px", marginBottom: "50px"}}
+            text={`I'm done here – list me under ${this.props.title}.`}
+            onClick={this.handleButtonClick}
+            type='submit'/>
 
           </form>
           : null}

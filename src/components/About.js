@@ -33,11 +33,11 @@ class About extends React.Component {
           <div className="flex-row about-card-container">
             <div className="about-card">
               <p>For our driven students, we’re supporting you in gaining work experience and building professional relationships without the need for a 10-week internship.</p>
-              <Button text="Join as student" style={{marginTop: "50px"}} type="student"/>
+              <Button text="Join as student" style={{marginTop: "50px"}} category="student"/>
             </div>
             <div className="flex-column about-card">
               <p>For our business owners, we are making it easier for you to access reliable student freelancers to fulfill your business needs.</p>
-              <Button text="Join as company" style={{marginTop: "50px"}} type="company"/>
+              <Button text="Join as company" style={{marginTop: "50px"}} category="company"/>
             </div>
 
           </div>
