@@ -85,7 +85,7 @@
 }
 
 .student-dialogue > * {
-  margin-bottom: 40px
+  margin-bottom: 40px;
 }
 
 .student-dialogue > :last-child {
@@ -93,13 +93,13 @@
 }
 
 .student-dialogue-block {
-  display: flex;
-  flex-direction: column;
+
 }
 
 .student-dialogue-block > * {
   margin: 0;
-  margin-bottom: 20px
+  margin-bottom: 20px;
+
 }
 
 .student-dialogue-block > :last-child {
@@ -140,6 +140,10 @@
   z-index: 10
 }
 
+.optional-chunk > h3 {
+  margin: 0;
+}
+
 /* Second student form */
 
 .skills-header:hover {
@@ -172,6 +176,7 @@
 .skill-container {
   display: flex;
   flex-wrap: wrap;
+  margin: 20px 0;
 }
 
 .skill {
@@ -187,7 +192,8 @@
 .skill:hover {
   cursor: pointer;
   box-shadow: 0px 4px 32px rgba(71, 68, 72, 0.15);
-  background-color: #E0E0E0
+  background-color: #E0E0E0;
+  transition: background-color 0.4s linear;
 }
 
 .skill-name {

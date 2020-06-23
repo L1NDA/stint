@@ -111,144 +111,148 @@ class Button extends React.Component {
   render() {
 
     return (
-      <div>
-        <div className="modal center" style={{display: this.state.modal ? 'flex' : 'none'}}>
-            <TiTimes className="modal-x" onClick={this.handleButtonClick}/>
-            {this.props.type === COMPANY ?
+      <>
+        {this.props.type ?
+          <>
+          <div className="modal center" style={{display: this.state.modal ? 'flex' : 'none'}}>
+              <TiTimes className="modal-x" onClick={this.handleButtonClick}/>
+              {this.props.type === COMPANY ?
 
-              <form>
-                <div className="flex-column" style={{marginBottom: "20px"}}>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Company name *"
-                    className="input"
-                    autocomplete="off"
-                    onChange={(e) => this.onChangeName(COMPANY, e)}
-                    required/>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email *"
-                    className="input"
-                    autocomplete="off"
-                    onChange={(e) => this.onChangeEmail(COMPANY, e)}
-                    required/>
-                </div>
+                <form>
+                  <div className="flex-column" style={{marginBottom: "20px"}}>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Company name *"
+                      className="input"
+                      autocomplete="off"
+                      onChange={(e) => this.onChangeName(COMPANY, e)}
+                      required/>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email *"
+                      className="input"
+                      autocomplete="off"
+                      onChange={(e) => this.onChangeEmail(COMPANY, e)}
+                      required/>
+                  </div>
 
-                <h4>Areas of interest</h4>
-                <div className="flex-column">
-                  <div><input type="checkbox"
-                         name="analytics"
-                         checked={this.state.categories.has(ANALYTICS)}
-                         onChange={() => this.handleCheckbox(ANALYTICS)}/>
-                  <label for="analytics"
-                         onClick={() => this.handleCheckbox(ANALYTICS)}> Analytics </label></div>
+                  <h4>Areas of interest</h4>
+                  <div className="flex-column">
+                    <div><input type="checkbox"
+                           name="analytics"
+                           checked={this.state.categories.has(ANALYTICS)}
+                           onChange={() => this.handleCheckbox(ANALYTICS)}/>
+                    <label for="analytics"
+                           onClick={() => this.handleCheckbox(ANALYTICS)}> Analytics </label></div>
 
-                  <div>
-                    <input type="checkbox"
-                         name="business"
-                         checked={this.state.categories.has(BUSINESS)}
-                         onChange={() => this.handleCheckbox(BUSINESS)}/>
-                  <label for="business"
-                         onClick={() => this.handleCheckbox(BUSINESS)}> Business </label>
-                </div>
-
-                <div><input type="checkbox"
-                       name="digitalmarketing"
-                       checked={this.state.categories.has(DIGITAL_MARKETING)}
-                       onChange={() => this.handleCheckbox(DIGITAL_MARKETING)}/>
-                <label for="digitalmarketing"
-                       onClick={() => this.handleCheckbox(DIGITAL_MARKETING)}> Digital Marketing </label></div>
-
-                <div><input type="checkbox"
-                       inline={true}
-                       name="engineering"
-                       checked={this.state.categories.has(ENGINEERING)}
-                       onChange={() => this.handleCheckbox(ENGINEERING)}/>
-                <label for="engineering"
-                       onClick={() => this.handleCheckbox(ENGINEERING)}> Engineering </label></div>
-
-              <div><input type="checkbox"
-                     name="graphicsdesign"
-                     checked={this.state.categories.has(GRAPHICS_DESIGN)}
-                     onChange={() => this.handleCheckbox(GRAPHICS_DESIGN)}/>
-              <label for="graphicsdesign"
-                     onClick={() => this.handleCheckbox(GRAPHICS_DESIGN)}> Graphics & Design </label>
-              </div>
+                    <div>
+                      <input type="checkbox"
+                           name="business"
+                           checked={this.state.categories.has(BUSINESS)}
+                           onChange={() => this.handleCheckbox(BUSINESS)}/>
+                    <label for="business"
+                           onClick={() => this.handleCheckbox(BUSINESS)}> Business </label>
+                  </div>
 
                   <div><input type="checkbox"
-                         name="videomedia"
-                         checked={this.state.categories.has(VIDEO_MEDIA)}
-                         onChange={() => this.handleCheckbox(VIDEO_MEDIA)}/>
-                  <label for="videomedia"
-                         onClick={() => this.handleCheckbox(VIDEO_MEDIA)}> Video & Media </label></div>
+                         name="digitalmarketing"
+                         checked={this.state.categories.has(DIGITAL_MARKETING)}
+                         onChange={() => this.handleCheckbox(DIGITAL_MARKETING)}/>
+                  <label for="digitalmarketing"
+                         onClick={() => this.handleCheckbox(DIGITAL_MARKETING)}> Digital Marketing </label></div>
+
+                  <div><input type="checkbox"
+                         inline={true}
+                         name="engineering"
+                         checked={this.state.categories.has(ENGINEERING)}
+                         onChange={() => this.handleCheckbox(ENGINEERING)}/>
+                  <label for="engineering"
+                         onClick={() => this.handleCheckbox(ENGINEERING)}> Engineering </label></div>
 
                 <div><input type="checkbox"
-                       name="writing"
-                       checked={this.state.categories.has(WRITING)}
-                       onChange={() => this.handleCheckbox(WRITING)}/>
-                <label for="writing"
-                       onClick={() => this.handleCheckbox(WRITING)}> Writing </label></div>
-
-                </div>
-                <button type="submit"
-                  className="button"
-                  style={{marginTop: "50px"}}
-                  onClick={this.uploadCompanyData}>Join our beta →</button>
-              </form>
-
-              : null}
-
-              {this.props.type === STUDENT ?
-                <form onSubmit={this.onCreateMessage}>
-                <div className="flex-row" style={{marginBottom: "40px"}}>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Name *"
-                    className="input"
-                    onChange={(e) => this.onChangeName(STUDENT, e)}
-                    required/>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Student email *"
-                    className="input"
-                    onChange={(e) => this.onChangeEmail(STUDENT, e)}
-                    style={{width: "250px", marginLeft: "20px"}}
-                    required/>
+                       name="graphicsdesign"
+                       checked={this.state.categories.has(GRAPHICS_DESIGN)}
+                       onChange={() => this.handleCheckbox(GRAPHICS_DESIGN)}/>
+                <label for="graphicsdesign"
+                       onClick={() => this.handleCheckbox(GRAPHICS_DESIGN)}> Graphics & Design </label>
                 </div>
 
-                <select name="Interest"
-                        className="dropdown"
-                        onChange={this.onChangeDropdown}
-                        style={{width: "300px", marginBottom: "40px"}}>
-                    <option value="" disabled selected>Area of interest</option>
-                    <option value="design" className="dropdown-item">Design</option>
-                    <option value="engineering" className="dropdown-item">Engineering</option>
-                    <option value="creatives" className="dropdown-item">Creatives</option>
-                    <option value="analytics" className="dropdown-item">Analytics</option>
-                  </select>
-                <button type="submit"
-                  className="button">Join our beta →</button>
-              </form> : null}
+                    <div><input type="checkbox"
+                           name="videomedia"
+                           checked={this.state.categories.has(VIDEO_MEDIA)}
+                           onChange={() => this.handleCheckbox(VIDEO_MEDIA)}/>
+                    <label for="videomedia"
+                           onClick={() => this.handleCheckbox(VIDEO_MEDIA)}> Video & Media </label></div>
 
-          </div>
-          <div className="modal-screen"
-               style={{display: this.state.modal ? 'block' : 'none'}}
-               onClick={this.handleButtonClick}></div>
+                  <div><input type="checkbox"
+                         name="writing"
+                         checked={this.state.categories.has(WRITING)}
+                         onChange={() => this.handleCheckbox(WRITING)}/>
+                  <label for="writing"
+                         onClick={() => this.handleCheckbox(WRITING)}> Writing </label></div>
+
+                  </div>
+                  <button type="submit"
+                    className="button"
+                    style={{marginTop: "50px"}}
+                    onClick={this.uploadCompanyData}>Join our beta →</button>
+                </form>
+
+                : null}
+
+                {this.props.type === STUDENT ?
+                  <form onSubmit={this.onCreateMessage}>
+                  <div className="flex-row" style={{marginBottom: "40px"}}>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Name *"
+                      className="input"
+                      onChange={(e) => this.onChangeName(STUDENT, e)}
+                      required/>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Student email *"
+                      className="input"
+                      onChange={(e) => this.onChangeEmail(STUDENT, e)}
+                      style={{width: "250px", marginLeft: "20px"}}
+                      required/>
+                  </div>
+
+                  <select name="Interest"
+                          className="dropdown"
+                          onChange={this.onChangeDropdown}
+                          style={{width: "300px", marginBottom: "40px"}}>
+                      <option value="" disabled selected>Area of interest</option>
+                      <option value="design" className="dropdown-item">Design</option>
+                      <option value="engineering" className="dropdown-item">Engineering</option>
+                      <option value="creatives" className="dropdown-item">Creatives</option>
+                      <option value="analytics" className="dropdown-item">Analytics</option>
+                    </select>
+                  <button type="submit"
+                    className="button">Join our beta →</button>
+                </form> : null}
+
+            </div>
+            <div className="modal-screen"
+                 style={{display: this.state.modal ? 'block' : 'none'}}
+                 onClick={this.handleButtonClick}></div>
+               </> : null
+        }
 
 
            <div className="button"
-                style={{marginTop: this.props.margin}}
+                style={this.props.style}
                 onClick={this.handleButtonClick}>
 
              {this.props.text}
 
            </div>
 
-      </div>
+      </>
 
 
     )

@@ -100,7 +100,7 @@ class StudentSkillsDropdown extends React.Component {
         </div>
 
         {this.state.details ?
-          <div>
+          <form className="flex-column">
             {this.props.content.map((text, index) => {
               return (
                 <h3>I <Select
@@ -111,11 +111,16 @@ class StudentSkillsDropdown extends React.Component {
                 {text}
                 {this.state[`${this.props.section}Have${index}`] ?
                 <React.Fragment>
-                  : <Autocomplete options={[]} name={`${this.props.section}${index}`} placeholder="(insert URL*)" saveData={this.saveState}/>.
+                  : <Autocomplete
+                      options={[]}
+                      name={`${this.props.section}${index}`}
+                      placeholder="(insert URL*)"
+                      saveData={this.saveState}
+                      required={true}/>.
               </React.Fragment> : <React.Fragment>.</React.Fragment>}</h3>
               );
             })}
-            <div style={{margin: "50px 0"}}>
+            <div>
             <p>I have the following skills (optional):</p>
             <div className="skill-container">
               {this.props.skills.map((skill, index) => {
@@ -159,8 +164,9 @@ class StudentSkillsDropdown extends React.Component {
                 required={true}/>
             </React.Fragment>
             : null}.</h3>
-          <Button margin="50px" text={`List me under ${this.props.title}!`} onClick={this.props.handleButton(this.props.section, this.state)}/>
-          </div>
+          <Button style={{marginTop: "75px", marginBottom: "50px"}} text={`I'm done here – list me under ${this.props.title}.`} onClick={this.props.handleButton(this.props.section, this.state)}/>
+
+          </form>
           : null}
 
 

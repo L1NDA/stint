@@ -115,7 +115,10 @@ a {
  }
 
 .button {
-  background: #8F8DFF;
+  /* background: #8F8DFF; */
+  background: linear-gradient(to left, #8F8DFF 50%, #474448 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
   /* border-radius: 8px; */
   display: flex;
   align-items: center;
@@ -128,28 +131,31 @@ a {
   font-size: 14px;
   border: none;
   position: relative;
+  align-self: flex-start;
+  transition: background-position 0.2s ease-in;
 }
 
 .button:hover {
   cursor: pointer;
   box-shadow: 0px 8px 8px rgba(71, 68, 72, 0.15);
-  transition: all 0.2s linear;
+  transition: all 0.2s ease-in;
+  background-position: left bottom;
 }
 
-.button::after {
+/* .button::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 0;
   width: 0;
-  height: 4px;
-  background: white;
+  height: 100%;
+  background: #474448;
   transition: width .3s;
 }
 
 .button:hover::after {
   width: 100%;
-}
+} */
 
 h1 {
   font-weight: bold;

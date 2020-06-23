@@ -17,10 +17,32 @@ class StudentInfo extends React.Component {
 
   handleChange = (stateName, content, index = null, finished = null) => {
     this.props.saveToParent(stateName, content, index)
-    if (stateName === "major" || stateName === "major2" || stateName==="minor" || stateName==="minor2") {
-      this.setState({
-        [stateName]: true
-      })
+    if (stateName === "major"
+    || stateName === "major2"
+    || stateName==="minor"
+    || stateName==="minor2"
+    || stateName==="role1"
+    || stateName==="company1"
+    || stateName==="role2"
+    || stateName==="company2"
+    || stateName==="role3"
+    || stateName==="company3"
+    || stateName==="ec1"
+    || stateName==="ec2"
+    || stateName==="ec3"
+    || stateName==="ecrole1"
+    || stateName==="ecrole2"
+    || stateName==="ecrole3") {
+      if (content) {
+        this.setState({
+          [stateName]: true
+        })
+      } else {
+        this.setState({
+          [stateName]: false
+        })
+      }
+
     }
   }
 
@@ -91,46 +113,122 @@ class StudentInfo extends React.Component {
           <h3>My most recent work experience was as a(n)
             <Autocomplete
               options={[]}
-              name="role-1"
+              name="role1"
               placeholder="(role*)"
               index="0"
               saveData={this.handleChange}
-              required={true}/>
+              required={true}
+              optionalParent/>
             at <Autocomplete
                 options={[]}
-                name="company-1"
+                name="company1"
                 placeholder="(company*)"
                 index="0"
                 saveData={this.handleChange}
-                required={true}/>.</h3>
+                required={true}
+                optionalParent/>.</h3>
+          {this.state.role1 && this.state.company1 ?
+          <span className="optional-chunk" style={{filter: this.state.role2 || this.state.company2 ? "opacity(1)" : null}}>
           <h3>Another recent work experience was as a(n)
-          <Autocomplete options={[]} name="role-2" placeholder="(role)" index="1" saveData={this.handleChange}/>
-          at <Autocomplete options={[]} name="company-2" placeholder="(company)" index="1" saveData={this.handleChange}/>.</h3>
+          <Autocomplete
+            options={[]}
+            className="optional-input"
+            name="role2"
+            placeholder="(role)"
+            index="1"
+            saveData={this.handleChange}
+            required={false}
+            optionalParent/>
+          at
+          <Autocomplete
+            options={[]}
+            className="optional-input"
+            name="company2"
+            placeholder="(company)"
+            index="1"
+            saveData={this.handleChange}
+            required={false}
+            optionalParent/>.</h3></span> : null}
+          {this.state.role2 && this.state.company2 ?
+          <span className="optional-chunk" style={{filter: this.state.role3 || this.state.company3 ? "opacity(1)" : null}}>
           <h3>Another recent work experience was as a(n)
-          <Autocomplete options={[]} name="role-3" placeholder="(role)" index="2" saveData={this.handleChange}/>
-          at <Autocomplete options={[]} name="company-3" placeholder="(company)" index="2" saveData={this.handleChange}/>.</h3>
+          <Autocomplete
+            options={[]}
+            className="optional-input"
+            name="role3"
+            placeholder="(role)"
+            index="2"
+            saveData={this.handleChange}
+            required={false}/>
+          at
+          <Autocomplete
+            options={[]}
+            className="optional-input"
+            name="company3"
+            placeholder="(company)"
+            index="2"
+            saveData={this.handleChange}
+            required={false}/>.</h3></span> : null}
         </div>
         <div className="hline"></div>
         <div className="student-dialogue-block">
           <h3>I’ve been most recently involved in
           <Autocomplete
           options={[]}
-          name="ec-1"
+          name="ec1"
           placeholder="(organization*)"
           index="0"
           saveData={this.handleChange}
-          required={true}/> as a(n)
+          required={true}
+          optionalParent/> as a(n)
           <Autocomplete
           options={[]}
-          name="ecrole-1"
+          name="ecrole1"
           placeholder="(role*)"
           index="0"
           saveData={this.handleChange}
-          required={true}/>.</h3>
+          required={true}
+          optionalParent/>.</h3>
+        {this.state.ec1 && this.state.ecrole1 ?
+        <span className="optional-chunk" style={{filter: this.state.ec2 || this.state.ecrole2 ? "opacity(1)" : null}}>
           <h3>I’ve also been involved in
-          <Autocomplete options={[]} name="ec-2" placeholder="(organization)" index="1" saveData={this.handleChange}/> as a(n) <Autocomplete options={[]} name="ecrole-2" placeholder="(role)" index="1" saveData={this.handleChange}/>.</h3>
+          <Autocomplete
+            options={[]}
+            className="optional-input"
+            name="ec2"
+            placeholder="(organization)"
+            index="1"
+            saveData={this.handleChange}
+            required={false}
+            optionalParent/> as a(n)
+          <Autocomplete
+            options={[]}
+            className="optional-input"
+            name="ecrole2"
+            placeholder="(role)"
+            index="1"
+            saveData={this.handleChange}
+            required={false}
+            optionalParent/>.</h3></span> : null}
+        {this.state.ec2 && this.state.ecrole2 ?
+        <span className="optional-chunk" style={{filter: this.state.ec3 || this.state.ecrole3 ? "opacity(1)" : null}}>
           <h3>I’ve also been involved in
-          <Autocomplete options={[]} name="ec-2" placeholder="(organization)" index="2" saveData={this.handleChange}/> as a(n) <Autocomplete options={[]} name="ecrole-2" placeholder="(role)" index="2" saveData={this.handleChange}/>.</h3>
+          <Autocomplete
+            options={[]}
+            className="optional-input"
+            name="ec3"
+            placeholder="(organization)"
+            index="2"
+            saveData={this.handleChange}
+            required={false}/> as a(n)
+          <Autocomplete
+            options={[]}
+            className="optional-input"
+            name="ecrole3"
+            placeholder="(role)"
+            index="2"
+            saveData={this.handleChange}
+            required={false}/>.</h3></span> : null}
         </div>
       </form>
     )}

@@ -118,7 +118,7 @@ class Homepage extends React.Component {
         <div className="homepage-text">
           <h1>No internship? <br/>No problem.</h1>
           <h3>We’re redefining the way students and companies connect through shorter, project-based stints.</h3>
-          <div onClick={this.handleButtonClick}><Button text="Join the revolution" margin="50px"/></div>
+          <div onClick={this.handleButtonClick}><Button text="Join the revolution" style={{marginTop: "50px"}}/></div>
         </div>
         <img src={homepageImage} className="homepage-image"/>
       </div>
@@ -179,7 +179,7 @@ class Homepage extends React.Component {
       <div className="cta flex-column center" style={{backgroundColor: "#f5f5f5", padding: "150px 10%"}}>
         <h1>For everyone.</h1>
         <h3 style={{textAlign: "center"}}>We're hard at work bringing Stint to life – <br/>be the first to know when we launch.</h3>
-        <div onClick={this.handleButtonClick}><Button text="Join the revolution" margin="50px"/></div>
+        <div onClick={this.handleButtonClick}><Button text="Join the revolution" style={{marginTop: "50px"}}/></div>
       </div>
 
       <Footer/>
