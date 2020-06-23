@@ -63,7 +63,7 @@ class StudentSkills extends React.Component {
 
   saveEntireState = (section, state) => {
     this.props.saveToParent(section, state);
-    // console.log(state)
+    console.log("Save entire state", section, state)
   };
 
   render() {

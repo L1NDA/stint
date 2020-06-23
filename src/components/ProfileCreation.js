@@ -39,7 +39,7 @@ class ProfileCreation extends React.Component {
     this.setState({
       [cleanedState]: temp
     }, function() {
-      if (this.state.year && this.state.colleges && this.state.majors && this.state.minors && this.state.city && this.state.state && this.state.role[0] && this.state.company[0] && this.state.ec[0] && this.state.ecrole[0]) {
+      if (this.state.year && this.state.colleges && this.state.major && this.state.minor && this.state.city && this.state.state && this.state.role[0] && this.state.company[0] && this.state.ec[0] && this.state.ecrole[0]) {
         this.setState({continue: true})
       }
       console.log(this.state)
@@ -56,7 +56,7 @@ class ProfileCreation extends React.Component {
     let doesDesign
     let doesContent
     let doesSoftware
-    setFreelancerProfile(temp.year, temp.school, temp.major, temp.minor,
+    setFreelancerProfile(temp.year, temp.colleges, temp.major, temp.minor,
                          temp.city, temp.state,
                          temp.role, temp.company,
                          temp.ecrole, temp.ec,
@@ -67,7 +67,10 @@ class ProfileCreation extends React.Component {
   }
 
   saveAllChildren = (section, state) => {
-    
+    this.setState({
+      [section]: state
+    })
+    console.log("save all children", this.state)
   }
 
   render() {
