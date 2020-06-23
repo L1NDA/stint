@@ -63,7 +63,6 @@ class StudentSkillsDropdown extends React.Component {
   }
 
   handleButtonClick = () => {
-    console.log('hi')
     this.props.handleButton(this.props.section, this.state)
   }
 

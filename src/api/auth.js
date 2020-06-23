@@ -62,7 +62,7 @@ const authUiConfig = {
   			console.log("Freelancer info updated successfully.")
   		}
   	  }).then(function() {
-  	  	window.location.pathname = "/hire"
+  	  	window.location.pathname = "/login=true"
   	  })
     },
     signInFailure: function(error) {
