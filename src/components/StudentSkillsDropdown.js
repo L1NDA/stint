@@ -63,6 +63,10 @@ class StudentSkillsDropdown extends React.Component {
     })
   }
 
+  handleButtonClick = () => {
+    this.props.handleButton(this.props.section, this.state)
+  }
+
   handleSkillClick = (e, skill, type) => {
     e.stopPropagation();
     let tempLevel = this.state[SKILLS][skill]
@@ -192,7 +196,7 @@ class StudentSkillsDropdown extends React.Component {
                 required={true}/>
             </React.Fragment>
             : null}.</h3>
-          <Button style={{marginTop: "75px", marginBottom: "50px"}} text={`I'm done here – list me under ${this.props.title}.`} onClick={this.props.handleButton(this.props.section, this.state)}/>
+          <Button style={{marginTop: "75px", marginBottom: "50px"}} text={`I'm done here – list me under ${this.props.title}.`} onClick={this.props.handleButton}/>
 
           </form>
           : null}

@@ -67,9 +67,10 @@ class ProfileCreation extends React.Component {
   }
 
   saveAllChildren = (section, state) => {
-    // this.setState({
-    //   [section]: state
-    // })
+    console.log('saveAllChildren', section, state)
+    this.setState({
+      [section]: state
+    })
     console.log("save all children", this.state)
   }
 
