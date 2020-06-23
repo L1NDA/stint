@@ -155,7 +155,7 @@ class StudentSkillsDropdown extends React.Component {
                     <span className="minus" onClick={(e) => this.handleSkillClick(e, skill, 'minus')}>-</span>
                     <span className="skill-level">Skill Level</span>
                     <span className="plus" onClick={(e) => this.handleSkillClick(e, skill, 'plus')}>+</span>
-                    <div className="skill-bar" style={{width: `${this.state[skill] * 20}%`}}></div>
+                    <div className="skill-bar" style={{width: `${this.state[SKILLS][skill] ? this.state[SKILLS][skill] * 20 : 0}%`}}></div>
                   </div>
                 )})}
               <div className="skill" id="hidden-skill-level">Skill Level</div>
