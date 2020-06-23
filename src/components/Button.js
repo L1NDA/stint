@@ -36,10 +36,15 @@ class Button extends React.Component {
   }
 
   handleButtonClick = () => {
-    let temp = this.state.modal
-    this.setState({
-      modal: !temp
-    })
+    if (this.props.onClick) {
+      this.props.onClick()
+    } else {
+      let temp = this.state.modal
+      this.setState({
+        modal: !temp
+      })
+    }
+
   }
 
   handleCheckbox = (item) => {
@@ -108,6 +113,10 @@ class Button extends React.Component {
       modal: false });
   };
 
+  onSubmit = () => {
+
+  }
+
   render() {
 
     return (
@@ -118,7 +127,7 @@ class Button extends React.Component {
               <TiTimes className="modal-x" onClick={this.handleButtonClick}/>
               {this.props.category === COMPANY ?
 
-                <form>
+                <form onSubmit={this.uploadCompanyData}>
                   <div className="flex-column" style={{marginBottom: "20px"}}>
                     <input
                       type="text"
@@ -196,8 +205,7 @@ class Button extends React.Component {
                   </div>
                   <button type="submit"
                     className="button"
-                    style={{marginTop: "50px"}}
-                    onClick={this.uploadCompanyData}>Join our beta →</button>
+                    style={{marginTop: "50px"}}>Join our beta →</button>
                 </form>
 
                 : null}
@@ -244,14 +252,14 @@ class Button extends React.Component {
         }
 
 
-           <div className="button"
+           <button className="button"
                 style={this.props.style}
-                onClick={this.props.onClick}
+                onClick={this.handleButtonClick}
                 type={this.props.type}>
 
              {this.props.text}
 
-           </div>
+           </button>
 
       </>
 

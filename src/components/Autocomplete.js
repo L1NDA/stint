@@ -215,6 +215,7 @@ export class Autocomplete extends Component {
             className="search-box-container"
             style={{fontFamily: 'Source Sans Pro, sans-serif', fontSize: "24px", fontWeight: "bold"}}
             required={this.props.required}
+            type="url"
           />
         {optionList}
       </span>

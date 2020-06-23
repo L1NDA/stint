@@ -68,7 +68,7 @@ class StudentSkills extends React.Component {
 
   render() {
     return (
-      <form className="student-dialogue" autocomplete="off">
+      <div className="student-dialogue" autocomplete="off">
         <StudentSkillsDropdown
           title="Data Analytics"
           subtitle="Given messy data scraped from a webpage, you can clean it up nicely and identify customer profiles or pinpoint key trends."
@@ -115,7 +115,7 @@ class StudentSkills extends React.Component {
           skills={SOFTWARE_SKILLS}
           handleButton={this.saveEntireState}
         />
-      </form>
+    </div>
     );
   }
 }
