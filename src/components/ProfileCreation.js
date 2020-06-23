@@ -74,6 +74,10 @@ class ProfileCreation extends React.Component {
     console.log("save all children", this.state)
   }
 
+  submitProfile = (e) => {
+    e.preventDefault()
+  }
+
   render() {
 
     return (
@@ -81,7 +85,7 @@ class ProfileCreation extends React.Component {
 
       <Menu/>
 
-      <div className="padding flex-column profile-container">
+      <form className="padding flex-column profile-container" onSubmit={this.submitProfile}>
         <div className="stint-dialogue">
           <h2>Nice to meet you, Linda Q.</h2>
           <h3>We’re Stint, a platform for connecting students and companies. <br/> Now tell us a little bit about yourself!</h3>
@@ -96,7 +100,9 @@ class ProfileCreation extends React.Component {
 
         <StudentSkills saveToParent={this.saveAllChildren}/>
 
-      </div>
+        <Button style={{marginTop: "100px", marginBottom: "100px"}} text="Create my profile"/>
+
+      </form>
 
       <Footer/>
 

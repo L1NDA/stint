@@ -1,5 +1,5 @@
 import React from 'react';
-import {Colleges, Majors, Cities} from './LoginDropdowns.js'
+import {Colleges, Majors, Cities, Roles} from './LoginDropdowns.js'
 import Select from './Select.js'
 import Autocomplete from './Autocomplete.js'
 import firebaseConfig from '../config.js'
@@ -49,7 +49,7 @@ class StudentInfo extends React.Component {
   render() {
       return (
 
-      <form className="student-dialogue" autocomplete="off">
+      <div className="student-dialogue" autocomplete="off">
         <div className="student-dialogue-block">
 
         <h3>I am a <Select items={Year} name="year" saveData={this.handleChange}/>
@@ -112,7 +112,7 @@ class StudentInfo extends React.Component {
         <div className="student-dialogue-block">
           <h3>My most recent work experience was as a(n)
             <Autocomplete
-              options={[]}
+              options={Roles}
               name="role1"
               placeholder="(role*)"
               index="0"
@@ -131,7 +131,7 @@ class StudentInfo extends React.Component {
           <span className="optional-chunk" style={{filter: this.state.role2 || this.state.company2 ? "opacity(1)" : null}}>
           <h3>Another recent work experience was as a(n)
           <Autocomplete
-            options={[]}
+            options={Roles}
             className="optional-input"
             name="role2"
             placeholder="(role)"
@@ -153,7 +153,7 @@ class StudentInfo extends React.Component {
           <span className="optional-chunk" style={{filter: this.state.role3 || this.state.company3 ? "opacity(1)" : null}}>
           <h3>Another recent work experience was as a(n)
           <Autocomplete
-            options={[]}
+            options={Roles}
             className="optional-input"
             name="role3"
             placeholder="(role)"
@@ -230,7 +230,7 @@ class StudentInfo extends React.Component {
             saveData={this.handleChange}
             required={false}/>.</h3></span> : null}
         </div>
-      </form>
+      </div>
     )}
   }
 
