@@ -32,7 +32,13 @@ class StudentInfo extends React.Component {
     || stateName==="ec3"
     || stateName==="ecrole1"
     || stateName==="ecrole2"
-    || stateName==="ecrole3") {
+    || stateName==="ecrole3"
+    || stateName==="yearcompany1"
+    || stateName==="yearcompany2"
+    || stateName==="yearcompany3"
+    || stateName==="yearec1"
+    || stateName==="yearec2"
+    || stateName==="yearec3") {
       if (content) {
         this.setState({
           [stateName]: true
@@ -126,7 +132,8 @@ class StudentInfo extends React.Component {
                 index="0"
                 saveData={this.handleChange}
                 required={true}
-                optionalParent/>.</h3>
+                optionalParent/>
+              in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearcompany1" saveData={this.handleChange}/>.</h3>
           {this.state.role1 && this.state.company1 ?
           <h3><span className="optional-chunk" style={{filter: this.state.role2 || this.state.company2 ? "opacity(1)" : null}}>
           Another recent work experience was as a(n)
@@ -138,7 +145,8 @@ class StudentInfo extends React.Component {
             index="1"
             saveData={this.handleChange}
             required={false}
-            optionalParent/>
+            optionalParent
+            maxLength="60"/>
           at
           <Autocomplete
             options={[]}
@@ -148,7 +156,9 @@ class StudentInfo extends React.Component {
             index="1"
             saveData={this.handleChange}
             required={false}
-            optionalParent/>.</span></h3> : null}
+            optionalParent
+            maxLength="60"/>
+          in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearcompany2" saveData={this.handleChange}/>.</span></h3> : null}
           {this.state.role2 && this.state.company2 ?
           <h3><span className="optional-chunk" style={{filter: this.state.role3 || this.state.company3 ? "opacity(1)" : null}}>
           Another recent work experience was as a(n)
@@ -168,7 +178,9 @@ class StudentInfo extends React.Component {
             placeholder="(company)"
             index="2"
             saveData={this.handleChange}
-            required={false}/>.</span></h3> : null}
+            required={false}
+            maxLength="60"/>
+          in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearcompany2" saveData={this.handleChange}/>.</span></h3> : null}
         </div>
         <div className="hline"></div>
         <div className="student-dialogue-block">
@@ -180,7 +192,8 @@ class StudentInfo extends React.Component {
           index="0"
           saveData={this.handleChange}
           required={true}
-          optionalParent/> as a(n)
+          optionalParent
+          maxLength="60"/> as a(n)
           <Autocomplete
           options={[]}
           name="ecrole1"
@@ -188,7 +201,8 @@ class StudentInfo extends React.Component {
           index="0"
           saveData={this.handleChange}
           required={true}
-          optionalParent/>.</h3>
+          optionalParent/>
+        in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearec1" saveData={this.handleChange}/>.</h3>
         {this.state.ec1 && this.state.ecrole1 ?
         <h3><span className="optional-chunk" style={{filter: this.state.ec2 || this.state.ecrole2 ? "opacity(1)" : null}}>
           I’ve also been involved in
@@ -200,7 +214,8 @@ class StudentInfo extends React.Component {
             index="1"
             saveData={this.handleChange}
             required={false}
-            optionalParent/> as a(n)
+            optionalParent
+            maxLength="60"/> as a(n)
           <Autocomplete
             options={[]}
             className="optional-input"
@@ -209,7 +224,8 @@ class StudentInfo extends React.Component {
             index="1"
             saveData={this.handleChange}
             required={false}
-            optionalParent/>.</span></h3> : null}
+            optionalParent/>
+          in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearec2" saveData={this.handleChange}/>.</span></h3> : null}
         {this.state.ec2 && this.state.ecrole2 ?
         <h3>
         <span className="optional-chunk" style={{filter: this.state.ec3 || this.state.ecrole3 ? "opacity(1)" : null}}>
@@ -221,7 +237,8 @@ class StudentInfo extends React.Component {
             placeholder="(organization)"
             index="2"
             saveData={this.handleChange}
-            required={false}/> as a(n)
+            required={false}
+            maxLength="60"/> as a(n)
           <Autocomplete
             options={[]}
             className="optional-input"
@@ -229,7 +246,8 @@ class StudentInfo extends React.Component {
             placeholder="(role)"
             index="2"
             saveData={this.handleChange}
-            required={false}/></span></h3> : null}
+            required={false}/>
+          in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearec3" saveData={this.handleChange}/>.</span></h3> : null}
         </div>
       </div>
     )}

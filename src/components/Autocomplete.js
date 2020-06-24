@@ -216,6 +216,7 @@ export class Autocomplete extends Component {
             style={{fontFamily: 'Source Sans Pro, sans-serif', fontSize: "24px", fontWeight: "bold"}}
             required={this.props.required}
             type={this.props.type}
+            maxLength={this.props.maxLength}
           />
         {optionList}
       </span>

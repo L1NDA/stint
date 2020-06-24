@@ -61,7 +61,7 @@ class Select extends React.Component {
             );
           })}
         </select>
-          <span style={{ visibility: "hidden", position: "absolute"}} className="custom-select" id={`selectedOptionHidden${this.props.name}`}>
+          <span style={{ visibility: "hidden", position: "absolute", left: '0'}} className="custom-select" id={`selectedOptionHidden${this.props.name}`}>
             {selectedObj}
           </span>
       </React.Fragment>
