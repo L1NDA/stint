@@ -8,7 +8,7 @@ import StudentSkills from './StudentSkills.js'
 import app from 'firebase/app';
 import 'firebase/database';
 const {setFreelancerProfile} = require('../api/freelancer')
-const { getSignedInUser, authUi, authUiConfig, linkedinCallback, signOutFreelancer } = require('../api/auth')
+const { authUi, authUiConfig, getSignedInUser } = require('../api/auth')
 
 class ProfileCreation extends React.Component {
 
@@ -30,10 +30,10 @@ class ProfileCreation extends React.Component {
   }
 
   componentDidMount = async () => {
-    if (await getSignedInUser()) {
+    if (await getSignedInUser) {
       this.setState({
         signedIn: true
-      })
+      }, () => console.log(this.state.signedIn))
     }
   }
 

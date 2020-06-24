@@ -12,10 +12,6 @@ const REDIRECT_URI = "https%3A%2F%2Flocalhost%3A3000%2F"
 
 let SIGNED_IN_USER = null
 
-const getSignedInUser = async() => {
-	return SIGNED_IN_USER
-}
-
 const initCheckAuth = async () => {
   firebase.auth().onAuthStateChanged(
     (freelancer) => {
@@ -33,7 +29,10 @@ const initCheckAuth = async () => {
   );
 };
 
-initCheckAuth()
+const getSignedInUser = async () => {
+  await initCheckAuth()
+  return SIGNED_IN_USER
+}
 
 const authUi = new firebaseui.auth.AuthUI(firebase.auth());
 const authUiConfig = {
@@ -62,8 +61,10 @@ const authUiConfig = {
   			console.log("Freelancer info updated successfully.")
   		}
   	  }).then(function() {
+        console.log(SIGNED_IN_USER)
   	  	window.location.pathname = "/login=true"
   	  })
+  	  return false
     },
     signInFailure: function(error) {
 	    console.log("sign in failed")
@@ -76,7 +77,7 @@ const authUiConfig = {
   },
   // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
   signInFlow: "popup",
-  signInSuccessUrl: "",
+  signInSuccessUrl: "/login=true",
   signInOptions: [
     // Leave the lines as is for the providers you want to offer your users.
 
@@ -92,7 +93,7 @@ const authUiConfig = {
 const signOutFreelancer = async () => {
 	if (SIGNED_IN_USER) {
 		firebase.auth().signOut().then(function(){
-			console.log("Signed out the following freelancer successfully:", SIGNED_IN_USER)
+			console.log("Signed out the freelancer successfully.")
 			return true
 		}, function(error) {
 			console.log("Sign out failed:", error)
@@ -126,5 +127,6 @@ module.exports =  {
 	authUi,
 	authUiConfig,
 	linkedinCallback,
-	signOutFreelancer 
+	signOutFreelancer,
+	initCheckAuth
 };
