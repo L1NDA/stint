@@ -15,7 +15,7 @@ class Menu extends React.Component {
     if (await getSignedInUser()) {
       this.setState({
         signedIn: true
-      })
+      }, ()=>console.log(this.state.signedIn))
     }
   }
 

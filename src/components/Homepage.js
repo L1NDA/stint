@@ -15,11 +15,10 @@ import app from 'firebase/app';
 import 'firebase/database';
 import firebase from '../firebase';
 import {StyledFirebaseAuth} from "react-firebaseui"
-import axios from 'axios'
 
 const {setCompanyBetaInfo} = require('../api/company')
 const {updateFreelancerInfo} = require('../api/freelancer')
-const {authUi, authUiConfig} = require('../api/auth')
+const {authUi, authUiConfig, getSignedInUser} = require('../api/auth')
 
 // authUi.start('#firebaseui-auth-container', authUiConfig);
 
