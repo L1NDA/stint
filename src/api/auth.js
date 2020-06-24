@@ -64,6 +64,7 @@ const authUiConfig = {
   	  }).then(function() {
   	  	window.location.pathname = "/login=true"
   	  })
+  	  return false
     },
     signInFailure: function(error) {
 	    console.log("sign in failed")
@@ -76,7 +77,7 @@ const authUiConfig = {
   },
   // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
   signInFlow: "popup",
-  signInSuccessUrl: "",
+  signInSuccessUrl: "/login=true",
   signInOptions: [
     // Leave the lines as is for the providers you want to offer your users.
 
