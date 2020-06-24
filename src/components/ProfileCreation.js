@@ -30,7 +30,7 @@ class ProfileCreation extends React.Component {
   }
 
   componentDidMount = async () => {
-    if (await getSignedInUser) {
+    if (await getSignedInUser()) {
       this.setState({
         signedIn: true
       }, () => console.log(this.state.signedIn))
