@@ -64,8 +64,29 @@ class StudentSkillsDropdown extends React.Component {
     })
   }
 
-  handleSubmit = () => {
-    this.props.handleButton(this.props.section, this.state)
+  aggregateAwards = (currState) => {
+    let categoryString = this.props.section+"HaveAwardCategory"
+    let contentString = this.props.section+"HaveAwardContent"
+    if (currState[categoryString]) {
+      currState.awardCategories = [currState[categoryString]]
+      currState.awardContent = [currState[contentString]]
+    }
+    if (currState[categoryString + "1"]) {
+      currState.awardCategories.push(currState[categoryString + "1"])
+      currState.awardContent.push(currState[contentString + "1"])
+    }
+    if (currState[categoryString]) {
+      currState.awardCategories.push(currState[categoryString + "2"])
+      currState.awardContent.push(currState[contentString + "2"])
+    }
+    return currState
+  }
+
+  handleSubmit = async (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+    let aggregatedState = await this.aggregateAwards(this.state)
+    this.props.handleButton(this.props.section, aggregatedState)
   }
 
   handleSkillClick = (e, skill, type) => {

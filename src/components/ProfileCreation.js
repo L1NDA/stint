@@ -53,33 +53,29 @@ class ProfileCreation extends React.Component {
     })
   }
 
-  saveStateToDb = (e) => {
-    e.preventDefault()
-    const temp = this.state
-    let doesData = Object.keys(temp.da).length === 0
-    let doesDesign = Object.keys(temp.db).length === 0
-    let doesContent = Object.keys(temp.ccm).length === 0
-    let doesSoftware = Object.keys(temp.sd).length === 0
-    setFreelancerProfile(temp.year, temp.colleges, temp.major, temp.minor,
-                         temp.city, temp.state,
-                         temp.role, temp.company,
-                         temp.ecrole, temp.ec,
-                         doesData, temp.da.da0, temp.da.skills, temp.da.daHaveAwardCategory, temp.da.daHaveAwardContent, 
-                         doesDesign, temp.db.db0, temp.db.skills, temp.db.dbHaveAwardCategory, temp.db.dbHaveAwardContent,
-                         doesContent, temp.ccm.ccm0, temp.ccm.ccm1, temp.ccm.ccm2, temp.ccm.ccm3, temp.ccm.skills, temp.ccm.ccmHaveAwardCategory, temp.ccm.ccmHaveAwardContent,
-                         doesSoftware, temp.githubUrl, temp.personalWebsiteUrl, temp.skills, temp.awardCategories, temp.awards)
-  }
-
   saveAllChildren = (section, state) => {
     this.setState({
       [section]: state
-    }, function() {
-      console.log("save all children", this.state)
     })
   }
 
   submitProfile = (e) => {
     e.preventDefault()
+    e.stopPropagation()
+    const temp = this.state
+    let doesData = Object.keys(temp.da).length !== 0
+    let doesDesign = Object.keys(temp.db).length !== 0
+    let doesContent = Object.keys(temp.ccm).length !== 0
+    let doesSoftware = Object.keys(temp.sd).length !== 0
+
+    setFreelancerProfile(temp.year, temp.colleges, temp.major, temp.minor,
+                         temp.city, temp.state,
+                         temp.role, temp.company,
+                         temp.ecrole, temp.ec,
+                         doesData, temp.da.da0, temp.da.skills, temp.da.awardCategories, temp.da.awardContent, 
+                         doesDesign, temp.db.db0, temp.db.skills, temp.db.awardCategories, temp.db.awardContent,
+                         doesContent, temp.ccm.ccm0, temp.ccm.ccm1, temp.ccm.ccm2, temp.ccm.ccm3, temp.ccm.skills, temp.ccm.awardCategories, temp.ccm.awardContent,
+                         doesSoftware, temp.sd.sd0, temp.sd.sd1, temp.sd.skills, temp.sd.awardCategories, temp.sd.awardContent)
   }
 
   render() {

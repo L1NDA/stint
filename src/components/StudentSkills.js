@@ -42,16 +42,19 @@ const DESIGN_SKILLS = [
 const SOFTWARE_SKILLS = [
   "Java",
   "Python",
-  "C/C++",
+  "C or C++",
   "JavaScript",
-  "HTML/CSS",
-  "Go/Clojure/Erlang",
+  "HTML and CSS",
+  "Go",
+  "Clojure",
+  "Erlang",
   "Flask",
-  "Node.js/Express",
+  "Node",
+  "Express",
   "React",
   "SQL",
   "NoSQL",
-  "iOS/Swift",
+  "iOS",
   "Android",
   "Distributed Systems",
 ];
@@ -63,7 +66,6 @@ class StudentSkills extends React.Component {
 
   saveEntireState = (section, state) => {
     this.props.saveToParent(section, state);
-    console.log("Save entire state", section, state)
   };
 
   render() {

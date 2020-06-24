@@ -42,7 +42,7 @@ const firebase = require("firebase");
 // Given freelancer's Google uid, returns all data associated with that freelancer
 const getFreelancerInfo = async (uid) => {
 	const freelancerRef = firebase.database().ref(FREELANCERS_REF_PATH + "/" + uid)
-	freelancerRef.on("value", function(snapshot) {
+	freelancerRef.once("value", function(snapshot) {
 		return snapshot.val()
 	})
 }
@@ -84,11 +84,11 @@ const setFreelancerProfile = async (year, school, majors, minors,
 									cityOfResidence, stateOfResidence,
 									companyRoles, companies,
 									orgRoles, organizations,
-									doesData, dataWebsite, dataSkills, dataAwardCategories, dataAwardContent,
-									doesDesign, designWebsite, designSkills, designAwardCategories, designAwardContent,
-									doesContent, mediumUrl, instagramUrl, youtubeUrl, contentWebsite, contentSkills, contentAwardCategories, contentAwardContent,
-									doesSoftware, githubUrl, softwareWebsite, softwareSkills, softwareAwardCategories, softwareAwardContent) => {
-	const signedInUser = getSignedInUser()
+									doesData, dataWebsite=null, dataSkills=null, dataAwardCategories=null, dataAwardContent=null,
+									doesDesign, designWebsite=null, designSkills=null, designAwardCategories=null, designAwardContent=null,
+									doesContent, mediumUrl=null, instagramUrl=null, youtubeUrl=null, contentWebsite=null, contentSkills=null, contentAwardCategories=null, contentAwardContent=null,
+									doesSoftware, githubUrl=null, softwareWebsite=null, softwareSkills=null, softwareAwardCategories=null, softwareAwardContent=null) => {
+	const signedInUser = await getSignedInUser()
 	if (signedInUser === null) {
 		return 0
 	}
@@ -150,7 +150,7 @@ const setFreelancerProfile = async (year, school, majors, minors,
 		}
 	}
 	const freelancerProfileRef = firebase.database().ref(FREELANCERS_REF_PATH + "/" + signedInUser.uid + "/" + FREELANCER_PROFILE)
-	freelancerProfileRef.set(freelancerProfileRef, function(error) {
+	freelancerProfileRef.update(freelancerInfo, function(error) {
 		if (error) {
 			console.error("Failed to set freelancer profile, please try again - sorry!", error)
 		}
