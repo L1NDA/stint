@@ -17,6 +17,7 @@
     "pure-react-carousel": "^1.27.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-firebaseui": "^4.1.0",
     "react-icons": "^3.10.0",
     "react-input-autosize": "^2.2.2",
     "react-linkedin-sdk": "^1.0.12",

@@ -131,7 +131,7 @@ a {
   font-size: 14px;
   border: none;
   position: relative;
-  align-self: flex-start;
+  /* align-self: flex-start; */
   transition: background-position 0.2s ease-in;
 }
 
@@ -267,6 +267,7 @@ p {
   font-weight: bold;
 
   color: #8F8DFF;
+  background-color: transparent;
 
   margin: 0 4px;
   display: inline-block;
@@ -333,7 +334,17 @@ p {
 
 /* Smaller Laptops ----------- */
 @media only screen and (max-width : 1200px) {
+  h1 {
+    font-size: 44px
+  }
 
+  h3 {
+    font-size: 20px;
+  }
+
+  .search-box-container > input {
+    font-size: 20px;
+  }
 
 }
 
@@ -355,6 +366,27 @@ p {
 
   .menu-item {
     font-size: 10px;
+  }
+
+  h1 {
+    font-size: 32px
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .search-box-container > input {
+    font-size: 18px;
   }
 
 }

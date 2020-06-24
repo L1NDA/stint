@@ -36,7 +36,7 @@ class StudentInfo extends React.Component {
       if (content) {
         this.setState({
           [stateName]: true
-        })
+        }, console.log(this.state))
       } else {
         this.setState({
           [stateName]: false
@@ -128,8 +128,8 @@ class StudentInfo extends React.Component {
                 required={true}
                 optionalParent/>.</h3>
           {this.state.role1 && this.state.company1 ?
-          <span className="optional-chunk" style={{filter: this.state.role2 || this.state.company2 ? "opacity(1)" : null}}>
-          <h3>Another recent work experience was as a(n)
+          <h3><span className="optional-chunk" style={{filter: this.state.role2 || this.state.company2 ? "opacity(1)" : null}}>
+          Another recent work experience was as a(n)
           <Autocomplete
             options={Roles}
             className="optional-input"
@@ -148,10 +148,10 @@ class StudentInfo extends React.Component {
             index="1"
             saveData={this.handleChange}
             required={false}
-            optionalParent/>.</h3></span> : null}
+            optionalParent/>.</span></h3> : null}
           {this.state.role2 && this.state.company2 ?
-          <span className="optional-chunk" style={{filter: this.state.role3 || this.state.company3 ? "opacity(1)" : null}}>
-          <h3>Another recent work experience was as a(n)
+          <h3><span className="optional-chunk" style={{filter: this.state.role3 || this.state.company3 ? "opacity(1)" : null}}>
+          Another recent work experience was as a(n)
           <Autocomplete
             options={Roles}
             className="optional-input"
@@ -168,7 +168,7 @@ class StudentInfo extends React.Component {
             placeholder="(company)"
             index="2"
             saveData={this.handleChange}
-            required={false}/>.</h3></span> : null}
+            required={false}/>.</span></h3> : null}
         </div>
         <div className="hline"></div>
         <div className="student-dialogue-block">
@@ -190,8 +190,8 @@ class StudentInfo extends React.Component {
           required={true}
           optionalParent/>.</h3>
         {this.state.ec1 && this.state.ecrole1 ?
-        <span className="optional-chunk" style={{filter: this.state.ec2 || this.state.ecrole2 ? "opacity(1)" : null}}>
-          <h3>I’ve also been involved in
+        <h3><span className="optional-chunk" style={{filter: this.state.ec2 || this.state.ecrole2 ? "opacity(1)" : null}}>
+          I’ve also been involved in
           <Autocomplete
             options={[]}
             className="optional-input"
@@ -209,10 +209,11 @@ class StudentInfo extends React.Component {
             index="1"
             saveData={this.handleChange}
             required={false}
-            optionalParent/>.</h3></span> : null}
+            optionalParent/>.</span></h3> : null}
         {this.state.ec2 && this.state.ecrole2 ?
+        <h3>
         <span className="optional-chunk" style={{filter: this.state.ec3 || this.state.ecrole3 ? "opacity(1)" : null}}>
-          <h3>I’ve also been involved in
+          I’ve also been involved in
           <Autocomplete
             options={[]}
             className="optional-input"
@@ -228,7 +229,7 @@ class StudentInfo extends React.Component {
             placeholder="(role)"
             index="2"
             saveData={this.handleChange}
-            required={false}/>.</h3></span> : null}
+            required={false}/></span></h3> : null}
         </div>
       </div>
     )}
