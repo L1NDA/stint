@@ -1,28 +1,33 @@
 import React from 'react';
 import './style/homepage.css';
-import Menu from './Menu.js'
-import Footer from './Footer.js'
+import logo from './imgs/logo.png'
 import homepageImage from './imgs/homepage.svg'
 import Button from './Button.js'
+import Menu from './Menu.js'
+import Footer from './Footer.js'
+import hcs from './imgs/hcs.svg'
 import designers from './imgs/designers.svg'
 import coders from './imgs/coders.svg'
 import creatives from './imgs/creatives.svg'
 import analysts from './imgs/analysts.svg'
-import Typist from 'react-typist';
-import 'react-typist/dist/Typist.css'
+
+import app from 'firebase/app';
+import 'firebase/database';
+import firebase from '../firebase';
+import {StyledFirebaseAuth} from "react-firebaseui"
 import axios from 'axios'
 
 const {setCompanyBetaInfo} = require('../api/company')
 const {updateFreelancerInfo} = require('../api/freelancer')
 const {authUi, authUiConfig} = require('../api/auth')
 
+// authUi.start('#firebaseui-auth-container', authUiConfig);
+
 const typingText = [
   [`Wireframes`, `User journeys`, `Lo-fi & hi-fi mockups`, `Website redesign`, `Prototyping`, `Branding`, `Logo design`],
   [`Web development`, `App development`, `QA Testing`, `Back-end & servers`, `Machine Learning`, ``, ``],
   [`Graphic design`, `Promotional materials`, `Photography`, `Videography`, `Social Media`, `Animations`, ``],
   [`Data analysis`, `Data-driven strategy`, `Visual analytics`, `Presentation of data`, `Data modeling`, ``, ``]]
-
-authUi.start('#firebaseui-auth-container', authUiConfig);
 
 class Homepage extends React.Component {
 
@@ -37,13 +42,6 @@ class Homepage extends React.Component {
       dropdown: '',
       modal: false,
     }
-  }
-
-  changeName = (item, num) => {
-    this.setState({
-      selectedName: item,
-      selectedNum: num
-    })
   }
 
   handleButtonClick = (event) => {
@@ -65,47 +63,40 @@ class Homepage extends React.Component {
     // })
   }
 
-  onChangeName = event => {
-    this.setState({ name: event.target.value });
-  };
+  changeName = (item, num) => {
+    this.setState({
+      selectedName: item,
+      selectedNum: num
+    })
+  }
 
-  onChangeEmail = event => {
-    this.setState({ email: event.target.value });
-  };
+  changeLoginText = () => {
+    setTimeout(function() {
+          var button = document.querySelector('.firebaseui-idp-text');
+          if (button) {
+            button.innerHTML = `Continue with Google`;
+          }
+        }, 500);
+      }
 
-  onChangeDropdown = event => {
-    this.setState({ dropdown: event.target.value });
-  };
 
-  // guidGenerator() {
-  //   var S4 = function() {
-  //      return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-  //   };
-  //   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-  // }
 
-  // onCreateMessage = async (event) => {
-  //   event.preventDefault();
-  //   await createProfile(this.state.email, this.state.name, this.state.dropdown, "password")
-
-  //   this.setState({
-  //     email: '',
-  //     name: '',
-  //     dropdown: '',
-  //     modal: false });
-  // };
 
   render() {
 
     return (
       <div className="homepage">
-        <div className="modal" style={{display: this.state.modal ? 'block' : 'none'}} id="firebaseui-auth-container"></div>
-        <div id="loader">Loading...</div>
 
-        <div className="modal-screen"
-             style={{display: this.state.modal ? 'block' : 'none'}}
-             onClick={this.handleButtonClick}></div>
+      <div className="modal" style={{display: this.state.modal ? 'block' : 'none'}}>
+        <h2 style={{textAlign: "center"}}>Insert witty title</h2>
+        <br/>
+        <StyledFirebaseAuth uiConfig={authUiConfig} firebaseAuth={firebase.auth()} uiCallback={this.changeLoginText}/>
+      </div>
+      <div id="loader">Loading...</div>
 
+      <div className="modal-screen"
+           style={{display: this.state.modal ? 'block' : 'none'}}
+           onClick={this.handleButtonClick}></div>
 
       <div className="covid">
       In light of COVID-19, we hope to support students and companies in any way we can. If you are a company looking to hire, we’d love
@@ -118,7 +109,7 @@ class Homepage extends React.Component {
         <div className="homepage-text">
           <h1>No internship? <br/>No problem.</h1>
           <h3>We’re redefining the way students and companies connect through shorter, project-based stints.</h3>
-          <div onClick={this.handleButtonClick}><Button text="Join the revolution" style={{marginTop: "50px"}}/></div>
+          <button style={{marginTop: "50px"}} className="button" onClick={this.handleButtonClick}>Join our waitlist</button>
         </div>
         <img src={homepageImage} className="homepage-image"/>
       </div>
@@ -126,17 +117,17 @@ class Homepage extends React.Component {
       <div className="flex-row interstitial">
         <div className="interstitial-item">
           <h2>Build skills.</h2>
-          <p>Bootcamps and extracurriculars are not the only way to obtain real-world experience while still being a full-time student. Gain industry experience, straight from the source.</p>
+          <p>Bootcamps and extracurriculars aren’t the only way to get real-world experience as a full-time student. Gain industry experience, straight from the source.</p>
         </div>
 
         <div className="interstitial-item">
           <h2>Stay productive.</h2>
-          <p>Have some extra time on your hands? Receive stints and earn some money for those next few burritos on your own time and pace.  </p>
+          <p>Got extra time on your hands? Do stints and earn some money for those next few burritos – on your own time, at your own pace.</p>
         </div>
 
         <div className="interstitial-item">
           <h2>Break boundaries.</h2>
-          <p>We believe in challenging the status quo. Spend your time doing meaningful projects, instead of networking. Highlight your skills, not your connections.</p>
+          <p>We believe in challenging the status quo. Spend your time doing meaningful work instead of networking. Highlight your skills, not your connections.</p>
         </div>
       </div>
 
@@ -179,7 +170,7 @@ class Homepage extends React.Component {
       <div className="cta flex-column center" style={{backgroundColor: "#f5f5f5", padding: "150px 10%"}}>
         <h1>For everyone.</h1>
         <h3 style={{textAlign: "center"}}>We're hard at work bringing Stint to life – <br/>be the first to know when we launch.</h3>
-        <div onClick={this.handleButtonClick}><Button text="Join the revolution" style={{marginTop: "50px"}}/></div>
+        <button style={{marginTop: "50px"}} className="button" onClick={this.handleButtonClick}>Join our waitlist</button>
       </div>
 
       <Footer/>
@@ -191,5 +182,3 @@ class Homepage extends React.Component {
 }
 
 export default Homepage;
-
-// <Typist cursor={{ show: false }}>

@@ -128,7 +128,7 @@ class StudentInfo extends React.Component {
                 required={true}
                 optionalParent/>.</h3>
           {this.state.role1 && this.state.company1 ?
-          <span className="optional-chunk" style={{filter: this.state.role2 || this.state.company2 ? "opacity(1)" : null}}>
+          <h3><span className="optional-chunk" style={{filter: this.state.role2 || this.state.company2 ? "opacity(1)" : null}}>
           Another recent work experience was as a(n)
           <Autocomplete
             options={Roles}
@@ -148,9 +148,9 @@ class StudentInfo extends React.Component {
             index="1"
             saveData={this.handleChange}
             required={false}
-            optionalParent/>.</span> : null}
+            optionalParent/>.</span></h3> : null}
           {this.state.role2 && this.state.company2 ?
-          <span className="optional-chunk" style={{filter: this.state.role3 || this.state.company3 ? "opacity(1)" : null}}>
+          <h3><span className="optional-chunk" style={{filter: this.state.role3 || this.state.company3 ? "opacity(1)" : null}}>
           Another recent work experience was as a(n)
           <Autocomplete
             options={Roles}
@@ -168,7 +168,7 @@ class StudentInfo extends React.Component {
             placeholder="(company)"
             index="2"
             saveData={this.handleChange}
-            required={false}/>.</span> : null}
+            required={false}/>.</span></h3> : null}
         </div>
         <div className="hline"></div>
         <div className="student-dialogue-block">
@@ -190,7 +190,7 @@ class StudentInfo extends React.Component {
           required={true}
           optionalParent/>.</h3>
         {this.state.ec1 && this.state.ecrole1 ?
-        <span className="optional-chunk" style={{filter: this.state.ec2 || this.state.ecrole2 ? "opacity(1)" : null}}>
+        <h3><span className="optional-chunk" style={{filter: this.state.ec2 || this.state.ecrole2 ? "opacity(1)" : null}}>
           I’ve also been involved in
           <Autocomplete
             options={[]}
@@ -209,8 +209,9 @@ class StudentInfo extends React.Component {
             index="1"
             saveData={this.handleChange}
             required={false}
-            optionalParent/>.</span> : null}
+            optionalParent/>.</span></h3> : null}
         {this.state.ec2 && this.state.ecrole2 ?
+        <h3>
         <span className="optional-chunk" style={{filter: this.state.ec3 || this.state.ecrole3 ? "opacity(1)" : null}}>
           I’ve also been involved in
           <Autocomplete
@@ -228,7 +229,7 @@ class StudentInfo extends React.Component {
             placeholder="(role)"
             index="2"
             saveData={this.handleChange}
-            required={false}/>.</span> : null}
+            required={false}/></span></h3> : null}
         </div>
       </div>
     )}
