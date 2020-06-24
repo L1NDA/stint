@@ -7,7 +7,9 @@ import Form from './components/Form.js'
 import Company from './components/Company.js'
 import About from './components/About.js'
 import ProfileCreation from './components/ProfileCreation.js'
-const {linkedinCallback} = require('./api/auth')
+const {getSignedInUser, authUi, authUiConfig, linkedinCallback, signOutFreelancer } = require('./api/auth')
+
+
 
 function App() {
   return (

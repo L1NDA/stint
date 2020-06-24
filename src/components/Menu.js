@@ -1,8 +1,23 @@
 import React from 'react';
 import logo from './imgs/logo.png'
 import { NavLink } from 'react-router-dom';
+import {getSignedInUser, signOutFreelancer} from '../api/auth.js'
 
 class Menu extends React.Component {
+
+  constructor(){
+    super();
+    this.state = {
+    }
+  }
+
+  componentDidMount = async () => {
+    if (await getSignedInUser()) {
+      this.setState({
+        signedIn: true
+      })
+    }
+  }
 
 	render() {
 		return (
@@ -19,6 +34,7 @@ class Menu extends React.Component {
            <NavLink to="/our-mission"
                   className="menu-item"
                   activeClassName="active-item">Our Mission</NavLink>
+          {this.state.signedIn ? <button onClick={signOutFreelancer}>Sign Out</button> : null}
         </div>
       </div>
 		)

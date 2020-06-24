@@ -8,6 +8,7 @@ import StudentSkills from './StudentSkills.js'
 import app from 'firebase/app';
 import 'firebase/database';
 const {setFreelancerProfile} = require('../api/freelancer')
+const { getSignedInUser, authUi, authUiConfig, linkedinCallback, signOutFreelancer } = require('../api/auth')
 
 class ProfileCreation extends React.Component {
 
@@ -23,8 +24,16 @@ class ProfileCreation extends React.Component {
       ecrole: [null, null, null],
       da: {},
       db: {},
-      ccm: {}, 
+      ccm: {},
       sd: {}
+    }
+  }
+
+  componentDidMount = async () => {
+    if (await getSignedInUser()) {
+      this.setState({
+        signedIn: true
+      })
     }
   }
 
@@ -72,7 +81,7 @@ class ProfileCreation extends React.Component {
                          temp.city, temp.state,
                          temp.role, temp.company,
                          temp.ecrole, temp.ec,
-                         doesData, temp.da.da0, temp.da.skills, temp.da.awardCategories, temp.da.awardContent, 
+                         doesData, temp.da.da0, temp.da.skills, temp.da.awardCategories, temp.da.awardContent,
                          doesDesign, temp.db.db0, temp.db.skills, temp.db.awardCategories, temp.db.awardContent,
                          doesContent, temp.ccm.ccm0, temp.ccm.ccm1, temp.ccm.ccm2, temp.ccm.ccm3, temp.ccm.skills, temp.ccm.awardCategories, temp.ccm.awardContent,
                          doesSoftware, temp.sd.sd0, temp.sd.sd1, temp.sd.skills, temp.sd.awardCategories, temp.sd.awardContent)
@@ -85,6 +94,7 @@ class ProfileCreation extends React.Component {
 
       <Menu/>
 
+    { this.state.signedIn ?
       <form className="padding flex-column profile-container" onSubmit={this.submitProfile}>
         <div className="stint-dialogue">
           <h2>Nice to meet you, Linda Q.</h2>
@@ -102,7 +112,10 @@ class ProfileCreation extends React.Component {
 
         <Button style={{marginTop: "100px", marginBottom: "100px"}} text="Create my profile"/>
 
-      </form>
+      </form> : <h3>Oops!</h3>
+    }
+
+
 
       <Footer/>
 
