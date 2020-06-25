@@ -10,6 +10,7 @@ import designers from './imgs/designers.svg'
 import coders from './imgs/coders.svg'
 import creatives from './imgs/creatives.svg'
 import analysts from './imgs/analysts.svg'
+import { TiTimes } from "react-icons/ti";
 
 import app from 'firebase/app';
 import 'firebase/database';
@@ -86,8 +87,9 @@ class Homepage extends React.Component {
     return (
       <div className="homepage">
 
-      <div className="modal" style={{display: this.state.modal ? 'block' : 'none'}}>
-        <h2 style={{textAlign: "center"}}>Insert witty title</h2>
+      <div className="modal" style={{display: this.state.modal ? 'flex' : 'none'}}>
+        <TiTimes className="modal-x" onClick={this.handleButtonClick}/>
+        <h2 style={{textAlign: "center", color: "white", textWrap: "balance"}}>Be seen by companies before your coffee is brewed (or your Java compiled 🤓)</h2>
         <br/>
         <StyledFirebaseAuth uiConfig={authUiConfig} firebaseAuth={firebase.auth()} uiCallback={this.changeLoginText}/>
       </div>

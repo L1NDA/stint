@@ -110,7 +110,8 @@ class ProfileCreation extends React.Component {
 
         <StudentSkills saveToParent={this.saveAllChildren}/>
 
-        <Button style={{marginTop: "100px", marginBottom: "100px"}} text="Create my profile"/>
+        <Button style={{marginTop: "100px"}} text="Create my profile"/>
+        <div class="subtitle" style={{marginBottom: "100px"}}>By pressing this button, you're agreeing to our Terms and Conditions and Private Policy.</div>
 
       </form> : <h3>Oops!</h3>
     }

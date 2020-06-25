@@ -131,7 +131,7 @@ a {
   font-size: 14px;
   border: none;
   position: relative;
-  /* align-self: flex-start; */
+  align-self: flex-start;
   transition: background-position 0.2s ease-in;
 }
 
