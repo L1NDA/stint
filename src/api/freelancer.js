@@ -36,7 +36,7 @@ const { FREELANCERS_REF_PATH,
 		FREELANCER_MEDIUM,
 		FREELANCER_INSTAGRAM,
 		FREELANCER_YOUTUBE, } = require('./DB_CONSTANTS')
-const { getSignedInUser } = require("./auth.js")
+const { getSignedInUser } = require("./freelancerAuth.js")
 const firebase = require("firebase");
 // TODO: get rid of uid and instead make it return data for current signed in freelancer
 // Given freelancer's Google uid, returns all data associated with that freelancer

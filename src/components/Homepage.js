@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './style/homepage.css';
 import logo from './imgs/logo.png'
 import homepageImage from './imgs/homepage.svg'
@@ -17,8 +17,8 @@ import firebase from '../firebase';
 import {StyledFirebaseAuth} from "react-firebaseui"
 
 const {setCompanyBetaInfo} = require('../api/company')
-const {updateFreelancerInfo} = require('../api/freelancer')
 const {authUi, authUiConfig, getSignedInUser} = require('../api/auth')
+
 
 // authUi.start('#firebaseui-auth-container', authUiConfig);
 
@@ -43,8 +43,9 @@ class Homepage extends React.Component {
     }
   }
 
-  handleButtonClick = (event) => {
+  handleButtonClick = async (event) => {
     event.preventDefault()
+    console.log(await getSignedInUser())
     let temp = this.state.modal;
     this.setState({
       modal: !temp

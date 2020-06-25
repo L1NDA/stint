@@ -10,24 +10,28 @@ const {linkedinConfig} = require("../config")
 const LINKEDIN_API_URL = "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=78jv0jjr40mh6x&redirect_uri=https%3A%2F%2Flocalhost%3A3000%0A&scope=r_liteprofile%20r_emailaddress%20w_member_social"
 const REDIRECT_URI = "https%3A%2F%2Flocalhost%3A3000%2F"
 
-let SIGNED_IN_USER = async () => {
+let SIGNED_IN_USER = null
+
+const initCheckAuth = async () => {
   firebase.auth().onAuthStateChanged(
     (freelancer) => {
       if (freelancer) {
+        console.log("HI")
         // User is signed in.
-        return freelancer
+        SIGNED_IN_USER = freelancer
       } else {
         // User is signed out.
-        return null
+        SIGNED_IN_USER = null
       }
     },
     (error) => {
       console.log(error);
     }
-  );
+  )
 };
 
 const getSignedInUser = async () => {
+  await initCheckAuth()
   return SIGNED_IN_USER
 }
 
@@ -88,7 +92,8 @@ const authUiConfig = {
 };
 
 const signOutFreelancer = async () => {
-	if (SIGNED_IN_USER) {
+  console.log(await SIGNED_IN_USER())
+	if (await SIGNED_IN_USER()) {
 		firebase.auth().signOut().then(function(){
 			console.log("Signed out the freelancer successfully.")
 			return true
