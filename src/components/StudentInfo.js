@@ -55,7 +55,7 @@ class StudentInfo extends React.Component {
   render() {
       return (
 
-      <div className="student-dialogue" autocomplete="off">
+      <div className="student-dialogue">
         <div className="student-dialogue-block">
 
         <h3>I am a <Select items={Year} name="year" saveData={this.handleChange}/>
@@ -126,7 +126,7 @@ class StudentInfo extends React.Component {
               required={true}
               optionalParent/>
             at <Autocomplete
-                options={[]}
+
                 name="company1"
                 placeholder="(company*)"
                 index="0"
@@ -149,7 +149,7 @@ class StudentInfo extends React.Component {
             maxLength="60"/>
           at
           <Autocomplete
-            options={[]}
+
             className="optional-input"
             name="company2"
             placeholder="(company)"
@@ -172,7 +172,7 @@ class StudentInfo extends React.Component {
             required={false}/>
           at
           <Autocomplete
-            options={[]}
+
             className="optional-input"
             name="company3"
             placeholder="(company)"
@@ -186,7 +186,7 @@ class StudentInfo extends React.Component {
         <div className="student-dialogue-block">
           <h3>I’ve been most recently involved in
           <Autocomplete
-          options={[]}
+
           name="ec1"
           placeholder="(organization*)"
           index="0"
@@ -195,7 +195,7 @@ class StudentInfo extends React.Component {
           optionalParent
           maxLength="60"/> as a(n)
           <Autocomplete
-          options={[]}
+
           name="ecrole1"
           placeholder="(role*)"
           index="0"
@@ -207,7 +207,7 @@ class StudentInfo extends React.Component {
         <h3><span className="optional-chunk" style={{filter: this.state.ec2 || this.state.ecrole2 ? "opacity(1)" : null}}>
           I’ve also been involved in
           <Autocomplete
-            options={[]}
+
             className="optional-input"
             name="ec2"
             placeholder="(organization)"
@@ -217,7 +217,7 @@ class StudentInfo extends React.Component {
             optionalParent
             maxLength="60"/> as a(n)
           <Autocomplete
-            options={[]}
+
             className="optional-input"
             name="ecrole2"
             placeholder="(role)"
@@ -231,7 +231,7 @@ class StudentInfo extends React.Component {
         <span className="optional-chunk" style={{filter: this.state.ec3 || this.state.ecrole3 ? "opacity(1)" : null}}>
           I’ve also been involved in
           <Autocomplete
-            options={[]}
+
             className="optional-input"
             name="ec3"
             placeholder="(organization)"
@@ -240,7 +240,7 @@ class StudentInfo extends React.Component {
             required={false}
             maxLength="60"/> as a(n)
           <Autocomplete
-            options={[]}
+
             className="optional-input"
             name="ecrole3"
             placeholder="(role)"

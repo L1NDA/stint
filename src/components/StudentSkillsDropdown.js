@@ -18,6 +18,10 @@ class StudentSkillsDropdown extends React.Component {
     this.saveStateDebounced = debounce(this.saveState, 1500);
   }
 
+  componentDidMount() {
+    console.log(this.state)
+  }
+
   componentDidUpdate() {
     if (this.state.details && !this.state.width) {
       this.setWidth();
@@ -36,18 +40,6 @@ class StudentSkillsDropdown extends React.Component {
     this.setState({
       [stateName]: content
     })
-  }
-
-  handleHaves = (stateName, content, index = null) => {
-    if (content === "have") {
-      this.setState({
-        [stateName]: true
-      })
-    } else {
-      this.setState({
-        [stateName]: false
-      })
-    }
   }
 
   // handleChange = (stateName, content, index = null) => {
@@ -87,6 +79,10 @@ class StudentSkillsDropdown extends React.Component {
     e.preventDefault()
     let aggregatedState = await this.aggregateAwards(this.state)
     this.props.handleButton(this.props.section, aggregatedState)
+    this.setState({
+      submitted: true,
+      details: false
+    })
   }
 
   handleSkillClick = (e, skill, type) => {
@@ -123,7 +119,12 @@ class StudentSkillsDropdown extends React.Component {
           <div className="skills-header-row">
             <h3 style={{fontWeight: "bold"}}>{this.props.title}</h3>
             {this.state.details ? <BsChevronUp/> : <BsChevronDown/>}
-            <div className="student-skill-status">In Progress</div>
+            {this.state.details && !this.state.submitted
+              || Object.keys(this.state.skills).length !== 0 && !this.state.submitted
+              || this.state[`${this.props.section}HaveAwardContent`] && !this.state.submitted
+              ? <div className="student-skill-status" style={{backgroundColor: "#8F8DFF"}}>In Progress</div> : null}
+            {this.state.submitted
+              ? <div className="student-skill-status" style={{backgroundColor: "#05D9B2"}}>Completed</div> : null}
           </div>
           <p style={{color: "#B0B0B0", margin: "0", marginTop: "10px"}}>{this.props.subtitle}</p>
         </div>
@@ -135,17 +136,19 @@ class StudentSkillsDropdown extends React.Component {
                 <h3>I <Select
                   items={["have", "do not have"]}
                   name={`${this.props.section}Have${index}`}
-                  saveData={this.handleHaves}
-                  have="true"/>
+                  saveData={this.saveState}
+                  selected={this.state[`${this.props.section}Have${index}`]}
+                  have={true}/>
                 {text}
-                {this.state[`${this.props.section}Have${index}`] ?
+                {this.state[`${this.props.section}Have${index}`] === "have" ?
                 <React.Fragment>
                   : <Autocomplete
-                      options={[]}
+
                       name={`${this.props.section}${index}`}
                       placeholder="(insert URL*)"
                       saveData={this.saveState}
                       required={true}
+                      val={this.state[`${this.props.section}${index}`]}
                       type="url"/>.
               </React.Fragment> : <React.Fragment>.</React.Fragment>}</h3>
               );
@@ -173,26 +176,36 @@ class StudentSkillsDropdown extends React.Component {
             <h3>I <Select
               items={["have", "have not"]}
               name={`${this.props.section}HaveAward`}
-              saveData={this.handleHaves}
-              have="true"/>
-            won a relevant&nbsp;
-
-            {this.state[`${this.props.section}HaveAward`] ?
+              saveData={this.saveState}
+              selected={this.state[`${this.props.section}HaveAward`]}
+              have={true}/>
+            won a relevant {this.state[`${this.props.section}HaveAward`] === "have" ?
             <Select
               items={["(insert category*)", "competition", "academic", "other"]}
               name={`${this.props.section}HaveAwardCategory`}
-              saveData={this.saveState}/>
+              saveData={this.saveState}
+              selected={this.state[`${this.props.section}HaveAwardCategory`]}
+              have={true}/>
             : null}
 
             &nbsp;award
-            {this.state[`${this.props.section}HaveAward`] ?
+            {this.state[`${this.props.section}HaveAward`] === "have" ?
             <React.Fragment>
             : <Autocomplete
-                options={[]}
+
                 name={`${this.props.section}HaveAwardContent`}
                 placeholder="(award name*)"
                 saveData={this.saveStateDebounced}
-                required={true}/>
+                val={this.state[`${this.props.section}HaveAwardContent`]}
+                required={true}
+                maxLength="50"/> from <Autocomplete
+
+                    name={`${this.props.section}HaveAwardProvider`}
+                    placeholder="(award provider*)"
+                    saveData={this.saveStateDebounced}
+                    val={this.state[`${this.props.section}HaveAwardProvider`]}
+                    required={true}
+                    maxLength="50"/>
             </React.Fragment>
             : null}.</h3>
 
@@ -201,26 +214,36 @@ class StudentSkillsDropdown extends React.Component {
             <h3>I <Select
               items={["have not", "have"]}
               name={`${this.props.section}HaveAward1`}
-              saveData={this.handleHaves}
-              have="true"/>
-            won another relevant&nbsp;
-
-            {this.state[`${this.props.section}HaveAward1`] ?
+              saveData={this.saveState}
+              have={true}
+              selected={this.state[`${this.props.section}HaveAward1`]}/>
+            won another relevant {this.state[`${this.props.section}HaveAward1`] === "have" ?
             <Select
               items={["(insert category*)", "competition", "academic", "other"]}
               name={`${this.props.section}HaveAwardCategory1`}
-              saveData={this.saveState}/>
+              saveData={this.saveState}
+              selected={this.state[`${this.props.section}HaveAwardCategory1`]}
+              have={true}/>
             : null}
 
             &nbsp;award
-            {this.state[`${this.props.section}HaveAward1`] ?
+            {this.state[`${this.props.section}HaveAward1`] === "have" ?
             <React.Fragment>
             : <Autocomplete
-                options={[]}
+
                 name={`${this.props.section}HaveAwardContent1`}
                 placeholder="(award name*)"
                 saveData={this.saveStateDebounced}
-                required={true}/>
+                val={this.state[`${this.props.section}HaveAwardContent1`]}
+                required={true}
+                maxLength="50"/> from <Autocomplete
+
+                    name={`${this.props.section}HaveAwardProvider1`}
+                    placeholder="(award provider*)"
+                    saveData={this.saveStateDebounced}
+                    val={this.state[`${this.props.section}HaveAwardProvider1`]}
+                    required={true}
+                    maxLength="50"/>
             </React.Fragment>
             : null}.</h3></span> : null
         }
@@ -230,26 +253,36 @@ class StudentSkillsDropdown extends React.Component {
           <h3>I <Select
             items={["have not", "have"]}
             name={`${this.props.section}HaveAward2`}
-            saveData={this.handleHaves}
-            have="true"/>
-          won third relevant&nbsp;
-
-          {this.state[`${this.props.section}HaveAward2`] ?
+            saveData={this.saveState}
+            selected={this.state[`${this.props.section}HaveAward2`]}
+            have={true}/>
+          won third relevant {this.state[`${this.props.section}HaveAward2`] === "have" ?
           <Select
             items={["(insert category*)", "competition", "academic", "other"]}
             name={`${this.props.section}HaveAwardCategory2`}
-            saveData={this.saveState}/>
+            saveData={this.saveState}
+            selected={this.state[`${this.props.section}HaveAwardCategory2`]}
+            have={true}/>
           : null}
 
           &nbsp;award
-          {this.state[`${this.props.section}HaveAward2`] ?
+          {this.state[`${this.props.section}HaveAward2`] === "have" ?
           <React.Fragment>
           : <Autocomplete
-              options={[]}
+
               name={`${this.props.section}HaveAwardContent2`}
               placeholder="(award name*)"
               saveData={this.saveState}
-              required={true}/>
+              val={this.state[`${this.props.section}HaveAwardContent2`]}
+              required={true}
+              maxLength="50"/> from <Autocomplete
+
+                  name={`${this.props.section}HaveAwardProvider2`}
+                  placeholder="(award provider*)"
+                  saveData={this.saveState}
+                  val={this.state[`${this.props.section}HaveAwardProvider2`]}
+                  required={true}
+                  maxLength="50"/>
           </React.Fragment>
           : null}.</h3></span> : null
       }
