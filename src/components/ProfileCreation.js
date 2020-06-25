@@ -22,6 +22,8 @@ class ProfileCreation extends React.Component {
       company: [null, null, null],
       ec: [null, null, null],
       ecrole: [null, null, null],
+      yearcompany: [null, null, null],
+      yearec: [null, null, null],
       da: {},
       db: {},
       ccm: {},
@@ -65,13 +67,14 @@ class ProfileCreation extends React.Component {
   saveAllChildren = (section, state) => {
     this.setState({
       [section]: state
-    })
+    }, () => console.log(this.state))
   }
 
   submitProfile = (e) => {
     e.preventDefault()
     e.stopPropagation()
     const temp = this.state
+    console.log(this.state)
     let doesData = Object.keys(temp.da).length !== 0
     let doesDesign = Object.keys(temp.db).length !== 0
     let doesContent = Object.keys(temp.ccm).length !== 0
