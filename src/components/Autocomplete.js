@@ -13,19 +13,21 @@ export class Autocomplete extends Component {
 
   constructor(props) {
     super(props);
+    let tempuserInput;
+    if (this.props.val) {
+      tempuserInput = this.props.val
+    } else {
+      tempuserInput = ''
+    }
     this.state = {
       activeOption: 0,
       filteredOptions: [],
       showOptions: false,
-      userInput: '',
+      userInput: tempuserInput,
       focus: false
     };
     this.finishedTypingDebounced = debounce(this.finishedTyping, 1500);
   }
-
-  // componentDidMount() {
-  //   this.setWidth()
-  // }
 
   // setWidth = (text) => {
   //   console.log("text", text)
@@ -53,18 +55,26 @@ export class Autocomplete extends Component {
 
   handleFocus = () => {
 
+    if (this.props.options) {
       this.setState({
         focus: true
       })
+    }
+
+
   }
 
   handleBlur = () => {
 
-    if (clickedDropdown) {
-      clickedDropdown = false
-    } else {
-      this.setState({focus: false});
+    if (this.props.options) {
+      if (clickedDropdown) {
+        clickedDropdown = false
+      } else {
+        this.setState({focus: false});
+      }
     }
+
+
 
     // setTimeout(
     //     function() {
@@ -82,13 +92,14 @@ export class Autocomplete extends Component {
     const userInput = e.currentTarget.value;
     let filteredOptions = [];
 
-    if (userInput.length > 2) {
+    if (this.props.options) {
+      if (userInput.length > 2) {
 
-      filteredOptions = options.filter(
-        (optionName) =>
-          optionName.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-    )};
-
+        filteredOptions = options.filter(
+          (optionName) =>
+            optionName.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+      )};
+    }
 
     // const filteredOptions = options.filter(
     //   (optionName) =>
@@ -114,55 +125,62 @@ export class Autocomplete extends Component {
   };
 
   onMouseDown = (e) => {
-    clickedDropdown = true
-    this.setState({
-      activeOption: 0,
-      filteredOptions: [],
-      showOptions: false,
-      userInput: e.currentTarget.innerText
-    }, function() {
-      if (!this.props.index) {
-        this.props.saveData(this.props.name, this.state.userInput)
-      } else if (this.props.optionalParent) {
-        this.props.saveData(this.props.name, this.state.userInput, true)
-      } else {
-        this.props.saveData(this.props.name, this.state.userInput, this.props.index)
-      }
-
-      });
-    // this.setWidth(e.currentTarget.innerText)
-  };
-
-  onKeyDown = (e) => {
-    const { activeOption, filteredOptions } = this.state;
-
-    if (e.keyCode === 13) {
+    if (this.props.options) {
+      clickedDropdown = true
       this.setState({
         activeOption: 0,
+        filteredOptions: [],
         showOptions: false,
-        userInput: filteredOptions[activeOption]
+        userInput: e.currentTarget.innerText
       }, function() {
         if (!this.props.index) {
           this.props.saveData(this.props.name, this.state.userInput)
         } else if (this.props.optionalParent) {
           this.props.saveData(this.props.name, this.state.userInput, true)
-        }
-        else {
+        } else {
           this.props.saveData(this.props.name, this.state.userInput, this.props.index)
         }
 
         });
-    } else if (e.keyCode === 38) {
-      if (activeOption === 0) {
-        return;
-      }
-      this.setState({ activeOption: activeOption - 1 });
-    } else if (e.keyCode === 40) {
-      if (activeOption === filteredOptions.length - 1) {
-        return;
-      }
-      this.setState({ activeOption: activeOption + 1 });
     }
+
+    // this.setWidth(e.currentTarget.innerText)
+  };
+
+  onKeyDown = (e) => {
+    if (this.props.options) {
+      const { activeOption, filteredOptions } = this.state;
+
+      if (e.keyCode === 13) {
+        this.setState({
+          activeOption: 0,
+          showOptions: false,
+          userInput: filteredOptions[activeOption]
+        }, function() {
+          if (!this.props.index) {
+            this.props.saveData(this.props.name, this.state.userInput)
+          } else if (this.props.optionalParent) {
+            this.props.saveData(this.props.name, this.state.userInput, true)
+          }
+          else {
+            this.props.saveData(this.props.name, this.state.userInput, this.props.index)
+          }
+
+          });
+      } else if (e.keyCode === 38) {
+        if (activeOption === 0) {
+          return;
+        }
+        this.setState({ activeOption: activeOption - 1 });
+      } else if (e.keyCode === 40) {
+        if (activeOption === filteredOptions.length - 1) {
+          return;
+        }
+        this.setState({ activeOption: activeOption + 1 });
+      }
+    }
+
+
   };
 
   render() {
@@ -174,7 +192,7 @@ export class Autocomplete extends Component {
       state: { activeOption, filteredOptions, showOptions, userInput , focus}
     } = this;
     let optionList;
-    if (showOptions && userInput && focus) {
+    if (this.props.options && showOptions && userInput && focus) {
       if (filteredOptions.length) {
         optionList = (
           <div className="ac-dropdown">
@@ -218,7 +236,7 @@ export class Autocomplete extends Component {
             type={this.props.type}
             maxLength={this.props.maxLength}
           />
-        {optionList}
+        {this.state.options ? optionList : null}
       </span>
     );
   }

@@ -34,7 +34,7 @@ class Menu extends React.Component {
            <NavLink to="/our-mission"
                   className="menu-item"
                   activeClassName="active-item">Our Mission</NavLink>
-          {this.state.signedIn ? <button onClick={signOutFreelancer}>Sign Out</button> : null}
+                {this.state.signedIn ? <button className="button" onClick={signOutFreelancer}>Sign Out</button> : null}
         </div>
       </div>
 		)

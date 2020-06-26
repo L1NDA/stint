@@ -5,16 +5,24 @@ import React from "react";
 class Select extends React.Component {
   constructor(props) {
     super(props);
+    let tempSelected;
+    if (this.props.selected) {
+      tempSelected = this.props.selected
+    } else {
+      tempSelected = this.props.items[0]
+    }
     this.state = {
-      selected: this.props.items[0]
+      selected: tempSelected
     };
   }
 
   componentDidMount(){
     this.setWidth()
+
     if (this.props.have) {
       this.props.saveData(this.props.name, this.state.selected)
     }
+
   }
 
   setWidth = () => {

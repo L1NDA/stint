@@ -1,3 +1,9 @@
+/* hex codes: */
+/* purple: #8F8DFF */
+/* (lighter) green: #2AF3CE */
+/* (darker) green: #05D9B2 */
+/* gray: #474448 */
+
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Source+Sans+Pro:wght@300;400;700&display=swap');
 
 *, *:before, *:after {
@@ -131,7 +137,7 @@ a {
   font-size: 14px;
   border: none;
   position: relative;
-  /* align-self: flex-start; */
+  align-self: flex-start;
   transition: background-position 0.2s ease-in;
 }
 
@@ -140,6 +146,10 @@ a {
   box-shadow: 0px 8px 8px rgba(71, 68, 72, 0.15);
   transition: all 0.2s ease-in;
   background-position: left bottom;
+}
+
+.button:focus {
+  outline: 0
 }
 
 /* .button::after {
@@ -200,6 +210,11 @@ p {
   color: #474448;
 }
 
+.subtitle {
+  font-size: 12px;
+  color: #474448;
+}
+
 .input {
   font-family: 'IBM Plex Mono', monospace;
   padding: 5px 10px;
@@ -215,7 +230,8 @@ p {
 }
 
 .input:focus {
-  border-bottom: 4px solid #8F8DFF;
+  /* border-bottom: 4px solid #8F8DFF; */
+  background-color: #F2F2FF;
   transition: all 0.2s ease-in;
 }
 
@@ -277,9 +293,21 @@ p {
 }
 
 .search-box-container > input:focus {
-  border-bottom: 4px solid #474448;
+  /* border-bottom: 4px solid #474448; */
+  background-color: #F2F2FF;
   outline: none;
   transition: border-bottom 0.2s ease-in;
+}
+
+:disabled {
+  background: #B0B0B0;
+  cursor: not-allowed;
+}
+
+:disabled:hover {
+  background: #B0B0B0;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 .hide {
@@ -328,7 +356,17 @@ p {
   color: #474448;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
 /* Media Queries */
 

@@ -161,16 +161,16 @@
 
 .skills-header-row > * {
   margin: 0;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 
 .student-skill-status {
   font-family: 'IBM Plex Mono', monospace;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 12px;
   padding: 5px 10px;
 
-  /* color: #FFFFFF; */
+  color: #FFFFFF;
 }
 
 .skill-container {
