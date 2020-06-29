@@ -13,15 +13,16 @@ const REDIRECT_URI = "https%3A%2F%2Flocalhost%3A3000%2F"
 let SIGNED_IN_USER = null
 
 const initCheckAuth = async () => {
-  firebase.auth().onAuthStateChanged(
+  return await firebase.auth().onAuthStateChanged(
     (freelancer) => {
       if (freelancer) {
-        console.log("HI")
         // User is signed in.
         SIGNED_IN_USER = freelancer
+        console.log(freelancer)
+        return freelancer
       } else {
         // User is signed out.
-        SIGNED_IN_USER = null
+        return null
       }
     },
     (error) => {
@@ -31,8 +32,9 @@ const initCheckAuth = async () => {
 };
 
 const getSignedInUser = async () => {
-  await initCheckAuth()
-  return SIGNED_IN_USER
+  const signedInUser = await initCheckAuth()
+  console.log(signedInUser)
+  return signedInUser
 }
 
 const authUi = new firebaseui.auth.AuthUI(firebase.auth());
@@ -92,8 +94,8 @@ const authUiConfig = {
 };
 
 const signOutFreelancer = async () => {
-  console.log(await SIGNED_IN_USER())
-	if (await SIGNED_IN_USER()) {
+  console.log(await getSignedInUser())
+	if (await getSignedInUser()) {
 		firebase.auth().signOut().then(function(){
 			console.log("Signed out the freelancer successfully.")
 			return true

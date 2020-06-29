@@ -42,6 +42,7 @@ class ProfileCreation extends React.Component {
       }, () => console.log(this.state.signedIn))
     }
   }
+  
 
   handleChange = (name, content) => {
     this.setState({
@@ -92,12 +93,13 @@ class ProfileCreation extends React.Component {
 
     setFreelancerProfile(temp.year, temp.colleges, temp.major, temp.minor,
                          temp.city, temp.state,
-                         temp.role, temp.company,
-                         temp.ecrole, temp.ec,
-                         doesData, temp.da.da0, temp.da.skills, temp.da.awardCategories, temp.da.awardContent,
-                         doesDesign, temp.db.db0, temp.db.skills, temp.db.awardCategories, temp.db.awardContent,
-                         doesContent, temp.ccm.ccm0, temp.ccm.ccm1, temp.ccm.ccm2, temp.ccm.ccm3, temp.ccm.skills, temp.ccm.awardCategories, temp.ccm.awardContent,
-                         doesSoftware, temp.sd.sd0, temp.sd.sd1, temp.sd.skills, temp.sd.awardCategories, temp.sd.awardContent)
+                         temp.role, temp.company, temp.yearcompany,
+                         temp.ecrole, temp.ec, temp.yearec,
+                         doesData, temp.da.da0, temp.da.skills, temp.da.awardCategories, temp.da.awardContent, temp.da.awardProviders,
+                         doesDesign, temp.db.db0, temp.db.skills, temp.db.awardCategories, temp.db.awardContent, temp.db.awardProviders,
+                         doesContent, temp.ccm.ccm0, temp.ccm.ccm1, temp.ccm.ccm2, temp.ccm.ccm3, temp.ccm.skills, temp.ccm.awardCategories, temp.ccm.awardContent, temp.ccm.awardProviders,
+                         doesSoftware, temp.sd.sd0, temp.sd.sd1, temp.sd.skills, temp.sd.awardCategories, temp.sd.awardContent, temp.sd.awardProviders,
+                         temp.phonenum)
   }
 
   render() {

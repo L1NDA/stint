@@ -57,19 +57,24 @@ class StudentSkillsDropdown extends React.Component {
   }
 
   aggregateAwards = (currState) => {
+    console.log("aggregateAwards", currState)
     let categoryString = this.props.section+"HaveAwardCategory"
     let contentString = this.props.section+"HaveAwardContent"
+    let providerString = this.props.section+"HaveAwardProvider"
     if (currState[categoryString]) {
       currState.awardCategories = [currState[categoryString]]
       currState.awardContent = [currState[contentString]]
+      currState.awardProviders = [currState[providerString]]
     }
     if (currState[categoryString + "1"]) {
       currState.awardCategories.push(currState[categoryString + "1"])
       currState.awardContent.push(currState[contentString + "1"])
+      currState.awardProviders.push(currState[providerString + "1"])
     }
-    if (currState[categoryString]) {
+    if (currState[categoryString + "2"]) {
       currState.awardCategories.push(currState[categoryString + "2"])
       currState.awardContent.push(currState[contentString + "2"])
+      currState.awardProviders.push(currState[providerString + "2"])
     }
     return currState
   }
