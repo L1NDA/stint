@@ -23,9 +23,11 @@
     "react-input-autosize": "^2.2.2",
     "react-linkedin-sdk": "^1.0.12",
     "react-places-autocomplete": "^7.2.1",
+    "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-typist": "^2.0.5",
+    "redux": "^4.0.5",
     "stripe": "^8.64.0"
   },
   "scripts": {
