@@ -11,6 +11,7 @@ import coders from './imgs/coders.svg'
 import creatives from './imgs/creatives.svg'
 import analysts from './imgs/analysts.svg'
 import { TiTimes } from "react-icons/ti";
+import { getGithubInfo } from "../api/github"
 
 import app from 'firebase/app';
 import 'firebase/database';
@@ -62,15 +63,6 @@ class Homepage extends React.Component {
     // .catch(error => {
     //   console.error(error)
     // })
-    axios.post('http://localhost:5001/stint-landing/us-central1/getGithubRepos', {
-      githubUser: 'charlesma4'
-    })
-    .then(res => {
-      console.log(res)
-    })
-    .catch(error => {
-      console.error(error)
-    })
   }
 
   changeName = (item, num) => {
