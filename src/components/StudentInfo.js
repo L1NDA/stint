@@ -133,7 +133,7 @@ class StudentInfo extends React.Component {
                 saveData={this.handleChange}
                 required={true}
                 optionalParent/>
-              in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearcompany1" index="1" saveData={this.handleChange}/>.</h3>
+              in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearcompany1" index="0" saveData={this.handleChange}/>.</h3>
           {this.state.role1 && this.state.company1 ?
           <h3><span className="optional-chunk" style={{filter: this.state.role2 || this.state.company2 ? "opacity(1)" : null}}>
           Another recent work experience was as a(n)
@@ -158,7 +158,7 @@ class StudentInfo extends React.Component {
             required={false}
             optionalParent
             maxLength="60"/>
-          in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearcompany2" index="2" saveData={this.handleChange}/>.</span></h3> : null}
+          in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearcompany2" index="1" saveData={this.handleChange}/>.</span></h3> : null}
           {this.state.role2 && this.state.company2 ?
           <h3><span className="optional-chunk" style={{filter: this.state.role3 || this.state.company3 ? "opacity(1)" : null}}>
           Another recent work experience was as a(n)
@@ -180,7 +180,7 @@ class StudentInfo extends React.Component {
             saveData={this.handleChange}
             required={false}
             maxLength="60"/>
-          in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearcompany2" index="3" saveData={this.handleChange}/>.</span></h3> : null}
+          in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearcompany2" index="2" saveData={this.handleChange}/>.</span></h3> : null}
         </div>
         <div className="hline"></div>
         <div className="student-dialogue-block">
@@ -202,7 +202,7 @@ class StudentInfo extends React.Component {
           saveData={this.handleChange}
           required={true}
           optionalParent/>
-        in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearec1" saveData={this.handleChange}/>.</h3>
+        in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearec1" index="0" saveData={this.handleChange}/>.</h3>
         {this.state.ec1 && this.state.ecrole1 ?
         <h3><span className="optional-chunk" style={{filter: this.state.ec2 || this.state.ecrole2 ? "opacity(1)" : null}}>
           I’ve also been involved in
@@ -225,7 +225,7 @@ class StudentInfo extends React.Component {
             saveData={this.handleChange}
             required={false}
             optionalParent/>
-          in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearec2" saveData={this.handleChange}/>.</span></h3> : null}
+          in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearec2" index="1" saveData={this.handleChange}/>.</span></h3> : null}
         {this.state.ec2 && this.state.ecrole2 ?
         <h3>
         <span className="optional-chunk" style={{filter: this.state.ec3 || this.state.ecrole3 ? "opacity(1)" : null}}>
@@ -247,7 +247,7 @@ class StudentInfo extends React.Component {
             index="2"
             saveData={this.handleChange}
             required={false}/>
-          in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearec3" saveData={this.handleChange}/>.</span></h3> : null}
+          in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearec3" index="2" saveData={this.handleChange}/>.</span></h3> : null}
         </div>
       </div>
     )}

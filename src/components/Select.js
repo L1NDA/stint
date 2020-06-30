@@ -34,7 +34,12 @@ class Select extends React.Component {
   handleSelect = e => {
     this.setState({ selected: e.target.value }, () => {
       this.setWidth();
-      this.props.saveData(this.props.name, this.state.selected)
+      if (this.props.index) {
+        this.props.saveData(this.props.name, this.state.selected, this.props.index)
+      }
+      else {
+        this.props.saveData(this.props.name, this.state.selected)
+      }
     });
   };
 

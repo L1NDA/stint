@@ -6,9 +6,6 @@ import Homepage from './components/Homepage.js'
 import Company from './components/Company.js'
 import About from './components/About.js'
 import ProfileCreation from './components/ProfileCreation.js'
-const { getSignedInUser, authUi, authUiConfig, linkedinCallback, signOutFreelancer } = require('./api/auth')
-
-
 
 function App() {
   return (
@@ -17,9 +14,7 @@ function App() {
           <Route exact path='/' component={Homepage}/>
           <Route exact path='/hire' component={Company}/>
           <Route exact path='/our-mission' component={About}/>
-          <Route path='/login=TRUE' component={ProfileCreation}/>
-          <Route path='/auth/linkedin/callback'>
-          </Route>
+          <Route exact path='/login=TRUE' component={ProfileCreation}/>
         </Switch>
       </Router>
   );

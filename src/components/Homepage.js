@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './style/homepage.css';
 import logo from './imgs/logo.png'
 import homepageImage from './imgs/homepage.svg'
@@ -17,9 +17,10 @@ import 'firebase/database';
 import firebase from '../firebase';
 import {StyledFirebaseAuth} from "react-firebaseui"
 
+const axios = require('axios')
 const {setCompanyBetaInfo} = require('../api/company')
-const {updateFreelancerInfo} = require('../api/freelancer')
 const {authUi, authUiConfig, getSignedInUser} = require('../api/auth')
+
 
 // authUi.start('#firebaseui-auth-container', authUiConfig);
 
@@ -44,7 +45,7 @@ class Homepage extends React.Component {
     }
   }
 
-  handleButtonClick = (event) => {
+  handleButtonClick = async (event) => {
     event.preventDefault()
     let temp = this.state.modal;
     this.setState({
@@ -61,6 +62,15 @@ class Homepage extends React.Component {
     // .catch(error => {
     //   console.error(error)
     // })
+    axios.post('http://localhost:5001/stint-landing/us-central1/getGithubRepos', {
+      githubUser: 'charlesma4'
+    })
+    .then(res => {
+      console.log(res)
+    })
+    .catch(error => {
+      console.error(error)
+    })
   }
 
   changeName = (item, num) => {

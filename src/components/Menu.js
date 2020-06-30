@@ -12,7 +12,6 @@ class Menu extends React.Component {
   }
 
   componentDidMount = async () => {
-    console.log("HI")
     if (await getSignedInUser()) {
       this.setState({
         signedIn: true

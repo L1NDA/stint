@@ -12,6 +12,7 @@
     "express": "^4.17.1",
     "firebase": "^7.14.5",
     "firebaseui": "^4.5.1",
+    "github-api": "^3.3.0",
     "nodemailer": "^6.4.10",
     "prettier": "^2.0.5",
     "pure-react-carousel": "^1.27.1",
@@ -22,9 +23,12 @@
     "react-input-autosize": "^2.2.2",
     "react-linkedin-sdk": "^1.0.12",
     "react-places-autocomplete": "^7.2.1",
+    "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-typist": "^2.0.5",
+    "reducers": "^3.0.0-alpha",
+    "redux": "^4.0.5",
     "stripe": "^8.64.0"
   },
   "scripts": {

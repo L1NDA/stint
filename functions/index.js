@@ -1,7 +1,12 @@
 const functions = require('firebase-functions');
-const nodemailer = require("nodemailer")
 const cors = require('cors')({origin: true});
+
+const nodemailer = require("nodemailer")
+
 const { mailConfig } = require("./config")
+
+const axios = require('axios')
+const moment = require('moment')
 
 const HOST_NAME = "smtp.gmail.com"
 const PORT = 465
@@ -32,7 +37,41 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
             if(error){
                 return res.send(error.toString());
             }
-            return res.status(200).send('Sent');
+            return res.status(200).send('Sent', info);
         });
     });    
 });
+
+exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        const {githubUser} = req.body
+        const githubApiUrl = "https://api.github.com/users/" + githubUser + "/"
+
+        let result = {}
+        await axios.get(githubApiUrl + "events")
+            .then(function(response) {
+                let now = moment().toISOString()
+                let monthAgo = moment().subtract(1, "months").toISOString()
+                let eventCount = 0
+                response.data.forEach((event) => {
+                    if (moment(event.created_at).isBetween(monthAgo, now)) {
+                        eventCount += 1
+                    }
+                })
+                result.eventCount = eventCount
+            })
+        await axios.get(githubApiUrl + "repos")
+            .then(function(response) {
+                if (response.data[0]) {
+                    result.repoNames = [response.data[0].name]
+                }
+                if (response.data[1]) {
+                    result.repoNames.push(response.data[1].name)
+                }
+                if (response.data[2]) {
+                    result.repoNames.push(response.data[2].name)
+                }
+            })
+        return res.status(200).send(result)
+    })
+})

@@ -17,10 +17,12 @@ const { FREELANCERS_REF_PATH,
 		FREELANCER_WORK_EXPERIENCE,
 		FREELANCER_COMPANY_ROLES,
 		FREELANCER_COMPANIES,
+		FREELANCER_COMPANY_YEARS,
 
 		FREELANCER_ORG_EXPERIENCE,
 		FREELANCER_ORG_ROLES,
 		FREELANCER_ORG_NAMES,
+		FREELANCER_ORG_YEARS,
 
 		FREELANCER_DATA_ANALYTICS,
 		FREELANCER_DESIGN,
@@ -31,12 +33,15 @@ const { FREELANCERS_REF_PATH,
 		FREELANCER_PERSONAL_WEBSITE,
 		FREELANCER_AWARD_CATEGORIES,
 		FREELANCER_AWARD_CONTENT,
+		FREELANCER_AWARD_PROVIDERS,
 		
 		FREELANCER_GITHUB,
 		FREELANCER_MEDIUM,
 		FREELANCER_INSTAGRAM,
-		FREELANCER_YOUTUBE, } = require('./DB_CONSTANTS')
-const { getSignedInUser } = require("./auth.js")
+		FREELANCER_YOUTUBE,
+
+		FREELANCER_PHONE_NUM, } = require('./DB_CONSTANTS')
+const { getSignedInUser } = require("./freelancerAuth.js")
 const firebase = require("firebase");
 // TODO: get rid of uid and instead make it return data for current signed in freelancer
 // Given freelancer's Google uid, returns all data associated with that freelancer
@@ -82,12 +87,13 @@ const updateFreelancerInfo = async (uid, name=null, email=null, photoUrl=null) =
 
 const setFreelancerProfile = async (year, school, majors, minors,
 									cityOfResidence, stateOfResidence,
-									companyRoles, companies,
-									orgRoles, organizations,
-									doesData, dataWebsite=null, dataSkills=null, dataAwardCategories=null, dataAwardContent=null,
-									doesDesign, designWebsite=null, designSkills=null, designAwardCategories=null, designAwardContent=null,
-									doesContent, mediumUrl=null, instagramUrl=null, youtubeUrl=null, contentWebsite=null, contentSkills=null, contentAwardCategories=null, contentAwardContent=null,
-									doesSoftware, githubUrl=null, softwareWebsite=null, softwareSkills=null, softwareAwardCategories=null, softwareAwardContent=null) => {
+									companyRoles, companies, companyYears,
+									orgRoles, organizations, orgYears,
+									doesData, dataWebsite=null, dataSkills=null, dataAwardCategories=null, dataAwardContent=null, dataAwardProviders=null,
+									doesDesign, designWebsite=null, designSkills=null, designAwardCategories=null, designAwardContent=null, designAwardProviders=null,
+									doesContent, mediumUrl=null, instagramUrl=null, youtubeUrl=null, contentWebsite=null, contentSkills=null, contentAwardCategories=null, contentAwardContent=null, contentAwardProviders=null,
+									doesSoftware, githubUrl=null, softwareWebsite=null, softwareSkills=null, softwareAwardCategories=null, softwareAwardContent=null, softwareAwardProviders=null,
+									phoneNumber=null) => {
 	const signedInUser = await getSignedInUser()
 	if (signedInUser === null) {
 		return 0
@@ -106,11 +112,13 @@ const setFreelancerProfile = async (year, school, majors, minors,
 	}
 	freelancerInfo[FREELANCER_WORK_EXPERIENCE] = {
 		[FREELANCER_COMPANY_ROLES]: companyRoles,
-		[FREELANCER_COMPANIES]: companies
+		[FREELANCER_COMPANIES]: companies,
+		[FREELANCER_COMPANY_YEARS]: companyYears
 	}
 	freelancerInfo[FREELANCER_ORG_EXPERIENCE] = {
 		[FREELANCER_ORG_ROLES]: orgRoles,
-		[FREELANCER_ORG_NAMES]: organizations
+		[FREELANCER_ORG_NAMES]: organizations,
+		[FREELANCER_ORG_YEARS]: orgYears
 	}
 
 	if (doesData) {
@@ -118,7 +126,8 @@ const setFreelancerProfile = async (year, school, majors, minors,
 			[FREELANCER_PERSONAL_WEBSITE]: dataWebsite,
 			[FREELANCER_SKILLS]: dataSkills,
 			[FREELANCER_AWARD_CATEGORIES]: dataAwardCategories,
-			[FREELANCER_AWARD_CONTENT]: dataAwardContent
+			[FREELANCER_AWARD_CONTENT]: dataAwardContent,
+			[FREELANCER_AWARD_PROVIDERS]: dataAwardProviders
 		}
 	}
 	if (doesDesign) {
@@ -126,7 +135,8 @@ const setFreelancerProfile = async (year, school, majors, minors,
 			[FREELANCER_PERSONAL_WEBSITE]: designWebsite,
 			[FREELANCER_SKILLS]: designSkills,
 			[FREELANCER_AWARD_CATEGORIES]: designAwardCategories,
-			[FREELANCER_AWARD_CONTENT]: designAwardContent
+			[FREELANCER_AWARD_CONTENT]: designAwardContent,
+			[FREELANCER_AWARD_PROVIDERS]: designAwardProviders
 		}
 	}
 	if (doesContent) {
@@ -137,7 +147,8 @@ const setFreelancerProfile = async (year, school, majors, minors,
 			[FREELANCER_PERSONAL_WEBSITE]: contentWebsite,
 			[FREELANCER_SKILLS]: contentSkills,
 			[FREELANCER_AWARD_CATEGORIES]: contentAwardCategories,
-			[FREELANCER_AWARD_CONTENT]: contentAwardContent
+			[FREELANCER_AWARD_CONTENT]: contentAwardContent,
+			[FREELANCER_AWARD_PROVIDERS]: contentAwardProviders
 		}		
 	}
 	if (doesSoftware) {
@@ -146,11 +157,16 @@ const setFreelancerProfile = async (year, school, majors, minors,
 			[FREELANCER_PERSONAL_WEBSITE]: softwareWebsite,
 			[FREELANCER_SKILLS]: softwareSkills,
 			[FREELANCER_AWARD_CATEGORIES]: softwareAwardCategories,
-			[FREELANCER_AWARD_CONTENT]: softwareAwardContent
+			[FREELANCER_AWARD_CONTENT]: softwareAwardContent,
+			[FREELANCER_AWARD_PROVIDERS]: softwareAwardProviders
 		}
+	}
+	if (phoneNumber) {
+		freelancerInfo[FREELANCER_PHONE_NUM] = phoneNumber
 	}
 	const freelancerProfileRef = firebase.database().ref(FREELANCERS_REF_PATH + "/" + signedInUser.uid + "/" + FREELANCER_PROFILE)
 	freelancerProfileRef.update(freelancerInfo, function(error) {
+		console.log(freelancerInfo)
 		if (error) {
 			console.error("Failed to set freelancer profile, please try again - sorry!", error)
 		}
