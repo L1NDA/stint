@@ -17,6 +17,7 @@ import 'firebase/database';
 import firebase from '../firebase';
 import {StyledFirebaseAuth} from "react-firebaseui"
 
+const axios = require('axios')
 const {setCompanyBetaInfo} = require('../api/company')
 const {authUi, authUiConfig, getSignedInUser} = require('../api/auth')
 
@@ -46,7 +47,6 @@ class Homepage extends React.Component {
 
   handleButtonClick = async (event) => {
     event.preventDefault()
-    console.log(await getSignedInUser())
     let temp = this.state.modal;
     this.setState({
       modal: !temp
@@ -62,6 +62,15 @@ class Homepage extends React.Component {
     // .catch(error => {
     //   console.error(error)
     // })
+    axios.post('http://localhost:5001/stint-landing/us-central1/getGithubRepos', {
+      githubUser: 'charlesma4'
+    })
+    .then(res => {
+      console.log(res)
+    })
+    .catch(error => {
+      console.error(error)
+    })
   }
 
   changeName = (item, num) => {
