@@ -215,6 +215,14 @@ p {
   color: #474448;
 }
 
+.nobreak {
+  white-space: nowrap;
+}
+
+.nobreak-comp {
+  white-space: nowrap;
+}
+
 .input {
   font-family: 'IBM Plex Mono', monospace;
   padding: 5px 10px;
