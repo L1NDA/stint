@@ -51,7 +51,7 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
         await axios.get(githubApiUrl + "events")
             .then(function(response) {
                 let now = moment().toISOString()
-                let monthAgo = moment().subtract(1, "months").toISOString()
+                let monthAgo = moment().subtract(1, "years").toISOString()
                 let eventCount = 0
                 response.data.forEach((event) => {
                     if (moment(event.created_at).isBetween(monthAgo, now)) {

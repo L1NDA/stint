@@ -63,6 +63,7 @@ class Homepage extends React.Component {
     // .catch(error => {
     //   console.error(error)
     // })
+    getGithubInfo('rooday')
   }
 
   changeName = (item, num) => {
