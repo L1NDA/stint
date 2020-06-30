@@ -1,9 +1,7 @@
 import { css } from "@emotion/core";
 
 export const style = css`
-  display: grid;
-  grid-template-columns: 3fr 2fr;
-  justify-items: center;
+  text-align: center;
 `;
 
 export const form = css`
@@ -15,6 +13,7 @@ export const form = css`
 
   width: 100%;
   max-width: 300px;
+  margin: 0 auto;
 `;
 
 export default style;
