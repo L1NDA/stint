@@ -52,17 +52,8 @@ class Homepage extends React.Component {
     this.setState({
       modal: !temp
     });
-    // axios.post('http://localhost:5001/stint-landing/us-central1/sendEmail', {
-    //   recipientAddress: "cma4@bu.edu",
-    //   subjectLine: "Hello",
-    //   htmlBody: "<b>Hello world?</b>"
-    // })
-    // .then(res => {
-    //   console.log(res)
-    // })
-    // .catch(error => {
-    //   console.error(error)
-    // })
+
+    // getGithubInfo("lasdgasdgsdaga")
   }
 
   changeName = (item, num) => {
