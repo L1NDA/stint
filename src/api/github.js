@@ -1,8 +1,8 @@
 const axios = require('axios')
 
-const getGithubInfo = () => {
+const getGithubInfo = (user) => {
     axios.post('http://localhost:5001/stint-landing/us-central1/getGithubRepos', {
-      githubUser: 'charlesma4'
+      githubUser: user
     })
     .then(res => {
       console.log(res)
