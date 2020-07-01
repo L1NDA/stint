@@ -3,9 +3,21 @@ import {
 	LOGOUT
 } from './actions'
 
-function stintApp(state={}, action) {
+const stintApp = function (state={}, action) {
 	switch(action.type) {
 		case LOGIN:
-			return action.freelancer
+			return {
+				...state,
+				freelancer: action.freelancer
+			}
+		case LOGOUT:
+			return {
+				...state,
+				freelancer: null
+			}
+		default:
+			return state
 	}
 }
+
+export default stintApp
