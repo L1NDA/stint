@@ -6,16 +6,19 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import stintApp from './redux/reducers'
-
-const store = createStore(stintApp)
+import { store, rrfProps } from './firebase.js'
+import {
+  ReactReduxFirebaseProvider,
+  firebaseReducer
+} from 'react-redux-firebase'
 
 ReactDOM.render(
   <React.StrictMode>
-  <Provider store={store}>
-    <App />
-  </Provider>
+  	<Provider store={store}>
+      <ReactReduxFirebaseProvider {...rrfProps}>
+		<App />
+	  </ReactReduxFirebaseProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
