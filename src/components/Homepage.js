@@ -17,13 +17,16 @@ import app from 'firebase/app';
 import 'firebase/database';
 import firebase from '../firebase';
 import {StyledFirebaseAuth} from "react-firebaseui"
+import GoogleButton from './Auth/GoogleButton'
+import { firebaseConnect } from "react-redux-firebase";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { withRouter } from "react-router-dom";
 
 const axios = require('axios')
 const {setCompanyBetaInfo} = require('../api/company')
 const {authUi, authUiConfig, getSignedInUser} = require('../api/auth')
 
-
-// authUi.start('#firebaseui-auth-container', authUiConfig);
 
 const typingText = [
   [`Wireframes`, `User journeys`, `Lo-fi & hi-fi mockups`, `Website redesign`, `Prototyping`, `Branding`, `Logo design`],
@@ -46,23 +49,18 @@ class Homepage extends React.Component {
     }
   }
 
+  componentDidMount = () => {
+    firebase.analytics().logEvent("page_view")
+  }
+
+  onError = ({ message }) => this.setState({ message, loading: false });
+
   handleButtonClick = async (event) => {
     event.preventDefault()
     let temp = this.state.modal;
     this.setState({
       modal: !temp
     });
-    // axios.post('http://localhost:5001/stint-landing/us-central1/sendEmail', {
-    //   recipientAddress: "cma4@bu.edu",
-    //   subjectLine: "Hello",
-    //   htmlBody: "<b>Hello world?</b>"
-    // })
-    // .then(res => {
-    //   console.log(res)
-    // })
-    // .catch(error => {
-    //   console.error(error)
-    // })
   }
 
   changeName = (item, num) => {
@@ -72,20 +70,13 @@ class Homepage extends React.Component {
     })
   }
 
-  changeLoginText = () => {
-    setTimeout(function() {
-          var button = document.querySelector('.firebaseui-idp-text');
-          if (button) {
-            button.innerHTML = `Continue with Google`;
-          }
-        }, 500);
-      }
-
-
-
+  loginWithProvider = async (provider) => {
+    this.setState({ loading: true });
+    this.props.loginUser({ provider, onError: this.onError })
+  };
 
   render() {
-
+    const {loading} = this.state
     return (
       <div className="homepage">
 
@@ -93,9 +84,12 @@ class Homepage extends React.Component {
         <TiTimes className="modal-x" onClick={this.handleButtonClick}/>
         <h2 style={{textAlign: "center", color: "white", textWrap: "balance"}}>Be seen by companies before your coffee is brewed (or your Java compiled 🤓)</h2>
         <br/>
-        <StyledFirebaseAuth uiConfig={authUiConfig} firebaseAuth={firebase.auth()} uiCallback={this.changeLoginText}/>
+        <GoogleButton
+          onClick={() => {
+            !loading && this.loginWithProvider("google");
+          }}
+        />
       </div>
-      <div id="loader">Loading...</div>
 
       <div className="modal-screen"
            style={{display: this.state.modal ? 'block' : 'none'}}
@@ -184,4 +178,21 @@ class Homepage extends React.Component {
   }
 }
 
-export default Homepage;
+//window.location.pathname used here because history.push creates maximum depth exceeded error with react rendering
+function mapStateToProps(state, props) {
+  const { firebase, onFinish } = props;
+  return {
+    loginUser: async ({ provider, onError }) => {
+      try {
+        firebase.login({ provider: provider, type: "popup" })
+          .then(() => window.location.pathname = "/profileCreation");
+        (await onFinish) && onFinish();
+      } catch (err) {
+        await onError(err);
+      }
+    },
+    isLoggedIn: state.firebase.auth.uid ? true : false,
+  };
+}
+
+export default compose(firebaseConnect(), withRouter, connect(mapStateToProps))(Homepage);

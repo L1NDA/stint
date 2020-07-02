@@ -12,7 +12,7 @@ function App({ emailVerified, isLoggedIn }) {
   return (
     <Router>
       <Switch>
-        <Route path="/(login|register|auth|reset)/" component={Auth} />
+        <Route path="/(login|register|auth|reset|profileCreation)/" component={Auth} />
         {!emailVerified && isLoggedIn && (
           <Route path="/" render={() => <Redirect to="/auth" />} />
         )}

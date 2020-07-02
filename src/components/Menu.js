@@ -1,21 +1,14 @@
 import React from 'react';
 import logo from './imgs/logo.png'
 import { NavLink } from 'react-router-dom';
-import {getSignedInUser, signOutFreelancer} from '../api/auth.js'
+import { connect } from "react-redux";
+import { signOutFreelancer} from '../api/auth.js'
 
 class Menu extends React.Component {
 
   constructor(){
     super();
     this.state = {
-    }
-  }
-
-  componentDidMount = async () => {
-    if (await getSignedInUser()) {
-      this.setState({
-        signedIn: true
-      }, ()=>console.log(this.state.signedIn))
     }
   }
 
@@ -34,11 +27,17 @@ class Menu extends React.Component {
            <NavLink to="/our-mission"
                   className="menu-item"
                   activeClassName="active-item">Our Mission</NavLink>
-                {this.state.signedIn ? <button className="button" onClick={signOutFreelancer}>Sign Out</button> : null}
+                {this.props.isLoggedIn ? <button className="button" onClick={signOutFreelancer}>Sign Out</button> : null}
         </div>
       </div>
 		)
 	}
 }
 
-export default Menu;
+function mapStateToProps(state, props) {
+  return {
+    isLoggedIn: state.firebase.auth.uid ? true : false,
+  };
+}
+
+export default connect(mapStateToProps)(Menu);

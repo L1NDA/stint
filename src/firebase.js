@@ -16,9 +16,10 @@ firebase.initializeApp({
   appId: "1:989807747408:web:fe02b8a376979ad8608c55",
   measurementId: "G-XLX384B7P4"
 });
+firebase.analytics()
 
 const rrfConfig = {
-  userProfile: 'users'
+  userProfile: 'test_users'
   // useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
 }
 

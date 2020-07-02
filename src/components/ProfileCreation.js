@@ -33,18 +33,8 @@ class ProfileCreation extends React.Component {
     }
   }
 
-  componentDidMount = async () => {
-    console.log("HI")
-    console.log(await getSignedInUser())
-    if (await getSignedInUser()) {
-      this.setState({
-        signedIn: true
-      }, () => console.log(this.state.signedIn))
-    }
-  }
-  
-
-  handleChange = (name, content) => {
+  handleChange = (e, name, content) => {
+    e.stopPropagation()
     this.setState({
       [name]: content
     }, function(){console.log(this.state, this.state.phonenum, this.state.phoneYN)})
@@ -103,7 +93,6 @@ class ProfileCreation extends React.Component {
   }
 
   render() {
-
     const temp = this.state
     let doesData = Object.keys(temp.da).length !== 0
     let doesDesign = Object.keys(temp.db).length !== 0
@@ -117,7 +106,7 @@ class ProfileCreation extends React.Component {
 
       <Menu/>
 
-    { this.state.signedIn ?
+    
       <form className="padding flex-column profile-container" onSubmit={this.submitProfile} autocomplete="off">
         <div className="stint-dialogue">
           <h2>Nice to meet you, Linda Q.</h2>
@@ -159,11 +148,7 @@ class ProfileCreation extends React.Component {
         </div>
 
 
-      </form> : <h3>Oops!</h3>
-    }
-
-
-
+      </form>
       <Footer/>
 
       </div>
@@ -171,5 +156,7 @@ class ProfileCreation extends React.Component {
     )
   }
 }
+
+
 
 export default ProfileCreation;

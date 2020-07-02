@@ -5,6 +5,7 @@
   "homepage": ".",
   "main": "index.js",
   "dependencies": {
+    "@emotion/core": "^10.0.28",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -22,8 +23,10 @@
     "react-icons": "^3.10.0",
     "react-input-autosize": "^2.2.2",
     "react-linkedin-sdk": "^1.0.12",
+    "react-loading": "^2.0.3",
     "react-places-autocomplete": "^7.2.1",
     "react-redux": "^7.2.0",
+    "react-redux-firebase": "^3.6.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-typist": "^2.0.5",

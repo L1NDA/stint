@@ -9,6 +9,7 @@ import PageRegister from "./PageRegister";
 import PagePasswordReset from "./PagePasswordReset";
 import PageConfirmReset from "./PageConfirmReset";
 import PageConfirmEmail from "./PageConfirmEmail";
+import ProfileCreation from "../ProfileCreation"
 
 import { PrivateRoute, PublicRoute } from "../PrivateRoute";
 
@@ -27,11 +28,12 @@ const Auth = ({ location }) => {
       </div>
       <div className="form">
         <Switch>
+          <PrivateRoute path="/profileCreation" component={ProfileCreation} />
           <PublicRoute exact path="/login" component={PageLogin} />
           <PublicRoute exact path="/register" component={PageRegister} />
           <PublicRoute exact path="/reset" component={PagePasswordReset} />
           {mode === "verifyEmail" && (
-            <Route path="/auth" component={PageConfirmEmail} />
+            <PublicRoute path="/auth" component={PageConfirmEmail} />
           )}
           {mode === "resetPassword" && (
             <PublicRoute path="/auth" component={PageConfirmReset} />
