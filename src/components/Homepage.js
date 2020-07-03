@@ -11,6 +11,7 @@ import coders from './imgs/coders.svg'
 import creatives from './imgs/creatives.svg'
 import analysts from './imgs/analysts.svg'
 import { TiTimes } from "react-icons/ti";
+import { getGithubInfo } from "../api/github"
 
 import app from 'firebase/app';
 import 'firebase/database';
@@ -51,26 +52,8 @@ class Homepage extends React.Component {
     this.setState({
       modal: !temp
     });
-    // axios.post('http://localhost:5001/stint-landing/us-central1/sendEmail', {
-    //   recipientAddress: "cma4@bu.edu",
-    //   subjectLine: "Hello",
-    //   htmlBody: "<b>Hello world?</b>"
-    // })
-    // .then(res => {
-    //   console.log(res)
-    // })
-    // .catch(error => {
-    //   console.error(error)
-    // })
-    axios.post('http://localhost:5001/stint-landing/us-central1/getGithubRepos', {
-      githubUser: 'charlesma4'
-    })
-    .then(res => {
-      console.log(res)
-    })
-    .catch(error => {
-      console.error(error)
-    })
+
+    // getGithubInfo("lasdgasdgsdaga")
   }
 
   changeName = (item, num) => {
