@@ -6,6 +6,7 @@ import Homepage from './components/Homepage.js'
 import Company from './components/Company.js'
 import About from './components/About.js'
 import Auth from './components/Auth'
+import ProfileCreation from './components/ProfileCreation'
 import { connect } from "react-redux";
 
 function App({ emailVerified, isLoggedIn }) {
@@ -19,6 +20,7 @@ function App({ emailVerified, isLoggedIn }) {
         <Route exact path='/' component={Homepage}/>
         <Route exact path='/hire' component={Company}/>
         <Route exact path='/our-mission' component={About}/>
+        <Route exact path='/login=true' component={ProfileCreation}/>
       </Switch>
     </Router>
   );

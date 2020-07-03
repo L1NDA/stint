@@ -2,7 +2,9 @@ import React from 'react';
 import logo from './imgs/logo.png'
 import { NavLink } from 'react-router-dom';
 import { connect } from "react-redux";
-import { signOutFreelancer} from '../api/auth.js'
+import { compose } from "redux";
+import { firebaseConnect } from "react-redux-firebase";
+
 
 class Menu extends React.Component {
 
@@ -27,7 +29,7 @@ class Menu extends React.Component {
            <NavLink to="/our-mission"
                   className="menu-item"
                   activeClassName="active-item">Our Mission</NavLink>
-                {this.props.isLoggedIn ? <button className="button" onClick={signOutFreelancer}>Sign Out</button> : null}
+                {this.props.isLoggedIn ? <button className="button" onClick={this.props.logoutUser}>Sign Out</button> : null}
         </div>
       </div>
 		)
@@ -35,9 +37,14 @@ class Menu extends React.Component {
 }
 
 function mapStateToProps(state, props) {
+  const { firebase } = props
   return {
     isLoggedIn: state.firebase.auth.uid ? true : false,
+    logoutUser: firebase.logout
   };
 }
 
-export default connect(mapStateToProps)(Menu);
+export default compose(
+  firebaseConnect(),
+  connect(mapStateToProps)
+)(Menu);

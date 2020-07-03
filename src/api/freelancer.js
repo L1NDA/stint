@@ -41,7 +41,6 @@ const { FREELANCERS_REF_PATH,
 		FREELANCER_YOUTUBE,
 
 		FREELANCER_PHONE_NUM, } = require('./DB_CONSTANTS')
-const { getSignedInUser } = require("./freelancerAuth.js")
 const firebase = require("firebase");
 // TODO: get rid of uid and instead make it return data for current signed in freelancer
 // Given freelancer's Google uid, returns all data associated with that freelancer
@@ -85,7 +84,8 @@ const updateFreelancerInfo = async (uid, name=null, email=null, photoUrl=null) =
 	})
 }
 
-const setFreelancerProfile = async (year, school, majors, minors,
+const setFreelancerProfile = async (uid,
+									year, school, majors, minors,
 									cityOfResidence, stateOfResidence,
 									companyRoles, companies, companyYears,
 									orgRoles, organizations, orgYears,
@@ -94,8 +94,7 @@ const setFreelancerProfile = async (year, school, majors, minors,
 									doesContent, mediumUrl=null, instagramUrl=null, youtubeUrl=null, contentWebsite=null, contentSkills=null, contentAwardCategories=null, contentAwardContent=null, contentAwardProviders=null,
 									doesSoftware, githubUrl=null, softwareWebsite=null, softwareSkills=null, softwareAwardCategories=null, softwareAwardContent=null, softwareAwardProviders=null,
 									phoneNumber=null) => {
-	const signedInUser = await getSignedInUser()
-	if (signedInUser === null) {
+	if (uid === null) {
 		return 0
 	}
 	var freelancerInfo = {}
@@ -164,7 +163,7 @@ const setFreelancerProfile = async (year, school, majors, minors,
 	if (phoneNumber) {
 		freelancerInfo[FREELANCER_PHONE_NUM] = phoneNumber
 	}
-	const freelancerProfileRef = firebase.database().ref(FREELANCERS_REF_PATH + "/" + signedInUser.uid + "/" + FREELANCER_PROFILE)
+	const freelancerProfileRef = firebase.database().ref(FREELANCERS_REF_PATH + "/" + uid + "/" + FREELANCER_PROFILE)
 	freelancerProfileRef.update(freelancerInfo, function(error) {
 		console.log(freelancerInfo)
 		if (error) {

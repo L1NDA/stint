@@ -7,8 +7,10 @@ import StudentInfo from './StudentInfo.js'
 import StudentSkills from './StudentSkills.js'
 import Select from './Select.js'
 import Autocomplete from './Autocomplete.js'
-import app from 'firebase/app';
-import 'firebase/database';
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { firebaseConnect } from "react-redux-firebase";
+import { withRouter } from "react-router-dom";
 const {setFreelancerProfile} = require('../api/freelancer')
 const { getSignedInUser } = require('../api/auth')
 
@@ -144,7 +146,7 @@ class ProfileCreation extends React.Component {
 
         <div>
           <button className="button" style={{marginTop: "100px", marginBottom: "25px"}} disabled={finishedApp}>Create my profile</button>
-          <div class="subtitle" style={{marginBottom: "100px"}}>By pressing this button, you're agreeing to our Terms and Conditions and Private Policy.</div>
+          <div class="subtitle" style={{marginBottom: "100px"}}>By pressing this button, you're agreeing to our Terms and Conditions and Privacy Policy.</div>
         </div>
 
 
@@ -157,6 +159,15 @@ class ProfileCreation extends React.Component {
   }
 }
 
+function mapStateToProps(state, props) {
+  return {
+    userUid: state.firebase.auth.uid,
+    isLoggedIn: state.firebase.auth.uid ? true : false,
+  };
+}
 
-
-export default ProfileCreation;
+export default compose(
+  firebaseConnect(),
+  withRouter,
+  connect(mapStateToProps)
+)(ProfileCreation);
