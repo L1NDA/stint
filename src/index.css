@@ -81,6 +81,27 @@ a {
   transform: scaleX(1);
  }
 
+.link {
+  font-weight: bold;
+  color: #474448;
+  position: relative;
+  display: inline-block;
+}
+
+.link:hover {
+  color: #8F8DFF;
+  transition: all 0.2s ease-in;
+}
+
+.link:after {
+   display: block;
+   content: '';
+   border-bottom: solid 4px #8F8DFF;
+   transform: scaleX(0);
+   transition: transform 250ms ease-in-out;
+   transform-origin:  0% 50%;
+}
+
 .active-item:after {
    display:block;
    content: '';
@@ -121,11 +142,9 @@ a {
  }
 
 .button {
-  /* background: #8F8DFF; */
   background: linear-gradient(to left, #8F8DFF 50%, #474448 50%);
   background-size: 200% 100%;
   background-position: right bottom;
-  /* border-radius: 8px; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -137,7 +156,7 @@ a {
   font-size: 14px;
   border: none;
   position: relative;
-  align-self: flex-start;
+  /* align-self: flex-start; */
   transition: background-position 0.2s ease-in;
 }
 
@@ -152,25 +171,19 @@ a {
   outline: 0
 }
 
-/* .button::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 100%;
-  background: #474448;
-  transition: width .3s;
-}
-
-.button:hover::after {
-  width: 100%;
-} */
-
 h1 {
   font-weight: bold;
   font-size: 54px;
   margin: 10px 0;
+
+  color: #474448;
+}
+
+.h1-smaller {
+  font-weight: bold;
+  font-size: 36px;
+  margin: 10px 0;
+  text-align: center;
 
   color: #474448;
 }
@@ -384,6 +397,10 @@ input[type=number] {
     font-size: 44px
   }
 
+  .h1-smaller {
+    font-size: 30px;
+  }
+
   h3 {
     font-size: 20px;
   }
@@ -418,6 +435,14 @@ input[type=number] {
     font-size: 32px
   }
 
+  .h1-smaller {
+    font-size: 28px;
+  }
+
+  .nobreak-comp {
+    white-space: normal;
+  }
+
   h2 {
     font-size: 24px;
   }
@@ -431,8 +456,22 @@ input[type=number] {
     line-height: 18px;
   }
 
+  .button {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
   .search-box-container > input {
     font-size: 18px;
+  }
+
+  .footer {
+    flex-direction: column;
+    padding: 30px 10%;
+  }
+
+  .footer > a {
+    margin-top: 10px;
   }
 
 }
