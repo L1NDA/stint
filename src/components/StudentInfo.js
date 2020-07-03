@@ -2,7 +2,6 @@ import React from 'react';
 import {Colleges, Majors, Cities, Roles} from './LoginDropdowns.js'
 import Select from './Select.js'
 import Autocomplete from './Autocomplete.js'
-import firebaseConfig from '../config.js'
 
 const Year = [ "(select year*)", "freshman", "sophomore", "junior", "senior"]
 

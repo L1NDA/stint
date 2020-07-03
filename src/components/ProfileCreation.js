@@ -7,8 +7,10 @@ import StudentInfo from './StudentInfo.js'
 import StudentSkills from './StudentSkills.js'
 import Select from './Select.js'
 import Autocomplete from './Autocomplete.js'
-import app from 'firebase/app';
-import 'firebase/database';
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { firebaseConnect } from "react-redux-firebase";
+import { withRouter } from "react-router-dom";
 const {setFreelancerProfile} = require('../api/freelancer')
 const { getSignedInUser } = require('../api/auth')
 
@@ -33,18 +35,8 @@ class ProfileCreation extends React.Component {
     }
   }
 
-  componentDidMount = async () => {
-    console.log("HI")
-    console.log(await getSignedInUser())
-    if (await getSignedInUser()) {
-      this.setState({
-        signedIn: true
-      }, () => console.log(this.state.signedIn))
-    }
-  }
-  
-
-  handleChange = (name, content) => {
+  handleChange = (e, name, content) => {
+    e.stopPropagation()
     this.setState({
       [name]: content
     }, function(){console.log(this.state, this.state.phonenum, this.state.phoneYN)})
@@ -103,7 +95,6 @@ class ProfileCreation extends React.Component {
   }
 
   render() {
-
     const temp = this.state
     let doesData = Object.keys(temp.da).length !== 0
     let doesDesign = Object.keys(temp.db).length !== 0
@@ -117,7 +108,7 @@ class ProfileCreation extends React.Component {
 
       <Menu/>
 
-    { this.state.signedIn ?
+    
       <form className="padding flex-column profile-container" onSubmit={this.submitProfile} autocomplete="off">
         <div className="stint-dialogue">
           <h2>Nice to meet you, Linda Q.</h2>
@@ -155,15 +146,11 @@ class ProfileCreation extends React.Component {
 
         <div>
           <button className="button" style={{marginTop: "100px", marginBottom: "25px"}} disabled={finishedApp}>Create my profile</button>
-          <div class="subtitle" style={{marginBottom: "100px"}}>By pressing this button, you're agreeing to our Terms and Conditions and Private Policy.</div>
+          <div class="subtitle" style={{marginBottom: "100px"}}>By pressing this button, you're agreeing to our Terms and Conditions and Privacy Policy.</div>
         </div>
 
 
-      </form> : <h3>Oops!</h3>
-    }
-
-
-
+      </form>
       <Footer/>
 
       </div>
@@ -172,4 +159,15 @@ class ProfileCreation extends React.Component {
   }
 }
 
-export default ProfileCreation;
+function mapStateToProps(state, props) {
+  return {
+    userUid: state.firebase.auth.uid,
+    isLoggedIn: state.firebase.auth.uid ? true : false,
+  };
+}
+
+export default compose(
+  firebaseConnect(),
+  withRouter,
+  connect(mapStateToProps)
+)(ProfileCreation);

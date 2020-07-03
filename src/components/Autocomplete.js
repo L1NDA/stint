@@ -221,7 +221,7 @@ export class Autocomplete extends Component {
     }
     return (
       <span className="autocomplete-container">
-          <AutosizeInput
+          <input
           	name={`show-${this.props.name}`}
             id={`show-${this.props.name}`}
           	value={userInput}
@@ -247,6 +247,23 @@ Autocomplete.defaultProps = {
 };
 
 export default Autocomplete;
+
+// <AutosizeInput
+//             name={`show-${this.props.name}`}
+//             id={`show-${this.props.name}`}
+//             value={userInput}
+//             placeholder={this.props.placeholder}
+//             onChange={onChange}
+//             onKeyDown={onKeyDown}
+//             onFocus={this.handleFocus}
+//             onBlur={this.handleBlur}
+//             className="search-box-container"
+//             style={{fontFamily: 'Source Sans Pro, sans-serif', fontSize: "24px", fontWeight: "bold"}}
+//             required={this.props.required}
+//             type={this.props.type}
+//             maxLength={this.props.maxLength}
+//           />
+
 
 // <input
 //   type="text"
