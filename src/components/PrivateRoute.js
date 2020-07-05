@@ -18,12 +18,12 @@ class Private extends React.Component {
       <Route
         {...rest}
         render={(props) =>
-          this.state.isLoggedIn ? (
-            <Component {...props} {...rest} oldPath={this.state.pathname} />
+          this.props.isLoggedIn ? (
+            <Component {...props} {...rest} oldPath={this.props.pathname} />
           ) : (
             <Redirect
               to={{
-                pathname: this.state.pathname || "/",
+                pathname: this.props.pathname || "/",
                 state: { from: props.location },
               }}
             />
