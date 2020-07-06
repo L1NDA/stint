@@ -2,6 +2,7 @@ import React from "react";
 import { Redirect, Route } from "react-router-dom";
 import { connect, useSelector } from "react-redux";
 import { isLoaded, isEmpty } from "react-redux-firebase";
+import Loading from './Auth/Loading'
 import get from "lodash/get";
 
 const Private = ({ component: Component, ...rest }) => {
@@ -24,7 +25,7 @@ const Private = ({ component: Component, ...rest }) => {
             />
           )
         ) : (
-          <div>Loading...</div>
+          <Loading />
         )
       }
     />

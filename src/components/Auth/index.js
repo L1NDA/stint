@@ -4,11 +4,6 @@ import { Route, Switch } from "react-router-dom";
 import { jsx } from "@emotion/core";
 import queryString from "query-string";
 
-import PageLogin from "./PageLogin";
-import PageRegister from "./PageRegister";
-import PagePasswordReset from "./PagePasswordReset";
-import PageConfirmReset from "./PageConfirmReset";
-import PageConfirmEmail from "./PageConfirmEmail";
 import ProfileCreation from "../ProfileCreation"
 
 import { PrivateRoute, PublicRoute } from "../PrivateRoute";
@@ -21,24 +16,9 @@ const Auth = ({ location }) => {
 
   return (
     <div css={style}>
-      <div className="gallery">
-        <div className="logo">
-          Logo
-        </div>
-      </div>
       <div className="form">
         <Switch>
           <PrivateRoute path="/profileCreation" component={ProfileCreation} />
-          <PublicRoute exact path="/login" component={PageLogin} />
-          <PublicRoute exact path="/register" component={PageRegister} />
-          <PublicRoute exact path="/reset" component={PagePasswordReset} />
-          {mode === "verifyEmail" && (
-            <PublicRoute path="/auth" component={PageConfirmEmail} />
-          )}
-          {mode === "resetPassword" && (
-            <PublicRoute path="/auth" component={PageConfirmReset} />
-          )}
-          {!mode && <PrivateRoute path="/auth" component={PageConfirmEmail} />}
         </Switch>
       </div>
     </div>
