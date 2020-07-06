@@ -165,7 +165,6 @@ const setFreelancerProfile = async (uid,
 	}
 	const freelancerProfileRef = firebase.database().ref(FREELANCERS_REF_PATH + "/" + uid + "/" + FREELANCER_PROFILE)
 	freelancerProfileRef.update(freelancerInfo, function(error) {
-		console.log(freelancerInfo)
 		if (error) {
 			console.error("Failed to set freelancer profile, please try again - sorry!", error)
 		}

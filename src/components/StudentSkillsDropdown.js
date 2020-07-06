@@ -15,11 +15,7 @@ class StudentSkillsDropdown extends React.Component {
       details: false,
       [SKILLS]: {}
     }
-    this.saveStateDebounced = debounce(this.saveState, 1500);
-  }
-
-  componentDidMount() {
-    console.log(this.state)
+    this.saveStateDebounced = this.saveState;
   }
 
   componentDidUpdate() {
@@ -57,7 +53,6 @@ class StudentSkillsDropdown extends React.Component {
   }
 
   aggregateAwards = (currState) => {
-    console.log("aggregateAwards", currState)
     let categoryString = this.props.section+"HaveAwardCategory"
     let contentString = this.props.section+"HaveAwardContent"
     let providerString = this.props.section+"HaveAwardProvider"

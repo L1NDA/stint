@@ -228,7 +228,7 @@ function mapStateToProps(state, props) {
     loginUser: async ({ provider, onError }) => {
       try {
         firebase.login({ provider: provider, type: "popup" })
-          .then(() => window.location.pathname = "/profileCreation");
+          .then(() => window.location.pathname = "/this-is-me");
         (await onFinish) && onFinish();
       } catch (err) {
         await onError(err);

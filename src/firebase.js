@@ -19,7 +19,7 @@ firebase.initializeApp({
 firebase.analytics()
 
 const rrfConfig = {
-  userProfile: 'test_users'
+  userProfile: 'freelancers'
   // useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
 }
 

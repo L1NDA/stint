@@ -46,7 +46,6 @@ export class Autocomplete extends Component {
       hide.textContent = this.props.placeholder;
     } else {
       hide.textContent = this.state.userInput;
-      console.log(hide.textContent, hide.offsetWidth)
     }
     this.setState({
       width: hide.offsetWidth + 15
