@@ -42,8 +42,8 @@ class Homepage extends React.Component {
     }
   }
 
-  componentDidMount = () => {
-    firebase.analytics().logEvent("page_view")
+  componentDidMount() {
+    firebase.analytics().logEvent("screen_view")
   }
 
   onError = ({ message }) => this.setState({ message, loading: false });
@@ -61,7 +61,7 @@ class Homepage extends React.Component {
     this.setState({ loading: true });
     this.props.loginUser({ provider, onError: this.onError })
   };
-  
+
   changeLoginText = () => {
     setTimeout(function() {
           var button = document.querySelector('.firebaseui-idp-text');

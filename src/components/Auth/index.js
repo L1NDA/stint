@@ -18,7 +18,7 @@ const Auth = ({ location }) => {
     <div css={style}>
       <div className="form">
         <Switch>
-          <PrivateRoute path="/profileCreation" component={ProfileCreation} />
+          <PrivateRoute path="/this-is-me" component={ProfileCreation} />
         </Switch>
       </div>
     </div>

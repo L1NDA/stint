@@ -83,7 +83,8 @@ class ProfileCreation extends React.Component {
     let doesContent = Object.keys(temp.ccm).length !== 0
     let doesSoftware = Object.keys(temp.sd).length !== 0
 
-    setFreelancerProfile(temp.year, temp.colleges, temp.major, temp.minor,
+    setFreelancerProfile(this.props.userUid,
+                         temp.year, temp.colleges, temp.major, temp.minor,
                          temp.city, temp.state,
                          temp.role, temp.company, temp.yearcompany,
                          temp.ecrole, temp.ec, temp.yearec,
@@ -161,8 +162,7 @@ class ProfileCreation extends React.Component {
 
 function mapStateToProps(state, props) {
   return {
-    userUid: state.firebase.auth.uid,
-    isLoggedIn: state.firebase.auth.uid ? true : false,
+    userUid: state.firebase.auth.uid
   };
 }
 

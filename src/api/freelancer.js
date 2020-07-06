@@ -95,7 +95,7 @@ const setFreelancerProfile = async (uid,
 									doesSoftware, githubUrl=null, softwareWebsite=null, softwareSkills=null, softwareAwardCategories=null, softwareAwardContent=null, softwareAwardProviders=null,
 									phoneNumber=null) => {
 	if (uid === null) {
-		return 0
+		return
 	}
 	var freelancerInfo = {}
 
