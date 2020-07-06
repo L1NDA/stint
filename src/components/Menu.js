@@ -22,14 +22,14 @@ class Menu extends React.Component {
           <div className="logo">Stint</div>
         </a>
 
-        <div>
+        <div className="flex-row" style={{alignItems: 'center', justifyContent: 'flex-end'}}>
           <NavLink to="/hire"
                    className="menu-item"
                    activeClassName="active-item">For Companies</NavLink>
            <NavLink to="/our-mission"
                   className="menu-item"
                   activeClassName="active-item">Our Mission</NavLink>
-                {this.props.isLoggedIn ? <button className="button" onClick={this.props.logoutUser}>Sign Out</button> : null}
+                {this.props.isLoggedIn ? <button className="button" onClick={this.props.logoutUser} style={{marginLeft: "10px"}}>Sign Out</button> : null}
         </div>
       </div>
 		)

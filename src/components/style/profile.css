@@ -12,7 +12,6 @@
 
 .stint-dialogue {
   box-shadow: 0px 4px 32px rgba(71, 68, 72, 0.15);
-  /* background: linear-gradient(290.7deg, #8F8DFF 46.67%, #05D9B2 100%); */
   background: linear-gradient(270deg, #8F8DFF 0%, #05D9B2 100%);
   background-size: 200% 100%;
   animation: gradient 2s linear infinite;
@@ -25,6 +24,18 @@
   padding: 50px;
   filter: opacity(1);
   transition: opacity 0.2s ease-in
+}
+
+.stint-dialogue > * {
+  color: white;
+  margin: 0;
+  margin-bottom: 20px;
+  filter: opacity(1);
+  transition: opacity 0.2s ease-in;
+}
+
+.stint-dialogue > :last-child {
+  margin-bottom: 0;
 }
 
 @keyframes gradient {
@@ -60,18 +71,6 @@
   margin-bottom: 0;
 }
 
-.stint-dialogue > * {
-  color: white;
-  margin: 0;
-  margin-bottom: 20px;
-  filter: opacity(1);
-  transition: opacity 0.2s ease-in
-}
-
-.stint-dialogue > :last-child {
-  margin-bottom: 0;
-}
-
 .hline {
   border: 2px solid #F5F5F5;
   width: 100%;
@@ -93,7 +92,6 @@
 }
 
 .student-dialogue-block {
-
 }
 
 .student-dialogue-block > * {

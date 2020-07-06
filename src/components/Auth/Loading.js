@@ -26,9 +26,9 @@ const Loading = ({
     <ReactLoading
       className={"Loading"}
       type={type || "bubbles"}
-      width={width || "30%"}
+      width={width || "20%"}
       height={height || "auto"}
-      color={color || "black"}
+      color={color || "#8F8DFF"}
     />
   );
 };

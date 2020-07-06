@@ -7,6 +7,7 @@ import Company from './components/Company.js'
 import About from './components/About.js'
 import Auth from './components/Auth'
 import ProfileCreation from './components/ProfileCreation'
+import ProfileView from './components/ProfileView'
 import { connect } from "react-redux";
 
 function App({ emailVerified, isLoggedIn }) {
@@ -17,6 +18,7 @@ function App({ emailVerified, isLoggedIn }) {
         <Route exact path='/' component={Homepage}/>
         <Route exact path='/hire' component={Company}/>
         <Route exact path='/our-mission' component={About}/>
+        <Route exact path='/my-profile' component={ProfileView}/>
         <Route exact path='/login=true' component={ProfileCreation}/>
       </Switch>
     </Router>
@@ -24,7 +26,7 @@ function App({ emailVerified, isLoggedIn }) {
 }
 
 const mapStateToProps = (state, props) => {
-  
+
 };
 
 export default connect(mapStateToProps)(App);

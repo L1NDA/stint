@@ -295,6 +295,7 @@ p {
 
 .search-box-container {
   min-width: 25px;
+  max-width: 90%;
   border: none;
   border-bottom: 4px solid #8F8DFF;
   border-radius: 0;
@@ -309,7 +310,7 @@ p {
   display: inline-block;
 
   transition: border-bottom 0.2s ease-in;
-  z-index: 3
+  z-index: 3;
 }
 
 .search-box-container:focus {
@@ -405,7 +406,11 @@ input[type=number] {
     font-size: 20px;
   }
 
-  .search-box-container > input {
+  .search-box-container {
+    font-size: 20px;
+  }
+
+  .hide {
     font-size: 20px;
   }
 
@@ -461,7 +466,11 @@ input[type=number] {
     font-size: 12px;
   }
 
-  .search-box-container > input {
+  .search-box-container {
+    font-size: 18px;
+  }
+
+  .hide {
     font-size: 18px;
   }
 
