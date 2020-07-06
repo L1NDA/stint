@@ -40,7 +40,7 @@ function mapStateToProps(state, props) {
   const { firebase } = props
   return {
     isLoggedIn: state.firebase.auth.uid ? true : false,
-    logoutUser: firebase.logout
+    logoutUser: firebase.logout,
   };
 }
 
