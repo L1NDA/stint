@@ -29,20 +29,29 @@ export class Autocomplete extends Component {
     this.finishedTypingDebounced = debounce(this.finishedTyping, 1500);
   }
 
-  // setWidth = (text) => {
-  //   console.log("text", text)
-  //   let hide = document.getElementById(`hide-${this.props.name}`);
-  //   let show = document.getElementById(`show-${this.props.name}`);
-  //   if (!text) {
-  //     hide.textContent = this.props.placeholder;
-  //   } else {
-  //     hide.textContent = text;
-  //   }
-  //   console.log("hide", hide)
-  //   console.log("offset width", hide.offsetWidth + 5)
-  //   let extraWidth = hide.offsetWidth + 5
-  //   show.style.width = extraWidth + "px";
-  // };
+  componentDidMount() {
+    this.setWidth()
+  }
+
+  // componentDidUpdate (prevProps, prevState) {
+	// 	if (prevState.userInput !== this.state.userInput) {
+  //     this.setWidth();
+	// 	}
+  //
+	// }
+
+  setWidth = () => {
+    let hide = document.getElementById(`hide-${this.props.name}`);
+    if (!this.state.userInput) {
+      hide.textContent = this.props.placeholder;
+    } else {
+      hide.textContent = this.state.userInput;
+      console.log(hide.textContent, hide.offsetWidth)
+    }
+    this.setState({
+      width: hide.offsetWidth + 15
+    })
+  };
 
   finishedTyping = () => {
     if (!this.props.index) {
@@ -98,20 +107,21 @@ export class Autocomplete extends Component {
         filteredOptions = options.filter(
           (optionName) =>
             optionName.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-      )};
+      )
+
+      this.setState({
+        activeOption: 0,
+        filteredOptions,
+        showOptions: true,
+      });
+
+    };
     }
 
-    // const filteredOptions = options.filter(
-    //   (optionName) =>
-    //     optionName.toLowerCase().startsWith(userInput.toLowerCase())
-    // );
-
     this.setState({
-      activeOption: 0,
-      filteredOptions,
-      showOptions: true,
       userInput: e.currentTarget.value
     }, function() {
+      this.setWidth();
       if (this.props.optionalParent) {
         this.finishedTypingDebounced()
       } else if (!this.props.index) {
@@ -133,6 +143,7 @@ export class Autocomplete extends Component {
         showOptions: false,
         userInput: e.currentTarget.innerText
       }, function() {
+        this.setWidth();
         if (!this.props.index) {
           this.props.saveData(this.props.name, this.state.userInput)
         } else if (this.props.optionalParent) {
@@ -142,7 +153,9 @@ export class Autocomplete extends Component {
         }
 
         });
+    } else {
     }
+
 
     // this.setWidth(e.currentTarget.innerText)
   };
@@ -157,6 +170,7 @@ export class Autocomplete extends Component {
           showOptions: false,
           userInput: filteredOptions[activeOption]
         }, function() {
+          this.setWidth();
           if (!this.props.index) {
             this.props.saveData(this.props.name, this.state.userInput)
           } else if (this.props.optionalParent) {
@@ -182,6 +196,13 @@ export class Autocomplete extends Component {
 
 
   };
+
+  // setWidth old
+  // setWidth = () => {
+  //   const hiddenEle = document.getElementById(`hide-${this.props.name}`);
+  //   const width = hiddenEle.offsetWidth + 15; // padding width or arrows
+  //   this.setState({ width: `${width}px` });
+  // };
 
   render() {
     const {
@@ -219,24 +240,24 @@ export class Autocomplete extends Component {
         // );
       }
     }
+
     return (
       <span className="autocomplete-container">
-          <input
-          	name={`show-${this.props.name}`}
-            id={`show-${this.props.name}`}
-          	value={userInput}
-            placeholder={this.props.placeholder}
-          	onChange={onChange}
-            onKeyDown={onKeyDown}
-            onFocus={this.handleFocus}
-            onBlur={this.handleBlur}
-            className="search-box-container"
-            style={{fontFamily: 'Source Sans Pro, sans-serif', fontSize: "24px", fontWeight: "bold"}}
-            required={this.props.required}
-            type={this.props.type}
-            maxLength={this.props.maxLength}
-          />
-        {this.state.options ? optionList : null}
+        <input
+          type="text"
+          className="search-box-container"
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+          value={userInput}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
+          id={`show-${this.props.name}`}
+          placeholder={this.props.placeholder}
+          style={{ width: this.state.width }}
+        />
+        <div id={`hide-${this.props.name}`} className="hide"></div>
+        {this.state.showOptions ? optionList : null}
+
       </span>
     );
   }
@@ -276,4 +297,4 @@ export default Autocomplete;
 //   style={{ width: this.state.width }}
 // />
 
-// <span id={`hide-${this.props.name}`} className="hide"></span>
+// <div id={`hide-${this.props.name}`} className="hide" style={{visibility: "visible"}}>{userInput}</div>

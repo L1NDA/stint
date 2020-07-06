@@ -156,7 +156,6 @@ a {
   font-size: 14px;
   border: none;
   position: relative;
-  /* align-self: flex-start; */
   transition: background-position 0.2s ease-in;
 }
 
@@ -294,7 +293,7 @@ p {
   opacity: 1; /* Firefox */
 }
 
-.search-box-container > input {
+.search-box-container {
   min-width: 25px;
   border: none;
   border-bottom: 4px solid #8F8DFF;
@@ -313,7 +312,7 @@ p {
   z-index: 3
 }
 
-.search-box-container > input:focus {
+.search-box-container:focus {
   /* border-bottom: 4px solid #474448; */
   background-color: #F2F2FF;
   outline: none;
@@ -337,6 +336,7 @@ p {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 24px;
   font-weight: bold;
+  white-space: nowrap;
 
   color: #8F8DFF;
 }
