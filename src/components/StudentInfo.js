@@ -58,12 +58,12 @@ class StudentInfo extends React.Component {
         <div className="student-dialogue-block">
 
         <h3>I am a <Select items={Year} name="year" saveData={this.handleChange}/>
-        at <Autocomplete
+        at <span className="nobreak"><Autocomplete
              options={Colleges}
              name="colleges"
              placeholder="(insert college*)"
              saveData={this.handleChange}
-             required={true}/>.</h3>
+             required={true}/>.</span></h3>
         <h3>I'm majoring in <Autocomplete
                               options={Majors}
                               name="major"
@@ -92,6 +92,7 @@ class StudentInfo extends React.Component {
           index="0"
           required={false}
           optionalParent/>
+        <span className="nobreak">
           {this.state.minor ?
             <span className="optional-chunk" style={{filter: this.state.minor2 ? "opacity(1)" : null}}>and <Autocomplete
                                   className="optional-input"
@@ -102,7 +103,7 @@ class StudentInfo extends React.Component {
                                   saveData={this.handleChange}
                                   required={false}
                                   /> </span>
-              : null}.</h3>
+        : null}.</span></h3>
 
         <h3>I’m currently residing in
             <Autocomplete
@@ -111,7 +112,9 @@ class StudentInfo extends React.Component {
               placeholder="(insert city*)"
               saveData={this.handleChange}
               required={true}/>,
-            <Select items={State} name="state" saveData={this.handleChange} saveData={this.handleChange}/>.</h3>
+            <span className="nobreak">
+            <Select items={State} name="state" saveData={this.handleChange} saveData={this.handleChange}/>.
+            </span></h3>
         </div>
         <div className="hline"></div>
         <div className="student-dialogue-block">
@@ -132,7 +135,8 @@ class StudentInfo extends React.Component {
                 saveData={this.handleChange}
                 required={true}
                 optionalParent/>
-              in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearcompany1" index="0" saveData={this.handleChange}/>.</h3>
+              in <span className="nobreak">
+              <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearcompany1" index="0" saveData={this.handleChange}/>.</span></h3>
           {this.state.role1 && this.state.company1 ?
           <h3><span className="optional-chunk" style={{filter: this.state.role2 || this.state.company2 ? "opacity(1)" : null}}>
           Another recent work experience was as a(n)
@@ -157,7 +161,9 @@ class StudentInfo extends React.Component {
             required={false}
             optionalParent
             maxLength="60"/>
-          in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearcompany2" index="1" saveData={this.handleChange}/>.</span></h3> : null}
+          in
+          <span className="nobreak">
+          <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearcompany2" index="1" saveData={this.handleChange}/>.</span></span></h3> : null}
           {this.state.role2 && this.state.company2 ?
           <h3><span className="optional-chunk" style={{filter: this.state.role3 || this.state.company3 ? "opacity(1)" : null}}>
           Another recent work experience was as a(n)
@@ -179,7 +185,9 @@ class StudentInfo extends React.Component {
             saveData={this.handleChange}
             required={false}
             maxLength="60"/>
-          in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearcompany2" index="2" saveData={this.handleChange}/>.</span></h3> : null}
+          in
+          <span className="nobreak">
+          <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearcompany2" index="2" saveData={this.handleChange}/>.</span></span></h3> : null}
         </div>
         <div className="hline"></div>
         <div className="student-dialogue-block">
@@ -201,7 +209,8 @@ class StudentInfo extends React.Component {
           saveData={this.handleChange}
           required={true}
           optionalParent/>
-        in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearec1" index="0" saveData={this.handleChange}/>.</h3>
+        in <span className="nobreak">
+        <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearec1" index="0" saveData={this.handleChange}/>.</span></h3>
         {this.state.ec1 && this.state.ecrole1 ?
         <h3><span className="optional-chunk" style={{filter: this.state.ec2 || this.state.ecrole2 ? "opacity(1)" : null}}>
           I’ve also been involved in
@@ -224,7 +233,7 @@ class StudentInfo extends React.Component {
             saveData={this.handleChange}
             required={false}
             optionalParent/>
-          in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearec2" index="1" saveData={this.handleChange}/>.</span></h3> : null}
+          in <span className="nobreak"><Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearec2" index="1" saveData={this.handleChange}/>.</span></span></h3> : null}
         {this.state.ec2 && this.state.ecrole2 ?
         <h3>
         <span className="optional-chunk" style={{filter: this.state.ec3 || this.state.ecrole3 ? "opacity(1)" : null}}>
@@ -246,7 +255,7 @@ class StudentInfo extends React.Component {
             index="2"
             saveData={this.handleChange}
             required={false}/>
-          in <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearec3" index="2" saveData={this.handleChange}/>.</span></h3> : null}
+          in <span className="nobreak"><Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearec3" index="2" saveData={this.handleChange}/>.</span></span></h3> : null}
         </div>
       </div>
     )}

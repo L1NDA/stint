@@ -1,0 +1,45 @@
+.my-profile-img {
+  height: 125px;
+  width: 125px;
+  border-radius: 75px;
+  margin-right: 50px;
+}
+
+/* Media Queries */
+
+/* Smaller Laptops ----------- */
+@media only screen and (max-width : 1200px) {
+
+
+}
+
+/* Mini Screens */
+@media only screen and (max-height : 1024px) {
+
+}
+
+/* Large Phones */
+@media only screen and (max-height : 850px) and (max-width: 800px) {
+
+}
+
+/* iPhone 6 */
+@media only screen and (max-height : 670px) {
+
+
+
+}
+
+/* Small Phones */
+@media only screen and (max-height : 570px) {
+
+
+
+}
+
+/* Smaller Phones */
+@media only screen and (max-width : 320px) {
+
+
+
+}

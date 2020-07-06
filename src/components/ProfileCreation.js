@@ -31,15 +31,21 @@ class ProfileCreation extends React.Component {
       da: {},
       db: {},
       ccm: {},
-      sd: {}
+      sd: {},
+      checkbox: false
     }
   }
 
-  handleChange = (e, name, content) => {
-    e.stopPropagation()
+  handleChange = (name, content) => {
     this.setState({
       [name]: content
-    }, function(){console.log(this.state, this.state.phonenum, this.state.phoneYN)})
+    })
+  }
+
+  toggleCheck = () => {
+    this.setState({
+      checkbox: !this.state.checkbox
+    })
   }
 
   updateChildInfo = (stateName, content, index) => {
@@ -60,7 +66,6 @@ class ProfileCreation extends React.Component {
       if (this.state.year && this.state.colleges && this.state.major && this.state.minor && this.state.city && this.state.state && this.state.role[0] && this.state.company[0] && this.state.ec[0] && this.state.ecrole[0]) {
         this.setState({continue: true})
       }
-      console.log(this.state)
       // else if (this.state.continue === true) {
       //   this.setState({continue: false})
       // }
@@ -70,7 +75,7 @@ class ProfileCreation extends React.Component {
   saveAllChildren = (section, state) => {
     this.setState({
       [section]: state
-    }, () => console.log(this.state))
+    })
   }
 
   submitProfile = (e) => {
@@ -102,14 +107,14 @@ class ProfileCreation extends React.Component {
     let doesContent = Object.keys(temp.ccm).length !== 0
     let doesSoftware = Object.keys(temp.sd).length !== 0
 
-    let finishedApp = temp.phonenum || temp.phoneYN === "No" ? false : true
+    let finishedApp = (temp.phonenum && this.state.checkbox) || (temp.phoneYN === "No" && this.state.checkbox) ? false : true
 
     return (
       <div className="container">
 
       <Menu/>
 
-    
+
       <form className="padding flex-column profile-container" onSubmit={this.submitProfile} autocomplete="off">
         <div className="stint-dialogue">
           <h2>Nice to meet you, Linda Q.</h2>
@@ -146,8 +151,14 @@ class ProfileCreation extends React.Component {
           </div> : null}
 
         <div>
-          <button className="button" style={{marginTop: "100px", marginBottom: "25px"}} disabled={finishedApp}>Create my profile</button>
-          <div class="subtitle" style={{marginBottom: "100px"}}>By pressing this button, you're agreeing to our Terms and Conditions and Privacy Policy.</div>
+          <div style={{marginTop: "50px", marginBottom: "50px"}} className="flex-row">
+            <input type="checkbox" id="confirm" name="confirm" style={{marginRight: "10px"}} onChange={this.toggleCheck}/>
+              <label for="confirm" className="subtitle" >
+                <b>By checking this box, you ensure that all the information you’ve provided is truthful and accurate to the best of your knowledge.*</b> <br/> Our team will verify your information within the next 48 hours, and we’ll get back to you when your profile is all set to be published!</label>
+          </div>
+
+          <button className="button" style={{marginBottom: "25px"}} disabled={finishedApp}>Create my profile</button>
+          <div className="subtitle" style={{marginBottom: "100px"}}>By pressing this button, you're agreeing to our Terms and Conditions and Privacy Policy.</div>
         </div>
 
 
