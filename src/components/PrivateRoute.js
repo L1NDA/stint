@@ -1,37 +1,36 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
+import { isLoaded, isEmpty } from "react-redux-firebase";
+import Loading from './Auth/Loading'
 import get from "lodash/get";
 
-class Private extends React.Component {
+const Private = ({ component: Component, ...rest }) => {
+  const auth = useSelector(state => state.firebase.auth)
+  const pathname = get(rest, "location.state.from.pathname");
 
-  async componentDidMount() {
-    const { ...rest } = this.props
-    const isLoggedIn = await rest.isLoggedIn;
-    const pathname = await get(rest, "location.state.from.pathname");
-    this.setState({ isLoggedIn: isLoggedIn, pathname: pathname }, () => console.log(this.state))
-  }
-
-  render() {
-    const { component: Component, ...rest } = this.props
-    return (
-      <Route
-        {...rest}
-        render={(props) =>
-          this.props.isLoggedIn ? (
-            <Component {...props} {...rest} oldPath={this.props.pathname} />
+  return (
+    <Route
+      {...rest}
+      render={(props) => 
+        isLoaded(auth) ? (
+          !isEmpty(auth) ? (
+            <Component {...props} {...rest} oldPath={pathname} />
           ) : (
             <Redirect
               to={{
-                pathname: this.props.pathname || "/",
+                pathname: pathname || "/",
                 state: { from: props.location },
               }}
             />
           )
-        }
-      />
-    );
-  }
+        ) : (
+          <Loading />
+        )
+      }
+    />
+  );
+  
 };
 
 
@@ -60,8 +59,7 @@ const Public = ({ component: Component, ...rest }) => {
 
 function mapStateToProps(state, props) {
   return {
-    isLoggedIn: state.firebase.auth.uid ? true : false,
-    state: state
+    isLoggedIn: state.firebase.auth.uid,
   };
 }
 

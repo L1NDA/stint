@@ -13,10 +13,7 @@ function App({ emailVerified, isLoggedIn }) {
   return (
     <Router>
       <Switch>
-        <Route path="/(login|register|auth|reset|profileCreation)/" component={Auth} />
-        {!emailVerified && isLoggedIn && (
-          <Route path="/" render={() => <Redirect to="/auth" />} />
-        )}
+        <Route path="/(profileCreation)/" component={Auth} />
         <Route exact path='/' component={Homepage}/>
         <Route exact path='/hire' component={Company}/>
         <Route exact path='/our-mission' component={About}/>
@@ -27,12 +24,7 @@ function App({ emailVerified, isLoggedIn }) {
 }
 
 const mapStateToProps = (state, props) => {
-  const { auth, profile } = state.firebase;
-
-  return {
-    emailVerified: auth.emailVerified || profile.emailVerified,
-    isLoggedIn: state.firebase.auth.uid ? true : false,
-  };
+  
 };
 
 export default connect(mapStateToProps)(App);
