@@ -142,7 +142,7 @@ a {
  }
 
 .button {
-  background: linear-gradient(to left, #8F8DFF 50%, #474448 50%);
+  background: linear-gradient(to left, #8F8DFF 50.1%, #474448 50%);
   background-size: 200% 100%;
   background-position: right bottom;
   display: flex;

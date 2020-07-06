@@ -292,10 +292,13 @@ class StudentSkillsDropdown extends React.Component {
           : null}.</h3></span> : null
       }
 
-          <Button
-            style={{marginTop: "75px", marginBottom: "50px"}}
-            text={`I'm done here – list me under ${this.props.title}.`}
-            type='submit'/>
+      <div className="subtitle" style={{marginTop: '30px'}}>Don't have any of the above? No worries! You can still join. Keep in mind that companies have all sorts of needs, so you don't need to have any one particular skill. For now, just tell us as much as you can about the skills you do have.
+      In the near future, we'll release our 'site challenges' feature where you can complete simple challenges that we'll spotlight to showcase your skills to companies.</div>
+
+          <button
+            className="button"
+            style={{marginTop: "75px", marginBottom: "50px", alignSelf: "flex-start"}}
+            type='submit'>I'm done here – list me under {this.props.title}.</button>
 
         </form>
           : null}
