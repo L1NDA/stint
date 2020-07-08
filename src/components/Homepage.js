@@ -23,7 +23,6 @@ import { withRouter } from "react-router-dom";
 
 const axios = require('axios')
 const {setCompanyBetaInfo} = require('../api/company')
-const {authUi, authUiConfig, getSignedInUser} = require('../api/auth')
 
 class Homepage extends React.Component {
 

@@ -12,7 +12,6 @@ import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { withRouter } from "react-router-dom";
 const {setFreelancerProfile} = require('../api/freelancer')
-const { getSignedInUser } = require('../api/auth')
 
 class ProfileCreation extends React.Component {
 

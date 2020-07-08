@@ -1,14 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Homepage from './components/Homepage.js'
 import Company from './components/Company.js'
 import About from './components/About.js'
 import Auth from './components/Auth'
 import ProfileCreation from './components/ProfileCreation'
 import ProfileView from './components/ProfileView'
-import { connect } from "react-redux";
 
 function App({ emailVerified, isLoggedIn }) {
   return (
@@ -24,8 +23,4 @@ function App({ emailVerified, isLoggedIn }) {
   );
 }
 
-const mapStateToProps = (state, props) => {
-
-};
-
-export default connect(mapStateToProps)(App);
+export default App;
