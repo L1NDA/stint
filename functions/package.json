@@ -19,6 +19,7 @@
     "gh-pinned-repos": "^1.0.1",
     "github-api": "^3.3.0",
     "moment": "^2.27.0",
+    "node-fetch": "^2.6.0",
     "redux": "^4.0.5"
   },
   "devDependencies": {

@@ -12,6 +12,8 @@ import {AiFillSchedule} from "react-icons/ai";
 import { TiTimes } from "react-icons/ti";
 import { getGithubInfo } from "../api/github"
 import Collapsible from 'react-collapsible';
+import {getInstaInfo} from "../api/instagram"
+import {getMediumInfo} from "../api/medium"
 
 import GoogleButton from './Auth/GoogleButton'
 import { firebaseConnect } from "react-redux-firebase";
@@ -51,6 +53,8 @@ class Homepage extends React.Component {
     this.setState({
       modal: !temp
     });
+
+    getMediumInfo("KonradDaWo")
   }
 
   loginWithProvider = async (provider) => {

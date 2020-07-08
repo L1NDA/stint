@@ -2,6 +2,7 @@ const functions = require('firebase-functions');
 const cors = require('cors')({origin: true});
 
 const nodemailer = require("nodemailer")
+const fetch = require("node-fetch");
 
 const { mailConfig } = require("./config")
 const { githubConfig } = require("./config")
@@ -98,3 +99,74 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
         return res.status(200).send(result)
     })
 })
+
+exports.getInstaInfo = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        const {instaUser} = req.body
+        const profileUrl = "https://www.instagram.com/" + instaUser
+        const instaApiUrl = profileUrl + "/?__a=1"
+
+        let result = {}
+
+        result.linkToProfile = profileUrl
+
+        try {
+            await axios.get(instaApiUrl)
+                .then(function(response) {
+                    let data = response.data.graphql.user
+                    
+                    result.profilePhoto = data.profile_pic_url_hd
+                    result.numFollowers = data.edge_followed_by.count
+                    result.isPrivate = data.is_private
+                    
+                    result.photos = []
+                    data.edge_owner_to_timeline_media.edges.slice([0], [9]).map((item, i) => {
+                        result.photos.push(item.node.display_url)
+                    });
+            })
+        } catch (err) {
+             return res.status(401).send(result).statusMessage("invalid user")
+        }
+
+        return res.status(200).send(result)
+    })
+})
+
+exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        const {mediumUser} = req.body
+        const mediumRssUrl = "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@" + mediumUser
+
+        let result = {}
+        try {
+            await fetch(mediumRssUrl)
+                .then((response) => response.json())
+                .then((data) => {
+                    // Filter for actual posts. Comments don't have categories, therefore can filter for items with categories larger than 0
+                    const response = data.items 
+                    const posts = response.filter(item => item.categories.length > 0) 
+
+                    function shortenText(text,startingPoint ,maxLength) {
+                        return text.length > maxLength?
+                        text.slice(startingPoint, maxLength):
+                        text
+                    }
+
+                    result.publications = []
+                    posts.slice([0], [3]).map((item, i) => {
+                        let publication = {}
+                        publication.link = item.link
+                        publication.thumbnail = item.thumbnail
+                        publication.title = shortenText(item.title, 0, 30)+ '...'
+                        result.publications.push(publication)
+                });
+            })
+        }
+        catch {
+            return res.status(401).send(result).statusMessage("invalid user")
+        }
+
+        return res.status(200).send(result)
+    })
+})
+
