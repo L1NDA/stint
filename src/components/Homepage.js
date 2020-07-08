@@ -13,10 +13,6 @@ import { TiTimes } from "react-icons/ti";
 import { getGithubInfo } from "../api/github"
 import Collapsible from 'react-collapsible';
 
-import app from 'firebase/app';
-import 'firebase/database';
-import firebase from '../firebase';
-import {StyledFirebaseAuth} from "react-firebaseui"
 import GoogleButton from './Auth/GoogleButton'
 import { firebaseConnect } from "react-redux-firebase";
 import { connect } from "react-redux";
@@ -43,7 +39,8 @@ class Homepage extends React.Component {
   }
 
   componentDidMount() {
-    firebase.analytics().logEvent("screen_view")
+    console.log(this.props)
+    this.props.analytics.logEvent("screen_view")
   }
 
   onError = ({ message }) => this.setState({ message, loading: false });
@@ -54,12 +51,11 @@ class Homepage extends React.Component {
     this.setState({
       modal: !temp
     });
-    // getGithubInfo("lasdgasdgsdaga")
   }
 
   loginWithProvider = async (provider) => {
     this.setState({ loading: true });
-    this.props.loginUser({ provider, onError: this.onError })
+    this.props.loginUser({ provider, onError: this.onError }, () => this.props.analytics.logEvent("login"))
   };
 
   changeLoginText = () => {
@@ -235,6 +231,7 @@ function mapStateToProps(state, props) {
       }
     },
     isLoggedIn: state.firebase.auth.uid ? true : false,
+    analytics: firebase.analytics()
   };
 }
 

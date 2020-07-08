@@ -8,7 +8,6 @@ import get from "lodash/get";
 const Private = ({ component: Component, ...rest }) => {
   const auth = useSelector(state => state.firebase.auth)
   const pathname = get(rest, "location.state.from.pathname");
-  console.log(useSelector(state => state.firebase.data))
 
   return (
     <Route

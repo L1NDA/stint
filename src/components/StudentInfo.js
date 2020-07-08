@@ -41,7 +41,7 @@ class StudentInfo extends React.Component {
       if (content) {
         this.setState({
           [stateName]: true
-        }, console.log(this.state))
+        })
       } else {
         this.setState({
           [stateName]: false

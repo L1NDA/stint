@@ -1,7 +1,5 @@
 import React from 'react';
 import '../index.css';
-import app from 'firebase/app';
-import 'firebase/database';
 import firebase from '../firebase';
 
 import { TiTimes } from "react-icons/ti";

@@ -19,7 +19,6 @@ function App({ emailVerified, isLoggedIn }) {
         <Route exact path='/hire' component={Company}/>
         <Route exact path='/our-mission' component={About}/>
         <Route exact path='/my-profile' component={ProfileView}/>
-        <Route exact path='/login=true' component={ProfileCreation}/>
       </Switch>
     </Router>
   );

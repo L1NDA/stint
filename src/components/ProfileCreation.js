@@ -97,6 +97,7 @@ class ProfileCreation extends React.Component {
                          doesContent, temp.ccm.ccm0, temp.ccm.ccm1, temp.ccm.ccm2, temp.ccm.ccm3, temp.ccm.skills, temp.ccm.awardCategories, temp.ccm.awardContent, temp.ccm.awardProviders,
                          doesSoftware, temp.sd.sd0, temp.sd.sd1, temp.sd.skills, temp.sd.awardCategories, temp.sd.awardContent, temp.sd.awardProviders,
                          temp.phonenum)
+    this.props.analytics.logEvent("sign_up")
   }
 
   render() {
@@ -171,8 +172,10 @@ class ProfileCreation extends React.Component {
 }
 
 function mapStateToProps(state, props) {
+  const { firebase } = props
   return {
-    userUid: state.firebase.auth.uid
+    userUid: state.firebase.auth.uid,
+    analytics: firebase.analytics()
   };
 }
 
