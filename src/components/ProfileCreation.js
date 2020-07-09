@@ -81,6 +81,11 @@ class ProfileCreation extends React.Component {
     e.preventDefault()
     e.stopPropagation()
     const temp = this.state
+
+    if (temp.phoneYN === "No") {
+      temp.phonenum = null
+    }
+
     let doesData = Object.keys(temp.da).length !== 0
     let doesDesign = Object.keys(temp.db).length !== 0
     let doesContent = Object.keys(temp.ccm).length !== 0
