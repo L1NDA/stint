@@ -9,15 +9,13 @@ import Auth from './components/Auth'
 import ProfileCreation from './components/ProfileCreation'
 import ProfileView from './components/ProfileView'
 
-function App({ emailVerified, isLoggedIn }) {
+function App({ isLoggedIn }) {
   return (
     <Router>
       <Switch>
-        <Route path="/(this-is-me)/" component={Auth} />
-        <Route exact path='/' component={Homepage}/>
-        <Route exact path='/hire' component={Company}/>
-        <Route exact path='/our-mission' component={About}/>
-        <Route exact path='/my-profile' component={ProfileView}/>
+        <Route path="/(|this-is-me)" component={Auth} />
+        <Route path="/hire" component={Company} />
+        <Route path="/our-mission" component={About} />
       </Switch>
     </Router>
   );
