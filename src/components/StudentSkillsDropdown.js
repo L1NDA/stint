@@ -200,14 +200,14 @@ class StudentSkillsDropdown extends React.Component {
 
                 name={`${this.props.section}HaveAwardContent`}
                 placeholder="(award name*)"
-                saveData={this.saveStateDebounced}
+                saveData={this.saveState}
                 val={this.state[`${this.props.section}HaveAwardContent`]}
                 required={true}
                 maxLength="50"/> from <Autocomplete
 
                     name={`${this.props.section}HaveAwardProvider`}
                     placeholder="(award provider*)"
-                    saveData={this.saveStateDebounced}
+                    saveData={this.saveState}
                     val={this.state[`${this.props.section}HaveAwardProvider`]}
                     required={true}
                     maxLength="50"/>
@@ -238,14 +238,14 @@ class StudentSkillsDropdown extends React.Component {
 
                 name={`${this.props.section}HaveAwardContent1`}
                 placeholder="(award name*)"
-                saveData={this.saveStateDebounced}
+                saveData={this.saveState}
                 val={this.state[`${this.props.section}HaveAwardContent1`]}
                 required={true}
                 maxLength="50"/> from <Autocomplete
 
                     name={`${this.props.section}HaveAwardProvider1`}
                     placeholder="(award provider*)"
-                    saveData={this.saveStateDebounced}
+                    saveData={this.saveState}
                     val={this.state[`${this.props.section}HaveAwardProvider1`]}
                     required={true}
                     maxLength="50"/>

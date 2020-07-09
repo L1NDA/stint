@@ -144,23 +144,34 @@ class Homepage extends React.Component {
         </div>
       </div>
 
-      <div className="flex-row interstitial">
-        <div className="interstitial-item">
-          <FaLaptopCode className="interstitial-icon"/>
-          <h2>Build skills.</h2>
-          <p>Bootcamps and extracurriculars aren’t the only way to get real-world experience as a full-time student. Gain industry experience, straight from the source.</p>
+      <div className="flex-column" style={{backgroundColor: '#f5f5f5'}}>
+        <div className="flex-row interstitial">
+          <div className="interstitial-item">
+            <FaLaptopCode className="interstitial-icon"/>
+            <h2 style={{color: "#474448"}}>Build skills.</h2>
+            <p>Bootcamps and extracurriculars aren’t the only way to get real-world experience as a full-time student. Gain industry experience, straight from the source.</p>
+          </div>
+
+          <div className="interstitial-item">
+            <AiFillSchedule className="interstitial-icon"/>
+            <h2 style={{color: "#474448"}}>Stay productive.</h2>
+            <p>Got extra time on your hands? Do stints and earn some money for those next few burritos – on your own time, at your own pace.</p>
+          </div>
+
+          <div className="interstitial-item">
+            <MdBrokenImage className='interstitial-icon'/>
+            <h2 style={{color: "#474448"}}>Break boundaries.</h2>
+            <p>We believe in challenging the status quo. Spend your time doing meaningful work instead of networking. Highlight your skills, not your connections.</p>
+          </div>
         </div>
 
-        <div className="interstitial-item">
-          <AiFillSchedule className="interstitial-icon"/>
-          <h2>Stay productive.</h2>
-          <p>Got extra time on your hands? Do stints and earn some money for those next few burritos – on your own time, at your own pace.</p>
-        </div>
-
-        <div className="interstitial-item">
-          <MdBrokenImage className='interstitial-icon'/>
-          <h2>Break boundaries.</h2>
-          <p>We believe in challenging the status quo. Spend your time doing meaningful work instead of networking. Highlight your skills, not your connections.</p>
+        <div className="flex-column padding center">
+          <p style={{color: "#474448", margin: '0'}}><b>Stint is trusted and used by companies empowering students.</b></p>
+          <div className="flex-row center unis" style={{padding: "50px 10% 75px 10%"}}>
+            <img src={require('./imgs/unis/bu.png')} className="uni"/>
+            <img src={require('./imgs/unis/harvard.png')} className="uni"/>
+            <img src={require('./imgs/unis/bc.png')} className="uni"/>
+          </div>
         </div>
       </div>
 
