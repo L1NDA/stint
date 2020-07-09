@@ -83,15 +83,18 @@ class StudentInfo extends React.Component {
                                   required={false}
                                   /> </span>
               : null}
-                          and minoring in
-        <Autocomplete
-          options={Majors}
-          name="minor"
-          placeholder="(insert minor)"
-          saveData={this.handleChange}
-          index="0"
-          required={false}
-          optionalParent/>
+
+        <span style={{filter: this.state.minor ? "opacity(1)" : "opacity(0.5)", position: "relative", zIndex: "10"}}>
+          and minoring in
+          <Autocomplete
+            options={Majors}
+            name="minor"
+            placeholder="(insert minor)"
+            saveData={this.handleChange}
+            index="0"
+            required={false}/>
+        </span>
+
         <span className="nobreak">
           {this.state.minor ?
             <span className="optional-chunk" style={{filter: this.state.minor2 ? "opacity(1)" : null}}>and <Autocomplete
