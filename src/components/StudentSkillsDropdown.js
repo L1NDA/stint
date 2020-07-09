@@ -62,7 +62,7 @@ class StudentSkillsDropdown extends React.Component {
         }
       }
       return updateAttributes
-    }, console.log(this.state))
+    })
   }
 
   // handleChange = (stateName, content, index = null) => {
