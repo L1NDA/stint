@@ -35,22 +35,26 @@ const Private = ({ component: Component, ...rest }) => {
 
 
 const Public = ({ component: Component, ...rest }) => {
-  const isLoggedIn = useSelector(state => state.firebase.auth.uid ? true : false)
+  const auth = useSelector(state => state.firebase.auth)
   const pathname = get(rest, "location.state.from.pathname");
-
+  console.log(auth)
   return (
     <Route
       {...rest}
       render={(props) =>
-        !isLoggedIn ? (
-          <Component {...props} {...rest} />
+        isLoaded(auth) ? (
+          isEmpty(auth) ? (
+            <Component {...props} {...rest} />
+          ) : (
+            <Redirect
+              to={{
+                pathname: pathname || "/this-is-me",
+                state: { from: props.location },
+              }}
+            />
+          )
         ) : (
-          <Redirect
-            to={{
-              pathname: pathname || "/",
-              state: { from: props.location },
-            }}
-          />
+          <Loading />
         )
       }
     />
