@@ -16,7 +16,7 @@ import {getInstaInfo} from "../api/instagram"
 import {getMediumInfo} from "../api/medium"
 
 import GoogleButton from './Auth/GoogleButton'
-import { firebaseConnect } from "react-redux-firebase";
+import { firebaseConnect, isLoaded, isEmpty } from "react-redux-firebase";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
@@ -52,23 +52,17 @@ class Homepage extends React.Component {
     this.setState({
       modal: !temp
     });
-
-    getMediumInfo("KonradDaWo")
   }
 
   loginWithProvider = async (provider) => {
     this.setState({ loading: true });
-    this.props.loginUser({ provider, onError: this.onError }, () => this.props.analytics.logEvent("login"))
+    if (!this.props.isLoggedIn) {
+      this.props.loginUser({ provider, onError: this.onError }, () => this.props.analytics.logEvent("login"))
+    }
+    else {
+      this.props.history.push("/this-is-me")
+    }
   };
-
-  changeLoginText = () => {
-    setTimeout(function() {
-          var button = document.querySelector('.firebaseui-idp-text');
-          if (button) {
-            button.innerHTML = `Continue with Google`;
-          }
-        }, 500);
-      }
 
   render() {
     const {loading} = this.state

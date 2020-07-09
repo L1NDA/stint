@@ -116,7 +116,7 @@ class ProfileCreation extends React.Component {
 
       <form className="padding flex-column profile-container" onSubmit={this.submitProfile} autocomplete="off">
         <div className="stint-dialogue">
-          <h2>Nice to meet you, Linda Q.</h2>
+          <h2>Nice to meet you, {this.props.userFirstName}.</h2>
           <h3>We’re Stint, a platform for connecting students and companies. <br/> Now tell us a little bit about yourself!</h3>
         </div>
 
@@ -174,6 +174,7 @@ function mapStateToProps(state, props) {
   const { firebase } = props
   return {
     userUid: state.firebase.auth.uid,
+    userFirstName: state.firebase.auth.displayName.split(" ")[0],
     analytics: firebase.analytics()
   };
 }
