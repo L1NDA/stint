@@ -13,8 +13,7 @@ class StudentSkillsDropdown extends React.Component {
     super();
     this.state = {
       details: false,
-      [SKILLS]: {},
-      showImDone: false
+      [SKILLS]: {}
     }
     this.saveStateDebounced = this.saveState;
   }
@@ -107,8 +106,7 @@ class StudentSkillsDropdown extends React.Component {
       delete newSkills[skill]
     }
     this.setState({
-      [SKILLS]: newSkills,
-      showImDone: true
+      [SKILLS]: newSkills
     })
   }
 
@@ -291,12 +289,10 @@ class StudentSkillsDropdown extends React.Component {
 
       <div className="subtitle" style={{marginTop: '30px'}}>Don't have any of the above? No worries! You can still join. Keep in mind that companies have all sorts of needs, so you don't need to have any one particular skill. For now, just tell us as much as you can about the skills you do have.
       In the near future, we'll release our 'site challenges' feature where you can complete simple challenges that we'll spotlight to showcase your skills to companies.</div>
-        {this.state.showImDone ? 
           <button
             className="button"
             style={{marginTop: "75px", marginBottom: "50px", alignSelf: "flex-start"}}
             type='submit'>I'm done here – list me under {this.props.title}.</button>
-         : null }
 
         </form>
           : null}
