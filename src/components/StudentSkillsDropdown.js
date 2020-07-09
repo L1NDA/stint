@@ -28,7 +28,12 @@ class StudentSkillsDropdown extends React.Component {
     }
   }
 
+  componentDidMount() {
+    console.log(this.state)
+  }
+
   componentDidUpdate() {
+
     if (this.state.details && !this.state.width) {
       this.setWidth();
     }
@@ -96,10 +101,10 @@ class StudentSkillsDropdown extends React.Component {
     return currState
   }
 
-  handleSubmit = async (e) => {
-    e.stopPropagation()
+  handleSubmit = (e) => {
     e.preventDefault()
-    let aggregatedState = await this.aggregateAwards(this.state)
+    e.stopPropagation()
+    let aggregatedState = this.aggregateAwards(this.state)
     this.props.handleButton(this.props.section, aggregatedState)
     this.setState({
       submitted: true,
@@ -217,14 +222,14 @@ class StudentSkillsDropdown extends React.Component {
 
                 name={`${this.props.section}HaveAwardContent`}
                 placeholder="(award name*)"
-                saveData={this.saveStateDebounced}
+                saveData={this.saveState}
                 val={this.state[`${this.props.section}HaveAwardContent`]}
                 required={true}
                 maxLength="50"/> from <Autocomplete
 
                     name={`${this.props.section}HaveAwardProvider`}
                     placeholder="(award provider*)"
-                    saveData={this.saveStateDebounced}
+                    saveData={this.saveState}
                     val={this.state[`${this.props.section}HaveAwardProvider`]}
                     required={true}
                     maxLength="50"/>
@@ -255,14 +260,14 @@ class StudentSkillsDropdown extends React.Component {
 
                 name={`${this.props.section}HaveAwardContent1`}
                 placeholder="(award name*)"
-                saveData={this.saveStateDebounced}
+                saveData={this.saveState}
                 val={this.state[`${this.props.section}HaveAwardContent1`]}
                 required={true}
                 maxLength="50"/> from <Autocomplete
 
                     name={`${this.props.section}HaveAwardProvider1`}
                     placeholder="(award provider*)"
-                    saveData={this.saveStateDebounced}
+                    saveData={this.saveState}
                     val={this.state[`${this.props.section}HaveAwardProvider1`]}
                     required={true}
                     maxLength="50"/>
@@ -314,7 +319,8 @@ class StudentSkillsDropdown extends React.Component {
           <button
             className="button"
             style={{marginTop: "75px", marginBottom: "50px", alignSelf: "flex-start"}}
-            type='submit'>I'm done here – list me under {this.props.title}.</button>
+            type='submit'
+            disabled={this.state[`${this.props.section}0`] || (this.state[`${this.props.section}HaveAwardCategory`] && this.state[`${this.props.section}HaveAwardContent`] && this.state[`${this.props.section}HaveAwardProvider`]) || Object.keys(this.state.skills).length !== 0 ? false : true}>I'm done here – list me under {this.props.title}.</button>
 
         </form>
           : null}

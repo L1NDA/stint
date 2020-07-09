@@ -177,6 +177,14 @@
   margin: 20px 0;
 }
 
+.skill-container > *:first-child {
+  margin-left: 0
+}
+
+.skill-container > *:last-child {
+  margin-right: 0
+}
+
 .skill {
   padding: 5px 40px;
   margin: 5px;

@@ -18,7 +18,7 @@ class ProfileCreation extends React.Component {
   constructor(){
     super();
     this.state = {
-      continue: true,
+      continue: false,
       major: [null, null],
       minor: [null, null],
       role: [null, null, null],
@@ -72,6 +72,7 @@ class ProfileCreation extends React.Component {
   }
 
   saveAllChildren = (section, state) => {
+
     this.setState({
       [section]: state
     })

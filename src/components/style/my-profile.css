@@ -31,7 +31,7 @@
 
 .experience-item {
   margin-bottom: 50px;
-  box-shadow: 0px 20px 50px rgba(71, 68, 72, 0.10);
+  box-shadow: 0px 10px 20px rgba(71, 68, 72, 0.15);
   position: relative;
   background-color: white;
   padding: 25px 30px;
@@ -69,6 +69,115 @@
   top: 0px;
   z-index: 0;
 }
+
+.section-header {
+  color: #474448;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.profile-skills, .profile-works, .profile-awards {
+  margin-top: 50px;
+}
+
+.skill-static {
+  padding: 5px 40px;
+  margin: 5px;
+  background-color: #F5F5F5;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.skill-name-static {
+  display: inline-flex;
+  z-index: 5;
+}
+
+.works-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.works-item {
+  box-shadow: 0px 4px 32px rgba(71, 68, 72, 0.15);
+  background-color: white;
+  padding: 50px;
+  width: 45%;
+  min-width: 300px;
+  margin: 40px 0;
+  align-self: flex-start;
+}
+
+.column-works-item {
+  width: 100%;
+}
+
+.works-header {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 45px;
+  display: flex;
+  align-items: center;
+}
+
+.works-section {
+  margin-top: 25px;
+  position: relative;
+}
+
+.works-header-img {
+  height: 36px;
+  margin-right: 15px;
+}
+
+.github {
+  color: #24292E;
+}
+
+.gray {
+  color: #474448
+}
+
+.works-section-header {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.works-section-item {
+  margin-top: 15px
+}
+
+.works-laptop {
+  width: 100%;
+  z-index: 1;
+  position: relative;
+}
+
+.works-laptop-screen {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 75%;
+  z-index: 0
+}
+
+.insta-img {
+  height: 30px;
+  border-radius: 15px;
+}
+
+.insta-handle {
+  font-size: 12px;
+  margin-left: 15px;
+}
+
 
 /* Media Queries */
 

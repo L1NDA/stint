@@ -253,6 +253,9 @@ export class Autocomplete extends Component {
           id={`show-${this.props.name}`}
           placeholder={this.props.placeholder}
           style={{ width: this.state.width }}
+          required={this.props.required}
+          type={this.props.type}
+          maxLength={this.props.maxLength}
         />
         <div id={`hide-${this.props.name}`} className="hide"></div>
         {this.state.showOptions ? optionList : null}

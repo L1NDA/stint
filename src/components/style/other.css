@@ -1,0 +1,65 @@
+.thank-you-background {
+  height: 100vh;
+  background: linear-gradient(270deg, #8F8DFF 0%, #05D9B2 100%);
+  background-size: 400% 100%;
+  animation: gradient 2s linear infinite;
+  animation-direction: alternate;
+}
+
+.thank-you-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.thank-you {
+  width: 40%;
+  text-align: center;
+}
+
+.thank-you > * {
+  color: #474448;
+}
+
+/* Media Queries */
+
+/* Smaller Laptops ----------- */
+@media only screen and (max-width : 1200px) {
+
+
+}
+
+/* Mini Screens */
+@media only screen and (max-height : 1024px) {
+
+}
+
+/* Large Phones */
+@media only screen and (max-height : 850px) and (max-width: 800px) {
+
+
+}
+
+/* iPhone 6 */
+@media only screen and (max-height : 670px) {
+
+
+
+}
+
+/* Small Phones */
+@media only screen and (max-height : 570px) {
+
+
+
+}
+
+/* Smaller Phones */
+@media only screen and (max-width : 320px) {
+
+
+
+}

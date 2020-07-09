@@ -83,15 +83,18 @@ class StudentInfo extends React.Component {
                                   required={false}
                                   /> </span>
               : null}
-                          and minoring in
-        <Autocomplete
-          options={Majors}
-          name="minor"
-          placeholder="(insert minor)"
-          saveData={this.handleChange}
-          index="0"
-          required={false}
-          optionalParent/>
+
+        <span style={{filter: this.state.minor ? "opacity(1)" : "opacity(0.5)", position: "relative", zIndex: "3"}}>
+          and minoring in
+          <Autocomplete
+            options={Majors}
+            name="minor"
+            placeholder="(insert minor)"
+            saveData={this.handleChange}
+            index="0"
+            required={false}/>
+        </span>
+
         <span className="nobreak">
           {this.state.minor ?
             <span className="optional-chunk" style={{filter: this.state.minor2 ? "opacity(1)" : null}}>and <Autocomplete
@@ -118,7 +121,7 @@ class StudentInfo extends React.Component {
         </div>
         <div className="hline"></div>
         <div className="student-dialogue-block">
-          <h3>My most recent work experience was as a(n)
+          <h3>In my most recent work experience, I was as a(n)
             <Autocomplete
               options={Roles}
               name="role1"
@@ -139,7 +142,7 @@ class StudentInfo extends React.Component {
               <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearcompany1" index="0" saveData={this.handleChange}/>.</span></h3>
           {this.state.role1 && this.state.company1 ?
           <h3><span className="optional-chunk" style={{filter: this.state.role2 || this.state.company2 ? "opacity(1)" : null}}>
-          Another recent work experience was as a(n)
+          Before that, I was as a(n)
           <Autocomplete
             options={Roles}
             className="optional-input"
@@ -166,7 +169,7 @@ class StudentInfo extends React.Component {
           <Select items={['(insert year*)', '2020', '2019', '2018', '2017', '2016']} name="yearcompany2" index="1" saveData={this.handleChange}/>.</span></span></h3> : null}
           {this.state.role2 && this.state.company2 ?
           <h3><span className="optional-chunk" style={{filter: this.state.role3 || this.state.company3 ? "opacity(1)" : null}}>
-          Another recent work experience was as a(n)
+          Before that, I was as a(n)
           <Autocomplete
             options={Roles}
             className="optional-input"
