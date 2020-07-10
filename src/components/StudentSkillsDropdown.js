@@ -33,7 +33,7 @@ class StudentSkillsDropdown extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.state)
+
   }
 
   componentDidUpdate() {
@@ -41,6 +41,8 @@ class StudentSkillsDropdown extends React.Component {
     if (this.state.details && !this.state.width) {
       this.setWidth();
     }
+
+
   }
 
   setWidth = () => {
@@ -142,8 +144,9 @@ class StudentSkillsDropdown extends React.Component {
   }
 
   handleFiles = (files) => {
+    var fileErrorHandler = document.getElementById("file-error")
     if (files.length === 0) {
-      console.log("Please upload a file")
+      fileErrorHandler.innerHTML = "Please upload a file."
       return
     }
 
@@ -153,16 +156,16 @@ class StudentSkillsDropdown extends React.Component {
         files[0].size <= 10000000) {
       this.setState({
         files : files
-      }, function() { 
-        this.handleUpload() 
+      }, function() {
+        this.handleUpload(fileErrorHandler)
       })
     }
     else {
-      console.log("Please upload a .png, .pdf, .jpg, .jpeg, or .gif file that is below 10MB")
+      fileErrorHandler.innerHTML = "Please upload a .png, .pdf, .jpg, .jpeg, or .gif file below 10MB"
     }
   }
 
-  handleUpload = () => {
+  handleUpload = (fileErrorHandler) => {
     let storage = this.props.storage
 
     let file = this.state.files[0]
@@ -172,27 +175,27 @@ class StudentSkillsDropdown extends React.Component {
 
     uploadTask.on("state_changed", (snapshot) => {
       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log('Upload is ' + progress + '% done');
+      fileErrorHandler.innerHTML = `Upload is ${Math.round(progress)} % done`
     }, function(error) {
     // A full list of error codes is available at
     // https://firebase.google.com/docs/storage/web/handle-errors
     switch (error.code) {
       case 'storage/unauthorized':
-        console.log("not authorized")
+        fileErrorHandler.innerHTML = "Not authorized"
         break;
       case 'storage/canceled':
-        console.log("upload cancelled")
+        fileErrorHandler.innerHTML = "Upload cancelled"
         break;
       case 'storage/unknown':
-        console.log("unknown error")
+        fileErrorHandler.innerHTML = "Unknown error"
         break;
     }}, function() {
     // Upload completed successfully, now we can get the download URL
       uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-        // TODO: indicate upload completed
-        console.log(downloadURL)
+        fileErrorHandler.innerHTML = `Successfully uploaded ${file.name}`
       });
-    });
+    }
+  );
   }
 
   handleDeleteUpload = () => {
@@ -208,7 +211,7 @@ class StudentSkillsDropdown extends React.Component {
   }
 
   getFileUrl = (fileName) => {
-    console.log('jfc')
+    // console.log('jfc')
     return this.props.storage.ref("images" + "/" + + this.props.userUid + "/" + fileName).getDownloadURL()
   }
 
@@ -261,12 +264,19 @@ class StudentSkillsDropdown extends React.Component {
                   name={'haveFileUpload'}
                   saveData={this.saveState}
                   selected={this.state.haveFileUpload}
-                  have={true}/> other works I want to display.
+                  have={true}/> another work I want to display.
                   <br/>
                   {this.state.haveFileUpload === "have" ?
-                    <div className="upload flex-row">
-                      <input id="fileInput" type="file" onChange={(e) => {this.handleFiles(e.target.files)}}/>
-                      <img id="new-img"/>
+                    <div className="upload flex-column">
+                      {this.state.uploadedFile ?
+                        <button className="button">Delete {this.state.files[0].name}</button>
+                        : <>
+                        <input id="fileInput" type="file" onChange={(e) => {this.handleFiles(e.target.files)}} required/>
+                        <label for="fileInput">Choose a file</label>
+                        </>
+                      }
+
+                      <div className="subtitle" id="file-error" style={{marginTop: "10px"}}></div>
                     </div>
                   : null}
                 </h3>
