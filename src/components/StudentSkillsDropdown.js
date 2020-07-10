@@ -144,7 +144,6 @@ class StudentSkillsDropdown extends React.Component {
   handleFiles = (files) => {
     if (files.length === 0) {
       console.log("Please upload a file")
-      return
     }
 
     const acceptedFileTypes = [".png", ".pdf", ".jpg", ".jpeg", ".gif"]

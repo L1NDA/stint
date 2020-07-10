@@ -8,6 +8,7 @@ import ProfileCreation from "../ProfileCreation"
 import Homepage from "../Homepage"
 import ThankYou from "../ThankYou"
 import Loading from "./Loading"
+import Company from "../Company"
 
 import { PrivateRoute, PublicRoute } from "../PrivateRoute";
 
