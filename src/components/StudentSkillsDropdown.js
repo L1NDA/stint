@@ -142,14 +142,23 @@ class StudentSkillsDropdown extends React.Component {
   }
 
   handleFiles = (files) => {
-    this.setState({
-      files : files
-    })
+    const acceptedFileTypes = [".png", ".pdf", ".jpg", ".jpeg", ".gif"]
+    // check file type is accepted and that it is below 10MB (in bytes)
+    if (acceptedFileTypes.some(type => files[0].name.endsWith(type)) &&
+        files[0].size <= 10000000) {
+      this.setState({
+        files : files
+      }, function(e) { 
+        console.log("event", e)
+        this.handleUpload() 
+      })
+    }
+    else {
+      console.log("Please upload a .png, .pdf, .jpg, .jpeg, or .gif file that is below 10MB")
+    }
   }
 
-  handleUpload = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
+  handleUpload = () => {
     let storage = this.props.storage
 
     let file = this.state.files[0]
@@ -177,11 +186,7 @@ class StudentSkillsDropdown extends React.Component {
     // Upload completed successfully, now we can get the download URL
       uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
         // TODO: indicate upload completed
-        // Display file image at corresponding img html element
         console.log(downloadURL)
-        var img = document.getElementById('myimg');
-        img.src = downloadURL;
-        img.alt = file.name
       });
     });
   }
@@ -256,8 +261,7 @@ class StudentSkillsDropdown extends React.Component {
                   <br/>
                   {this.state.haveFileUpload === "have" ?
                     <div className="upload flex-row">
-                      <input type="file" onChange={(e) => {this.handleFiles(e.target.files)}}/>
-                      <button onClick={this.handleUpload} className="button"> Save </button>
+                      <input id="fileInput" type="file" onChange={(e) => {this.handleFiles(e.target.files)}}/>
                       <img id="new-img"/>
                     </div>
                   : null}
