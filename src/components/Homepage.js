@@ -187,7 +187,7 @@ class Homepage extends React.Component {
         </div>
 
         <div className="flex-column padding center">
-          <p style={{color: "#474448", margin: '0', marginTop: '50px'}}><b>Stint is trusted and used by companies empowering students.</b></p>
+          <p style={{color: "#474448", margin: '0', marginTop: '50px', textAlign: "center"}}><b>Stint is trusted and used by companies empowering students.</b></p>
           <div className="flex-row center unis" style={{padding: "20px 10% 50px 10%"}}>
             <a href="https://vivforyourv.com/" target="_blank"><img src={require('./imgs/companies/viv.png')} className="example-company-square"/></a>
             <a href="https://www.givecard.io/" target="_blank"><img src={require('./imgs/companies/givecard.png')} className="example-company-rect"/></a>
