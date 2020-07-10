@@ -14,6 +14,7 @@
     "firebase": "^7.14.5",
     "firebaseui": "^4.5.1",
     "github-api": "^3.3.0",
+    "lint": "^0.7.0",
     "nodemailer": "^6.4.10",
     "prettier": "^2.0.5",
     "pure-react-carousel": "^1.27.1",

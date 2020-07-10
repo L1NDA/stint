@@ -44,7 +44,7 @@ const { FREELANCERS_REF_PATH,
 const firebase = require("firebase");
 // TODO: get rid of uid and instead make it return data for current signed in freelancer
 // Given freelancer's Google uid, returns all data associated with that freelancer
-const getFreelancerRef = async (uid) => {
+export const getFreelancerRef = async (uid) => {
 	const freelancerRef = firebase.database().ref(FREELANCERS_REF_PATH + "/" + uid)
 	return freelancerRef
 }
@@ -58,7 +58,7 @@ const getFreelancerRef = async (uid) => {
  *
  *	@return {boolean} true: on success, false: on failure
  */
-const updateFreelancerInfo = async (uid, name=null, email=null, photoUrl=null) => {
+export const updateFreelancerInfo = async (uid, name=null, email=null, photoUrl=null) => {
 	const freelancerRef = firebase.database().ref(FREELANCERS_REF_PATH + "/" + uid)
 	var updatedFreelancer = {}
 	if (name) {
@@ -83,7 +83,7 @@ const updateFreelancerInfo = async (uid, name=null, email=null, photoUrl=null) =
 	})
 }
 
-const setFreelancerProfile = async (uid,
+export const setFreelancerProfile = async (uid,
 									year, school, majors, minors,
 									cityOfResidence, stateOfResidence,
 									companyRoles, companies, companyYears,
@@ -173,8 +173,10 @@ const setFreelancerProfile = async (uid,
 	})
 }
 
-module.exports = {
+const toBeExported = {
 	getFreelancerRef,
 	updateFreelancerInfo,
 	setFreelancerProfile
 }
+
+export default toBeExported
