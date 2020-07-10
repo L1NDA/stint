@@ -230,7 +230,7 @@
 
 .example-company-square, .example-company-rect {
   margin: 0 50px;
-  filter: grayscale(100%);
+  filter: grayscale(0.5);
 }
 
 .example-company-square:hover, .example-company-rect:hover {
