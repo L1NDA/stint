@@ -75,7 +75,7 @@ class Homepage extends React.Component {
         <br/>
         <GoogleButton
           onClick={() => {
-            !loading && this.loginWithProvider(e, "google");
+            !loading && this.loginWithProvider("google");
           }}
         />
       </div>
