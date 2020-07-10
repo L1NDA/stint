@@ -29,6 +29,25 @@
   margin-bottom: 200px;
 }
 
+.fof-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  flex-grow: 1;
+  margin-top: -50px;
+}
+
+.fof {
+  width: 40%;
+  text-align: center;
+}
+
+.fof-img {
+  width: 150px;
+}
+
 /* Media Queries */
 
 /* Smaller Laptops ----------- */
@@ -44,6 +63,15 @@
 
 /* Large Phones */
 @media only screen and (max-height : 850px) and (max-width: 800px) {
+
+  .fof {
+    width: 60%;
+    text-align: center;
+  }
+
+  .fof-img {
+    width: 100px;
+  }
 
 
 }

@@ -177,10 +177,6 @@
   margin: 20px 0;
 }
 
-.skill-container > *:first-child {
-  margin-left: 0
-}
-
 .skill-container > *:last-child {
   margin-right: 0
 }
@@ -263,12 +259,49 @@
 }
 
 .upload {
-  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
   margin-top: 30px;
 }
 
-input[type='file'] {
+[type="file"] {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  white-space: nowrap;
+  width: 1px;
+  align-self: flex-start;
+}
+
+[type="file"] + label {
+  background: linear-gradient(to left, #8F8DFF 50.1%, #474448 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  border-radius: 0;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: bold;
+  font-size: 14px;
   border: none;
+  padding: 10px 20px;
+  align-self: flex-start;
+}
+
+[type="file"]:focus + label,
+[type="file"] + label:hover {
+  box-shadow: 0px 8px 8px rgba(71, 68, 72, 0.15);
+  transition: all 0.2s ease-in;
+  background-position: left bottom;
+}
+
+[type="file"]:focus + label {
+  outline: 4px solid #8F8DFF;
+  outline: -webkit-focus-ring-color auto 5px;
 }
 
 /* Media Queries */
