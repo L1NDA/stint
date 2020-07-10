@@ -144,6 +144,16 @@ class StudentSkillsDropdown extends React.Component {
   }
 
   handleFiles = (files) => {
+    // check if there's already a file uploaded - if so, delete it first from firebase and state
+    if (this.state.files && this.state.files.length > 0) {
+      let prevFile = this.state.files[0].name
+      this.setState({
+        files: null
+      }, async function() {
+        await this.handleDeleteUpload(prevFile)
+      })
+    }
+
     var fileErrorHandler = document.getElementById("file-error")
     if (files.length === 0) {
       fileErrorHandler.innerHTML = "Please upload a file."
@@ -198,21 +208,21 @@ class StudentSkillsDropdown extends React.Component {
   );
   }
 
-  handleDeleteUpload = () => {
-    let fileRef = this.props.storage.ref("images" + "/" + this.props.userUid + "/" + this.state.files[0].name)
+  handleDeleteUpload = (fileName) => {
+    let fileRef = this.getFileRef(fileName)
     fileRef.delete()
       .then(function() {
-        //TODO: indicate file deleted successfully
+        console.log("File deleted")
       })
       .catch(function(error) {
-        //TODO: handle error catching
-        console.error(error)
+        console.error("Error, file not deleted:", error)
       })
   }
 
-  getFileUrl = (fileName) => {
+  getFileRef = (fileName) => {
     // console.log('jfc')
-    return this.props.storage.ref("images" + "/" + + this.props.userUid + "/" + fileName).getDownloadURL()
+    console.log("useruid", this.props.userUid)
+    return this.props.storage.ref("images" + "/" + this.props.userUid + "/" + fileName)
   }
 
   render() {

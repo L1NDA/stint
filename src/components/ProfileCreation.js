@@ -46,7 +46,7 @@ class ProfileCreation extends React.Component {
       .then(function(ref) {
         ref.once("value", function(snapshot) {
           if (snapshot.val().profile) {
-            _this.props.history.push("you-did-it")
+            _this.props.history.push("/you-did-it")
           }
         })
       })
