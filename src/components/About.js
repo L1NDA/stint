@@ -5,6 +5,10 @@ import Button from './Button.js'
 
 class About extends React.Component {
 
+  componentDidMount() {
+    document.title = 'Our Mission | Stint';
+  }
+
 	render() {
 		return (
       <div className="container">

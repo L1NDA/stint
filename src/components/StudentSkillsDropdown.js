@@ -15,7 +15,7 @@ class StudentSkillsDropdown extends React.Component {
       details: false,
       [SKILLS]: {}
     }
-    this.saveStateDebounced = this.saveState;
+
     let section = props.section
     this.haveMappings = {
       [section+"Have0"]: [section+"0"],
@@ -168,16 +168,16 @@ class StudentSkillsDropdown extends React.Component {
                   have={true}/>
                 {text}
                 {this.state[`${this.props.section}Have${index}`] === "have" ?
-                <React.Fragment>
+                <span className="nobreak">
                   : <Autocomplete
 
                       name={`${this.props.section}${index}`}
-                      placeholder="(insert URL*)"
+                      placeholder="(insert http URL*)"
                       saveData={this.saveState}
                       required={true}
                       val={this.state[`${this.props.section}${index}`]}
                       type="url"/>.
-              </React.Fragment> : <React.Fragment>.</React.Fragment>}</h3>
+              </span> : <React.Fragment>.</React.Fragment>}</h3>
               );
             })}
             <div>
@@ -215,9 +215,9 @@ class StudentSkillsDropdown extends React.Component {
               have={true}/>
             : null}
 
-            &nbsp;award
             {this.state[`${this.props.section}HaveAward`] === "have" ?
             <React.Fragment>
+            &nbsp;award
             : <Autocomplete
 
                 name={`${this.props.section}HaveAwardContent`}
@@ -225,7 +225,9 @@ class StudentSkillsDropdown extends React.Component {
                 saveData={this.saveState}
                 val={this.state[`${this.props.section}HaveAwardContent`]}
                 required={true}
-                maxLength="50"/> from <Autocomplete
+                maxLength="50"/> from
+                <span className="nobreak">
+                <Autocomplete
 
                     name={`${this.props.section}HaveAwardProvider`}
                     placeholder="(award provider*)"
@@ -233,8 +235,9 @@ class StudentSkillsDropdown extends React.Component {
                     val={this.state[`${this.props.section}HaveAwardProvider`]}
                     required={true}
                     maxLength="50"/>
+                </span>
             </React.Fragment>
-            : null}.</h3>
+            : <span className="nobreak">&nbsp;award.</span>}.</h3>
 
           {this.state[`${this.props.section}HaveAwardContent`] ?
           <span className="optional-chunk" style={{filter: this.state[`${this.props.section}HaveAward1`] ? "opacity(1)" : null}}>
@@ -253,9 +256,10 @@ class StudentSkillsDropdown extends React.Component {
               have={true}/>
             : null}
 
-            &nbsp;award
+
             {this.state[`${this.props.section}HaveAward1`] === "have" ?
             <React.Fragment>
+            &nbsp;award
             : <Autocomplete
 
                 name={`${this.props.section}HaveAwardContent1`}
@@ -263,16 +267,20 @@ class StudentSkillsDropdown extends React.Component {
                 saveData={this.saveState}
                 val={this.state[`${this.props.section}HaveAwardContent1`]}
                 required={true}
-                maxLength="50"/> from <Autocomplete
+                maxLength="50"/> from
 
-                    name={`${this.props.section}HaveAwardProvider1`}
-                    placeholder="(award provider*)"
-                    saveData={this.saveState}
-                    val={this.state[`${this.props.section}HaveAwardProvider1`]}
-                    required={true}
-                    maxLength="50"/>
-            </React.Fragment>
-            : null}.</h3></span> : null
+              <span className="nobreak">
+                <Autocomplete
+
+                      name={`${this.props.section}HaveAwardProvider1`}
+                      placeholder="(award provider*)"
+                      saveData={this.saveState}
+                      val={this.state[`${this.props.section}HaveAwardProvider1`]}
+                      required={true}
+                      maxLength="50"/>.
+              </span>
+              </React.Fragment>
+            : <span className="nobreak">&nbsp;award.</span>}</h3></span> : null
         }
 
         {this.state[`${this.props.section}HaveAwardContent1`] ?
@@ -292,9 +300,10 @@ class StudentSkillsDropdown extends React.Component {
             have={true}/>
           : null}
 
-          &nbsp;award
+
           {this.state[`${this.props.section}HaveAward2`] === "have" ?
           <React.Fragment>
+          &nbsp;award
           : <Autocomplete
 
               name={`${this.props.section}HaveAwardContent2`}
@@ -302,7 +311,10 @@ class StudentSkillsDropdown extends React.Component {
               saveData={this.saveState}
               val={this.state[`${this.props.section}HaveAwardContent2`]}
               required={true}
-              maxLength="50"/> from <Autocomplete
+              maxLength="50"/> from
+
+            <span className="nobreak">
+            <Autocomplete
 
                   name={`${this.props.section}HaveAwardProvider2`}
                   placeholder="(award provider*)"
@@ -310,8 +322,9 @@ class StudentSkillsDropdown extends React.Component {
                   val={this.state[`${this.props.section}HaveAwardProvider2`]}
                   required={true}
                   maxLength="50"/>
+              </span>
           </React.Fragment>
-          : null}.</h3></span> : null
+          : <span className="nobreak">&nbsp;award.</span>}.</h3></span> : null
       }
 
       <div className="subtitle" style={{marginTop: '30px'}}>Don't have any of the above? No worries! You can still join. Keep in mind that companies have all sorts of needs, so you don't need to have any one particular skill. For now, just tell us as much as you can about the skills you do have.
@@ -320,7 +333,7 @@ class StudentSkillsDropdown extends React.Component {
             className="button"
             style={{marginTop: "75px", marginBottom: "50px", alignSelf: "flex-start"}}
             type='submit'
-            disabled={this.state[`${this.props.section}0`] || (this.state[`${this.props.section}HaveAwardCategory`] && this.state[`${this.props.section}HaveAwardContent`] && this.state[`${this.props.section}HaveAwardProvider`]) || Object.keys(this.state.skills).length !== 0 ? false : true}>I'm done here – list me under {this.props.title}.</button>
+            disabled={this.state[`${this.props.section}0`] || (this.state[`${this.props.section}HaveAwardCategory`] && this.state[`${this.props.section}HaveAwardContent`] && this.state[`${this.props.section}HaveAwardProvider`]) || Object.keys(this.state.skills).length !== 0 ? false : true}>I'm done here! List me under {this.props.title}.</button>
 
         </form>
           : null}

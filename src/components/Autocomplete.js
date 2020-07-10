@@ -63,6 +63,12 @@ export class Autocomplete extends Component {
 
   handleFocus = () => {
 
+    // if (this.props.type === 'url' && !this.state.userInput) {
+    //   this.setState({
+    //     userInput: 'http://'
+    //   })
+    // }
+
     if (this.props.options) {
       this.setState({
         focus: true
@@ -96,6 +102,13 @@ export class Autocomplete extends Component {
   }
 
   onChange = async (e) => {
+    if (this.props.type === 'number') {
+      var key = e.keyCode;
+      if (key === 32) {
+        e.preventDefault();
+      }
+    }
+
     const { options } = this.props;
     const userInput = e.currentTarget.value;
     let filteredOptions = [];
