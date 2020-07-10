@@ -15,9 +15,8 @@ function App({ isLoggedIn }) {
   return (
     <Router>
       <Switch>
-        <Route path="/(|this-is-me)" component={Auth} />
+        <Route path="/(|this-is-me|you-did-it)" component={Auth} />
         <Route path="/hire" component={Company} />
-        <Route path="/you-did-it" component={ThankYou} />
         <Route path="/our-mission" component={About} />
         <Route path="/privacy-policy" component={PrivatePolicy} />
       </Switch>
