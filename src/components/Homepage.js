@@ -50,7 +50,7 @@ class Homepage extends React.Component {
     })
   }
 
-  handleCookiesClick() {
+  handleCookiesClick = () => {
     localStorage.setItem("cookies", true)
     this.setState({
       cookies: true
@@ -84,7 +84,7 @@ class Homepage extends React.Component {
 
       {this.state.cookies ? null :
         <div className="cookies">
-          <TiTimes className="modal-x" onClick={this.handleButtonClick} style={{top: "50%", transform: "translateY(-50%)", right: "20px"}}/>
+          <TiTimes className="modal-x" onClick={this.handleCookiesClick} style={{top: "50%", transform: "translateY(-50%)", right: "20px"}}/>
           <div className="subtitle">By continuing to use our site, you are agreeing to our <Link to="/privacy-policy">Privacy Policy</Link>. We also use cookies on our site to give you the best user experience. <span className="nobreak">Learn more about the cookies we use <Link to="/privacy-policy">here</Link>.</span></div>
         </div>
       }
