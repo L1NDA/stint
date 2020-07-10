@@ -4,7 +4,9 @@ import Autocomplete from './Autocomplete.js'
 import Button from './Button.js'
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { debounce } from 'lodash'
-import firebase from '../firebase';
+import { connect } from "react-redux";
+import { firebaseConnect } from "react-redux-firebase";
+import { compose } from "redux";
 
 const SKILLS = "skills"
 
@@ -145,25 +147,68 @@ class StudentSkillsDropdown extends React.Component {
     })
   }
 
-  handleUpload = () => {
-    let bucketName = 'images'
+  handleUpload = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    let storage = this.props.storage
+
     let file = this.state.files[0]
-    let storageRef = firebase.storage().ref(bucketName + "/" + file.name)
-    let uploadTask = storageRef.put(file)
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, 
-      () => {
-        let downloadUrl = uploadTask.snapshot.downloadURL
+
+    let fileRef = storage.ref("images" + "/" + this.props.userUid + "/" + file.name)
+    let uploadTask = fileRef.put(file)
+
+    uploadTask.on(storage.TaskEvent.STATE_CHANGED, (snapshot) => {
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+    }, function(error) {
+    // A full list of error codes is available at
+    // https://firebase.google.com/docs/storage/web/handle-errors
+    switch (error.code) {
+      case 'storage/unauthorized':
+        console.log("not authorized")
+        break;
+      case 'storage/canceled':
+        console.log("upload cancelled")
+        break;
+      case 'storage/unknown':
+        console.log("unknown error")
+        break;
+    }}, function() {
+    // Upload completed successfully, now we can get the download URL
+      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+        // TODO: indicate upload completed
+        // Display file image at corresponding img html element
+        var img = document.getElementById('myimg');
+        img.src = downloadURL;
+        img.alt = file.name
+      });
+    });
+  }
+
+  handleDeleteUpload = () => {
+    let fileRef = this.props.storage.ref("images" + "/" + this.props.userUid + "/" + this.state.files[0].name)
+    fileRef.delete()
+      .then(function() {
+        //TODO: indicate file deleted successfully
+      })
+      .catch(function(error) {
+        //TODO: handle error catching
+        console.error(error)
       })
   }
 
+
+
   render() {
       return (
-
         <div className="student-dialogue-block">
-          <div>
+        <div>
+        <img width="500" height="500"></img>
+        </div>
           WHAAAATTT
+          <div>
           <input type="file" onChange={(e) => {this.handleFiles(e.target.files)}} />
-          <button onClick={this.handleUpload}> Save </button>
+          <button onClick={(e) => this.handleUpload}> Save </button>
           <img id="new-img"/>
         </div>
 
@@ -372,4 +417,12 @@ class StudentSkillsDropdown extends React.Component {
     )}
   }
 
-  export default StudentSkillsDropdown;
+  function mapStateToProps(state, props) {
+    const { firebase } = props
+    return {
+      userUid: state.firebase.auth.uid,
+      storage: firebase.storage()
+    }
+  }
+
+  export default compose(firebaseConnect(), connect(mapStateToProps))(StudentSkillsDropdown);
