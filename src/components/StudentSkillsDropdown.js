@@ -142,14 +142,18 @@ class StudentSkillsDropdown extends React.Component {
   }
 
   handleFiles = (files) => {
+    if (files.length === 0) {
+      console.log("Please upload a file")
+      return
+    }
+
     const acceptedFileTypes = [".png", ".pdf", ".jpg", ".jpeg", ".gif"]
     // check file type is accepted and that it is below 10MB (in bytes)
     if (acceptedFileTypes.some(type => files[0].name.endsWith(type)) &&
         files[0].size <= 10000000) {
       this.setState({
         files : files
-      }, function(e) { 
-        console.log("event", e)
+      }, function() { 
         this.handleUpload() 
       })
     }
