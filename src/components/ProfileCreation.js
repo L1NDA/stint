@@ -19,7 +19,7 @@ class ProfileCreation extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      continue: true,
+      continue: false,
       major: [null, null],
       minor: [null, null],
       role: [null, null, null],
