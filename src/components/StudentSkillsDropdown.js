@@ -28,7 +28,8 @@ class StudentSkillsDropdown extends React.Component {
       [section+"Have3"]: [section+"3"],
       [section+"HaveAward"]: [section+"HaveAwardCategory", section+"HaveAwardContent", section+"HaveAwardProvider"],
       [section+"HaveAward1"]: [section+"HaveAwardCategory1", section+"HaveAwardContent1", section+"HaveAwardProvider1"],
-      [section+"HaveAward2"]: [section+"HaveAwardCategory2", section+"HaveAwardContent2", section+"HaveAwardProvider2"]
+      [section+"HaveAward2"]: [section+"HaveAwardCategory2", section+"HaveAwardContent2", section+"HaveAwardProvider2"],
+      ["haveFileUpload"]: ["files"]
     }
   }
 
@@ -62,18 +63,19 @@ class StudentSkillsDropdown extends React.Component {
       // console.log("check1", stateName in this.haveMappings)
       if ([stateName] in this.haveMappings) {
         if (content !== "have") {
-          this.haveMappings[stateName].forEach(key => {
-            updateAttributes[key] = null
+          this.haveMappings[stateName].forEach(contentKey => {
+            updateAttributes[contentKey] = null
+
+            // special case for file uploads
+            if (stateName === "haveFileUpload" && this.state.files) {
+              this.handleDeleteUpload(this.state.files[0].name)
+            }
           })
         }
       }
       return updateAttributes
     })
   }
-
-  // handleChange = (stateName, content, index = null) => {
-  //   this.props.handleChange(stateName, content, index)
-  // }
 
   handleChange = (stateName, content, index = null) => {
     this.props.saveEntireState()
@@ -221,7 +223,6 @@ class StudentSkillsDropdown extends React.Component {
 
   getFileRef = (fileName) => {
     // console.log('jfc')
-    console.log("useruid", this.props.userUid)
     return this.props.storage.ref("images" + "/" + this.props.userUid + "/" + fileName)
   }
 
@@ -286,7 +287,7 @@ class StudentSkillsDropdown extends React.Component {
                         </>
                       }
 
-                      <div className="subtitle" id="file-error" style={{marginTop: "10px"}}></div>
+                      <div className="subtitle" id="file-error" style={{marginTop: "10px"}}>{this.state.files ? this.state.files[0].name : null}</div>
                     </div>
                   : null}
                 </h3>
