@@ -201,10 +201,21 @@ class StudentSkillsDropdown extends React.Component {
             })}
             {this.props.section === "db" ?
               <div>
-                <h3>(Optional: Here are other works of mine.)</h3>
-                <input type="file" onChange={(e) => {this.handleFiles(e.target.files)}} />
-                <button onClick={this.handleUpload} className="button"> Save </button>
-                <img id="new-img"/>
+                <h3>I <Select
+                  items={["have", "do not have"]}
+                  name={'haveFileUpload'}
+                  saveData={this.saveState}
+                  selected={this.state.haveFileUpload}
+                  have={true}/> other works I want to display.
+                  <br/>
+                  {this.state.haveFileUpload === "have" ?
+                    <div className="upload flex-row">
+                      <input type="file" onChange={(e) => {this.handleFiles(e.target.files)}}/>
+                      <button onClick={this.handleUpload} className="button"> Save </button>
+                      <img id="new-img"/>
+                    </div>
+                  : null}
+                </h3>
               </div>
                : null}
             <div>
