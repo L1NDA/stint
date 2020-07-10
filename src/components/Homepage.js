@@ -54,7 +54,7 @@ class Homepage extends React.Component {
     });
   }
 
-  loginWithProvider = async (provider) => {
+  loginWithProvider = async (e, provider) => {
     this.setState({ loading: true });
     if (!this.props.isLoggedIn) {
       this.props.loginUser({ provider, onError: this.onError }, () => this.props.analytics.logEvent("login"))
@@ -74,8 +74,8 @@ class Homepage extends React.Component {
         <h2 style={{textAlign: "center", color: "white", textWrap: "balance"}}>Be seen by companies before your coffee is brewed (or your Java compiled 🤓)</h2>
         <br/>
         <GoogleButton
-          onClick={() => {
-            !loading && this.loginWithProvider("google");
+          onClick={(e) => {
+            !loading && this.loginWithProvider(e, "google");
           }}
         />
       </div>
@@ -227,15 +227,14 @@ class Homepage extends React.Component {
 
 //window.location.pathname used here because history.push creates maximum depth exceeded error with react rendering
 function mapStateToProps(state, props) {
-  const { firebase, onFinish } = props;
+  const { firebase} = props;
   return {
     loginUser: async ({ provider, onError }) => {
       try {
-        firebase.login({ provider: provider, type: "popup" })
+        await firebase.login({ provider: provider, type: "popup" })
           .then(() => window.location.pathname = "/this-is-me");
-        (await onFinish) && onFinish();
       } catch (err) {
-        await onError(err);
+         onError(err)
       }
     },
     isLoggedIn: state.firebase.auth.uid ? true : false,
