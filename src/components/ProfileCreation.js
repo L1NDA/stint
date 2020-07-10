@@ -168,7 +168,7 @@ class ProfileCreation extends React.Component {
           </div>
 
           <button className="button" style={{marginBottom: "25px"}} disabled={finishedApp}>Create my profile</button>
-          <div className="subtitle" style={{marginBottom: "100px"}}>By pressing this button, you're agreeing to our <Link to='/private-policy' target="_blank" style={{color: "#474448"}}><b>Privacy Policy</b></Link>.</div>
+          <div className="subtitle" style={{marginBottom: "100px"}}>By pressing this button, you're agreeing to our <Link to='/privacy-policy' target="_blank" style={{color: "#474448"}}><b>Privacy Policy</b></Link>.</div>
         </div>
 
 

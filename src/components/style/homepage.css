@@ -108,6 +108,40 @@
   color: #474448
 }
 
+.homepage-carousel {
+  width: 100%;
+  position: relative;
+}
+
+.homepage-carousel-container {
+  padding: 32px 32px;
+  margin-top: -20px;
+  overflow: hidden;
+}
+
+.horizontalSlider___281Ls {
+  overflow: visible !important;
+}
+
+.homepage-slider-container > div > ul {
+  position: relative;
+}
+
+.homepage-slide {
+  padding: 50px 40px;
+  display: flex !important;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.dot-group {
+  position: absolute;
+  left: 12%;
+  bottom: 50px;
+  transform: translateX(-12%);
+}
+
 .interstitial {
   justify-content: space-between;
   padding: 75px 10% 50px 10%;
@@ -129,6 +163,25 @@
 
 .interstitial-icon {
   font-size: 50px;
+}
+
+.example-company-square, .example-company-rect {
+  margin: 0 50px;
+  filter: grayscale(100%);
+}
+
+.example-company-square:hover, .example-company-rect:hover {
+  filter: grayscale(0);
+  transition: all 0.2 ease-in;
+  -webkit-transition : -webkit-filter 200ms linear
+}
+
+.example-company-square {
+  width: 200px
+}
+
+.example-company-rect {
+  height: 100px
 }
 
 .accordion {

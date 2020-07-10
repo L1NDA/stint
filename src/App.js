@@ -19,7 +19,7 @@ function App({ isLoggedIn }) {
         <Route path="/hire" component={Company} />
         <Route path="/you-did-it" component={ThankYou} />
         <Route path="/our-mission" component={About} />
-        <Route path="/private-policy" component={PrivatePolicy} />
+        <Route path="/privacy-policy" component={PrivatePolicy} />
       </Switch>
     </Router>
   );

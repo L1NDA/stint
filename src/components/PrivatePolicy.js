@@ -6,7 +6,7 @@ import './style/other.css'
 class About extends React.Component {
 
   componentDidMount() {
-    document.title = 'Private Policy | Stint';
+    document.title = 'Privacy Policy | Stint';
   }
 
 	render() {
@@ -14,7 +14,7 @@ class About extends React.Component {
       <div className="container">
         <Menu/>
         <div className="flex-column private-policy padding">
-          <h3><b>Private Policy</b></h3>
+          <h3><b>Privacy Policy</b></h3>
           <div className="subtitle">Last updated: June 15, 2020</div>
           <br/><br/>
 
