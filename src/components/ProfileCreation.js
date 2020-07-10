@@ -44,7 +44,7 @@ class ProfileCreation extends React.Component {
     let _this = this
     getFreelancerRef(this.props.userUid)
       .then(function(ref) {
-        ref.once("value", function(snapshot) {
+        ref.on("value", function(snapshot) {
           if (snapshot.val().profile) {
             _this.props.history.push("/you-did-it")
           }
@@ -120,7 +120,6 @@ class ProfileCreation extends React.Component {
                                doesSoftware, temp.sd.sd0, temp.sd.sd1, temp.sd.skills, temp.sd.awardCategories, temp.sd.awardContent, temp.sd.awardProviders,
                                temp.phonenum)
     await this.props.analytics.logEvent("sign_up")
-    this.props.history.push("/you-did-it")
   }
 
   render() {
