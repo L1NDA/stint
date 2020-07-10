@@ -54,7 +54,7 @@ class Homepage extends React.Component {
     });
   }
 
-  loginWithProvider = async (e, provider) => {
+  loginWithProvider = async (provider) => {
     this.setState({ loading: true });
     if (!this.props.isLoggedIn) {
       this.props.loginUser({ provider, onError: this.onError }, () => this.props.analytics.logEvent("login"))
@@ -74,7 +74,7 @@ class Homepage extends React.Component {
         <h2 style={{textAlign: "center", color: "white", textWrap: "balance"}}>Be seen by companies before your coffee is brewed (or your Java compiled 🤓)</h2>
         <br/>
         <GoogleButton
-          onClick={(e) => {
+          onClick={() => {
             !loading && this.loginWithProvider(e, "google");
           }}
         />
