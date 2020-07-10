@@ -15,7 +15,7 @@ class StudentSkillsDropdown extends React.Component {
     this.state = {
       details: false,
       [SKILLS]: {},
-      files : null 
+      files : null
     }
 
     let section = props.section
@@ -150,7 +150,7 @@ class StudentSkillsDropdown extends React.Component {
     let file = this.state.files[0]
     let storageRef = firebase.storage().ref(bucketName + "/" + file.name)
     let uploadTask = storageRef.put(file)
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, 
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       () => {
         let downloadUrl = uploadTask.snapshot.downloadURL
       })
@@ -160,12 +160,6 @@ class StudentSkillsDropdown extends React.Component {
       return (
 
         <div className="student-dialogue-block">
-          <div>
-          WHAAAATTT
-          <input type="file" onChange={(e) => {this.handleFiles(e.target.files)}} />
-          <button onClick={this.handleUpload}> Save </button>
-          <img id="new-img"/>
-        </div>
 
         <div className="flex-column" className="skills-header" onClick={this.handleClick}>
           <div className="skills-header-row">
@@ -205,6 +199,14 @@ class StudentSkillsDropdown extends React.Component {
               </span> : <React.Fragment>.</React.Fragment>}</h3>
               );
             })}
+            {this.props.section === "db" ?
+              <div>
+                <h3>(Optional: Here are other works of mine.)</h3>
+                <input type="file" onChange={(e) => {this.handleFiles(e.target.files)}} />
+                <button onClick={this.handleUpload} className="button"> Save </button>
+                <img id="new-img"/>
+              </div>
+               : null}
             <div>
             <p>I have the following skills (optional):</p>
             <div className="skill-container">
@@ -351,12 +353,6 @@ class StudentSkillsDropdown extends React.Component {
           </React.Fragment>
           : <span className="nobreak">&nbsp;award.</span>}.</h3></span> : null
       }
-        <div>
-          WHAAAATTT
-          <input type="file" onChange={(e) => {this.handleFiles(e.target.files)}} />
-          <button onClick={this.handleSave}> Save </button>
-          <img id="new-img"/>
-        </div>
 
       <div className="subtitle" style={{marginTop: '30px'}}>Don't have any of the above? No worries! You can still join. Keep in mind that companies have all sorts of needs, so you don't need to have any one particular skill. For now, just tell us as much as you can about the skills you do have.
       In the near future, we'll release our 'site challenges' feature where you can complete simple challenges that we'll spotlight to showcase your skills to companies.</div>
@@ -368,7 +364,7 @@ class StudentSkillsDropdown extends React.Component {
         </form>
           : null}
         </div>
-        
+
     )}
   }
 
