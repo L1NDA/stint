@@ -4,6 +4,9 @@ import Autocomplete from './Autocomplete.js'
 import Button from './Button.js'
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { debounce } from 'lodash'
+import { connect } from "react-redux";
+import { firebaseConnect } from "react-redux-firebase";
+import { compose } from "redux";
 
 const SKILLS = "skills"
 
@@ -13,7 +16,8 @@ class StudentSkillsDropdown extends React.Component {
     super();
     this.state = {
       details: false,
-      [SKILLS]: {}
+      [SKILLS]: {},
+      files : null
     }
 
     let section = props.section
@@ -137,9 +141,75 @@ class StudentSkillsDropdown extends React.Component {
     })
   }
 
+  handleFiles = (files) => {
+    const acceptedFileTypes = [".png", ".pdf", ".jpg", ".jpeg", ".gif"]
+    // check file type is accepted and that it is below 10MB (in bytes)
+    if (acceptedFileTypes.some(type => files[0].name.endsWith(type)) &&
+        files[0].size <= 10000000) {
+      this.setState({
+        files : files
+      }, function(e) { 
+        console.log("event", e)
+        this.handleUpload() 
+      })
+    }
+    else {
+      console.log("Please upload a .png, .pdf, .jpg, .jpeg, or .gif file that is below 10MB")
+    }
+  }
+
+  handleUpload = () => {
+    let storage = this.props.storage
+
+    let file = this.state.files[0]
+
+    let fileRef = storage.ref("images" + "/" + this.props.userUid + "/" + file.name)
+    let uploadTask = fileRef.put(file)
+
+    uploadTask.on("state_changed", (snapshot) => {
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+    }, function(error) {
+    // A full list of error codes is available at
+    // https://firebase.google.com/docs/storage/web/handle-errors
+    switch (error.code) {
+      case 'storage/unauthorized':
+        console.log("not authorized")
+        break;
+      case 'storage/canceled':
+        console.log("upload cancelled")
+        break;
+      case 'storage/unknown':
+        console.log("unknown error")
+        break;
+    }}, function() {
+    // Upload completed successfully, now we can get the download URL
+      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+        // TODO: indicate upload completed
+        console.log(downloadURL)
+      });
+    });
+  }
+
+  handleDeleteUpload = () => {
+    let fileRef = this.props.storage.ref("images" + "/" + this.props.userUid + "/" + this.state.files[0].name)
+    fileRef.delete()
+      .then(function() {
+        //TODO: indicate file deleted successfully
+      })
+      .catch(function(error) {
+        //TODO: handle error catching
+        console.error(error)
+      })
+  }
+
+  getFileUrl = (fileName) => {
+    console.log('jfc')
+    return this.props.storage.ref("images" + "/" + + this.props.userUid + "/" + fileName).getDownloadURL()
+  }
+
   render() {
       return (
-
         <div className="student-dialogue-block">
 
         <div className="flex-column" className="skills-header" onClick={this.handleClick}>
@@ -180,6 +250,24 @@ class StudentSkillsDropdown extends React.Component {
               </span> : <React.Fragment>.</React.Fragment>}</h3>
               );
             })}
+            {this.props.section === "db" ?
+              <div>
+                <h3>I <Select
+                  items={["have", "do not have"]}
+                  name={'haveFileUpload'}
+                  saveData={this.saveState}
+                  selected={this.state.haveFileUpload}
+                  have={true}/> other works I want to display.
+                  <br/>
+                  {this.state.haveFileUpload === "have" ?
+                    <div className="upload flex-row">
+                      <input id="fileInput" type="file" onChange={(e) => {this.handleFiles(e.target.files)}}/>
+                      <img id="new-img"/>
+                    </div>
+                  : null}
+                </h3>
+              </div>
+               : null}
             <div>
             <p>I have the following skills (optional):</p>
             <div className="skill-container">
@@ -334,14 +422,19 @@ class StudentSkillsDropdown extends React.Component {
             style={{marginTop: "75px", marginBottom: "50px", alignSelf: "flex-start"}}
             type='submit'
             disabled={this.state[`${this.props.section}0`] || (this.state[`${this.props.section}HaveAwardCategory`] && this.state[`${this.props.section}HaveAwardContent`] && this.state[`${this.props.section}HaveAwardProvider`]) || Object.keys(this.state.skills).length !== 0 ? false : true}>I'm done here! List me under {this.props.title}.</button>
-
         </form>
           : null}
-
-
-
         </div>
+
     )}
   }
 
-  export default StudentSkillsDropdown;
+  function mapStateToProps(state, props) {
+    const { firebase } = props
+    return {
+      userUid: state.firebase.auth.uid,
+      storage: firebase.storage()
+    }
+  }
+
+  export default compose(firebaseConnect(), connect(mapStateToProps))(StudentSkillsDropdown);

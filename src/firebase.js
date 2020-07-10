@@ -3,6 +3,7 @@ import { createStore, combineReducers, compose } from 'redux'
 import {
   firebaseReducer
 } from 'react-redux-firebase'
+import 'firebase/storage'
 
 const {firebaseConfig} = require("./config")
 
