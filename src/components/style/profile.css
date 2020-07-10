@@ -262,6 +262,15 @@
   position: absolute;
 }
 
+.upload {
+  align-items: center;
+  margin-top: 30px;
+}
+
+input[type='file'] {
+  border: none;
+}
+
 /* Media Queries */
 
 /* Smaller Laptops ----------- */
