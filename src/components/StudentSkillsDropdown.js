@@ -9,11 +9,22 @@ const SKILLS = "skills"
 
 class StudentSkillsDropdown extends React.Component {
 
-  constructor(){
+  constructor(props){
     super();
     this.state = {
       details: false,
       [SKILLS]: {}
+    }
+    
+    let section = props.section
+    this.haveMappings = {
+      [section+"Have0"]: [section+"0"],
+      [section+"Have1"]: [section+"1"],
+      [section+"Have2"]: [section+"2"],
+      [section+"Have3"]: [section+"3"],
+      [section+"HaveAward"]: [section+"HaveAwardCategory", section+"HaveAwardContent", section+"HaveAwardProvider"],
+      [section+"HaveAward1"]: [section+"HaveAwardCategory1", section+"HaveAwardContent1", section+"HaveAwardProvider1"],
+      [section+"HaveAward2"]: [section+"HaveAwardCategory2", section+"HaveAwardContent2", section+"HaveAwardProvider2"]
     }
   }
 
@@ -37,8 +48,20 @@ class StudentSkillsDropdown extends React.Component {
   // For component that needs a function prop
 
   saveState = (stateName, content, index = null) => {
-    this.setState({
-      [stateName]: content
+    this.setState(function(prevState) {
+      let updateAttributes = {[stateName]: content}
+      // console.log('statename', stateName)
+      // console.log('content', content)
+      // console.log('havemappings', this.haveMappings)
+      // console.log("check1", stateName in this.haveMappings)
+      if ([stateName] in this.haveMappings) {
+        if (content !== "have") {
+          this.haveMappings[stateName].forEach(key => {
+            updateAttributes[key] = null
+          })
+        }
+      }
+      return updateAttributes
     })
   }
 
