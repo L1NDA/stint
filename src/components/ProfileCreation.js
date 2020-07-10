@@ -117,7 +117,7 @@ class ProfileCreation extends React.Component {
 
       <form className="padding flex-column profile-container" onSubmit={this.submitProfile} autocomplete="off">
         <div className="stint-dialogue">
-          <h2>Nice to meet you{this.props.userDisplayName ? " " + this.props.userDisplayName.split(" ")[0] : ""}!</h2>
+          <h2>Nice to meet you,{this.props.userDisplayName ? " " + this.props.userDisplayName.split(" ")[0] : ""}!</h2>
           <h3>We’re Stint, a platform for connecting students and companies. <br/> Now tell us a little bit about yourself!</h3>
         </div>
 
@@ -125,14 +125,14 @@ class ProfileCreation extends React.Component {
 
         <div className={this.state.continue ? "stint-dialogue" : "loading"}>
           <h2>Look at you, out there doing things!</h2>
-          <h3>You’re almost there – just let us know which skills you'd like to provide to companies and you’ll have your very own Stint profile.</h3>
+          <h3>You’re almost there – just let us know which skills you'd like to provide to companies and we'll add those to your profile.</h3>
         </div>
 
         {this.state.continue ? <StudentSkills saveToParent={this.saveAllChildren}/> : null}
 
         <div className={doesData || doesDesign || doesContent || doesSoftware ? "stint-dialogue" : "loading"}>
           <h2>One last thing...</h2>
-          <h3>As recent college grads, we can totally relate to having thousands of unread emails in the inbox. If you’d like us to notify you via text to help you avoid those awkward missed-your-email moments, let us know down below.</h3>
+          <h3>As recent college grads, we can totally relate to having thousands of unread emails in the inbox. If you’d like us to notify you via <b>text message </b>to help you avoid those awkward missed-your-email moments, let us know down below.</h3>
           <p>We’ll only text you about site activity that is important and relevant to you, like if an employer wants to connect.</p>
         </div>
 
