@@ -12,12 +12,12 @@ import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { withRouter } from "react-router-dom";
 import { Link } from 'react-router-dom';
-const {setFreelancerProfile} = require('../api/freelancer')
+const {setFreelancerProfile, getFreelancerRef} = require('../api/freelancer')
 
 class ProfileCreation extends React.Component {
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       continue: false,
       major: [null, null],
@@ -38,6 +38,20 @@ class ProfileCreation extends React.Component {
 
   componentDidMount() {
     document.title = 'Create Profile | Stint';
+    this.redirectUponProfileCompletion()
+  }
+
+  redirectUponProfileCompletion() {
+    let _this = this
+    getFreelancerRef(this.props.userUid)
+      .then(function(ref) {
+        ref.once("value", function(snapshot) {
+          if (snapshot.val().profile) {
+            console.log(snapshot.val())
+            _this.props.history.push("you-did-it")
+          }
+        })
+      })
   }
 
   handleChange = (name, content) => {
@@ -83,7 +97,7 @@ class ProfileCreation extends React.Component {
     })
   }
 
-  submitProfile = (e) => {
+  submitProfile = async (e) => {
     e.preventDefault()
     e.stopPropagation()
     const temp = this.state
@@ -97,17 +111,18 @@ class ProfileCreation extends React.Component {
     let doesContent = Object.keys(temp.ccm).length !== 0
     let doesSoftware = Object.keys(temp.sd).length !== 0
 
-    setFreelancerProfile(this.props.userUid,
-                         temp.year, temp.colleges, temp.major, temp.minor,
-                         temp.city, temp.state,
-                         temp.role, temp.company, temp.yearcompany,
-                         temp.ecrole, temp.ec, temp.yearec,
-                         doesData, temp.da.da0, temp.da.skills, temp.da.awardCategories, temp.da.awardContent, temp.da.awardProviders,
-                         doesDesign, temp.db.db0, temp.db.skills, temp.db.awardCategories, temp.db.awardContent, temp.db.awardProviders,
-                         doesContent, temp.ccm.ccm0, temp.ccm.ccm1, temp.ccm.ccm2, temp.ccm.ccm3, temp.ccm.skills, temp.ccm.awardCategories, temp.ccm.awardContent, temp.ccm.awardProviders,
-                         doesSoftware, temp.sd.sd0, temp.sd.sd1, temp.sd.skills, temp.sd.awardCategories, temp.sd.awardContent, temp.sd.awardProviders,
-                         temp.phonenum)
-    this.props.analytics.logEvent("sign_up")
+    await setFreelancerProfile(this.props.userUid,
+                               temp.year, temp.colleges, temp.major, temp.minor,
+                               temp.city, temp.state,
+                               temp.role, temp.company, temp.yearcompany,
+                               temp.ecrole, temp.ec, temp.yearec,
+                               doesData, temp.da.da0, temp.da.skills, temp.da.awardCategories, temp.da.awardContent, temp.da.awardProviders,
+                               doesDesign, temp.db.db0, temp.db.skills, temp.db.awardCategories, temp.db.awardContent, temp.db.awardProviders,
+                               doesContent, temp.ccm.ccm0, temp.ccm.ccm1, temp.ccm.ccm2, temp.ccm.ccm3, temp.ccm.skills, temp.ccm.awardCategories, temp.ccm.awardContent, temp.ccm.awardProviders,
+                               doesSoftware, temp.sd.sd0, temp.sd.sd1, temp.sd.skills, temp.sd.awardCategories, temp.sd.awardContent, temp.sd.awardProviders,
+                               temp.phonenum)
+    await this.props.analytics.logEvent("sign_up")
+    this.props.history.push("/you-did-it")
   }
 
   render() {

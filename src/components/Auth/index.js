@@ -6,6 +6,8 @@ import queryString from "query-string";
 
 import ProfileCreation from "../ProfileCreation"
 import Homepage from "../Homepage"
+import ThankYou from "../ThankYou"
+import Loading from "./Loading"
 
 import { PrivateRoute, PublicRoute } from "../PrivateRoute";
 
@@ -17,6 +19,7 @@ const Auth = ({ location }) => {
       <div className="form">
         <Switch>
           <PrivateRoute path="/this-is-me" component={ProfileCreation} />
+          <PrivateRoute path="/you-did-it" component={ThankYou} />
           <PublicRoute path="/" component={Homepage} />
         </Switch>
       </div>

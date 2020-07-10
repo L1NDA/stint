@@ -44,14 +44,13 @@ const { FREELANCERS_REF_PATH,
 const firebase = require("firebase");
 // TODO: get rid of uid and instead make it return data for current signed in freelancer
 // Given freelancer's Google uid, returns all data associated with that freelancer
-const getFreelancerInfo = async (uid) => {
+const getFreelancerRef = async (uid) => {
 	const freelancerRef = firebase.database().ref(FREELANCERS_REF_PATH + "/" + uid)
-	freelancerRef.once("value", function(snapshot) {
-		return snapshot.val()
-	})
+	return freelancerRef
 }
 
-/*
+/* OUT OF DATE ---- NEEDS UPDATE TO WORK PROPERLY WITH CURRENT VERSION
+ *
  *	@param {string} uid: google uid to identify which user's info to update - not actually updated
  *	@param {string} name: new name to update to
  *	@param {string} email: new email to update to
@@ -175,7 +174,7 @@ const setFreelancerProfile = async (uid,
 }
 
 module.exports = {
-	getFreelancerInfo,
+	getFreelancerRef,
 	updateFreelancerInfo,
 	setFreelancerProfile
 }

@@ -227,7 +227,7 @@ class Homepage extends React.Component {
 
 //window.location.pathname used here because history.push creates maximum depth exceeded error with react rendering
 function mapStateToProps(state, props) {
-  const { firebase} = props;
+  const { firebase } = props;
   return {
     loginUser: async ({ provider, onError }) => {
       try {
