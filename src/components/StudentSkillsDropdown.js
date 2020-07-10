@@ -15,7 +15,7 @@ class StudentSkillsDropdown extends React.Component {
       details: false,
       [SKILLS]: {}
     }
-    
+
     let section = props.section
     this.haveMappings = {
       [section+"Have0"]: [section+"0"],
@@ -172,7 +172,7 @@ class StudentSkillsDropdown extends React.Component {
                   : <Autocomplete
 
                       name={`${this.props.section}${index}`}
-                      placeholder="(insert URL*)"
+                      placeholder="(insert http URL*)"
                       saveData={this.saveState}
                       required={true}
                       val={this.state[`${this.props.section}${index}`]}

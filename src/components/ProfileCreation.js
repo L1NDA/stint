@@ -11,6 +11,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { withRouter } from "react-router-dom";
+import { Link } from 'react-router-dom';
 const {setFreelancerProfile} = require('../api/freelancer')
 
 class ProfileCreation extends React.Component {
@@ -33,6 +34,10 @@ class ProfileCreation extends React.Component {
       sd: {},
       checkbox: false
     }
+  }
+
+  componentDidMount() {
+    document.title = 'Create Profile | Stint';
   }
 
   handleChange = (name, content) => {
@@ -163,7 +168,7 @@ class ProfileCreation extends React.Component {
           </div>
 
           <button className="button" style={{marginBottom: "25px"}} disabled={finishedApp}>Create my profile</button>
-          <div className="subtitle" style={{marginBottom: "100px"}}>By pressing this button, you're agreeing to our Terms and Conditions and Privacy Policy.</div>
+          <div className="subtitle" style={{marginBottom: "100px"}}>By pressing this button, you're agreeing to our <Link to='/private-policy' target="_blank" style={{color: "#474448"}}><b>Privacy Policy</b></Link>.</div>
         </div>
 
 

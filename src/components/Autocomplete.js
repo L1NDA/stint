@@ -63,11 +63,11 @@ export class Autocomplete extends Component {
 
   handleFocus = () => {
 
-    if (this.props.type === 'url' && !this.state.userInput) {
-      this.setState({
-        userInput: 'http://'
-      })
-    }
+    // if (this.props.type === 'url' && !this.state.userInput) {
+    //   this.setState({
+    //     userInput: 'http://'
+    //   })
+    // }
 
     if (this.props.options) {
       this.setState({
