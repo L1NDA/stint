@@ -4,6 +4,7 @@ import Autocomplete from './Autocomplete.js'
 import Button from './Button.js'
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { debounce } from 'lodash'
+import firebase from '../firebase';
 
 const SKILLS = "skills"
 
@@ -13,7 +14,8 @@ class StudentSkillsDropdown extends React.Component {
     super();
     this.state = {
       details: false,
-      [SKILLS]: {}
+      [SKILLS]: {},
+      files : null 
     }
 
     let section = props.section
@@ -137,10 +139,33 @@ class StudentSkillsDropdown extends React.Component {
     })
   }
 
+  handleFiles = (files) => {
+    this.setState({
+      files : files
+    })
+  }
+
+  handleUpload = () => {
+    let bucketName = 'images'
+    let file = this.state.files[0]
+    let storageRef = firebase.storage().ref(bucketName + "/" + file.name)
+    let uploadTask = storageRef.put(file)
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, 
+      () => {
+        let downloadUrl = uploadTask.snapshot.downloadURL
+      })
+  }
+
   render() {
       return (
 
         <div className="student-dialogue-block">
+          <div>
+          WHAAAATTT
+          <input type="file" onChange={(e) => {this.handleFiles(e.target.files)}} />
+          <button onClick={this.handleUpload}> Save </button>
+          <img id="new-img"/>
+        </div>
 
         <div className="flex-column" className="skills-header" onClick={this.handleClick}>
           <div className="skills-header-row">
@@ -326,6 +351,12 @@ class StudentSkillsDropdown extends React.Component {
           </React.Fragment>
           : <span className="nobreak">&nbsp;award.</span>}.</h3></span> : null
       }
+        <div>
+          WHAAAATTT
+          <input type="file" onChange={(e) => {this.handleFiles(e.target.files)}} />
+          <button onClick={this.handleSave}> Save </button>
+          <img id="new-img"/>
+        </div>
 
       <div className="subtitle" style={{marginTop: '30px'}}>Don't have any of the above? No worries! You can still join. Keep in mind that companies have all sorts of needs, so you don't need to have any one particular skill. For now, just tell us as much as you can about the skills you do have.
       In the near future, we'll release our 'site challenges' feature where you can complete simple challenges that we'll spotlight to showcase your skills to companies.</div>
@@ -334,13 +365,10 @@ class StudentSkillsDropdown extends React.Component {
             style={{marginTop: "75px", marginBottom: "50px", alignSelf: "flex-start"}}
             type='submit'
             disabled={this.state[`${this.props.section}0`] || (this.state[`${this.props.section}HaveAwardCategory`] && this.state[`${this.props.section}HaveAwardContent`] && this.state[`${this.props.section}HaveAwardProvider`]) || Object.keys(this.state.skills).length !== 0 ? false : true}>I'm done here! List me under {this.props.title}.</button>
-
         </form>
           : null}
-
-
-
         </div>
+        
     )}
   }
 
