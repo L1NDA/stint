@@ -6,7 +6,7 @@ import './style/other.css'
 class About extends React.Component {
 
   componentDidMount() {
-    document.title = 'Private Policy | Stint';
+    document.title = 'Privacy Policy | Stint';
   }
 
 	render() {
