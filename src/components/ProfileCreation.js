@@ -38,16 +38,14 @@ class ProfileCreation extends React.Component {
 
   componentDidMount() {
     document.title = 'Create Profile | Stint';
-    this.redirectUponProfileCompletion()
   }
 
-  redirectUponProfileCompletion() {
+  redirectUponProfileCompletion = () => {
     let _this = this
     getFreelancerRef(this.props.userUid)
       .then(function(ref) {
         ref.once("value", function(snapshot) {
           if (snapshot.val().profile) {
-            console.log(snapshot.val())
             _this.props.history.push("you-did-it")
           }
         })
@@ -126,6 +124,8 @@ class ProfileCreation extends React.Component {
   }
 
   render() {
+    this.redirectUponProfileCompletion()
+
     const temp = this.state
     let doesData = Object.keys(temp.da).length !== 0
     let doesDesign = Object.keys(temp.db).length !== 0
@@ -138,7 +138,6 @@ class ProfileCreation extends React.Component {
       <div className="container">
 
       <Menu/>
-
 
       <form className="padding flex-column profile-container" onSubmit={this.submitProfile} autocomplete="off">
         <div className="stint-dialogue">
@@ -191,7 +190,7 @@ class ProfileCreation extends React.Component {
       <Footer/>
 
       </div>
-
+      
     )
   }
 }
