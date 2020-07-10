@@ -163,7 +163,7 @@ class ProfileCreation extends React.Component {
         { doesData || doesDesign || doesContent || doesSoftware ?
           <div className="student-dialogue">
             <h3 style={{margin: '0'}}><Select items={["Yes", "No"]} name="phoneYN" saveData={this.handleChange} have="true"/>
-              {this.state.phoneYN === "Yes" ? <span>, please</span> : <span>, do not</span>} send me text updates
+              {this.state.phoneYN === "Yes" ? <span>, please send me </span> : <span>, I don't want</span>} text updates
               {this.state.phoneYN === "Yes" ? <span> at <Autocomplete
                    name="phonenum"
                    placeholder="(insert phone number*)"
@@ -190,7 +190,7 @@ class ProfileCreation extends React.Component {
       <Footer/>
 
       </div>
-      
+
     )
   }
 }

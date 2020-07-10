@@ -110,8 +110,25 @@ export class Autocomplete extends Component {
     }
 
     const { options } = this.props;
-    const userInput = e.currentTarget.value;
+    var userInput = e.currentTarget.value;
     let filteredOptions = [];
+
+    if (this.props.name === "city" || this.props.name === "colleges" ||
+    this.props.name.startsWith("minor") ||
+    this.props.name.startsWith("major") ||
+    this.props.name.startsWith("company") ||
+    this.props.name.startsWith("ec") ||
+    this.props.name.startsWith("role") ||
+    this.props.name.startsWith("company") ||
+    this.props.name.includes("HaveAwardContent") ||
+    this.props.name.includes("HaveAwardProvider")) {
+      var splitStr = userInput.toLowerCase().split(' ');
+      for (var i = 0; i < splitStr.length; i++) {
+           splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+      }
+      // Directly return the joined string
+      userInput = splitStr.join(' ');
+    }
 
     if (this.props.options) {
       if (userInput.length > 2) {
@@ -131,7 +148,7 @@ export class Autocomplete extends Component {
     }
 
     this.setState({
-      userInput: e.currentTarget.value
+      userInput: userInput
     }, function() {
       this.setWidth();
       if (this.props.optionalParent) {

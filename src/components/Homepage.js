@@ -273,8 +273,8 @@ class Homepage extends React.Component {
 
       <div className="cta flex-column center" style={{padding: "150px 10%", backgroundColor: "#f5f5f5"}}>
         <h1 style={{textAlign: "center"}}>Join our community <br/>of do-ers and <span className="nobreak">go-getters.</span></h1>
-        <h3 style={{textAlign: "center"}}>We're hard at work bringing Stint to life – <br/>be the first to know when we launch.</h3>
-        <button style={{marginTop: "50px"}} className="button" onClick={this.handleButtonClick}>Join our waitlist</button>
+        <h3 style={{textAlign: "center"}}>We brought Stint to life inspired by you. Now give it a try and see if you dig it.</h3>
+        <button style={{marginTop: "50px"}} className="button" onClick={this.handleButtonClick}>Let's grow 🌱</button>
       </div>
 
       <Footer/>
