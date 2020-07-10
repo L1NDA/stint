@@ -10,8 +10,8 @@ const { githubConfig } = require("./config")
 const axios = require('axios')
 const moment = require('moment');
 
-const AUTH_HEADER = { 'headers': 
-                        { 'Authorization': githubConfig.apiId + ":" + githubConfig.apiSecret} 
+const AUTH_HEADER = { 'headers':
+                        { 'Authorization': githubConfig.apiId + ":" + githubConfig.apiSecret}
                     }
 
 const HOST_NAME = "smtp.gmail.com"
@@ -29,7 +29,7 @@ let transporter = nodemailer.createTransport({
 
 exports.sendEmail = functions.https.onRequest((req, res) => {
     cors(req, res, () => {
-      
+
         const {recipientAddress, subjectLine, htmlBody} = req.body;
 
         const mailOptions = {
@@ -38,135 +38,134 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
             subject: subjectLine,
             html: htmlBody
         };
-  
+
         return transporter.sendMail(mailOptions, (error, info) => {
             if(error){
                 return res.send(error.toString());
             }
             return res.status(200).send('Sent', info);
         });
-    });    
+    });
 });
 
-exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
-    cors(req, res, async () => {
-        const {githubUser} = req.body
-        const githubApiUrl = "https://api.github.com/users/" + githubUser + "/"
-
-        let result = {}
-
-        /* Check if valid github user */
-        try {
-            await axios.get(githubApiUrl, AUTH_HEADER)
-        } catch (err) {
-             return res.status(401).send(result)
-        }
-    
-        await axios.get(githubApiUrl + "events", AUTH_HEADER)
-            .then(function(response) {
-                let now = moment().toISOString()
-                let yearsAgo = moment().subtract(1, "years").toISOString()
-                let eventCount = 0
-                response.data.forEach((event) => {
-                    if (moment(event.created_at).isBetween(yearsAgo, now)) {
-                        eventCount += 1
-                    }
-                })
-                result.eventCount = eventCount
-            })
-
-        await axios.get(githubApiUrl + "repos", AUTH_HEADER)
-            .then(function(response) {
-                if (response.data[0]) {
-                    result.repoNames = [[response.data[0].name, response.data[0].description]]
-                }
-                if (response.data[1]) {
-                    result.repoNames.push([response.data[1].name, response.data[1].description])
-                }
-                if (response.data[2]) {
-                    result.repoNames.push([response.data[2].name, response.data[2].description])
-                }
-            })
-
-        await axios.get(githubApiUrl + "orgs", AUTH_HEADER)
-            .then(function(response) {
-                result.orgs = []
-                response.data.forEach((org) => {
-                    result.orgs.push([org.login, org.description])
-                })
-            })
-
-        return res.status(200).send(result)
-    })
-})
-
-exports.getInstaInfo = functions.https.onRequest(async (req, res) => {
-    cors(req, res, async () => {
-        const {instaUser} = req.body
-        const profileUrl = "https://www.instagram.com/" + instaUser
-        const instaApiUrl = profileUrl + "/?__a=1"
-
-        let result = {}
-
-        result.linkToProfile = profileUrl
-
-        try {
-            await axios.get(instaApiUrl)
-                .then(function(response) {
-                    let data = response.data.graphql.user
-                    
-                    result.profilePhoto = data.profile_pic_url_hd
-                    result.numFollowers = data.edge_followed_by.count
-                    result.isPrivate = data.is_private
-                    
-                    result.photos = []
-                    data.edge_owner_to_timeline_media.edges.slice([0], [9]).map((item, i) => {
-                        result.photos.push(item.node.display_url)
-                    });
-            })
-        } catch (err) {
-             return res.status(401).send(result).statusMessage("invalid user")
-        }
-
-        return res.status(200).send(result)
-    })
-})
-
-exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
-    cors(req, res, async () => {
-        const {mediumUser} = req.body
-        const mediumRssUrl = "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@" + mediumUser
-
-        let result = {}
-        try {
-            await fetch(mediumRssUrl)
-                .then((response) => response.json())
-                .then((data) => {
-                    // Filter for actual posts. Comments don't have categories, therefore can filter for items with categories larger than 0
-                    const response = data.items 
-                    const posts = response.filter(item => item.categories.length > 0) 
-
-                    function shortenText(text,startingPoint ,maxLength) {
-                        return text.length > maxLength?
-                        text.slice(startingPoint, maxLength):
-                        text
-                    }
-
-                    result.publications = []
-                    posts.slice([0], [3]).map((item, i) => {
-                        let publication = {}
-                        publication.link = item.link
-                        publication.thumbnail = item.thumbnail
-                        publication.title = shortenText(item.title, 0, 30)+ '...'
-                        result.publications.push(publication)
-                });
-            })
-        }
-        catch {
-            return res.status(401).send(result).statusMessage("invalid user")
-        }
-
-        return res.status(200).send(result)
-    })
-})
-
+// exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
+//     cors(req, res, async () => {
+//         const {githubUser} = req.body
+//         const githubApiUrl = "https://api.github.com/users/" + githubUser + "/"
+//
+//         let result = {}
+//
+//         /* Check if valid github user */
+//         try {
+//             await axios.get(githubApiUrl, AUTH_HEADER)
+//         } catch (err) {
+//              return res.status(401).send(result)
+//         }
+//
+//         await axios.get(githubApiUrl + "events", AUTH_HEADER)
+//             .then(function(response) {
+//                 let now = moment().toISOString()
+//                 let yearsAgo = moment().subtract(1, "years").toISOString()
+//                 let eventCount = 0
+//                 response.data.forEach((event) => {
+//                     if (moment(event.created_at).isBetween(yearsAgo, now)) {
+//                         eventCount += 1
+//                     }
+//                 })
+//                 result.eventCount = eventCount
+//             })
+//
+//         await axios.get(githubApiUrl + "repos", AUTH_HEADER)
+//             .then(function(response) {
+//                 if (response.data[0]) {
+//                     result.repoNames = [[response.data[0].name, response.data[0].description]]
+//                 }
+//                 if (response.data[1]) {
+//                     result.repoNames.push([response.data[1].name, response.data[1].description])
+//                 }
+//                 if (response.data[2]) {
+//                     result.repoNames.push([response.data[2].name, response.data[2].description])
+//                 }
+//             })
+//
+//         await axios.get(githubApiUrl + "orgs", AUTH_HEADER)
+//             .then(function(response) {
+//                 result.orgs = []
+//                 response.data.forEach((org) => {
+//                     result.orgs.push([org.login, org.description])
+//                 })
+//             })
+//
+//         return res.status(200).send(result)
+//     })
+// })
+//
+// exports.getInstaInfo = functions.https.onRequest(async (req, res) => {
+//     cors(req, res, async () => {
+//         const {instaUser} = req.body
+//         const profileUrl = "https://www.instagram.com/" + instaUser
+//         const instaApiUrl = profileUrl + "/?__a=1"
+//
+//         let result = {}
+//
+//         result.linkToProfile = profileUrl
+//
+//         try {
+//             await axios.get(instaApiUrl)
+//                 .then(function(response) {
+//                     let data = response.data.graphql.user
+//
+//                     result.profilePhoto = data.profile_pic_url_hd
+//                     result.numFollowers = data.edge_followed_by.count
+//                     result.isPrivate = data.is_private
+//
+//                     result.photos = []
+//                     data.edge_owner_to_timeline_media.edges.slice([0], [9]).map((item, i) => {
+//                         result.photos.push(item.node.display_url)
+//                     });
+//             })
+//         } catch (err) {
+//              return res.status(401).send(result).statusMessage("invalid user")
+//         }
+//
+//         return res.status(200).send(result)
+//     })
+// })
+//
+// exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
+//     cors(req, res, async () => {
+//         const {mediumUser} = req.body
+//         const mediumRssUrl = "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@" + mediumUser
+//
+//         let result = {}
+//         try {
+//             await fetch(mediumRssUrl)
+//                 .then((response) => response.json())
+//                 .then((data) => {
+//                     // Filter for actual posts. Comments don't have categories, therefore can filter for items with categories larger than 0
+//                     const response = data.items
+//                     const posts = response.filter(item => item.categories.length > 0)
+//
+//                     function shortenText(text,startingPoint ,maxLength) {
+//                         return text.length > maxLength?
+//                         text.slice(startingPoint, maxLength):
+//                         text
+//                     }
+// 
+//                     result.publications = []
+//                     posts.slice([0], [3]).map((item, i) => {
+//                         let publication = {}
+//                         publication.link = item.link
+//                         publication.thumbnail = item.thumbnail
+//                         publication.title = shortenText(item.title, 0, 30)+ '...'
+//                         result.publications.push(publication)
+//                 });
+//             })
+//         }
+//         catch {
+//             return res.status(401).send(result).statusMessage("invalid user")
+//         }
+//
+//         return res.status(200).send(result)
+//     })
+// })
