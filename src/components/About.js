@@ -15,14 +15,14 @@ class About extends React.Component {
         <Menu/>
         <div className="flex-column about-text">
           <h1>Our Mission</h1>
-          <h3>To give students and companies a way to connect virtually at any time and create meaningful work opportunities.</h3>
+          <h3>To give students and companies an immediate way to connect and work together virtually.</h3>
           <div className="flex-row about-card-container">
             <div className="about-card">
-              <p>We’re supporting our driven students in gaining work experience and building professional relationships without the need for a 10-week internship.</p>
+              <p>We’re supporting our <b>driven students</b> in gaining work experience and growing professionally without the physical and time constraints of an internship.</p>
               <Button text="Join as student" style={{marginTop: "50px"}} category="student"/>
             </div>
             <div className="about-card">
-              <p>We are making it easier for business owners to access reliable student freelancers to fulfill your business needs.</p>
+              <p>We are making it easier for <b>business owners</b> to access reliable student talent to fulfill their business needs.</p>
               <Button text="Join as company" style={{marginTop: "50px"}} category="company"/>
             </div>
 
@@ -36,13 +36,15 @@ class About extends React.Component {
           <p>
             Companies with a hiring need browse through skills and services offered by students on Stint and submit a hiring request for the desired student freelancer.
           </p>
-          <p>Students choose to accept the requested service, and Stint facilitates the connection that follows.</p>
+          <p>When students choose to accept the request to work, Stint will facilitate the connection that follows.</p>
         </div>
         <div className="flex-column about-text" style={{marginBottom: "100px"}}>
           <h1>Our Inspiration</h1>
-          <h3>During this difficult and unforeseen pandemic time, we have watched friends grow more and more distraught as offers and internships were rescinded. Students everywhere were scrambling for internship alternatives because they knew the importance of gaining experience – tangibly and on paper. As recent university graduates, we have also experienced first-hand the struggle of landing paid internships.</h3>
+          <h3>The idea for Stint grew from our belief that students deserve the opportunity to show companies they have the skills to do real work – now.</h3>
+          <p>When the COVID-19 pandemic hit, students everywhere were scrambling to find new work in place of rescinded internships and job offers because they understood the importance of gaining professional experience in order to get ahead.
+          <b> We saw their student instincts in action, how hard they were willing to work, and became convinced that there must be a better way to satiate this massive desire to grow professionally and improve their future prospects of succeeding in industry.</b></p>
           <p>We believe that students are incredibly skilled and talented, but often overlooked due to their lack of professional work experience.</p>
-          <p>After speaking with multiple startups and small business owners who showed a genuine interest and need for hiring student freelancers, we realized the potential students have to transform the way companies hire.</p>
+          <p>After speaking with multiple startups and business owners who showed a genuine interest and need for hiring student freelancers, we realized the potential that students have to transform the way companies hire.</p>
         </div>
         <Footer/>
       </div>

@@ -7,6 +7,7 @@ class About extends React.Component {
 
   componentDidMount() {
     document.title = 'Privacy Policy | Stint';
+    window.scrollTo(0, 0)
   }
 
 	render() {

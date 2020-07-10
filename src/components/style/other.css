@@ -64,8 +64,8 @@
 /* Large Phones */
 @media only screen and (max-height : 850px) and (max-width: 800px) {
 
-  .fof {
-    width: 60%;
+  .fof, .thank-you {
+    width: 65%;
     text-align: center;
   }
 
