@@ -6,8 +6,6 @@ import queryString from "query-string";
 
 import ProfileCreation from "../ProfileCreation"
 import Homepage from "../Homepage"
-import Company from "../Company"
-import About from "../About"
 
 import { PrivateRoute, PublicRoute } from "../PrivateRoute";
 
