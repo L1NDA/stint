@@ -14,6 +14,7 @@ import { getGithubInfo } from "../api/github"
 import Collapsible from 'react-collapsible';
 import {getInstaInfo} from "../api/instagram"
 import {getMediumInfo} from "../api/medium"
+import { Link } from 'react-router-dom';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, DotGroup } from 'pure-react-carousel';
 // import { TiMediaPlayReverse, TiMediaPlay } from "react-icons/ti";
 
@@ -42,8 +43,18 @@ class Homepage extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
     this.props.analytics.logEvent("screen_view")
+    let cookies = localStorage.getItem("cookies")
+    this.setState({
+      cookies: cookies
+    })
+  }
+
+  handleCookiesClick() {
+    localStorage.setItem("cookies", true)
+    this.setState({
+      cookies: true
+    })
   }
 
   onError = ({ message }) => this.setState({ message, loading: false });
@@ -71,15 +82,23 @@ class Homepage extends React.Component {
     return (
       <div className="homepage">
 
+      {this.state.cookies ? null :
+        <div className="cookies">
+          <TiTimes className="modal-x" onClick={this.handleCookiesClick}/>
+          <div className="subtitle">By continuing to use our site, you are agreeing to our <Link to="/privacy-policy">Privacy Policy</Link>. We also use cookies on our site to give you the best user experience. <span className="nobreak">Learn more about the cookies we use <Link to="/privacy-policy">here</Link>.</span></div>
+        </div>
+      }
+
       <div className="modal" style={{display: this.state.modal ? 'flex' : 'none'}}>
         <TiTimes className="modal-x" onClick={this.handleButtonClick}/>
-        <h2 style={{textAlign: "center", color: "white", textWrap: "balance"}}>Be seen by companies before your coffee is brewed (or your Java compiled 🤓)</h2>
+        <p style={{textAlign: "center", color: "white", textWrap: "balance"}}>Be seen by companies before your coffee is brewed (or your Java compiled 🤓)</p>
         <br/>
         <GoogleButton
           onClick={() => {
             !loading && this.loginWithProvider("google");
           }}
         />
+        <br/>
       </div>
 
       <div className="modal-screen"
@@ -97,7 +116,7 @@ class Homepage extends React.Component {
        <div className="homepage-text">
          <h1>Get ahead with <span className="nobreak">real work.</span></h1>
          <h3>Connect with companies through virtual <span className="nobreak">short-term projects.</span></h3>
-         <button style={{marginTop: "50px"}} className="button" onClick={this.handleButtonClick}>Join our waitlist</button>
+         <button style={{marginTop: "50px"}} className="button" onClick={this.handleButtonClick}>Let's go 😎</button>
        </div>
        <img src={homepageImage} className="homepage-image"/>
      </div>
@@ -144,43 +163,6 @@ class Homepage extends React.Component {
             </div>
           </div>
         </div>
-        <h2>Stint helps students and companies get ahead.</h2>
-          <CarouselProvider
-          naturalSlideWidth={400}
-          naturalSlideHeight={200}
-          isIntrinsicHeight={true}
-          totalSlides={4}
-          step={1}
-          infinite={true}
-          visibleSlides={1}
-          className="homepage-carousel">
-          <div className="homepage-carousel-container">
-            <Slider className="homepage-slider-container">
-              <Slide index={0} className="homepage-slide-container">
-                <div className="homepage-slide">
-                  <h3>A local flower boutique wants to update its old website to appeal to younger audiences. They hire a student designer to create a brand book and 3 new looks for the site.</h3>
-                </div>
-              </Slide>
-              <Slide index={1} className="homepage-slide-container">
-                <div className="homepage-slide">
-                  <h3>A startup company is creating a short video for marketing purposes. They hire one student to transform their film clips into a video and another student to perform a voiceover.</h3>
-                </div>
-              </Slide>
-              <Slide index={2} className="homepage-slide-container">
-                <div className="homepage-slide">
-                  <h3>A new startup needs to build a landing page, but they have endless other tasks to manage. They hire a student front-end engineer to quickly build a working site from scratch.</h3>
-                </div>
-              </Slide>
-              <Slide index={3} className="homepage-slide-container">
-                <div className="homepage-slide">
-                  <h3>A local bakery just added online ordering to their website and wants to see if this has increased site traffic. They hire an analytics student to track site activity and growth.</h3>
-                </div>
-              </Slide>
-              <DotGroup className="dot-group"/>
-            </Slider>
-            </div>
-
-        </CarouselProvider>
       </div>
 
       <div className="flex-column" style={{backgroundColor: '#f5f5f5'}}>
@@ -247,6 +229,45 @@ class Homepage extends React.Component {
           <button style={{marginTop: "50px"}} className="button" onClick={this.handleButtonClick}>Start your first real work experience with us</button>
           </Collapsible>
         </div>
+        <h2 style={{marginTop: "75px", color: "#474448", textAlign: "center", marginBottom: "50px"}}>Stint is the practical solution for companies and students to achieve their goals.</h2>
+          <CarouselProvider
+          naturalSlideWidth={400}
+          naturalSlideHeight={200}
+          isIntrinsicHeight={true}
+          totalSlides={4}
+          step={1}
+          infinite={true}
+          visibleSlides={1}
+          isPlaying={true}
+          interval={5000}
+          className="homepage-carousel">
+          <div className="homepage-carousel-container">
+            <Slider className="homepage-slider-container">
+              <Slide index={0} className="homepage-slide-container">
+                <div className="homepage-slide">
+                  <h3>A local flower boutique wants to update its old website to appeal to younger audiences. They hire a student designer to create a brand book and 3 new looks for the site.</h3>
+                </div>
+              </Slide>
+              <Slide index={1} className="homepage-slide-container">
+                <div className="homepage-slide">
+                  <h3>A startup company is creating a short video for marketing purposes. They hire one student to transform their film clips into a video and another student to perform a voiceover.</h3>
+                </div>
+              </Slide>
+              <Slide index={2} className="homepage-slide-container">
+                <div className="homepage-slide">
+                  <h3>A new startup needs to build a landing page, but they have endless other tasks to manage. They hire a student front-end engineer to quickly build a working site from scratch.</h3>
+                </div>
+              </Slide>
+              <Slide index={3} className="homepage-slide-container">
+                <div className="homepage-slide">
+                  <h3>A local bakery just added online ordering to their website and wants to see if this has increased site traffic. They hire an analytics student to track site activity and growth.</h3>
+                </div>
+              </Slide>
+            </Slider>
+            <DotGroup className="dot-group"/>
+            </div>
+
+        </CarouselProvider>
       </div>
 
 

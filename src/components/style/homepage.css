@@ -1,3 +1,25 @@
+.cookies {
+  background-color: #474448;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 20px 10%;
+  color: white;
+}
+
+.cookies > * {
+  color: white;
+}
+
+.cookies > * > a, .cookies > * > * > a {
+  color: white;
+  font-weight: bold;
+}
+
+.cookies > * > a:hover, .cookies > * > * > a:hover {
+  text-decoration: underline;
+}
+
 .homepage {
   font-family: 'Source Sans Pro', sans-serif;
   display: flex;
@@ -22,13 +44,14 @@
 }
 
 .url {
-  text-decoration: underline;
   color: white;
   display: inline;
+  font-weight: bold;
 }
 
 .url:hover {
-  color: #05D9B2;
+  /* color: #05D9B2; */
+  text-decoration: underline;
 }
 
 .homepage-text {
@@ -111,11 +134,10 @@
 .homepage-carousel {
   width: 100%;
   position: relative;
+  margin-bottom: 50px;
 }
 
 .homepage-carousel-container {
-  padding: 32px 32px;
-  margin-top: -20px;
   overflow: hidden;
 }
 
@@ -123,23 +145,63 @@
   overflow: visible !important;
 }
 
-.homepage-slider-container > div > ul {
+.homepage-slide-container {
   position: relative;
 }
 
-.homepage-slide {
-  padding: 50px 40px;
+.homepage-slider-container {
+  text-align: center;
   display: flex !important;
   flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  background-color: #f5f5f5;
+}
+
+.homepage-slide {
+  padding: 50px 60px 75px 60px;
+  text-align: center;
   height: 100%;
   width: 100%;
 }
 
+.homepage-slide > * {
+  color: #474448;
+  text-align: center;
+}
+
 .dot-group {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  left: 12%;
-  bottom: 50px;
-  transform: translateX(-12%);
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 15%;
+}
+
+.carousel__dot {
+  border: 1px solid #474448;
+  background-color: #f5f5f5;
+  height: 10px !important;
+  width: 10px !important;
+  color: #474448;
+  padding: 0;
+  margin: 5px;
+  border-radius: 10px;
+}
+
+.carousel__dot:hover {
+  background-color: #474448;
+  transition: all 0.2s linear
+}
+
+.carousel__dot:disabled {
+  border: none;
+  background-color: #474448;
 }
 
 .interstitial {
