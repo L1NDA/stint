@@ -48,6 +48,7 @@ class Homepage extends React.Component {
     this.setState({
       cookies: cookies
     })
+    document.title = 'Stint - Student freelancing at your fingertips.';
   }
 
   handleCookiesClick = () => {
@@ -85,7 +86,7 @@ class Homepage extends React.Component {
       {this.state.cookies ? null :
         <div className="cookies">
           <TiTimes className="modal-x" onClick={this.handleCookiesClick} style={{top: "50%", transform: "translateY(-50%)", right: "20px"}}/>
-          <div className="subtitle">By continuing to use our site, you are agreeing to our <Link to="/privacy-policy">Privacy Policy</Link>. We also use cookies on our site to give you the best user experience. <span className="nobreak">Learn more about the cookies we use <Link to="/privacy-policy">here</Link>.</span></div>
+          <div className="subtitle" style={{marginRight: "20px"}}>By continuing to use our site, you are agreeing to our <Link to="/privacy-policy">Privacy Policy</Link>. We also use cookies on our site to give you the best user experience. <span className="nobreak-comp">Learn more about the cookies we use <Link to="/privacy-policy">here</Link>.</span></div>
         </div>
       }
 
@@ -261,9 +262,9 @@ class Homepage extends React.Component {
 
         </CarouselProvider>
 
-        <div className="flex-column center" style={{width: "100%"}}>
-          <p style={{color: "#474448", margin: '0', marginTop: '100px', textAlign: "center"}}><b>Stint is trusted and used by companies empowering students.</b></p>
-          <div className="flex-row center unis" style={{padding: "20px 10% 20px 10%"}}>
+        <div className="flex-column center">
+          <p style={{color: "#474448", margin: '100px 0 0 0', textAlign: "center", fontWeight: "bold"}}>Stint is trusted and used by companies empowering students.</p>
+          <div className="flex-row center unis">
             <a href="https://vivforyourv.com/" target="_blank"><img src={require('./imgs/companies/viv.png')} className="example-company-square"/></a>
             <a href="https://www.givecard.io/" target="_blank"><img src={require('./imgs/companies/givecard.png')} className="example-company-rect"/></a>
             <a href="https://ourpet.app/" target="_blank"><img src={require('./imgs/companies/ourpet.png')} className="example-company-square"/></a>
