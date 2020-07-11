@@ -242,11 +242,13 @@
 }
 
 .example-company-square {
-  width: 200px
+  width: 200px;
+  height: auto;
 }
 
 .example-company-rect {
-  height: 100px
+  height: 100px;
+  width: auto;
 }
 
 .accordion {
@@ -452,6 +454,20 @@
   .Collapsible__trigger::after {
     /* width: 15px; */
     height: 10px;
+  }
+
+  .example-company-square {
+    height: 150px;
+    width: auto;
+    max-width: 100%;
+    margin: 0
+  }
+
+  .example-company-rect {
+    height: 75px;
+    width: auto;
+    max-width: 100%;
+    margin: 0
   }
 
 }
