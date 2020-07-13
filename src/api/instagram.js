@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 const getInstaInfo = (user) => {
-    axios.post('http://localhost:5001/stint-landing/us-central1/getInstaInfo', {
+    axios.post('http://localhost:5001/stint-staging-eb100/us-central1/getInstaInfo', {
       instaUser: user
     })
     .then(res => {
