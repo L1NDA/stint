@@ -23,7 +23,6 @@ const Auth = ({ location }) => {
           <PrivateRoute path="/this-is-me" component={ProfileCreation} />
           <PrivateRoute path="/you-did-it" component={ThankYou} />
           <PrivateRoute path="/my-profile" component={ProfileView} />
-          <PublicRoute path="/" component={Homepage} />
         </Switch>
       </div>
   );
