@@ -66,6 +66,8 @@ class Homepage extends React.Component {
     this.setState({
       modal: !temp
     });
+
+    getGithubInfo("lelandhwu")
   }
 
   loginWithProvider = async (provider) => {
