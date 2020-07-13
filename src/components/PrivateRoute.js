@@ -3,6 +3,7 @@ import { Redirect, Route, withRouter } from "react-router-dom";
 import { connect, useSelector } from "react-redux";
 import { compose } from "redux";
 import { isLoaded, isEmpty } from "react-redux-firebase";
+import { getFreelancerRef } from "../api/freelancer"
 import Loading from './Auth/Loading'
 import get from "lodash/get";
 
