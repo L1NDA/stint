@@ -23,7 +23,6 @@ class ProfileView extends React.Component {
   componentDidMount = async () => {
     let freelancerRef = await getFreelancerRef(this.props.auth.uid)
     let freelancerInfo = await freelancerRef.on("value", (snapshot) => {
-      console.log("snapshot", snapshot.val())
       this.setState({
         freelancerInfo: snapshot.val()
       })
