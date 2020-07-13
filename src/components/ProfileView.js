@@ -2,6 +2,9 @@ import React from 'react'
 import Menu from './Menu.js'
 import { connect } from "react-redux"
 import './style/my-profile.css'
+import { IoLogoGithub } from "react-icons/io";
+import { FiLink } from "react-icons/fi";
+import { AiFillMediumCircle, AiFillInstagram } from "react-icons/ai";
 
 const SKILLS = ['React', 'Python', 'Javascript', 'HTML/CSS', 'C/C++', 'SQL', 'Java']
 const LEVEL = ['5', '4', '4', '4', '2', '1', '1']
@@ -24,9 +27,9 @@ class ProfileView extends React.Component {
       <div className="container">
         <Menu/>
         <section className="padding flex-row profile-item">
-          <img src={require('./imgs/logo.png')} className="my-profile-img"></img>
+          <img src={this.props.photoURL} className="my-profile-img"></img>
           <div>
-            <h1 style={{margin: '0'}}>Linda Qin</h1>
+            <h1 style={{margin: '0'}}>{this.props.displayName}</h1>
             <div style={{margin: '0'}}>Computer Science (Mind, Brain and Behavior) & Economics (minor)</div>
             <div style={{margin: '0'}}>Senior @ Harvard University</div>
           </div>
@@ -101,12 +104,12 @@ class ProfileView extends React.Component {
             <div className="works-container">
               <div className="works-item">
                 <div className="works-header github">
-                  <img src={require('./imgs/logo.png')} className="works-header-img"></img>
+                  <IoLogoGithub className="works-header-img"/>
                   Github
                 </div>
 
                 <div className="works-section">
-                  <div className="works-section-header github">My recent repositories</div>
+                  <div className="works-section-header">My recent repositories</div>
                   <div className="works-section-item">
                     <b>Lorem-ipsum-dolor</b><br/>
                     Lorem ipsum dolor sit amet, consectetur
@@ -122,7 +125,7 @@ class ProfileView extends React.Component {
                 </div>
 
                 <div className="works-section">
-                  <div className="works-section-header github">Number of contributions</div>
+                  <div className="works-section-header">Number of contributions</div>
                   <div className="works-section-item">
                     <b>180</b> in the last year (average <b>15</b> per month)
                   </div>
@@ -140,7 +143,7 @@ class ProfileView extends React.Component {
 
               <div className="works-item">
                 <div className="works-header gray">
-                  <img src={require('./imgs/logo.png')} className="works-header-img"></img>
+                  <FiLink className="works-header-img"/>
                   My personal website
                 </div>
                 <div className="works-section">
@@ -178,16 +181,16 @@ class ProfileView extends React.Component {
             <div className="section-header">My work(s)</div>
             <div className="works-container">
 
-              <div className='flex-column'>
+              <div className='flex-column works-col-wrapper'>
 
                 <div className="works-item column-works-item">
                   <div className="works-header medium">
-                    <img src={require('./imgs/logo.png')} className="works-header-img"></img>
+                    <AiFillMediumCircle className="works-header-img"/>
                     Medium
                   </div>
 
                   <div className="works-section">
-                    <div className="works-section-header medium">My recent publications</div>
+                    <div className="works-section-header">My recent publications</div>
                     <div className="works-section-item">
                       <b>Medium article 1</b><br/>
                       <i>Published on this date</i><br/>
@@ -208,17 +211,29 @@ class ProfileView extends React.Component {
                 </div>
 
                 <div className="works-item column-works-item">
-                  <div className="works-header medium">
-                    <img src={require('./imgs/logo.png')} className="works-header-img"></img>
+                  <div className="works-header instagram">
+                    <AiFillInstagram className="works-header-img"/>
                     Instagram
                   </div>
 
                   <div className="works-section flex-row">
-                    <img src={require('./imgs/logo.png')} className="insta-img"></img>
+                    <img src={require('./imgs/logo.png')} className="insta-propic"></img>
                     <div className='flex-column' style={{justifyContent: 'center'}}>
                       <b className="insta-handle">@1indaqin</b>
                       <div className="insta-handle">1493 followers</div>
                     </div>
+                  </div>
+
+                  <div className="works-section insta-grid">
+                    <img src={require("./imgs/process-1.png")} className="insta-img"/>
+                    <img src={require("./imgs/process-1.png")} className="insta-img"/>
+                    <img src={require("./imgs/process-1.png")} className="insta-img"/>
+                    <img src={require("./imgs/process-1.png")} className="insta-img"/>
+                    <img src={require("./imgs/process-1.png")} className="insta-img"/>
+                    <img src={require("./imgs/process-1.png")} className="insta-img"/>
+                    <img src={require("./imgs/process-1.png")} className="insta-img"/>
+                    <img src={require("./imgs/process-1.png")} className="insta-img"/>
+                    <img src={require("./imgs/process-1.png")} className="insta-img"/>
                   </div>
 
                 </div>
@@ -227,7 +242,7 @@ class ProfileView extends React.Component {
 
               <div className="works-item">
                 <div className="works-header gray">
-                  <img src={require('./imgs/logo.png')} className="works-header-img"></img>
+                  <FiLink className="works-header-img"/>
                   My personal website
                 </div>
                 <div className="works-section">
@@ -266,12 +281,12 @@ class ProfileView extends React.Component {
             <div className="works-container">
               <div className="works-item">
                 <div className="works-header github">
-                  <img src={require('./imgs/logo.png')} className="works-header-img"></img>
+                  <IoLogoGithub className="works-header-img"/>
                   Github
                 </div>
 
                 <div className="works-section">
-                  <div className="works-section-header github">My recent repositories</div>
+                  <div className="works-section-header">My recent repositories</div>
                   <div className="works-section-item">
                     <b>Lorem-ipsum-dolor</b><br/>
                     Lorem ipsum dolor sit amet, consectetur
@@ -287,7 +302,7 @@ class ProfileView extends React.Component {
                 </div>
 
                 <div className="works-section">
-                  <div className="works-section-header github">Number of contributions</div>
+                  <div className="works-section-header">Number of contributions</div>
                   <div className="works-section-item">
                     <b>180</b> in the last year (average <b>15</b> per month)
                   </div>
@@ -305,7 +320,7 @@ class ProfileView extends React.Component {
 
               <div className="works-item">
                 <div className="works-header gray">
-                  <img src={require('./imgs/logo.png')} className="works-header-img"></img>
+                  <FiLink className="works-header-img"/>
                   My personal website
                 </div>
                 <div className="works-section">
