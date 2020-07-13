@@ -274,7 +274,7 @@ class StudentSkillsDropdown extends React.Component {
                   name={'haveFileUpload'}
                   saveData={this.saveState}
                   selected={this.state.haveFileUpload}
-                  have={true}/> another work I want to display.
+                  have={true}/> other work I want to display.
                   <br/>
                   {this.state.haveFileUpload === "have" ?
                     <div className="upload flex-column">
