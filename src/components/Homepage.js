@@ -136,7 +136,7 @@ class Homepage extends React.Component {
             <img src={require('./imgs/process-1.png')} className="process-img"/>
             <div className="process-text">
               <h2>Sign Up</h2>
-              <p>Create your account and build a profile that highlights your skills. If you’re worried you don’t have enough to show, try doing our site challenges – they’re an easy way to bulk up your profile.</p>
+              <p>Create your account and build a profile that highlights your skills. Don’t worry if you think you don’t have enough to show – our companies are looking for a wide range of skills, from managing social media to designing web pages.</p>
             </div>
           </div>
           <div className="process-item">

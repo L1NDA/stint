@@ -363,7 +363,7 @@
 }
 
 /* Large Phones */
-@media only screen and (max-height : 850px) and (max-width: 800px) {
+@media only screen and (max-height : 950px) and (max-width: 800px) {
 
   .covid {
     /* flex-direction: column;
