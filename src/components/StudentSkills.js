@@ -75,7 +75,7 @@ class StudentSkills extends React.Component {
           title="Data Analytics"
           subtitle="Given messy data scraped from a webpage, you can clean it up nicely and identify customer profiles or pinpoint key trends."
           section="da"
-          content={["a personal website"]}
+          content={["a GitHub profile", "a personal website"]}
           skills={DATA_SKILLS}
           handleButton={this.saveEntireState}
         />
@@ -113,7 +113,7 @@ class StudentSkills extends React.Component {
           title="Software Development"
           subtitle="You can pull a few programming languages out of your toolbox and use them for front-end or back-end work."
           section="sd"
-          content={["a Github profile", "a personal website"]}
+          content={["a GitHub profile", "a personal website"]}
           skills={SOFTWARE_SKILLS}
           handleButton={this.saveEntireState}
         />
