@@ -70,6 +70,8 @@ class Homepage extends React.Component {
 
   loginWithProvider = async (provider) => {
     this.setState({ loading: true });
+
+    // TODO: Get rid of this check, as homepage is protected by publicroute, so publicroute will redirect already if you're logged in anyways
     if (!this.props.isLoggedIn) {
       this.props.loginUser({ provider, onError: this.onError }, () => this.props.analytics.logEvent("login"))
     }
