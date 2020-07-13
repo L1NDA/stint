@@ -340,6 +340,57 @@ class ProfileView extends React.Component {
 
         </section>
 
+        <section className="profile-item">
+          <h1>Design and Branding</h1>
+          <div className="profile-skills">
+            <div className="section-header">My skill(s) and proficiency</div>
+            <div className="skill-container">
+              {SKILLS.map((skill, index) => {
+                return (
+                  <div className="skill-static">
+                    <span className="skill-name-static">{skill}</span>
+                    <div className="skill-bar" style={{width: `${LEVEL[index] * 20}%`}}></div>
+                  </div>
+                )})}
+            </div>
+          </div>
+          <div className="profile-works">
+            <div className="section-header">My work(s)</div>
+            <div className="works-container">
+              <div className="works-item">
+                <div className="works-header gray">
+                  <FiLink className="works-header-img"/>
+                  My personal website
+                </div>
+                <div className="works-section">
+                  <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
+                  <img src={require('./imgs/example-website.png')} className="works-laptop-screen"></img>
+                </div>
+              </div>
+
+              <div className="works-item">
+                <div className="works-header gray">
+                  <FiLink className="works-header-img"/>
+                  My work
+                </div>
+                <div className="works-section flex-column center">
+                  <iframe
+                    src={`https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf` + `#toolbar=0&navpanes=0&statusbar=0&messages=0`}
+                    className="work-iframe"></iframe>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div className="profile-awards">
+            <div className="section-header">My awards</div>
+            <h3><b>Award goes here</b> (a competition award from awarder)</h3>
+          </div>
+
+
+        </section>
+
       </div>
     )}
   }
