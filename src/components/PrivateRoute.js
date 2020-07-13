@@ -7,7 +7,7 @@ import Loading from './Auth/Loading'
 import get from "lodash/get";
 
 const Private = ({ component: Component, ...rest }) => {
-  const auth = useSelector(state => state.firebase.auth)
+  const auth = rest.auth
   const pathname = get(rest, "location.state.from.pathname");
   return (
     <Route
@@ -89,7 +89,7 @@ const Private = ({ component: Component, ...rest }) => {
 // }
 
 const Public = ({ component: Component, ...rest }) => {
-  const auth = useSelector(state => state.firebase.auth)
+  const auth = rest.auth
   const pathname = get(rest, "location.state.from.pathname");
   return (
     <Route
@@ -115,17 +115,13 @@ const Public = ({ component: Component, ...rest }) => {
 };
 
 
-// function mapStateToProps(state, props) {
-//   return {
-//     auth: state.firebase.auth
-//   }
-// }
+function mapStateToProps(state, props) {
+  return {
+    auth: state.firebase.auth
+  }
+}
 
 
-// export const PrivateRoute = compose(withRouter, connect(mapStateToProps))(Private);
-// export const PublicRoute = Public;
-// export default compose(withRouter, connect(mapStateToProps))(Private);
-
-export const PrivateRoute = Private;
-export const PublicRoute = Public;
-export default Private;
+export const PrivateRoute = connect(mapStateToProps)(Private);
+export const PublicRoute = connect(mapStateToProps)(Public);
+export default connect(mapStateToProps)(Private);

@@ -44,7 +44,7 @@ class ProfileCreation extends React.Component {
     let _this = this
     getFreelancerRef(this.props.userUid)
       .then(function(ref) {
-        ref.once("value", function(snapshot) {
+        ref.on("value", function(snapshot) {
           if (snapshot.val().profile) {
             _this.props.history.push("/you-did-it")
           }
