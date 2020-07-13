@@ -14,6 +14,7 @@ import { getGithubInfo } from "../api/github"
 import Collapsible from 'react-collapsible';
 import {getInstaInfo} from "../api/instagram"
 import {getMediumInfo} from "../api/medium"
+import {getYoutubeInfo} from "../api/youtube"
 import { Link } from 'react-router-dom';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, DotGroup } from 'pure-react-carousel';
 // import { TiMediaPlayReverse, TiMediaPlay } from "react-icons/ti";
@@ -66,6 +67,7 @@ class Homepage extends React.Component {
     this.setState({
       modal: !temp
     });
+    getGithubInfo("lelandhwu")
   }
 
   loginWithProvider = async (provider) => {
