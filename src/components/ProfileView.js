@@ -12,6 +12,7 @@ import {getInstaInfo} from "../api/instagram"
 import {getMediumInfo} from "../api/medium"
 import {getGithubInfo} from "../api/github"
 
+
 const SKILLS = ['React', 'Python', 'Javascript', 'HTML/CSS', 'C/C++', 'SQL', 'Java']
 const LEVEL = ['5', '4', '4', '4', '2', '1', '1']
 
