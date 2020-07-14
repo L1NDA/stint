@@ -11,19 +11,4 @@ const firebaseConfig = {
   measurementId: "G-3D8HWH7J3R"
 };
 
-const linkedinConfig = {
-  "apiSecret": "Ufu7HAVUGxxZO21j",
-  "apiId": "78jv0jjr40mh6x"
-}
-
-const githubConfig = {
-  "apiSecret": "d707ca8a7d49d6eea7d840054f5d57684f171750",
-  "apiId": "090ce4141938fb7d2fb5"
-}
-
-const mailConfig = {
-  "address": "wearestint@gmail.com",
-  "password": "B00tterfly"
-}
-
-module.exports = { firebaseConfig, linkedinConfig, mailConfig, githubConfig, INDEX_URL }
+module.exports = { firebaseConfig,  INDEX_URL }

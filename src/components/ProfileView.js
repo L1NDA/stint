@@ -7,6 +7,10 @@ import { IoLogoGithub } from "react-icons/io";
 import { FiLink } from "react-icons/fi";
 import { AiFillMediumCircle, AiFillInstagram } from "react-icons/ai";
 import { getFreelancerRef } from '../api/freelancer'
+import { TiSortNumericallyOutline } from 'react-icons/ti';
+import {getInstaInfo} from "../api/instagram"
+import {getMediumInfo} from "../api/medium"
+import {getGithubInfo} from "../api/github"
 
 const SKILLS = ['React', 'Python', 'Javascript', 'HTML/CSS', 'C/C++', 'SQL', 'Java']
 const LEVEL = ['5', '4', '4', '4', '2', '1', '1']
@@ -16,19 +20,78 @@ class ProfileView extends React.Component {
   constructor(){
     super();
     this.state = {
-      freelancerInfo: null
+      freelancerInfo: null,
+      githubInfo: null,
+      instagramInfo: null,
+      mediumInfo: null
     }
   }
 
   componentDidMount = async () => {
     let freelancerRef = await getFreelancerRef(this.props.auth.uid)
     let freelancerInfo = await freelancerRef.on("value", (snapshot) => {
-      this.setState({
-        freelancerInfo: snapshot.val()
-      })
-    }, function(error) {
+        let info = snapshot.val()
+        console.log(info)
+        let githubUsername = null
+        let instaUsername = null
+        let mediumUsername = null
+
+        let gInfo = null
+        let iInfo = null
+        let mInfo = null
+
+        if (info.profile.dataAnalytics) {
+          if (info.profile.dataAnalytics.githubUrl) {
+            let githubUrl = info.profile.dataAnalytics.githubUrl
+            githubUsername = parseGithubUser(githubUrl)
+          }
+        }
+        if (info.profile.softwareDev) {
+          if (info.profile.softwareDev.githubUrl) {
+            let githubUrl = info.profile.softwareDev.githubUrl
+            githubUsername = parseGithubUser(githubUrl)
+          }
+        }
+        console.log(githubUsername)
+        if (info.profile.contentCreation) {
+          if (info.profile.contentCreation.instagramUrl) {
+            let instaUrl = info.profile.contentCreation.instagramUrl
+            instaUsername = parseInstaUser(instaUrl)
+          }
+          if (info.profile.contentCreation.mediumUrl) {
+            let mediumUrl = info.profile.contentCreation.mediumUrl
+            mediumUsername = parseMediumUser(mediumUrl)
+          }
+        }
+
+        if (githubUsername) {
+          gInfo = getGithubInfo(githubUsername)
+        }
+        
+        if (instaUsername) {
+          iInfo = getInstaInfo(instaUsername)
+        }
+
+        if (mediumUsername) {
+          mInfo = getMediumInfo(mediumUsername)
+        }
+
+        this.setState({
+            freelancerInfo: freelancerInfo,
+            githubInfo: gInfo, 
+            instagramInfo: iInfo, 
+            mediumInfo: mInfo
+        }, 
+        () => console.log(this.state.githubInfo, this.state.instagramInfo, this.state.mediumInfo) 
+
+      )}, function(error) {
       console.error(error)
     })
+    // let githubUser = this.state.freelancerInfo.profile.softwareDev.githubUrl
+    // this.setState({
+    //   githubInfo: this.state.freelancerInfo.profile.softwareDev.githubUrl
+    // })
+
   }
 
   render() {
@@ -354,13 +417,25 @@ class ProfileView extends React.Component {
     )}
   }
 
-// <div className="padding flex-row profile-item">
-//   <img src={this.props.photoURL} className="my-profile-img"></img>
-//   <div>
-//     <h1 style={{margin: '0'}}>{this.props.displayName}</h1>
-//     <div style={{margin: '0'}}>Computer Science (Mind, Brain and Behavior) & Economics (minor)</div>
-//     <div style={{margin: '0'}}>Senior @ Harvard University</div>
-//   </div>
-// </div>
+function parseGithubUser(user) {
+  var str = user;
+  var n = str.lastIndexOf('/');
+  var result = str.substring(n + 1);
+  return result 
+}
+
+function parseMediumUser(user) {
+  var str = user;
+  var n = str.lastIndexOf('@');
+  var result = str.substring(n + 1);
+  return result 
+}
+
+function parseInstaUser(user) {
+  const regex = /(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im
+
+  let match = regex.exec(user)
+  return match[1]
+}
 
 export default ProfileView;
