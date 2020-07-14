@@ -56,21 +56,22 @@ class ProfileView extends React.Component {
   }
 
   componentDidMount = async () => {
+
     let fileUrls = await this.getFilesFromStorage()
     console.log("fileurls", fileUrls)
 
     let freelancerRef = await getFreelancerRef(this.props.auth.uid)
-    let freelancerInfo = await freelancerRef.on("value", (snapshot) => {
+    let fInfo = await freelancerRef.on("value", (snapshot) => {
         let info = snapshot.val()
-        console.log("uid", this.props.auth.uid)
-        console.log("freelancerinfo", info)
+
+        this.setState({
+          freelancerInfo: info,
+        })
+    
         let githubUsername = null
         let instaUsername = null
         let mediumUsername = null
 
-        let gInfo = null
-        let iInfo = null
-        let mInfo = null
 
         if (info.profile.dataAnalytics) {
           if (info.profile.dataAnalytics.githubUrl) {
@@ -96,37 +97,32 @@ class ProfileView extends React.Component {
         }
 
         if (githubUsername) {
-          console.log("github", githubUsername)
-          gInfo = getGithubInfo(githubUsername)
+          getGithubInfo(githubUsername).then((data) => {
+            console.log(data)
+            this.setState({
+              githubInfo: data,
+          })})
         }
 
         if (instaUsername) {
-          console.log('insta', instaUsername)
-          iInfo = getInstaInfo(instaUsername)
+            getInstaInfo(instaUsername).then((data) => {
+              console.log("insta", data)
+              this.setState({
+                instagramInfo: data,
+            })})
         }
 
         if (mediumUsername) {
-          console.log('medium', mediumUsername)
-          mInfo = getMediumInfo(mediumUsername)
+          getMediumInfo(mediumUsername).then((data) => {
+            console.log("medium", data)
+            this.setState({
+              mediumInfo: data,
+            })
+          })
         }
-
-        this.setState({
-            freelancerInfo: info,
-            githubInfo: gInfo,
-            instagramInfo: iInfo,
-            mediumInfo: mInfo,
-            fileUrls: fileUrls
-        },
-        () => console.log("everything", this.state.githubInfo, this.state.instagramInfo, this.state.mediumInfo, this.state.freelancerInfo)
-
-      )}, function(error) {
+      }, function(error) {
       console.error(error)
     })
-    // let githubUser = this.state.freelancerInfo.profile.softwareDev.githubUrl
-    // this.setState({
-    //   githubInfo: this.state.freelancerInfo.profile.softwareDev.githubUrl
-    // })
-
   }
 
   getFilesFromStorage = async () => {
@@ -178,7 +174,7 @@ class ProfileView extends React.Component {
           ? <><section className="padding flex-row profile-item">
             <img id="profile-img" src={this.props.auth.photoURL} className="my-profile-img"></img>
             <div>
-              <h1 style={{margin: '0'}}>{this.props.auth.displayName}</h1>
+              <h1 style={{margin: '0'}}>{this.props.auth.displayName.split(' ')[0]}</h1>
               <div style={{margin: '0'}}>{this.state.freelancerInfo.profile.education.majors[0]}
                 {this.state.freelancerInfo.profile.education.majors[1] ? ` & ` + this.state.freelancerInfo.profile.education.majors[1] : null}
                 {this.state.freelancerInfo.profile.education.minors[0] ? ` / ` + this.state.freelancerInfo.profile.education.minors[0] + ` (minor)` : null}
@@ -190,10 +186,15 @@ class ProfileView extends React.Component {
           <section className="self-view">
             <h2 style={{marginTop: '0', color: 'white'}}>(Visible to you only)</h2>
             <div className="flex-column">
-              <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>analytics</b> stints.</div>
-              <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>content creation & management</b> stints.</div>
-              <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>design & branding</b> stints.</div>
-              <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>software engineering</b> stints.</div>
+              {this.state.freelancerInfo.profile.dataAnalytics ?
+                <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>analytics</b> stints.</div> : null}
+
+              {this.state.freelancerInfo.profile.contentCreation ? <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>content creation & management</b> stints.</div> : null}
+
+              {this.state.freelancerInfo.profile.design ? <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>design & branding</b> stints.</div> : null}
+
+              {this.state.freelancerInfo.profile.softwareDev ? <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>software engineering</b> stints.</div> : null}
+
             </div>
             <div className="subtitle" style={{color: 'white', marginTop: '30px'}}>(If you set yourself as ‘not available’ for a category, you will not show up in relevant search results for that area.)</div>
           </section>

@@ -230,6 +230,53 @@
 /* Large Phones */
 @media only screen and (max-height : 950px) and (max-width: 800px) {
 
+  .profile-item {
+    flex-direction: column;
+    padding: 50px 10%;
+  }
+
+  .my-profile-img {
+    margin-bottom: 20px;
+  }
+
+  .experience-section {
+    flex-direction: column;
+  }
+
+  .experience {
+    width: 100%;
+  }
+
+  .experience-section > *:last-child {
+    margin-top: 50px;
+  }
+
+  .works-col-wrapper {
+    max-width: 100%
+  }
+
+  .works-container {
+    flex-direction: column;
+  }
+
+  .works-item {
+    width: 100%;
+  }
+
+  .works-header {
+    flex-direction: column;
+    align-items: flex-start
+  }
+
+  .works-header > *:first-child {
+    margin-bottom: 10px;
+  }
+
+  .work-iframe {
+    width: 100%;
+    height: 300px;
+  }
+
 }
 
 /* iPhone 6 */
@@ -242,7 +289,24 @@
 /* Small Phones */
 @media only screen and (max-height : 570px) {
 
+  .works-item {
+    min-width: 150px;
+    padding: 30px;
+  }
 
+  .works-header {
+    font-size: 28px;
+    line-height: 30px;
+  }
+
+  .works-section-header {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .work-iframe {
+    height: 250px;
+  }
 
 }
 
