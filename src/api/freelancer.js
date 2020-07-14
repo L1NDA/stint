@@ -84,15 +84,15 @@ export const updateFreelancerInfo = async (uid, name=null, email=null, photoUrl=
 }
 
 export const setFreelancerProfile = async (uid,
-									year, school, majors, minors,
-									cityOfResidence, stateOfResidence,
-									companyRoles, companies, companyYears,
-									orgRoles, organizations, orgYears,
-									doesData, dataWebsite=null, dataSkills=null, dataAwardCategories=null, dataAwardContent=null, dataAwardProviders=null,
-									doesDesign, designWebsite=null, designSkills=null, designAwardCategories=null, designAwardContent=null, designAwardProviders=null,
-									doesContent, mediumUrl=null, instagramUrl=null, youtubeUrl=null, contentWebsite=null, contentSkills=null, contentAwardCategories=null, contentAwardContent=null, contentAwardProviders=null,
-									doesSoftware, githubUrl=null, softwareWebsite=null, softwareSkills=null, softwareAwardCategories=null, softwareAwardContent=null, softwareAwardProviders=null,
-									phoneNumber=null) => {
+										   year, school, majors, minors,
+										   cityOfResidence, stateOfResidence,
+										   companyRoles, companies, companyYears,
+										   orgRoles, organizations, orgYears,
+										   doesData, dataWebsite=null, dataSkills=null, dataAwardCategories=null, dataAwardContent=null, dataAwardProviders=null,
+										   doesDesign, designWebsite=null, designSkills=null, designAwardCategories=null, designAwardContent=null, designAwardProviders=null,
+										   doesContent, mediumUrl=null, instagramUrl=null, youtubeUrl=null, contentWebsite=null, contentSkills=null, contentAwardCategories=null, contentAwardContent=null, contentAwardProviders=null,
+										   doesSoftware, githubUrl=null, softwareWebsite=null, softwareSkills=null, softwareAwardCategories=null, softwareAwardContent=null, softwareAwardProviders=null,
+										   phoneNumber=null) => {
 	if (uid === null) {
 		return
 	}
