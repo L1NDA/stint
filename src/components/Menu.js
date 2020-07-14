@@ -29,13 +29,18 @@ class Menu extends React.Component {
            <NavLink to="/our-mission"
                   className="menu-item"
                   activeClassName="active-item">Our Mission</NavLink>
-          {this.props.isLoggedIn
-            ? <div className="menu-profile flex-row">
+          {this.props.profilePic
+            ?
+              <div className="menu-profile flex-row">
                 <Link to="/my-profile"><img src={this.props.profilePic} className="menu-propic"/></Link>
                   <div class="menu-profile-dropdown">
                     <Link to="/my-profile">My Profile</Link>
                     <div onClick={this.props.logoutUser} className="sign-out">Sign Out</div>
                   </div>
+              </div>
+            : this.props.isLoggedIn ?
+              <div className="menu-profile flex-row">
+                <Link to="/my-profile"><div className="menu-propic" style={{backgroundColor: "#f5f5f5"}}></div></Link>
               </div>
             : null}
         </div>

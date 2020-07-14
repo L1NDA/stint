@@ -135,6 +135,7 @@ class ProfileView extends React.Component {
     res.items.forEach((item) => {
       fileUrls.push(item.getDownloadURL())
     })
+    console.log("getfilesfunction", fileUrls)
     return fileUrls
   }
 
