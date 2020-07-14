@@ -88,7 +88,7 @@ export const setFreelancerProfile = async (uid,
 									cityOfResidence, stateOfResidence,
 									companyRoles, companies, companyYears,
 									orgRoles, organizations, orgYears,
-									doesData, dataWebsite=null, dataSkills=null, dataAwardCategories=null, dataAwardContent=null, dataAwardProviders=null,
+									doesData, dataGithubUrl=null, dataWebsite=null, dataSkills=null, dataAwardCategories=null, dataAwardContent=null, dataAwardProviders=null,
 									doesDesign, designWebsite=null, designSkills=null, designAwardCategories=null, designAwardContent=null, designAwardProviders=null,
 									doesContent, mediumUrl=null, instagramUrl=null, youtubeUrl=null, contentWebsite=null, contentSkills=null, contentAwardCategories=null, contentAwardContent=null, contentAwardProviders=null,
 									doesSoftware, githubUrl=null, softwareWebsite=null, softwareSkills=null, softwareAwardCategories=null, softwareAwardContent=null, softwareAwardProviders=null,
@@ -121,6 +121,7 @@ export const setFreelancerProfile = async (uid,
 
 	if (doesData) {
 		freelancerInfo[FREELANCER_DATA_ANALYTICS] = {
+			[FREELANCER_GITHUB]: dataGithubUrl,
 			[FREELANCER_PERSONAL_WEBSITE]: dataWebsite,
 			[FREELANCER_SKILLS]: dataSkills,
 			[FREELANCER_AWARD_CATEGORIES]: dataAwardCategories,

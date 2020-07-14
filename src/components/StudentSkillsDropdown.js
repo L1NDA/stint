@@ -176,11 +176,9 @@ class StudentSkillsDropdown extends React.Component {
   }
 
   handleUpload = (fileErrorHandler) => {
-    let storage = this.props.storage
-
     let file = this.state.files[0]
 
-    let fileRef = storage.ref("images" + "/" + this.props.userUid + "/" + file.name)
+    let fileRef = this.props.storage.ref("images" + "/" + this.props.userUid + "/" + "designshowcase-" + file.name)
     let uploadTask = fileRef.put(file)
 
     uploadTask.on("state_changed", (snapshot) => {
@@ -209,7 +207,7 @@ class StudentSkillsDropdown extends React.Component {
   }
 
   handleDeleteUpload = (fileName) => {
-    let fileRef = this.getFileRef(fileName)
+    let fileRef = this.props.storage.ref("images" + "/" + this.props.userUid + "/" +  "designshowcase-" + fileName)
     fileRef.delete()
       .then(function() {
         console.log("File deleted")
@@ -217,12 +215,6 @@ class StudentSkillsDropdown extends React.Component {
       .catch(function(error) {
         console.error("Error, file not deleted:", error)
       })
-  }
-
-  getFileRef = (fileName) => {
-    // console.log('jfc')
-    console.log("useruid", this.props.userUid)
-    return this.props.storage.ref("images" + "/" + this.props.userUid + "/" + fileName)
   }
 
   render() {
@@ -274,7 +266,7 @@ class StudentSkillsDropdown extends React.Component {
                   name={'haveFileUpload'}
                   saveData={this.saveState}
                   selected={this.state.haveFileUpload}
-                  have={true}/> another work I want to display.
+                  have={true}/> other work I want to display.
                   <br/>
                   {this.state.haveFileUpload === "have" ?
                     <div className="upload flex-column">
