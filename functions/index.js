@@ -1,51 +1,51 @@
-const functions = require('firebase-functions');
-const cors = require('cors')({origin: true});
+// const functions = require('firebase-functions');
+// const cors = require('cors')({origin: true});
 
 const nodemailer = require("nodemailer")
 
-const { mailConfig } = require("./config")
-const { githubConfig } = require("./config")
+// const { mailConfig } = require("./config")
+// const { githubConfig } = require("./config")
 
-const axios = require('axios')
-const moment = require('moment');
+// const axios = require('axios')
+// const moment = require('moment');
 
-const AUTH_HEADER = { 'headers':
-                        { 'Authorization': githubConfig.apiId + ":" + githubConfig.apiSecret}
-                    }
+// const AUTH_HEADER = { 'headers':
+//                         { 'Authorization': githubConfig.apiId + ":" + githubConfig.apiSecret}
+//                     }
 
-const HOST_NAME = "smtp.gmail.com"
-const PORT = 465
+// const HOST_NAME = "smtp.gmail.com"
+// const PORT = 465
 
-let transporter = nodemailer.createTransport({
-    host: HOST_NAME,
-    port: PORT,
-    secure: true, // true for 465, false for other ports
-    auth: {
-      user: mailConfig.address,
-      pass: mailConfig.password,
-    },
-});
+// let transporter = nodemailer.createTransport({
+//     host: HOST_NAME,
+//     port: PORT,
+//     secure: true, // true for 465, false for other ports
+//     auth: {
+//       user: mailConfig.address,
+//       pass: mailConfig.password,
+//     },
+// });
 
-exports.sendEmail = functions.https.onRequest((req, res) => {
-    cors(req, res, () => {
+// exports.sendEmail = functions.https.onRequest((req, res) => {
+//     cors(req, res, () => {
 
-        const {recipientAddress, subjectLine, htmlBody} = req.body;
+//         const {recipientAddress, subjectLine, htmlBody} = req.body;
 
-        const mailOptions = {
-            from: 'Stint <' + mailConfig.address + '>',
-            to: recipientAddress,
-            subject: subjectLine,
-            html: htmlBody
-        };
+//         const mailOptions = {
+//             from: 'Stint <' + mailConfig.address + '>',
+//             to: recipientAddress,
+//             subject: subjectLine,
+//             html: htmlBody
+//         };
 
-        return transporter.sendMail(mailOptions, (error, info) => {
-            if(error){
-                return res.send(error.toString());
-            }
-            return res.status(200).send('Sent', info);
-        });
-    });
-});
+//         return transporter.sendMail(mailOptions, (error, info) => {
+//             if(error){
+//                 return res.send(error.toString());
+//             }
+//             return res.status(200).send('Sent', info);
+//         });
+//     });
+// });
 
 exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
@@ -165,7 +165,7 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
                             publication.thumbnail = item.thumbnail
                             publication.title = shortenText(item.title, 0, 30)+ '...'
                             result.publications.push(publication)
-                        })                
+                        })
                     })
         }catch (err) {
             return res.status(401).send(result)
@@ -179,12 +179,12 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
 //         const {youtubeUser} = req.body
 
 //         const channelIdApiUrl = "https://www.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=" + youtubeUser + "&type=channel&key=AIzaSyCzzixWsVDXAQnxu1bSq_nKxtmidbSHRl0"
-        
+
 //         let result = {}
 //         let channelId = undefined
 
 //         console.log(channelIdApiUrl)
-      
+
 //         await axios.get(channelIdApiUrl)
 //             .then(function(response) {
 //                 channelId = response.data.items[0].id.channelId
@@ -202,7 +202,7 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
 //                 videos = response.data.items
 //                 console.log(videos)
 //                 result.videos = []
-                
+
 //                 promises = []
 //                 let viewCounts = videos.slice([0], [3]).map((item) => {
 //                     video = {}
@@ -211,7 +211,7 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
 //                     let vidId = item.id.videoId
 
 //                     promises.push(getVideoCount(vidId))
-                        
+
 //                 })
 //                 let counts = await Promise.all(promises)
 //                 console.log(counts)

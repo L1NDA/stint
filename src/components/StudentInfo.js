@@ -151,11 +151,9 @@ class StudentInfo extends React.Component {
             index="1"
             saveData={this.handleChange}
             required={false}
-            optionalParent
             maxLength="60"/>
           at
           <Autocomplete
-
             className="optional-input"
             name="company2"
             placeholder="(company)"

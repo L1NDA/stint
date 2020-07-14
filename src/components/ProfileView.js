@@ -57,6 +57,7 @@ class ProfileView extends React.Component {
         if (info.profile.contentCreation) {
           if (info.profile.contentCreation.instagramUrl) {
             let instaUrl = info.profile.contentCreation.instagramUrl
+            console.log(instaUrl)
             instaUsername = parseInstaUser(instaUrl)
           }
           if (info.profile.contentCreation.mediumUrl) {

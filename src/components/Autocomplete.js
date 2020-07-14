@@ -69,6 +69,13 @@ export class Autocomplete extends Component {
     //   })
     // }
 
+    if (this.props.username && !this.state.userInput) {
+      this.setState({
+        userInput: '@'
+      })
+    }
+
+
     if (this.props.options) {
       this.setState({
         focus: true
@@ -112,6 +119,9 @@ export class Autocomplete extends Component {
     const { options } = this.props;
     var userInput = e.currentTarget.value;
     let filteredOptions = [];
+    if (this.props.username && !userInput.startsWith("@")) {
+      userInput = '@' + userInput
+    }
 
     if (this.props.name === "city" || this.props.name === "colleges" ||
     this.props.name.startsWith("minor") ||
