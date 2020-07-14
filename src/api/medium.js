@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 const getMediumInfo = (user) => {
-    axios.post('http://localhost:5001/stint-landing/us-central1/getMediumInfo', {
+    axios.post('http://localhost:5001/stint-staging-eb100/us-central1/getMediumInfo', {
       mediumUser: user
     })
     .then(res => {
