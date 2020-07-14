@@ -58,11 +58,9 @@ class ProfileView extends React.Component {
             githubUsername = parseGithubUser(githubUrl)
           }
         }
-        console.log(githubUsername)
         if (info.profile.contentCreation) {
           if (info.profile.contentCreation.instagramUrl) {
             let instaUrl = info.profile.contentCreation.instagramUrl
-            console.log(instaUrl)
             instaUsername = parseInstaUser(instaUrl)
           }
           if (info.profile.contentCreation.mediumUrl) {
@@ -72,14 +70,17 @@ class ProfileView extends React.Component {
         }
 
         if (githubUsername) {
+          console.log("username", githubUsername)
           gInfo = getGithubInfo(githubUsername)
         }
 
         if (instaUsername) {
+          console.log(instaUsername)
           iInfo = getInstaInfo(instaUsername)
         }
 
         if (mediumUsername) {
+          console.log(mediumUsername)
           mInfo = getMediumInfo(mediumUsername)
         }
 
@@ -476,24 +477,16 @@ class ProfileView extends React.Component {
   }
 
 function parseGithubUser(user) {
-  var str = user;
-  var n = str.lastIndexOf('/');
-  var result = str.substring(n + 1);
-  return result
+  return user.substring(1)
 }
 
 function parseMediumUser(user) {
-  var str = user;
-  var n = str.lastIndexOf('@');
-  var result = str.substring(n + 1);
-  return result
+  return user.substring(1)
 }
 
 function parseInstaUser(user) {
-  const regex = /(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im
 
-  let match = regex.exec(user)
-  return match[1]
+  return user.substring(1)
 }
 
 export default ProfileView;
