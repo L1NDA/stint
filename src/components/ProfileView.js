@@ -65,15 +65,15 @@ class ProfileView extends React.Component {
         }
 
         if (githubUsername) {
-          // gInfo = getGithubInfo(githubUsername)
+          gInfo = getGithubInfo(githubUsername)
         }
         
         if (instaUsername) {
-          // iInfo = getInstaInfo(instaUsername)
+          iInfo = getInstaInfo(instaUsername)
         }
 
         if (mediumUsername) {
-          // mInfo = getMediumInfo(mediumUsername)
+          mInfo = getMediumInfo(mediumUsername)
         }
 
         this.setState({
@@ -82,7 +82,7 @@ class ProfileView extends React.Component {
             instagramInfo: iInfo, 
             mediumInfo: mInfo
         }, 
-        () => console.log(this.state.freelancerInfo) 
+        () => console.log(this.state.githubInfo, this.state.instagramInfo, this.state.mediumInfo) 
 
       )}, function(error) {
       console.error(error)
