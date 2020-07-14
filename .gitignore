@@ -21,6 +21,7 @@
 #configuration/credentials
 config.js
 config.json
+staging.config.js
 
 npm-debug.log*
 yarn-debug.log*

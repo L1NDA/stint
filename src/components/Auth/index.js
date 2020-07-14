@@ -8,7 +8,8 @@ import ProfileCreation from "../ProfileCreation"
 import Homepage from "../Homepage"
 import ThankYou from "../ThankYou"
 import Loading from "./Loading"
-import Company from "../Company"
+import ProfileView from "../ProfileView"
+
 
 import { PrivateRoute, PublicRoute } from "../PrivateRoute";
 
@@ -21,6 +22,7 @@ const Auth = ({ location }) => {
         <Switch>
           <PrivateRoute path="/this-is-me" component={ProfileCreation} />
           <PrivateRoute path="/you-did-it" component={ThankYou} />
+          <PrivateRoute path="/my-profile" component={ProfileView} />
           <PublicRoute path="/" component={Homepage} />
         </Switch>
       </div>

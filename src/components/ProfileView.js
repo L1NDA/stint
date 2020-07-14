@@ -1,10 +1,15 @@
 import React from 'react'
 import Menu from './Menu.js'
 import { connect } from "react-redux"
+import { isLoaded, isEmpty } from "react-redux-firebase";
 import './style/my-profile.css'
 import { IoLogoGithub } from "react-icons/io";
 import { FiLink } from "react-icons/fi";
 import { AiFillMediumCircle, AiFillInstagram } from "react-icons/ai";
+<<<<<<< HEAD
+=======
+import { getFreelancerRef } from '../api/freelancer'
+>>>>>>> 8139e49b092868d3b3386005597b5afaf7af04b3
 
 const SKILLS = ['React', 'Python', 'Javascript', 'HTML/CSS', 'C/C++', 'SQL', 'Java']
 const LEVEL = ['5', '4', '4', '4', '2', '1', '1']
@@ -14,11 +19,19 @@ class ProfileView extends React.Component {
   constructor(){
     super();
     this.state = {
+      freelancerInfo: null
     }
   }
 
-  componentDidMount = () => {
-
+  componentDidMount = async () => {
+    let freelancerRef = await getFreelancerRef(this.props.auth.uid)
+    let freelancerInfo = await freelancerRef.on("value", (snapshot) => {
+      this.setState({
+        freelancerInfo: snapshot.val()
+      })
+    }, function(error) {
+      console.error(error)
+    })
   }
 
   render() {
@@ -27,9 +40,15 @@ class ProfileView extends React.Component {
       <div className="container">
         <Menu/>
         <section className="padding flex-row profile-item">
+<<<<<<< HEAD
           <img src={this.props.photoURL} className="my-profile-img"></img>
           <div>
             <h1 style={{margin: '0'}}>{this.props.displayName}</h1>
+=======
+          <img src={this.props.auth.photoURL} className="my-profile-img"></img>
+          <div>
+            <h1 style={{margin: '0'}}>{this.props.auth.displayName}</h1>
+>>>>>>> 8139e49b092868d3b3386005597b5afaf7af04b3
             <div style={{margin: '0'}}>Computer Science (Mind, Brain and Behavior) & Economics (minor)</div>
             <div style={{margin: '0'}}>Senior @ Harvard University</div>
           </div>
@@ -321,6 +340,7 @@ class ProfileView extends React.Component {
               <div className="works-item">
                 <div className="works-header gray">
                   <FiLink className="works-header-img"/>
+<<<<<<< HEAD
                   My personal website
                 </div>
                 <div className="works-section">
@@ -360,6 +380,8 @@ class ProfileView extends React.Component {
               <div className="works-item">
                 <div className="works-header gray">
                   <FiLink className="works-header-img"/>
+=======
+>>>>>>> 8139e49b092868d3b3386005597b5afaf7af04b3
                   My personal website
                 </div>
                 <div className="works-section">
@@ -395,13 +417,6 @@ class ProfileView extends React.Component {
     )}
   }
 
-function mapStateToProps(state, props) {
-  return {
-    displayName: state.firebase.auth.displayName,
-    photoURL: state.firebase.auth.photoURL,
-  };
-}
-
 // <div className="padding flex-row profile-item">
 //   <img src={this.props.photoURL} className="my-profile-img"></img>
 //   <div>
@@ -411,5 +426,4 @@ function mapStateToProps(state, props) {
 //   </div>
 // </div>
 
-
-export default connect(mapStateToProps)(ProfileView);
+export default ProfileView;

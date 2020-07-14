@@ -42,9 +42,9 @@ class ProfileCreation extends React.Component {
 
   redirectUponProfileCompletion = () => {
     let _this = this
-    getFreelancerRef(this.props.userUid)
+    getFreelancerRef(this.props.auth.uid)
       .then(function(ref) {
-        ref.once("value", function(snapshot) {
+        ref.on("value", function(snapshot) {
           if (snapshot.val().profile) {
             _this.props.history.push("/you-did-it")
           }
@@ -109,7 +109,7 @@ class ProfileCreation extends React.Component {
     let doesContent = Object.keys(temp.ccm).length !== 0
     let doesSoftware = Object.keys(temp.sd).length !== 0
 
-    await setFreelancerProfile(this.props.userUid,
+    await setFreelancerProfile(this.props.auth.uid,
                                temp.year, temp.colleges, temp.major, temp.minor,
                                temp.city, temp.state,
                                temp.role, temp.company, temp.yearcompany,
@@ -141,7 +141,7 @@ class ProfileCreation extends React.Component {
 
       <form className="padding flex-column profile-container" onSubmit={this.submitProfile} autocomplete="off">
         <div className="stint-dialogue">
-          <h2>Nice to meet you,{this.props.userDisplayName ? " " + this.props.userDisplayName.split(" ")[0] : ""}!</h2>
+          <h2>Nice to meet you,{this.props.auth.displayName ? " " + this.props.auth.displayName.split(" ")[0] : ""}!</h2>
           <h3>We’re Stint, a platform for connecting students and companies. <br/> Now tell us a little bit about yourself!</h3>
         </div>
 
@@ -198,8 +198,6 @@ class ProfileCreation extends React.Component {
 function mapStateToProps(state, props) {
   const { firebase } = props
   return {
-    userUid: state.firebase.auth.uid,
-    userDisplayName: state.firebase.auth.displayName,
     analytics: firebase.analytics()
   };
 }
