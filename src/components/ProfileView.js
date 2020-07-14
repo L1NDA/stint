@@ -53,6 +53,7 @@ class ProfileView extends React.Component {
   }
 
   componentDidMount = async () => {
+
     let fileUrls = await this.getFilesFromStorage()
     console.log('fileurls', fileUrls)
 
@@ -93,37 +94,32 @@ class ProfileView extends React.Component {
         }
 
         if (githubUsername) {
-          console.log("github", githubUsername)
-          gInfo = getGithubInfo(githubUsername)
+          getGithubInfo(githubUsername).then((data) => {
+            console.log(data)
+            this.setState({
+              githubInfo: data,
+          })})
         }
 
         if (instaUsername) {
-          console.log('insta', instaUsername)
-          iInfo = getInstaInfo(instaUsername)
+            getInstaInfo(instaUsername).then((data) => {
+              console.log("insta", data)
+              this.setState({
+                instagramInfo: data,
+            })})
         }
 
         if (mediumUsername) {
-          console.log('medium', mediumUsername)
-          mInfo = getMediumInfo(mediumUsername)
+          getMediumInfo(mediumUsername).then((data) => {
+            console.log("medium", data)
+            this.setState({
+              mediumInfo: data,
+            })
+          })
         }
-
-        this.setState({
-            freelancerInfo: info,
-            githubInfo: gInfo,
-            instagramInfo: iInfo,
-            mediumInfo: mInfo,
-            fileUrls: fileUrls
-        },
-        () => console.log("everything", this.state.githubInfo, this.state.instagramInfo, this.state.mediumInfo, this.state.freelancerInfo)
-
-      )}, function(error) {
+      }, function(error) {
       console.error(error)
     })
-    // let githubUser = this.state.freelancerInfo.profile.softwareDev.githubUrl
-    // this.setState({
-    //   githubInfo: this.state.freelancerInfo.profile.softwareDev.githubUrl
-    // })
-
   }
 
   getFilesFromStorage = async () => {
