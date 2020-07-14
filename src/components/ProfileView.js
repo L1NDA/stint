@@ -37,8 +37,6 @@ class ProfileView extends React.Component {
     if (!this.state.width) {
       this.setWidth();
     }
-
-    console.log(this.state)
   }
 
   setWidth = () => {
@@ -56,7 +54,6 @@ class ProfileView extends React.Component {
   }
 
   componentDidMount = async () => {
-
     let fileUrls = await this.getFilesFromStorage()
     console.log("fileurls", fileUrls)
 
@@ -64,14 +61,13 @@ class ProfileView extends React.Component {
     let fInfo = await freelancerRef.on("value", (snapshot) => {
         let info = snapshot.val()
 
-        this.setState({
-          freelancerInfo: info,
-        })
+        // this.setState({
+        //   freelancerInfo: info,
+        // })
     
         let githubUsername = null
         let instaUsername = null
         let mediumUsername = null
-
 
         if (info.profile.dataAnalytics) {
           if (info.profile.dataAnalytics.githubUrl) {
@@ -96,30 +92,46 @@ class ProfileView extends React.Component {
           }
         }
 
+        let githubData = null
+        let instaData = null
+        let mediumData = null
+
         if (githubUsername) {
           getGithubInfo(githubUsername).then((data) => {
-            console.log(data)
-            this.setState({
-              githubInfo: data,
-          })})
+            console.log("githubdata", data)
+            githubData = data
+          //   this.setState({
+          //     githubInfo: data,
+          // })
+          })
         }
 
         if (instaUsername) {
             getInstaInfo(instaUsername).then((data) => {
-              console.log("insta", data)
-              this.setState({
-                instagramInfo: data,
-            })})
+              console.log("instadata", data)
+              instaData = data
+            //   this.setState({
+            //     instagramInfo: data,
+            // })
+            })
         }
 
         if (mediumUsername) {
           getMediumInfo(mediumUsername).then((data) => {
-            console.log("medium", data)
-            this.setState({
-              mediumInfo: data,
-            })
+            console.log("mediumdata", data)
+            // this.setState({
+            //   mediumInfo: data,
+            // })
           })
         }
+
+        this.setState({ 
+          freelancerInfo: info,
+          githubInfo: githubData,
+          instagramInfo: instaData,
+          mediumInfo: mediumData
+        }, () => console.log("state", this.state))
+
       }, function(error) {
       console.error(error)
     })
@@ -135,10 +147,10 @@ class ProfileView extends React.Component {
       let fileData = await item.getMetadata()
       let fileUrl = await item.getDownloadURL()
       if (fileData.name.startsWith(DESIGN_SHOWCASE_PREFIX)) {
-        fileUrls[DESIGN_SHOWCASE_PREFIX] = fileUrl
+        fileUrls.designShowcase = fileUrl
       }
       else if (fileData.name.startsWith(PERSONAL_WEBSITE_PREFIX)) {
-        fileUrls[PERSONAL_WEBSITE_PREFIX] = fileUrl
+        fileUrls.personalWebsite = fileUrl
       }
       else {
         if (fileUrls[OTHER_FILES]) {
