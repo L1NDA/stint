@@ -1,7 +1,8 @@
 import React from 'react'
 import Menu from './Menu.js'
 import { connect } from "react-redux"
-import { isLoaded, isEmpty } from "react-redux-firebase";
+import { firebaseConnect } from "react-redux-firebase";
+import { compose } from "redux";
 import './style/my-profile.css'
 import { IoLogoGithub } from "react-icons/io";
 import { FiLink } from "react-icons/fi";
@@ -30,14 +31,11 @@ class ProfileView extends React.Component {
   }
 
   componentDidUpdate() {
-
     if (!this.state.width) {
       this.setWidth();
     }
 
     console.log(this.state)
-
-
   }
 
   setWidth = () => {
@@ -55,10 +53,14 @@ class ProfileView extends React.Component {
   }
 
   componentDidMount = async () => {
+    let fileUrls = await this.getFilesFromStorage()
+    console.log('fileurls', fileUrls)
+
     let freelancerRef = await getFreelancerRef(this.props.auth.uid)
     let freelancerInfo = await freelancerRef.on("value", (snapshot) => {
         let info = snapshot.val()
-        console.log(info)
+        console.log("uid", this.props.auth.uid)
+        console.log("freelancerinfo", info)
         let githubUsername = null
         let instaUsername = null
         let mediumUsername = null
@@ -109,7 +111,8 @@ class ProfileView extends React.Component {
             freelancerInfo: info,
             githubInfo: gInfo,
             instagramInfo: iInfo,
-            mediumInfo: mInfo
+            mediumInfo: mInfo,
+            fileUrls: fileUrls
         },
         () => console.log("everything", this.state.githubInfo, this.state.instagramInfo, this.state.mediumInfo, this.state.freelancerInfo)
 
@@ -121,6 +124,18 @@ class ProfileView extends React.Component {
     //   githubInfo: this.state.freelancerInfo.profile.softwareDev.githubUrl
     // })
 
+  }
+
+  getFilesFromStorage = async () => {
+    let storageRef = this.props.storage.ref()
+    let filesRef = storageRef.child("images" + "/" + this.props.auth.uid)
+    let res = await filesRef.listAll()
+
+    let fileUrls = []
+    res.items.forEach((item) => {
+      fileUrls.push(item.getDownloadURL())
+    })
+    return fileUrls
   }
 
   sortSkills = (skills) => {
@@ -575,4 +590,11 @@ function parseInstaUser(user) {
   return user.substring(1)
 }
 
-export default ProfileView;
+function mapStateToProps(state, props) {
+  const { firebase } = props
+  return {
+    storage: firebase.storage()
+  }
+}
+
+export default compose(firebaseConnect(), connect(mapStateToProps))(ProfileView);
