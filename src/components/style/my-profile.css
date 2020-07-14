@@ -110,6 +110,8 @@
   min-width: 300px;
   margin: 40px 0;
   align-self: flex-start;
+  display: flex;
+  flex-direction: column;
 }
 
 .column-works-item {
