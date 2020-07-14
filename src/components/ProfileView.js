@@ -17,6 +17,9 @@ import ReactLoading from "react-loading";
 
 const SKILLS = ['React', 'Python', 'Javascript', 'HTML/CSS', 'C/C++', 'SQL', 'Java']
 const LEVEL = ['5', '4', '4', '4', '2', '1', '1']
+const DESIGN_SHOWCASE_PREFIX = "designshowcase-"
+const PERSONAL_WEBSITE_PREFIX = "personalwebsite-"
+const OTHER_FILES = "otherFiles"
 
 class ProfileView extends React.Component {
 
@@ -54,7 +57,7 @@ class ProfileView extends React.Component {
 
   componentDidMount = async () => {
     let fileUrls = await this.getFilesFromStorage()
-    console.log('fileurls', fileUrls)
+    console.log("fileurls", fileUrls)
 
     let freelancerRef = await getFreelancerRef(this.props.auth.uid)
     let freelancerInfo = await freelancerRef.on("value", (snapshot) => {
@@ -131,9 +134,24 @@ class ProfileView extends React.Component {
     let filesRef = storageRef.child("images" + "/" + this.props.auth.uid)
     let res = await filesRef.listAll()
 
-    let fileUrls = []
-    res.items.forEach((item) => {
-      fileUrls.push(item.getDownloadURL())
+    let fileUrls = {}
+    res.items.forEach(async (item) => {
+      let fileData = await item.getMetadata()
+      let fileUrl = await item.getDownloadURL()
+      if (fileData.name.startsWith(DESIGN_SHOWCASE_PREFIX)) {
+        fileUrls[DESIGN_SHOWCASE_PREFIX] = fileUrl
+      }
+      else if (fileData.name.startsWith(PERSONAL_WEBSITE_PREFIX)) {
+        fileUrls[PERSONAL_WEBSITE_PREFIX] = fileUrl
+      }
+      else {
+        if (fileUrls[OTHER_FILES]) {
+          fileUrls[OTHER_FILES].push(fileUrl)
+        }
+        else {
+          fileUrls[OTHER_FILES] = [fileUrl]
+        }
+      }
     })
     return fileUrls
   }
