@@ -21,11 +21,17 @@ class ProfileView extends React.Component {
     }
   }
 
+  updateProfilePic = (imgUrl) => {
+    this.state.freelancerRef.child("avatarUrl").set(imgUrl)
+    document.getElementById("profile-img").src = imgUrl
+  }
+
   componentDidMount = async () => {
     let freelancerRef = await getFreelancerRef(this.props.auth.uid)
     let freelancerInfo = await freelancerRef.on("value", (snapshot) => {
       this.setState({
-        freelancerInfo: snapshot.val()
+        freelancerInfo: snapshot.val(),
+        freelancerRef: freelancerRef
       })
     }, function(error) {
       console.error(error)
@@ -38,7 +44,7 @@ class ProfileView extends React.Component {
       <div className="container">
         <Menu/>
         <section className="padding flex-row profile-item">
-          <img src={this.props.auth.photoURL} className="my-profile-img"></img>
+          <img id="profile-img" src={this.props.auth.photoURL} className="my-profile-img"></img>
           <div>
             <h1 style={{margin: '0'}}>{this.props.auth.displayName}</h1>
             <div style={{margin: '0'}}>Computer Science (Mind, Brain and Behavior) & Economics (minor)</div>
