@@ -67,7 +67,7 @@ class ProfileView extends React.Component {
         if (githubUsername) {
           gInfo = getGithubInfo(githubUsername)
         }
-        
+
         if (instaUsername) {
           iInfo = getInstaInfo(instaUsername)
         }
@@ -78,11 +78,11 @@ class ProfileView extends React.Component {
 
         this.setState({
             freelancerInfo: freelancerInfo,
-            githubInfo: gInfo, 
-            instagramInfo: iInfo, 
+            githubInfo: gInfo,
+            instagramInfo: iInfo,
             mediumInfo: mInfo
-        }, 
-        () => console.log(this.state.githubInfo, this.state.instagramInfo, this.state.mediumInfo) 
+        },
+        () => console.log(this.state.githubInfo, this.state.instagramInfo, this.state.mediumInfo)
 
       )}, function(error) {
       console.error(error)
@@ -421,14 +421,14 @@ function parseGithubUser(user) {
   var str = user;
   var n = str.lastIndexOf('/');
   var result = str.substring(n + 1);
-  return result 
+  return result
 }
 
 function parseMediumUser(user) {
   var str = user;
   var n = str.lastIndexOf('@');
   var result = str.substring(n + 1);
-  return result 
+  return result
 }
 
 function parseInstaUser(user) {
