@@ -1,7 +1,7 @@
 // const functions = require('firebase-functions');
 // const cors = require('cors')({origin: true});
 
-const nodemailer = require("nodemailer")
+// const nodemailer = require("nodemailer")
 
 // const { mailConfig } = require("./config")
 // const { githubConfig } = require("./config")
