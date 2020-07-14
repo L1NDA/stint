@@ -26,10 +26,6 @@ class ProfileView extends React.Component {
   constructor(){
     super();
     this.state = {
-      freelancerInfo: null,
-      githubInfo: null,
-      instagramInfo: null,
-      mediumInfo: null
     }
   }
 
@@ -58,81 +54,66 @@ class ProfileView extends React.Component {
     console.log("fileurls", fileUrls)
 
     let freelancerRef = await getFreelancerRef(this.props.auth.uid)
-    let fInfo = await freelancerRef.on("value", (snapshot) => {
-        let info = snapshot.val()
+    freelancerRef.on("value", async (snapshot) => {
+      let info = snapshot.val()
+      let profile = info.profile
+      // this.setState({
+      //   freelancerInfo: info,
+      // })
+  
+      let githubUsername = null
+      let instaUsername = null
+      let mediumUsername = null
 
-        // this.setState({
-        //   freelancerInfo: info,
-        // })
-    
-        let githubUsername = null
-        let instaUsername = null
-        let mediumUsername = null
-
-        if (info.profile.dataAnalytics) {
-          if (info.profile.dataAnalytics.githubUrl) {
-            let githubUrl = info.profile.dataAnalytics.githubUrl
-            githubUsername = parseGithubUser(githubUrl)
-          }
+      if (profile.dataAnalytics) {
+        if (profile.dataAnalytics.githubUrl) {
+          let githubUrl = profile.dataAnalytics.githubUrl
+          githubUsername = parseGithubUser(githubUrl)
         }
-        if (info.profile.softwareDev) {
-          if (info.profile.softwareDev.githubUrl) {
-            let githubUrl = info.profile.softwareDev.githubUrl
-            githubUsername = parseGithubUser(githubUrl)
-          }
+      }
+      if (profile.softwareDev) {
+        if (profile.softwareDev.githubUrl) {
+          let githubUrl = profile.softwareDev.githubUrl
+          githubUsername = parseGithubUser(githubUrl)
         }
-        if (info.profile.contentCreation) {
-          if (info.profile.contentCreation.instagramUrl) {
-            let instaUrl = info.profile.contentCreation.instagramUrl
-            instaUsername = parseInstaUser(instaUrl)
-          }
-          if (info.profile.contentCreation.mediumUrl) {
-            let mediumUrl = info.profile.contentCreation.mediumUrl
-            mediumUsername = parseMediumUser(mediumUrl)
-          }
+      }
+      if (profile.contentCreation) {
+        if (profile.contentCreation.instagramUrl) {
+          let instaUrl = profile.contentCreation.instagramUrl
+          instaUsername = parseInstaUser(instaUrl)
         }
-
-        let githubData = null
-        let instaData = null
-        let mediumData = null
-
-        if (githubUsername) {
-          getGithubInfo(githubUsername).then((data) => {
-            console.log("githubdata", data)
-            githubData = data
-          //   this.setState({
-          //     githubInfo: data,
-          // })
-          })
+        if (profile.contentCreation.mediumUrl) {
+          let mediumUrl = profile.contentCreation.mediumUrl
+          mediumUsername = parseMediumUser(mediumUrl)
         }
+      }
 
-        if (instaUsername) {
-            getInstaInfo(instaUsername).then((data) => {
-              console.log("instadata", data)
-              instaData = data
-            //   this.setState({
-            //     instagramInfo: data,
-            // })
-            })
-        }
+      let githubData = null
+      let instaData = null
+      let mediumData = null
 
-        if (mediumUsername) {
-          getMediumInfo(mediumUsername).then((data) => {
-            console.log("mediumdata", data)
-            // this.setState({
-            //   mediumInfo: data,
-            // })
-          })
-        }
+      if (githubUsername) {
+        githubData = await getGithubInfo(githubUsername)
+      }
 
-        this.setState({ 
-          freelancerInfo: info,
-          githubInfo: githubData,
-          instagramInfo: instaData,
-          mediumInfo: mediumData
-        }, () => console.log("state", this.state))
+      if (instaUsername) {
+          instaData = await getInstaInfo(instaUsername)
+      }
 
-      }, function(error) {
+      if (mediumUsername) {
+        mediumData = getMediumInfo(mediumUsername)
+      }
+
+      this.setState({ 
+        freelancerInfo: info,
+        githubData,
+        instaData,
+        mediumData,
+        fileUrls
+      }, () => {console.log("state", this.state)})
+
+    }, 
+    function(error) {
       console.error(error)
     })
   }
@@ -189,8 +170,7 @@ class ProfileView extends React.Component {
               <h1 style={{margin: '0'}}>{this.props.auth.displayName.split(' ')[0]}</h1>
               <div style={{margin: '0'}}>{this.state.freelancerInfo.profile.education.majors[0]}
                 {this.state.freelancerInfo.profile.education.majors[1] ? ` & ` + this.state.freelancerInfo.profile.education.majors[1] : null}
-                {this.state.freelancerInfo.profile.education.minors[0] ? ` / ` + this.state.freelancerInfo.profile.education.minors[0] + ` (minor)` : null}
-                {this.state.freelancerInfo.profile.education.minors[1] ?  `& ` + this.state.freelancerInfo.profile.education.minors[0] + ` (minor)` : null}</div>
+                </div>
               <div style={{margin: '0'}}>{this.state.freelancerInfo.profile.education.year.charAt(0).toUpperCase() + this.state.freelancerInfo.profile.education.year.slice(1)} @ {this.state.freelancerInfo.profile.education.school}</div>
             </div>
           </section>
