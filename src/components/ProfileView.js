@@ -145,7 +145,7 @@ class ProfileView extends React.Component {
           ? <><section className="padding flex-row profile-item">
             <img id="profile-img" src={this.props.auth.photoURL} className="my-profile-img"></img>
             <div>
-              <h1 style={{margin: '0'}}>{this.props.auth.displayName}</h1>
+              <h1 style={{margin: '0'}}>{this.props.auth.displayName.split(' ')[0]}</h1>
               <div style={{margin: '0'}}>{this.state.freelancerInfo.profile.education.majors[0]}
                 {this.state.freelancerInfo.profile.education.majors[1] ? ` & ` + this.state.freelancerInfo.profile.education.majors[1] : null}
                 {this.state.freelancerInfo.profile.education.minors[0] ? ` / ` + this.state.freelancerInfo.profile.education.minors[0] + ` (minor)` : null}
@@ -157,10 +157,15 @@ class ProfileView extends React.Component {
           <section className="self-view">
             <h2 style={{marginTop: '0', color: 'white'}}>(Visible to you only)</h2>
             <div className="flex-column">
-              <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>analytics</b> stints.</div>
-              <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>content creation & management</b> stints.</div>
-              <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>design & branding</b> stints.</div>
-              <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>software engineering</b> stints.</div>
+              {this.state.freelancerInfo.profile.dataAnalytics ?
+                <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>analytics</b> stints.</div> : null}
+
+              {this.state.freelancerInfo.profile.contentCreation ? <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>content creation & management</b> stints.</div> : null}
+
+              {this.state.freelancerInfo.profile.design ? <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>design & branding</b> stints.</div> : null}
+
+              {this.state.freelancerInfo.profile.softwareDev ? <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>software engineering</b> stints.</div> : null}
+
             </div>
             <div className="subtitle" style={{color: 'white', marginTop: '30px'}}>(If you set yourself as ‘not available’ for a category, you will not show up in relevant search results for that area.)</div>
           </section>
