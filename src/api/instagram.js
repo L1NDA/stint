@@ -1,11 +1,11 @@
 const axios = require('axios')
 
 const getInstaInfo = (user) => {
-    axios.post('http://localhost:5001/stint-staging-eb100/us-central1/getInstaInfo', {
+    return axios.post('http://localhost:5001/stint-staging-eb100/us-central1/getInstaInfo', {
       instaUser: user
     })
     .then(res => {
-      console.log(res)
+      return res
     })
     .catch(error => {
       console.error(error)

@@ -34,6 +34,11 @@ class ProfileView extends React.Component {
   }
 
   componentDidMount = async () => {
+    // let gfo = getInstaInfo("1indaqin").then((data) => {
+    //     this.setState({
+    //       instagramInfo: data,
+    //   })})
+
     let freelancerRef = await getFreelancerRef(this.props.auth.uid)
     let freelancerInfo = await freelancerRef.on("value", (snapshot) => {
         let info = snapshot.val()
@@ -70,36 +75,32 @@ class ProfileView extends React.Component {
         }
 
         if (githubUsername) {
-          console.log("username", githubUsername)
-          gInfo = getGithubInfo(githubUsername)
+          getGithubInfo(githubUsername).then((data) => {
+            console.log(data)
+            this.setState({
+              githubInfo: data,
+          })})
         }
 
         if (instaUsername) {
-          console.log(instaUsername)
-          iInfo = getInstaInfo(instaUsername)
+            getInstaInfo(instaUsername).then((data) => {
+              console.log("insta", data)
+              this.setState({
+                instagramInfo: data,
+            })})
         }
 
         if (mediumUsername) {
-          console.log(mediumUsername)
-          mInfo = getMediumInfo(mediumUsername)
+          getMediumInfo(mediumUsername).then((data) => {
+            console.log("medium", data)
+            this.setState({
+              mediumInfo: data,
+            })
+          })
         }
-
-        this.setState({
-            freelancerInfo: freelancerInfo,
-            githubInfo: gInfo,
-            instagramInfo: iInfo,
-            mediumInfo: mInfo
-        },
-        () => console.log(this.state.githubInfo, this.state.instagramInfo, this.state.mediumInfo)
-
-      )}, function(error) {
+      }, function(error) {
       console.error(error)
     })
-    // let githubUser = this.state.freelancerInfo.profile.softwareDev.githubUrl
-    // this.setState({
-    //   githubInfo: this.state.freelancerInfo.profile.softwareDev.githubUrl
-    // })
-
   }
 
   render() {
