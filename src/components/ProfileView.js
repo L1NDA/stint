@@ -58,17 +58,17 @@ class ProfileView extends React.Component {
     console.log('fileurls', fileUrls)
 
     let freelancerRef = await getFreelancerRef(this.props.auth.uid)
-    let freelancerInfo = await freelancerRef.on("value", (snapshot) => {
+    let fInfo = await freelancerRef.on("value", (snapshot) => {
         let info = snapshot.val()
-        console.log("uid", this.props.auth.uid)
-        console.log("freelancerinfo", info)
+
+        this.setState({
+          freelancerInfo: info,
+        })
+    
         let githubUsername = null
         let instaUsername = null
         let mediumUsername = null
 
-        let gInfo = null
-        let iInfo = null
-        let mInfo = null
 
         if (info.profile.dataAnalytics) {
           if (info.profile.dataAnalytics.githubUrl) {
