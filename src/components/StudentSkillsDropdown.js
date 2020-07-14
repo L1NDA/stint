@@ -120,6 +120,8 @@ class StudentSkillsDropdown extends React.Component {
 
   handleSkillClick = (e, skill, type) => {
     e.stopPropagation();
+    console.log("skill", skill)
+    console.log("type", type)
     let tempLevel = this.state[SKILLS][skill]
     if (tempLevel === undefined) {
       tempLevel = 0
