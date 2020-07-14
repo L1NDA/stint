@@ -121,6 +121,7 @@ export const setFreelancerProfile = async (uid,
 
 	if (doesData) {
 		freelancerInfo[FREELANCER_DATA_ANALYTICS] = {
+			[FREELANCER_GITHUB]: dataGithubUrl,
 			[FREELANCER_PERSONAL_WEBSITE]: dataWebsite,
 			[FREELANCER_SKILLS]: dataSkills,
 			[FREELANCER_AWARD_CATEGORIES]: dataAwardCategories,

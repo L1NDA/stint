@@ -142,6 +142,8 @@ class StudentSkillsDropdown extends React.Component {
     }
     this.setState({
       [SKILLS]: newSkills
+    }, function(){
+      console.log("charles: ", this.state)
     })
   }
 
@@ -178,11 +180,9 @@ class StudentSkillsDropdown extends React.Component {
   }
 
   handleUpload = (fileErrorHandler) => {
-    let storage = this.props.storage
-
     let file = this.state.files[0]
 
-    let fileRef = storage.ref("images" + "/" + this.props.userUid + "/" + file.name)
+    let fileRef = this.props.storage.ref("images" + "/" + this.props.userUid + "/" + "designshowcase-" + file.name)
     let uploadTask = fileRef.put(file)
 
     uploadTask.on("state_changed", (snapshot) => {
@@ -211,7 +211,7 @@ class StudentSkillsDropdown extends React.Component {
   }
 
   handleDeleteUpload = (fileName) => {
-    let fileRef = this.getFileRef(fileName)
+    let fileRef = this.props.storage.ref("images" + "/" + this.props.userUid + "/" +  "designshowcase-" + fileName)
     fileRef.delete()
       .then(function() {
         console.log("File deleted")
@@ -219,12 +219,6 @@ class StudentSkillsDropdown extends React.Component {
       .catch(function(error) {
         console.error("Error, file not deleted:", error)
       })
-  }
-
-  getFileRef = (fileName) => {
-    // console.log('jfc')
-    console.log("useruid", this.props.userUid)
-    return this.props.storage.ref("images" + "/" + this.props.userUid + "/" + fileName)
   }
 
   render() {
@@ -247,7 +241,7 @@ class StudentSkillsDropdown extends React.Component {
 
         {this.state.details ?
           <form className="flex-column" onSubmit={this.handleSubmit}>
-            {this.props.content.map((text, index) => {
+            {this.props.content.map((social, index) => {
               return (
                 <h3>I <Select
                   items={["have", "do not have"]}
@@ -255,17 +249,24 @@ class StudentSkillsDropdown extends React.Component {
                   saveData={this.saveState}
                   selected={this.state[`${this.props.section}Have${index}`]}
                   have={true}/>
-                {text}
+                {social[0]}
                 {this.state[`${this.props.section}Have${index}`] === "have" ?
                 <span className="nobreak">
-                  : <Autocomplete
-
+                  : {social[1] === "url" ?
+                    <Autocomplete
                       name={`${this.props.section}${index}`}
                       placeholder="(insert http URL*)"
                       saveData={this.saveState}
                       required={true}
                       val={this.state[`${this.props.section}${index}`]}
-                      type="url"/>.
+                      type="url"/>
+                    : <Autocomplete
+                      name={`${this.props.section}${index}`}
+                      placeholder="(insert username*)"
+                      saveData={this.saveState}
+                      required={true}
+                      username={true}
+                      val={this.state[`${this.props.section}${index}`]}/> }.
               </span> : <React.Fragment>.</React.Fragment>}</h3>
               );
             })}
@@ -276,7 +277,7 @@ class StudentSkillsDropdown extends React.Component {
                   name={'haveFileUpload'}
                   saveData={this.saveState}
                   selected={this.state.haveFileUpload}
-                  have={true}/> another work I want to display.
+                  have={true}/> other work I want to display.
                   <br/>
                   {this.state.haveFileUpload === "have" ?
                     <div className="upload flex-column">
@@ -348,10 +349,10 @@ class StudentSkillsDropdown extends React.Component {
                     saveData={this.saveState}
                     val={this.state[`${this.props.section}HaveAwardProvider`]}
                     required={true}
-                    maxLength="50"/>
+                    maxLength="50"/>.
                 </span>
             </React.Fragment>
-            : <span className="nobreak">&nbsp;award.</span>}.</h3>
+            : <span className="nobreak">&nbsp;award.</span>}</h3>
 
           {this.state[`${this.props.section}HaveAwardContent`] ?
           <span className="optional-chunk" style={{filter: this.state[`${this.props.section}HaveAward1`] ? "opacity(1)" : null}}>
@@ -435,10 +436,10 @@ class StudentSkillsDropdown extends React.Component {
                   saveData={this.saveState}
                   val={this.state[`${this.props.section}HaveAwardProvider2`]}
                   required={true}
-                  maxLength="50"/>
+                  maxLength="50"/>.
               </span>
           </React.Fragment>
-          : <span className="nobreak">&nbsp;award.</span>}.</h3></span> : null
+          : <span className="nobreak">&nbsp;award.</span>}</h3></span> : null
       }
 
       <div className="subtitle" style={{marginTop: '30px'}}>Don't have any of the above? No worries! You can still join. Keep in mind that companies have all sorts of needs, so you don't need to have any one particular skill. For now, just tell us as much as you can about the skills you do have.
