@@ -5,6 +5,7 @@ import StudentSkillsDropdown from "./StudentSkillsDropdown.js";
 const DATA_SKILLS = [
   "Python",
   "R",
+  "Stata",
   "SQL",
   "NoSQL",
   "pandas",
