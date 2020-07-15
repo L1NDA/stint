@@ -225,19 +225,23 @@ class ProfileView extends React.Component {
           {this.state.freelancerInfo.profile.dataAnalytics ?
             <section className="profile-item">
               <h1>Analytics</h1>
-              <div className="profile-skills">
-                <div className="section-header">My skill(s) and proficiency</div>
-                <div className="skill-container">
-                  {this.sortSkills(this.state.freelancerInfo.profile.dataAnalytics.skills).map((skillTuple, index) => {
-                    return (
-                      <div className="skill-static" style={{ minWidth: this.state.width }}>
-                        <span className="skill-name-static">{skillTuple[0]}</span>
-                        <div className="skill-bar" style={{width: `${skillTuple[1] * 20}%`}}></div>
-                        <div className="skill-static" id="hidden-skill-level">Skill Level</div>
-                      </div>
-                    )})}
-                </div>
-              </div>
+              {
+                this.state.freelancerInfo.profile.dataAnalytics.skills ?
+                <div className="profile-skills">
+                  <div className="section-header">My skill(s) and proficiency</div>
+                  <div className="skill-container">
+                    {this.sortSkills(this.state.freelancerInfo.profile.dataAnalytics.skills).map((skillTuple, index) => {
+                      return (
+                        <div className="skill-static" style={{ minWidth: this.state.width }}>
+                          <span className="skill-name-static">{skillTuple[0]}: {skillTuple[1]}</span>
+                          <div className="skill-bar" style={{width: `${skillTuple[1] * 20}%`}}></div>
+                          <div className="skill-static" id="hidden-skill-level">Skill Level</div>
+                        </div>
+                      )})}
+                  </div>
+                </div> : null
+              }
+
               <div className="profile-works">
                 <div className="section-header">My work(s)</div>
                 <div className="works-container">
@@ -257,7 +261,7 @@ class ProfileView extends React.Component {
                             return (
                               <a className="works-section-item works-section-item-link flex-column" href={repoArray[2]} target="_blank">
                                 <b>{repoArray[0]}</b>
-                                {repoArray[1] ? <><br/> {repoArray[1]}</> : null}
+                                {repoArray[1] ? <>{repoArray[1]}</> : null}
                               </a>
                             )})}
                         </div>
@@ -342,19 +346,23 @@ class ProfileView extends React.Component {
           {this.state.freelancerInfo.profile.contentCreation ?
             <section className="profile-item">
               <h1>Content Creation & Management</h1>
-              <div className="profile-skills">
-                <div className="section-header">My skill(s) and proficiency</div>
-                <div className="skill-container">
-                  {this.sortSkills(this.state.freelancerInfo.profile.contentCreation.skills).map((skillTuple, index) => {
-                    return (
-                      <div className="skill-static" style={{ minWidth: this.state.width }}>
-                        <span className="skill-name-static">{skillTuple[0]}</span>
-                        <div className="skill-bar" style={{width: `${skillTuple[1] * 20}%`}}></div>
-                        <div className="skill-static" id="hidden-skill-level">Skill Level</div>
-                      </div>
-                    )})}
-                </div>
-              </div>
+                {
+                  this.state.freelancerInfo.profile.contentCreation.skills ?
+                  <div className="profile-skills">
+                    <div className="section-header">My skill(s) and proficiency</div>
+                    <div className="skill-container">
+                      {this.sortSkills(this.state.freelancerInfo.profile.contentCreation.skills).map((skillTuple, index) => {
+                        return (
+                          <div className="skill-static" style={{ minWidth: this.state.width }}>
+                            <span className="skill-name-static">{skillTuple[0]}: {skillTuple[1]}</span>
+                            <div className="skill-bar" style={{width: `${skillTuple[1] * 20}%`}}></div>
+                            <div className="skill-static" id="hidden-skill-level">Skill Level</div>
+                          </div>
+                        )})}
+                    </div>
+                  </div> : null
+                }
+
               <div className="profile-works">
                 <div className="section-header">My work(s)</div>
                 <div className="works-container">
@@ -453,19 +461,23 @@ class ProfileView extends React.Component {
           {this.state.freelancerInfo.profile.design ?
             <section className="profile-item">
               <h1>Design and Branding</h1>
-              <div className="profile-skills">
-                <div className="section-header">My skill(s) and proficiency</div>
-                <div className="skill-container">
-                  {this.sortSkills(this.state.freelancerInfo.profile.design.skills).map((skillTuple, index) => {
-                    return (
-                      <div className="skill-static" style={{ minWidth: this.state.width }}>
-                        <span className="skill-name-static">{skillTuple[0]}</span>
-                        <div className="skill-bar" style={{width: `${skillTuple[1] * 20}%`}}></div>
-                        <div className="skill-static" id="hidden-skill-level">Skill Level</div>
-                      </div>
-                    )})}
-                </div>
-              </div>
+                {
+                  this.state.freelancerInfo.profile.design.skills ?
+                  <div className="profile-skills">
+                    <div className="section-header">My skill(s) and proficiency</div>
+                    <div className="skill-container">
+                      {this.sortSkills(this.state.freelancerInfo.profile.design.skills).map((skillTuple, index) => {
+                        return (
+                          <div className="skill-static" style={{ minWidth: this.state.width }}>
+                            <span className="skill-name-static">{skillTuple[0]}: {skillTuple[1]}</span>
+                            <div className="skill-bar" style={{width: `${skillTuple[1] * 20}%`}}></div>
+                            <div className="skill-static" id="hidden-skill-level">Skill Level</div>
+                          </div>
+                        )})}
+                    </div>
+                  </div> : null
+                }
+
               <div className="profile-works">
                 <div className="section-header">My work(s)</div>
                 <div className="works-container">
@@ -519,24 +531,28 @@ class ProfileView extends React.Component {
           {this.state.freelancerInfo.profile.softwareDev ?
             <section className="profile-item">
               <h1>Software Development</h1>
-              <div className="profile-skills">
-                <div className="section-header">My skill(s) and proficiency</div>
-                <div className="skill-container">
-                  {this.sortSkills(this.state.freelancerInfo.profile.softwareDev.skills).map((skillTuple, index) => {
-                    return (
-                      <div className="skill-static" style={{ minWidth: this.state.width }}>
-                        <span className="skill-name-static">{skillTuple[0]}</span>
-                        <div className="skill-bar" style={{width: `${skillTuple[1] * 20}%`}}></div>
-                        <div className="skill-static" id="hidden-skill-level">Skill Level</div>
-                      </div>
-                    )})}
-                </div>
-              </div>
+                {
+                  this.state.freelancerInfo.profile.softwareDev.skills ?
+                  <div className="profile-skills">
+                    <div className="section-header">My skill(s) and proficiency</div>
+                    <div className="skill-container">
+                      {this.sortSkills(this.state.freelancerInfo.profile.softwareDev.skills).map((skillTuple, index) => {
+                        return (
+                          <div className="skill-static" style={{ minWidth: this.state.width }}>
+                            <span className="skill-name-static">{skillTuple[0]}: {skillTuple[1]}</span>
+                            <div className="skill-bar" style={{width: `${skillTuple[1] * 20}%`}}></div>
+                            <div className="skill-static" id="hidden-skill-level">Skill Level</div>
+                          </div>
+                        )})}
+                    </div>
+                  </div> : null
+                }
+
               <div className="profile-works">
                 <div className="section-header">My work(s)</div>
                 <div className="works-container">
                   {this.state.githubData ?
-                    <a className="works-item" href={`https://github.com/${this.state.freelancerInfo.profile.dataAnalytics.githubUrl.slice(1)}`} target="_blank">
+                    <a className="works-item" href={`https://github.com/${this.state.freelancerInfo.profile.softwareDev.githubUrl.slice(1)}`} target="_blank">
                       <div className="works-header github">
                         <IoLogoGithub className="works-header-img"/>
                         Github
