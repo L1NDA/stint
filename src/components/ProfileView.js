@@ -1,5 +1,6 @@
 import React from 'react'
 import Menu from './Menu.js'
+import Footer from './Footer.js'
 import { connect } from "react-redux"
 import { firebaseConnect } from "react-redux-firebase";
 import { withRouter } from "react-router-dom";
@@ -62,7 +63,7 @@ class ProfileView extends React.Component {
         this.props.history.push("/this-is-me")
         return
       }
-      
+
       let githubUsername = null
       let instaUsername = null
       let mediumUsername = null
@@ -103,7 +104,7 @@ class ProfileView extends React.Component {
       }
 
       if (instaUsername) {
-        try {          
+        try {
           instaData = await getInstaInfo(instaUsername)
         } catch (err) {
           await this.props.analytics.logEvent("insta_functions_error")
@@ -191,22 +192,6 @@ class ProfileView extends React.Component {
             </div>
           </section>
 
-          <section className="self-view">
-            <h2 style={{marginTop: '0', color: 'white'}}>(Visible to you only)</h2>
-            <div className="flex-column">
-              {this.state.freelancerInfo.profile.dataAnalytics ?
-                <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>analytics</b> stints.</div> : null}
-
-              {this.state.freelancerInfo.profile.contentCreation ? <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>content creation & management</b> stints.</div> : null}
-
-              {this.state.freelancerInfo.profile.design ? <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>design & branding</b> stints.</div> : null}
-
-              {this.state.freelancerInfo.profile.softwareDev ? <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>software engineering</b> stints.</div> : null}
-
-            </div>
-            <div className="subtitle" style={{color: 'white', marginTop: '30px'}}>(If you set yourself as ‘not available’ for a category, you will not show up in relevant search results for that area.)</div>
-          </section>
-
           <section className="profile-item flex-row padding experience-section">
             <div className="experience">
               <h2>Work Experience</h2>
@@ -270,10 +255,10 @@ class ProfileView extends React.Component {
                           <div className="works-section-header">My recent repositories</div>
                           {this.state.githubData.data.repoNames.map((repoArray, index) => {
                             return (
-                              <div className="works-section-item">
-                                <b>{repoArray[0]}</b><br/>
-                                {repoArray[1]}
-                              </div>
+                              <a className="works-section-item works-section-item-link flex-column" href={repoArray[2]} target="_blank">
+                                <b>{repoArray[0]}</b>
+                                {repoArray[1] ? <><br/> {repoArray[1]}</> : null}
+                              </a>
                             )})}
                         </div>
                         : <div className="works-section">
@@ -376,34 +361,33 @@ class ProfileView extends React.Component {
 
                   <div className='flex-column works-col-wrapper'>
 
-                    <div className="works-item column-works-item">
-                      <div className="works-header medium">
-                        <AiFillMediumCircle className="works-header-img"/>
-                        Medium
-                      </div>
-
-                      <div className="works-section">
-                        <div className="works-section-header">My recent publications</div>
-                        <div className="works-section-item">
-                          <b>Medium article 1</b><br/>
-                          <i>Published on this date</i><br/>
-                          Lorem ipsum dolor sit amet, consectetur
+                    {this.state.mediumData && this.state.mediumData.data.publications ?
+                      <a className="works-item column-works-item"
+                        href={`https://medium.com/${this.state.freelancerInfo.profile.contentCreation.mediumUrl}`}>
+                        <div className="works-header medium">
+                          <AiFillMediumCircle className="works-header-img"/>
+                          Medium
                         </div>
-                        <div className="works-section-item">
-                          <b>Medium article 2</b><br/>
-                          <i>Published on this date</i><br/>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ornare.
-                        </div>
-                        <div className="works-section-item">
-                          <b>Medium article 3</b><br/>
-                          <i>Published on this date</i><br/>
-                          Lorem ipsum dolor sit
-                        </div>
-                      </div>
 
-                    </div>
+                        <div className="works-section">
+                          <div className="works-section-header">My recent publications</div>
+                            {this.state.mediumData.data.publications.map((pubArray, index) => {
+                              return (
+                                <a className="works-section-item works-section-item-link flex-column"
+                                  href={pubArray.link} target="_blank">
+                                  <div style={{backgroundImage: `url(${pubArray.thumbnail})`}} className="medium-img"></div>
+                                  <b>{pubArray.title}</b>
+                                  <i>Published on {pubArray.pubDate.split(' ')[0]}</i>
+                                  <div style={{color: "#878787", marginTop: "10px"}}>{pubArray.description}</div>
+                                  <br/>
+                                </a>
+                              )})}
+                        </div>
 
-                    {this.state.freelancerInfo.profile.contentCreation.instagramUrl && !this.state.instaData.isPrivate ?
+                      </a> : null
+                    }
+
+                    {this.state.instaData && !this.state.instaData.isPrivate ?
                       <a className="works-item column-works-item"
                         href={`https://www.instagram.com/${this.state.freelancerInfo.profile.contentCreation.instagramUrl.slice(1)}`}>
                         <div className="works-header instagram">
@@ -466,96 +450,6 @@ class ProfileView extends React.Component {
             </section>
           : null}
 
-          {this.state.freelancerInfo.profile.softwareDev ?
-            <section className="profile-item">
-              <h1>Software Development</h1>
-              <div className="profile-skills">
-                <div className="section-header">My skill(s) and proficiency</div>
-                <div className="skill-container">
-                  {this.sortSkills(this.state.freelancerInfo.profile.softwareDev.skills).map((skillTuple, index) => {
-                    return (
-                      <div className="skill-static" style={{ minWidth: this.state.width }}>
-                        <span className="skill-name-static">{skillTuple[0]}</span>
-                        <div className="skill-bar" style={{width: `${skillTuple[1] * 20}%`}}></div>
-                        <div className="skill-static" id="hidden-skill-level">Skill Level</div>
-                      </div>
-                    )})}
-                </div>
-              </div>
-              <div className="profile-works">
-                <div className="section-header">My work(s)</div>
-                <div className="works-container">
-                  <a className="works-item" href={`https://github.com/${this.state.freelancerInfo.profile.softwareDev.githubUrl.slice(1)}`} target="_blank">
-                    <div className="works-header github">
-                      <IoLogoGithub className="works-header-img"/>
-                      Github
-                    </div>
-
-                    <div className="works-section">
-                      <div className="works-section-header">My recent repositories</div>
-                      <div className="works-section-item">
-                        <b>Lorem-ipsum-dolor</b><br/>
-                        Lorem ipsum dolor sit amet, consectetur
-                      </div>
-                      <div className="works-section-item">
-                        <b>Ultrices at magna</b><br/>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ornare.
-                      </div>
-                      <div className="works-section-item">
-                        <b>Lorem ipsum</b><br/>
-                        Lorem ipsum dolor sit
-                      </div>
-                    </div>
-
-                    <div className="works-section">
-                      <div className="works-section-header">Number of contributions</div>
-                      <div className="works-section-item">
-                        <b>180</b> in the last year (average <b>15</b> per month)
-                      </div>
-                    </div>
-
-                    <div className="works-section">
-                      <div className="works-section-header">My organizations</div>
-                      <div className="works-section-item">
-                        <b>cs61</b><br/>
-                        A systems class taught at Harvard
-                      </div>
-                    </div>
-
-                  </a>
-
-                  {this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl ?
-                    <a className="works-item" href={this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl} target="_blank">
-                      <div className="works-header gray">
-                        <FiLink className="works-header-img"/>
-                        My personal website
-                      </div>
-                      <div className="works-section">
-                        <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
-                        <img src={this.state.fileUrls.personalWebsite} className="works-laptop-screen"></img>
-                      </div>
-                    </a> : null
-                  }
-
-                </div>
-              </div>
-
-              {this.state.freelancerInfo.profile.softwareDev.awardCategories ?
-                <div className="profile-awards">
-                  <div className="section-header">My awards</div>
-                  {this.state.freelancerInfo.profile.softwareDev.awardCategories.map((awardCategory, index) => {
-                    return (
-                      <h3><b>{this.state.freelancerInfo.profile.softwareDev.awardContent[index]} </b>
-                        ({awardCategory === "competition" ? `a competition` : awardCategory === "academic" ? "an academic" : `an`} award from {this.state.freelancerInfo.profile.softwareDev.awardProviders[index]})</h3>
-                    )})}
-
-                </div>
-                : null
-              }
-
-            </section>
-            : null}
-
           {this.state.freelancerInfo.profile.design ?
             <section className="profile-item">
               <h1>Design and Branding</h1>
@@ -589,7 +483,7 @@ class ProfileView extends React.Component {
                     </a> : null
                   }
 
-                  <div className="works-item">
+                  <a className="works-item" href={this.state.fileUrls.designShowcase} target="_blank">
                     <div className="works-header gray">
                       <FiLink className="works-header-img"/>
                       My work
@@ -599,7 +493,7 @@ class ProfileView extends React.Component {
                         src={this.state.fileUrls.designShowcase + `#toolbar=0&navpanes=0&statusbar=0&messages=0`}
                         className="work-iframe"></iframe>
                     </div>
-                  </div>
+                  </a>
 
                 </div>
               </div>
@@ -622,21 +516,153 @@ class ProfileView extends React.Component {
             </section>
              : null}
 
+          {this.state.freelancerInfo.profile.softwareDev ?
+            <section className="profile-item">
+              <h1>Software Development</h1>
+              <div className="profile-skills">
+                <div className="section-header">My skill(s) and proficiency</div>
+                <div className="skill-container">
+                  {this.sortSkills(this.state.freelancerInfo.profile.softwareDev.skills).map((skillTuple, index) => {
+                    return (
+                      <div className="skill-static" style={{ minWidth: this.state.width }}>
+                        <span className="skill-name-static">{skillTuple[0]}</span>
+                        <div className="skill-bar" style={{width: `${skillTuple[1] * 20}%`}}></div>
+                        <div className="skill-static" id="hidden-skill-level">Skill Level</div>
+                      </div>
+                    )})}
+                </div>
+              </div>
+              <div className="profile-works">
+                <div className="section-header">My work(s)</div>
+                <div className="works-container">
+                  {this.state.githubData ?
+                    <a className="works-item" href={`https://github.com/${this.state.freelancerInfo.profile.dataAnalytics.githubUrl.slice(1)}`} target="_blank">
+                      <div className="works-header github">
+                        <IoLogoGithub className="works-header-img"/>
+                        Github
+                      </div>
+
+                      {
+                        this.state.githubData.data.repoNames
+                        ?
+                        <div className="works-section">
+                          <div className="works-section-header">My recent repositories</div>
+                          {this.state.githubData.data.repoNames.map((repoArray, index) => {
+                            return (
+                              <a className="works-section-item works-section-item-link flex-column" href={repoArray[2]} target="_blank">
+                                <b>{repoArray[0]}</b>
+                                {repoArray[1] ? <><br/> {repoArray[1]}</> : null}
+                              </a>
+                            )})}
+                        </div>
+                        : <div className="works-section">
+                          <div className="works-section-header">No public repositories.</div>
+                          </div>
+                      }
+
+                      {
+                        this.state.githubData.data.eventCount ?
+                        <div className="works-section">
+                          <div className="works-section-header">Number of contributions</div>
+                          <div className="works-section-item">
+                            <b>{this.state.githubData.data.eventCount}</b> in the last year (average <b>{Math.round(this.state.githubData.data.eventCount/12)}</b> per month)
+                          </div>
+                          <div className="subtitle works-section-item" style={{color: "#b0b0b0"}}>The max contributions logged by Github is 30.</div>
+                        </div>
+                        : <div className="works-section">
+                          <div className="works-section-header">No contributions this past year</div>
+                        </div>
+                      }
+
+                      {
+                        this.state.githubData.data.orgs ?
+                        <div className="works-section">
+                          <div className="works-section-header">My organizations</div>
+                            {this.state.githubData.data.orgs.map((orgArray, index) => {
+                              return (
+                                  <div className="works-section-item">
+                                    <b>{orgArray[0]}</b><br/>
+                                    {orgArray[1]}
+                                  </div>
+
+                              )})}
+
+                        </div>
+                        : <div className="works-section">
+                          <div className="works-section-header">No public organizations to show.</div>
+                        </div>
+                      }
+
+
+
+                    </a> : null
+                  }
+
+                  {this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl ?
+                    <a className="works-item" href={this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl} target="_blank">
+                      <div className="works-header gray">
+                        <FiLink className="works-header-img"/>
+                        My personal website
+                      </div>
+                      <div className="works-section">
+                        <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
+                        <img src={this.state.fileUrls.personalWebsite} className="works-laptop-screen"></img>
+                      </div>
+                    </a> : null
+                  }
+
+                </div>
+              </div>
+
+              {this.state.freelancerInfo.profile.softwareDev.awardCategories ?
+                <div className="profile-awards">
+                  <div className="section-header">My awards</div>
+                  {this.state.freelancerInfo.profile.softwareDev.awardCategories.map((awardCategory, index) => {
+                    return (
+                      <h3><b>{this.state.freelancerInfo.profile.softwareDev.awardContent[index]} </b>
+                        ({awardCategory === "competition" ? `a competition` : awardCategory === "academic" ? "an academic" : `an`} award from {this.state.freelancerInfo.profile.softwareDev.awardProviders[index]})</h3>
+                    )})}
+
+                </div>
+                : null
+              }
+
+            </section>
+            : null}
+
+             <Footer/>
+
 
           </>
 
-          : <ReactLoading
+        : <div className="react-loading"><ReactLoading
             className={"Loading"}
             type={"bubbles"}
-            width={"20%"}
+            width={"15%"}
             height={"auto"}
             color={"#8F8DFF"}
-          />}
+          /></div>}
 
 
       </div>
     )}
   }
+
+  // <section className="self-view">
+  //   <h2 style={{marginTop: '0', color: 'white'}}>(Visible to you only)</h2>
+  //   <div className="flex-column">
+  //     {this.state.freelancerInfo.profile.dataAnalytics ?
+  //       <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>analytics</b> stints.</div> : null}
+  //
+  //     {this.state.freelancerInfo.profile.contentCreation ? <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>content creation & management</b> stints.</div> : null}
+  //
+  //     {this.state.freelancerInfo.profile.design ? <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>design & branding</b> stints.</div> : null}
+  //
+  //     {this.state.freelancerInfo.profile.softwareDev ? <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>software engineering</b> stints.</div> : null}
+  //
+  //   </div>
+  //   <div className="subtitle" style={{color: 'white', marginTop: '30px'}}>(If you set yourself as ‘not available’ for a category, you will not show up in relevant search results for that area.)</div>
+  // </section>
 
 function parseGithubUser(user) {
   return user.substring(1)
