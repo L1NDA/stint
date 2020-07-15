@@ -93,7 +93,7 @@ class ProfileView extends React.Component {
       let mediumData = null
 
       if (githubUsername) {
-        githubData = await getGithubInfo("L1NDA")
+        githubData = await getGithubInfo(githubUsername)
       }
 
       if (instaUsername) {
@@ -101,7 +101,7 @@ class ProfileView extends React.Component {
       }
 
       if (mediumUsername) {
-         mediumData = await getMediumInfo("marianoaavila")
+         mediumData = await getMediumInfo(mediumUsername)
       }
 
       this.setState({
@@ -389,33 +389,33 @@ class ProfileView extends React.Component {
 
                     </div>
 
-                    <div className="works-item column-works-item">
-                      <div className="works-header instagram">
-                        <AiFillInstagram className="works-header-img"/>
-                        Instagram
-                      </div>
-
-                      <div className="works-section flex-row">
-                        <img src={require('./imgs/logo.png')} className="insta-propic"></img>
-                        <div className='flex-column' style={{justifyContent: 'center'}}>
-                          <b className="insta-handle">@1indaqin</b>
-                          <div className="insta-handle">1493 followers</div>
+                    {this.state.freelancerInfo.profile.contentCreation.instagramUrl && !this.state.instaData.isPrivate ?
+                      <a className="works-item column-works-item"
+                        href={`https://www.instagram.com/${this.state.freelancerInfo.profile.contentCreation.instagramUrl.slice(1)}`}>
+                        <div className="works-header instagram">
+                          <AiFillInstagram className="works-header-img"/>
+                          Instagram
                         </div>
-                      </div>
 
-                      <div className="works-section insta-grid">
-                        <img src={require("./imgs/process-1.png")} className="insta-img"/>
-                        <img src={require("./imgs/process-1.png")} className="insta-img"/>
-                        <img src={require("./imgs/process-1.png")} className="insta-img"/>
-                        <img src={require("./imgs/process-1.png")} className="insta-img"/>
-                        <img src={require("./imgs/process-1.png")} className="insta-img"/>
-                        <img src={require("./imgs/process-1.png")} className="insta-img"/>
-                        <img src={require("./imgs/process-1.png")} className="insta-img"/>
-                        <img src={require("./imgs/process-1.png")} className="insta-img"/>
-                        <img src={require("./imgs/process-1.png")} className="insta-img"/>
-                      </div>
+                        <div className="works-section flex-row">
+                          <img src={this.state.instaData.data.profilePhoto} className="insta-propic"></img>
+                          <div className='flex-column' style={{justifyContent: 'center'}}>
+                            <b className="insta-handle">{this.state.freelancerInfo.profile.contentCreation.instagramUrl}</b>
+                            <div className="insta-handle">{this.state.instaData.data.numFollowers} followers</div>
+                          </div>
+                        </div>
 
-                    </div>
+                        <div className="works-section insta-grid">
+                          {this.state.instaData.data.photos.map((img, index) => {
+                            return (
+                              <div style={{backgroundImage: `url(${img})`}} className="insta-img"></div>
+                            )})}
+                        </div>
+
+                      </a> : null
+                    }
+
+
 
                   </div>
 
@@ -582,7 +582,7 @@ class ProfileView extends React.Component {
                     </div>
                     <div className="works-section flex-column center">
                       <iframe
-                        src={`https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf` + `#toolbar=0&navpanes=0&statusbar=0&messages=0`}
+                        src={this.state.fileUrls.designShowcase + `#toolbar=0&navpanes=0&statusbar=0&messages=0`}
                         className="work-iframe"></iframe>
                     </div>
                   </div>
