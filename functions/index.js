@@ -11,7 +11,7 @@ const axios = require('axios')
 const moment = require('moment');
 
 const AUTH_HEADER = { 'headers':
-                        { 'Authorization': githubConfig.apiId + ":" + githubConfig.apiSecret}
+                        { 'Authorization': functions.config().github.id + ":" + functions.config().github.key}
                     }
 
 const HOST_NAME = "smtp.gmail.com"
