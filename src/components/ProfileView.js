@@ -97,7 +97,7 @@ class ProfileView extends React.Component {
 
       if (githubUsername) {
         try {
-          githubData = await getGithubInfo("lelandhwu")
+          githubData = await getGithubInfo(githubUsername)
         } catch (err) {
           await this.props.analytics.logEvent("github_functions_error")
         }
