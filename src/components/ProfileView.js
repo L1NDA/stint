@@ -114,7 +114,7 @@ class ProfileView extends React.Component {
           try {
             githubData = await getGithubInfo(githubUsername);
           } catch (err) {
-            if (err.response.request.status == 401) {
+            if (err.response && err.response.request.status == 401) {
               githubData = {}
             }
             await this.props.analytics.logEvent(GITHUB_FUNCTIONS_ERROR);
@@ -125,7 +125,7 @@ class ProfileView extends React.Component {
           try {
             instaData = await getInstaInfo(instaUsername);
           } catch (err) {
-            if (err.response.request.status == 401) {
+            if (err.response && err.response.request.status == 401) {
               instaData = {}
             }
             await this.props.analytics.logEvent(INSTAGRAM_FUNCTIONS_ERROR);
@@ -136,7 +136,7 @@ class ProfileView extends React.Component {
           try {
             mediumData = await getMediumInfo(mediumUsername);
           } catch (err) {
-            if (err.response.request.status == 401) {
+            if (err.response && err.response.request.status == 401) {
               mediumData = {}
             }
             await this.props.analytics.logEvent(MEDIUM_FUNCTIONS_ERROR);
