@@ -88,10 +88,10 @@ export const setFreelancerProfile = async (uid,
 										   cityOfResidence, stateOfResidence,
 										   companyRoles, companies, companyYears,
 										   orgRoles, organizations, orgYears,
-										   doesData, dataGithubUrl, dataWebsite=null, dataSkills=null, dataAwardCategories=null, dataAwardContent=null, dataAwardProviders=null,
+										   doesData, dataGithubUser, dataWebsite=null, dataSkills=null, dataAwardCategories=null, dataAwardContent=null, dataAwardProviders=null,
 										   doesDesign, designWebsite=null, designSkills=null, designAwardCategories=null, designAwardContent=null, designAwardProviders=null,
-										   doesContent, mediumUrl=null, instagramUrl=null, youtubeUrl=null, contentWebsite=null, contentSkills=null, contentAwardCategories=null, contentAwardContent=null, contentAwardProviders=null,
-										   doesSoftware, githubUrl=null, softwareWebsite=null, softwareSkills=null, softwareAwardCategories=null, softwareAwardContent=null, softwareAwardProviders=null,
+										   doesContent, mediumUser=null, instagramUser=null, youtubeUser=null, contentWebsite=null, contentSkills=null, contentAwardCategories=null, contentAwardContent=null, contentAwardProviders=null,
+										   doesSoftware, githubUser=null, softwareWebsite=null, softwareSkills=null, softwareAwardCategories=null, softwareAwardContent=null, softwareAwardProviders=null,
 										   phoneNumber=null) => {
 	if (uid === null) {
 		return
@@ -121,7 +121,7 @@ export const setFreelancerProfile = async (uid,
 
 	if (doesData) {
 		freelancerInfo[FREELANCER_DATA_ANALYTICS] = {
-			[FREELANCER_GITHUB]: dataGithubUrl,
+			[FREELANCER_GITHUB]: dataGithubUser,
 			[FREELANCER_PERSONAL_WEBSITE]: dataWebsite,
 			[FREELANCER_SKILLS]: dataSkills,
 			[FREELANCER_AWARD_CATEGORIES]: dataAwardCategories,
@@ -140,9 +140,9 @@ export const setFreelancerProfile = async (uid,
 	}
 	if (doesContent) {
 		freelancerInfo[FREELANCER_CONTENT] = {
-			[FREELANCER_MEDIUM]: mediumUrl,
-			[FREELANCER_INSTAGRAM]: instagramUrl,
-			[FREELANCER_YOUTUBE]: youtubeUrl,
+			[FREELANCER_MEDIUM]: mediumUser,
+			[FREELANCER_INSTAGRAM]: instagramUser,
+			[FREELANCER_YOUTUBE]: youtubeUser,
 			[FREELANCER_PERSONAL_WEBSITE]: contentWebsite,
 			[FREELANCER_SKILLS]: contentSkills,
 			[FREELANCER_AWARD_CATEGORIES]: contentAwardCategories,
@@ -152,7 +152,7 @@ export const setFreelancerProfile = async (uid,
 	}
 	if (doesSoftware) {
 		freelancerInfo[FREELANCER_SOFTWARE] = {
-			[FREELANCER_GITHUB]: githubUrl,
+			[FREELANCER_GITHUB]: githubUser,
 			[FREELANCER_PERSONAL_WEBSITE]: softwareWebsite,
 			[FREELANCER_SKILLS]: softwareSkills,
 			[FREELANCER_AWARD_CATEGORIES]: softwareAwardCategories,

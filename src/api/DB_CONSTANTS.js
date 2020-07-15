@@ -78,10 +78,10 @@ const FREELANCER_AWARD_CATEGORIES = "awardCategories"
 const FREELANCER_AWARD_CONTENT = "awardContent"
 const FREELANCER_AWARD_PROVIDERS = "awardProviders"
 
-const FREELANCER_GITHUB = "githubUrl"
-const FREELANCER_MEDIUM = "mediumUrl"
-const FREELANCER_INSTAGRAM = "instagramUrl"
-const FREELANCER_YOUTUBE = "youtubeUrl"
+const FREELANCER_GITHUB = "githubUser"
+const FREELANCER_MEDIUM = "mediumUser"
+const FREELANCER_INSTAGRAM = "instagramUser"
+const FREELANCER_YOUTUBE = "youtubeUser"
 
 const FREELANCER_PHONE_NUM = "phoneNum"
 
