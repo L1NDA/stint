@@ -8,14 +8,13 @@ const getMediumInfo = (user) => {
         mediumUser: user,
       }
     )
-    .then((res) => {
-      console.log("RES", res);
-      return res;
+    .then(res => {
+      return res
     })
-    .catch((error) => {
-      throw error;
-    });
-};
+    .catch(error => {
+      throw error
+    })
+}
 
 module.exports = {
   getMediumInfo,

@@ -110,12 +110,20 @@ class ProfileView extends React.Component {
         let instaData = null;
         let mediumData = null;
 
+<<<<<<< Updated upstream
         if (githubUsername) {
           try {
             githubData = await getGithubInfo(githubUsername);
           } catch (err) {
             await this.props.analytics.logEvent(GITHUB_FUNCTIONS_ERROR);
           }
+=======
+      if (githubUsername) {
+        try {
+          githubData = await getGithubInfo("lellalfsdlasllsdgllgs")
+        } catch (err) {
+          await this.props.analytics.logEvent("github_functions_error")
+>>>>>>> Stashed changes
         }
 
         if (instaUsername) {
@@ -126,6 +134,7 @@ class ProfileView extends React.Component {
           }
         }
 
+<<<<<<< Updated upstream
         if (mediumUsername) {
           try {
             console.log("WHYYYY");
@@ -133,6 +142,13 @@ class ProfileView extends React.Component {
           } catch (err) {
             await this.props.analytics.logEvent(MEDIUM_FUNCTIONS_ERROR);
           }
+=======
+      if (mediumUsername) {
+        try {
+         mediumData = await getMediumInfo(mediumUsername)
+        } catch (err) {
+          await this.props.analytics.logEvent("medium_functions_error")
+>>>>>>> Stashed changes
         }
 
         this.setState({
@@ -248,11 +264,31 @@ class ProfileView extends React.Component {
                               index
                             ].slice(2)}
                           </div>
+<<<<<<< Updated upstream
                           {
                             this.state.freelancerInfo.profile.workExperience
                               .companyRoles[index]
                           }{" "}
                           @ <b> {company}</b>
+=======
+                          : <div className="works-section">
+                            <div className="works-section-header">(No public organizations to show.)</div>
+                          </div>
+                        }
+
+                      </a> : "null"
+                    }
+
+                    {this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl ?
+                      <a className="works-item" href={this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl} target="_blank">
+                        <div className="works-header gray">
+                          <FiLink className="works-header-img"/>
+                          My personal website
+                        </div>
+                        <div className="works-section">
+                          <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
+                          <img src={this.state.fileUrls.personalWebsite} className="works-laptop-screen"></img>
+>>>>>>> Stashed changes
                         </div>
                       );
                     }

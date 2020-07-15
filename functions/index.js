@@ -58,8 +58,12 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
         await axios.get(githubApiUrl)
             .then(result => {
             }).catch(err => {
-                console.log("INSIDE GITHUB")
-                return res.status(300).send(result)
+                if (err.request.res.statusMessage) {
+                    return res.status(404).send(result)
+                }
+                else {
+                    return res.status(401).send(result)
+                }
             });
 
         await axios.get(githubApiUrl + "/events")
@@ -74,7 +78,12 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
                 })
                 result.eventCount = eventCount
             }).catch(err => {
-                return res.status(300).send(result)
+                if (err.request.res.statusMessage) {
+                    return res.status(404).send(result)
+                }
+                else {
+                    return res.status(401).send(result)
+                }
             });
 
 
@@ -91,7 +100,12 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
                     result.repoNames.push([response.data.items[2].name, response.data.items[2].descriptio, response.data.items[2].html_url])
                 }
             }).catch(err => {
-                return res.status(300).send(result)
+                if (err.request.res.statusMessage) {
+                    return res.status(404).send(result)
+                }
+                else {
+                    return res.status(401).send(result)
+                }
             });
 
         await axios.get(githubApiUrl + "/orgs", AUTH_HEADER)
@@ -101,7 +115,12 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
                     result.orgs.push([org.login, org.description, "https://www.github.com/" + org.login])
                 })
             }).catch(err => {
-                return res.status(300).send(result)
+                if (err.request.res.statusMessage) {
+                    return res.status(404).send(result)
+                }
+                else {
+                    return res.status(401).send(result)
+                }
             });
 
         return res.status(200).send(result)
