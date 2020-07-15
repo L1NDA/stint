@@ -58,6 +58,7 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
         await axios.get(githubApiUrl)
             .then(result => {
             }).catch(err => {
+                console.log("INSIDE GITHUB")
                 return res.status(300).send(result)
             });
 

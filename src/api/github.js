@@ -8,8 +8,8 @@ const getGithubInfo = (user) => {
       return res
     })
     .catch(error => {
-      console.error("ERROR", error)
-      return error
+      console.log(error)
+      throw error
     })
 }
 
