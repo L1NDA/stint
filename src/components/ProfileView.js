@@ -253,10 +253,10 @@ class ProfileView extends React.Component {
                       </div>
 
                       {
-                        this.state.githubData.data.repoNames
+                        this.state.githubData.data.repoNames.length !== 0
                         ?
                         <div className="works-section">
-                          <div className="works-section-header">My recent repositories</div>
+                          <div className="works-section-header">- My recent repositories</div>
                           {this.state.githubData.data.repoNames.map((repoArray, index) => {
                             return (
                               <a className="works-section-item works-section-item-link flex-column" href={repoArray[2]} target="_blank">
@@ -266,28 +266,28 @@ class ProfileView extends React.Component {
                             )})}
                         </div>
                         : <div className="works-section">
-                          <div className="works-section-header">No public repositories.</div>
+                          <div className="works-section-header">(No public repositories.)</div>
                           </div>
                       }
 
                       {
                         this.state.githubData.data.eventCount ?
                         <div className="works-section">
-                          <div className="works-section-header">Number of contributions</div>
+                          <div className="works-section-header">- Number of contributions</div>
                           <div className="works-section-item">
                             <b>{this.state.githubData.data.eventCount}</b> in the last year (average <b>{Math.round(this.state.githubData.data.eventCount/12)}</b> per month)
                           </div>
                           <div className="subtitle works-section-item" style={{color: "#b0b0b0"}}>The max contributions logged by Github is 30.</div>
                         </div>
                         : <div className="works-section">
-                          <div className="works-section-header">No contributions this past year</div>
+                          <div className="works-section-header">(No contributions this past year.)</div>
                         </div>
                       }
 
                       {
-                        this.state.githubData.data.orgs ?
+                        this.state.githubData.data.orgs.length !== 0 ?
                         <div className="works-section">
-                          <div className="works-section-header">My organizations</div>
+                          <div className="works-section-header">- My organizations</div>
                             {this.state.githubData.data.orgs.map((orgArray, index) => {
                               return (
                                   <div className="works-section-item">
@@ -299,7 +299,7 @@ class ProfileView extends React.Component {
 
                         </div>
                         : <div className="works-section">
-                          <div className="works-section-header">No public organizations to show.</div>
+                          <div className="works-section-header">(No public organizations to show.)</div>
                         </div>
                       }
 
@@ -369,7 +369,7 @@ class ProfileView extends React.Component {
 
                   <div className='flex-column works-col-wrapper'>
 
-                    {this.state.mediumData && this.state.mediumData.data.publications ?
+                    {this.state.mediumData && this.state.mediumData.data.publications !== 0 ?
                       <a className="works-item column-works-item"
                         href={`https://medium.com/${this.state.freelancerInfo.profile.contentCreation.mediumUrl}`}>
                         <div className="works-header medium">
@@ -378,7 +378,7 @@ class ProfileView extends React.Component {
                         </div>
 
                         <div className="works-section">
-                          <div className="works-section-header">My recent publications</div>
+                          <div className="works-section-header">- My recent publications</div>
                             {this.state.mediumData.data.publications.map((pubArray, index) => {
                               return (
                                 <a className="works-section-item works-section-item-link flex-column"
@@ -559,10 +559,10 @@ class ProfileView extends React.Component {
                       </div>
 
                       {
-                        this.state.githubData.data.repoNames
+                        this.state.githubData.data.repoNames.length !== 0
                         ?
                         <div className="works-section">
-                          <div className="works-section-header">My recent repositories</div>
+                          <div className="works-section-header">- My recent repositories</div>
                           {this.state.githubData.data.repoNames.map((repoArray, index) => {
                             return (
                               <a className="works-section-item works-section-item-link flex-column" href={repoArray[2]} target="_blank">
@@ -572,28 +572,28 @@ class ProfileView extends React.Component {
                             )})}
                         </div>
                         : <div className="works-section">
-                          <div className="works-section-header">No public repositories.</div>
+                          <div className="works-section-header">(No public repositories.)</div>
                           </div>
                       }
 
                       {
                         this.state.githubData.data.eventCount ?
                         <div className="works-section">
-                          <div className="works-section-header">Number of contributions</div>
+                          <div className="works-section-header">- Number of contributions</div>
                           <div className="works-section-item">
                             <b>{this.state.githubData.data.eventCount}</b> in the last year (average <b>{Math.round(this.state.githubData.data.eventCount/12)}</b> per month)
                           </div>
                           <div className="subtitle works-section-item" style={{color: "#b0b0b0"}}>The max contributions logged by Github is 30.</div>
                         </div>
                         : <div className="works-section">
-                          <div className="works-section-header">No contributions this past year</div>
+                          <div className="works-section-header">(No contributions this past year.)</div>
                         </div>
                       }
 
                       {
-                        this.state.githubData.data.orgs ?
+                        this.state.githubData.data.orgs !== 0 ?
                         <div className="works-section">
-                          <div className="works-section-header">My organizations</div>
+                          <div className="works-section-header">- My organizations</div>
                             {this.state.githubData.data.orgs.map((orgArray, index) => {
                               return (
                                   <div className="works-section-item">
@@ -605,7 +605,7 @@ class ProfileView extends React.Component {
 
                         </div>
                         : <div className="works-section">
-                          <div className="works-section-header">No public organizations to show.</div>
+                          <div className="works-section-header">(No public organizations to show.)</div>
                         </div>
                       }
 
