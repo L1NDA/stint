@@ -97,7 +97,7 @@ class ProfileView extends React.Component {
 
       if (githubUsername) {
         try {
-          githubData = await getGithubInfo(githubUsername)
+          githubData = await getGithubInfo("lelandhwu")
         } catch (err) {
           await this.props.analytics.logEvent("github_functions_error")
         }
@@ -292,10 +292,10 @@ class ProfileView extends React.Component {
                             <div className="works-section-header">- My organizations</div>
                               {this.state.githubData.data.orgs.map((orgArray, index) => {
                                 return (
-                                    <div className="works-section-item">
+                                    <a className="works-section-item works-section-item-link" href={orgArray[2]} target="_blank">
                                       <b>{orgArray[0]}</b><br/>
                                       {orgArray[1]}
-                                    </div>
+                                    </a>
 
                                 )})}
 
@@ -615,10 +615,10 @@ class ProfileView extends React.Component {
                             <div className="works-section-header">- My organizations</div>
                               {this.state.githubData.data.orgs.map((orgArray, index) => {
                                 return (
-                                    <div className="works-section-item">
+                                    <a className="works-section-item works-section-item-link" href={orgArray[2]} target="_blank">
                                       <b>{orgArray[0]}</b><br/>
                                       {orgArray[1]}
-                                    </div>
+                                    </a>
 
                                 )})}
 
