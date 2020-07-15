@@ -98,7 +98,7 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
             .then(function(response) {
                 result.orgs = []
                 response.data.slice([0], [3]).map((org, i) => {
-                    result.orgs.push([org.login, org.description])
+                    result.orgs.push([org.login, org.description, "https://www.github.com/" + org.login])
                 })
             }).catch(err => {
                 return res.status(300).send(result)
