@@ -54,41 +54,6 @@ class ProfileView extends React.Component {
     console.log("fileurls", fileUrls)
 
     let freelancerRef = await getFreelancerRef(this.props.auth.uid)
-<<<<<<< HEAD
-    let fInfo = await freelancerRef.on("value", (snapshot) => {
-        let info = snapshot.val()
-
-        this.setState({
-          freelancerInfo: info,
-        })
-
-        let githubUsername = null
-        let instaUsername = null
-        let mediumUsername = null
-
-
-        if (info.profile.dataAnalytics) {
-          if (info.profile.dataAnalytics.githubUrl) {
-            let githubUrl = info.profile.dataAnalytics.githubUrl
-            githubUsername = parseGithubUser(githubUrl)
-          }
-        }
-        if (info.profile.softwareDev) {
-          if (info.profile.softwareDev.githubUrl) {
-            let githubUrl = info.profile.softwareDev.githubUrl
-            githubUsername = parseGithubUser(githubUrl)
-          }
-        }
-        if (info.profile.contentCreation) {
-          if (info.profile.contentCreation.instagramUrl) {
-            let instaUrl = info.profile.contentCreation.instagramUrl
-            instaUsername = parseInstaUser(instaUrl)
-          }
-          if (info.profile.contentCreation.mediumUrl) {
-            let mediumUrl = info.profile.contentCreation.mediumUrl
-            mediumUsername = parseMediumUser(mediumUrl)
-          }
-=======
     freelancerRef.on("value", async (snapshot) => {
       let info = snapshot.val()
       let profile = info.profile
@@ -104,7 +69,6 @@ class ProfileView extends React.Component {
         if (profile.dataAnalytics.githubUrl) {
           let githubUrl = profile.dataAnalytics.githubUrl
           githubUsername = parseGithubUser(githubUrl)
->>>>>>> 64571c3a89efd2aafdacd6cbe9aa7af2486744e1
         }
       }
       if (profile.softwareDev) {
@@ -278,7 +242,7 @@ class ProfileView extends React.Component {
               <div className="profile-works">
                 <div className="section-header">My work(s)</div>
                 <div className="works-container">
-                  {this.state.githubInfo ?
+                  {this.state.githubData ?
                     <a className="works-item" href={`https://github.com/${this.state.freelancerInfo.profile.dataAnalytics.githubUrl.slice(1)}`} target="_blank">
                       <div className="works-header github">
                         <IoLogoGithub className="works-header-img"/>
@@ -286,11 +250,11 @@ class ProfileView extends React.Component {
                       </div>
 
                       {
-                        this.state.githubInfo.data.repoNames
+                        this.state.githubData.data.repoNames
                         ?
                         <div className="works-section">
                           <div className="works-section-header">My recent repositories</div>
-                          {this.state.githubInfo.data.repoNames.map((repoArray, index) => {
+                          {this.state.githubData.data.repoNames.map((repoArray, index) => {
                             return (
                               <div className="works-section-item">
                                 <b>{repoArray[0]}</b><br/>
@@ -304,11 +268,11 @@ class ProfileView extends React.Component {
                       }
 
                       {
-                        this.state.githubInfo.data.eventCount ?
+                        this.state.githubData.data.eventCount ?
                         <div className="works-section">
                           <div className="works-section-header">Number of contributions</div>
                           <div className="works-section-item">
-                            <b>{this.state.githubInfo.data.eventCount}</b> in the last year (average <b>{Math.round(this.state.githubInfo.data.eventCount/12)}</b> per month)
+                            <b>{this.state.githubData.data.eventCount}</b> in the last year (average <b>{Math.round(this.state.githubData.data.eventCount/12)}</b> per month)
                           </div>
                         </div>
                         : <div className="works-section">
@@ -317,10 +281,10 @@ class ProfileView extends React.Component {
                       }
 
                       {
-                        this.state.githubInfo.data.orgs ?
+                        this.state.githubData.data.orgs ?
                         <div className="works-section">
                           <div className="works-section-header">My organizations</div>
-                            {this.state.githubInfo.data.orgs.map((orgArray, index) => {
+                            {this.state.githubData.data.orgs.map((orgArray, index) => {
                               return (
                                   <div className="works-section-item">
                                     <b>{orgArray[0]}</b><br/>
