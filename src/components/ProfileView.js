@@ -1,5 +1,6 @@
 import React from 'react'
 import Menu from './Menu.js'
+import Footer from './Footer.js'
 import { connect } from "react-redux"
 import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
@@ -240,10 +241,10 @@ class ProfileView extends React.Component {
                           <div className="works-section-header">My recent repositories</div>
                           {this.state.githubData.data.repoNames.map((repoArray, index) => {
                             return (
-                              <div className="works-section-item">
-                                <b>{repoArray[0]}</b><br/>
-                                {repoArray[1]}
-                              </div>
+                              <a className="works-section-item works-section-item-link flex-column" href={repoArray[2]} target="_blank">
+                                <b>{repoArray[0]}</b>
+                                {repoArray[1] ? <><br/> {repoArray[1]}</> : null}
+                              </a>
                             )})}
                         </div>
                         : <div className="works-section">
@@ -591,6 +592,8 @@ class ProfileView extends React.Component {
 
             </section>
              : null}
+
+             <Footer/>
 
 
           </>
