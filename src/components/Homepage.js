@@ -130,10 +130,14 @@ class Homepage extends React.Component {
 
      <div className="flex-column center" className="one-liner">
         <div className="h1-smaller">Shorter Work Opportunities that <span className="nobreak-comp">Empower You to <span className="nobreak">Always Grow.</span></span></div>
-        <h3>We believe in helping you grow professionally at any time. It shouldn’t take months of recruiting for you to finally get the chance to do industry work. You have skills now – so we’ll give you work now.</h3>
-      </div>
+        <h3 style={{textAlign: "center"}}>We believe in helping you grow professionally at any time. It shouldn’t take months of recruiting for you to finally get the chance to do industry work. You have skills now – so we’ll give you work now.</h3>
+        <div className="flex-row center" style={{marginTop: "50px"}}>
+          <b style={{color: "#474448"}}>BACKED BY</b>
+          <a href="https://medium.com/hcs-builders-incubation-program/welcome-91f8e5c27f21" target="_blank" className="bip"><img src={require('./imgs/hcs.svg')} className="example-company-square"/></a>
+        </div>
+    </div>
 
-      <div className="process-container flex-column">
+      <div className="process-container flex-column center">
         <h1 style={{textAlign: 'center'}}>How does Stint work?</h1>
         <div className="process">
           <div className="process-line"></div>
@@ -268,12 +272,17 @@ class Homepage extends React.Component {
 
         </CarouselProvider>
 
-        <div className="flex-column center">
-          <p style={{color: "#474448", margin: '100px 0 0 0', textAlign: "center", fontWeight: "bold"}}>Stint is trusted and used by companies empowering students.</p>
-          <div className="flex-row center unis">
-            <a href="https://vivforyourv.com/" target="_blank"><img src={require('./imgs/companies/viv.png')} className="example-company-square"/></a>
-            <a href="https://www.givecard.io/" target="_blank"><img src={require('./imgs/companies/givecard.png')} className="example-company-rect"/></a>
-            <a href="https://ourpet.app/" target="_blank"><img src={require('./imgs/companies/ourpet.png')} className="example-company-square"/></a>
+        <div className="flex-column center" style={{width: "100%"}}>
+          <h2 style={{marginTop: "75px", color: "#474448", textAlign: "center", marginBottom: "50px"}}>Stint is trusted and used by companies empowering students.</h2>
+
+          <div className="flex-row center unis" style={{width: "100%"}}>
+            <a href="https://vivforyourv.com/" target="_blank" className="example-company-square-container"><img src={require('./imgs/companies/viv.png')} className="example-company-square"/></a>
+            <a href="https://fractalcomputers.com/" target="_blank" className="example-company-rect-container"><img src={require('./imgs/companies/fractal.png')} className="example-company-rect"/></a>
+            <a href="https://www.givecard.io/" target="_blank" className="example-company-rect-container"><img src={require('./imgs/companies/givecard.png')} className="example-company-rect"/></a>
+          </div>
+          <div className="flex-row center unis" style={{width: "100%"}}>
+            <a href="http://sifty.io/" target="_blank" className="example-company-rect-container"><img src={require('./imgs/companies/sifty.png')} className="example-company-rect"/></a>
+            <a href="https://ourpet.app/" target="_blank" className="example-company-square-container"><img src={require('./imgs/companies/ourpet.png')} className="example-company-square"/></a>
           </div>
         </div>
 

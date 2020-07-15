@@ -54,6 +54,13 @@ class Company extends React.Component {
         <img src={companyImage} className="homepage-image company-image"/>
       </div>
 
+      <div className="flex-column center" className="one-liner" style={{marginBottom: "50px"}}>
+        <div className="flex-row center">
+          <b style={{color: "#474448"}}>BACKED BY</b>
+          <a href="https://medium.com/hcs-builders-incubation-program/welcome-91f8e5c27f21" target="_blank" className="bip"><img src={require('./imgs/hcs.svg')} className="example-company-square"/></a>
+        </div>
+      </div>
+
       <div className="flex-column center padding company-2">
         <div className="tri flex-row">
           <img src={tri1} className="tri-image"/>
