@@ -29,8 +29,8 @@ const DESIGN_SKILLS = [
   "UI Design",
   "UX Design",
   "Prototyping",
-  "Hi-fi Markups",
-  "Lo-fi Markups",
+  "Hi-fi Mockups",
+  "Lo-fi Mockups",
   "Wireframes",
   "Sketch",
   "Figma",
@@ -76,7 +76,7 @@ class StudentSkills extends React.Component {
           title="Data Analytics"
           subtitle="Given messy data scraped from a webpage, you can clean it up nicely and identify customer profiles or pinpoint key trends."
           section="da"
-          content={["a GitHub profile", "a personal website"]}
+          content={[["a GitHub profile", "user"], ["a personal website", "url"]]}
           skills={DATA_SKILLS}
           handleButton={this.saveEntireState}
         />
@@ -87,7 +87,7 @@ class StudentSkills extends React.Component {
           title="Design & Branding"
           subtitle="You’re experienced in designing logos, web pages, illustrations, or building up a specific brand image."
           section="db"
-          content={["a portfolio or personal website"]}
+          content={[["a portfolio or personal website", "url"]]}
           skills={DESIGN_SKILLS}
           handleButton={this.saveEntireState}
         />
@@ -99,10 +99,10 @@ class StudentSkills extends React.Component {
           subtitle="You’re a content creator. Blogging, photography, videography, upping your Instagram follower game – you know how it’s done."
           section="ccm"
           content={[
-            "a Medium account",
-            "an Instagram",
-            "a Youtube account",
-            "a portfolio or personal website",
+            ["a Medium account", "user"],
+            ["an Instagram", "user"],
+            ["a Youtube account", "user"],
+            ["a portfolio or personal website", "url"],
           ]}
           skills={CONTENT_SKILLS}
           handleButton={this.saveEntireState}
@@ -114,7 +114,7 @@ class StudentSkills extends React.Component {
           title="Software Development"
           subtitle="You can pull a few programming languages out of your toolbox and use them for front-end or back-end work."
           section="sd"
-          content={["a GitHub profile", "a personal website"]}
+          content={[["a GitHub profile", "user"], ["a personal website", "url"]]}
           skills={SOFTWARE_SKILLS}
           handleButton={this.saveEntireState}
         />
