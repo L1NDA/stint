@@ -51,7 +51,6 @@ class ProfileView extends React.Component {
 
   componentDidMount = async () => {
     let fileUrls = await this.getFilesFromStorage()
-    console.log("fileurls", fileUrls)
 
     let freelancerRef = await getFreelancerRef(this.props.auth.uid)
     freelancerRef.on("value", async (snapshot) => {
@@ -106,11 +105,12 @@ class ProfileView extends React.Component {
 
       this.setState({
         freelancerInfo: info,
+        freelancerRef,
         githubData,
         instaData,
         mediumData,
         fileUrls
-      }, () => {console.log("state", this.state)})
+      })
 
     },
     function(error) {
@@ -142,7 +142,6 @@ class ProfileView extends React.Component {
         }
       }
     })
-    console.log("getfilesfunction", fileUrls)
     return fileUrls
   }
 

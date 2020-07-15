@@ -18,11 +18,11 @@ function App({ isLoggedIn }) {
   return (
     <Router>
       <Switch>
-        <Route path="/(|this-is-me|you-did-it|my-profile)" component={Auth} />
-        <Route path="/hire" component={Company} />
-        <Route path="/our-mission" component={About} />
-        <Route path="/privacy-policy" component={PrivatePolicy} />
-        <Route path="/my-profile" component={ProfileView} />
+        <Route exact path="/(this-is-me|you-did-it|my-profile)" component={Auth} />
+        <Route exact path="/" component={Homepage} />
+        <Route exact path="/hire" component={Company} />
+        <Route exact path="/our-mission" component={About} />
+        <Route exact path="/privacy-policy" component={PrivatePolicy} />
         <Route component={FourOhFour}/>
       </Switch>
     </Router>
