@@ -54,10 +54,12 @@ class ProfileView extends React.Component {
   }
 
   componentDidMount = async () => {
+    console.log("COMPOENENT DID MOUNT")
     let fileUrls = await this.getFilesFromStorage()
 
     let freelancerRef = await getFreelancerRef(this.props.auth.uid)
     freelancerRef.on("value", async (snapshot) => {
+      console.log("COMPOENENT DID MOUNT FREELANCERRE")
       let info = snapshot.val()
       let profile = info.profile
 
@@ -69,27 +71,27 @@ class ProfileView extends React.Component {
       let githubUsername = null
       let instaUsername = null
       let mediumUsername = null
-
+      console.log(profile)
       if (profile.dataAnalytics) {
-        if (profile.dataAnalytics.githubUrl) {
-          let githubUrl = profile.dataAnalytics.githubUrl
-          githubUsername = parseGithubUser(githubUrl)
+        if (profile.dataAnalytics.githubUser) {
+          let githubUser = profile.dataAnalytics.githubUser
+          githubUsername = parseGithubUser(githubUser)
         }
       }
       if (profile.softwareDev) {
-        if (profile.softwareDev.githubUrl) {
-          let githubUrl = profile.softwareDev.githubUrl
-          githubUsername = parseGithubUser(githubUrl)
+        if (profile.softwareDev.githubUser) {
+          let githubUser = profile.softwareDev.githubUser
+          githubUsername = parseGithubUser(githubUser)
         }
       }
       if (profile.contentCreation) {
-        if (profile.contentCreation.instagramUrl) {
-          let instaUrl = profile.contentCreation.instagramUrl
-          instaUsername = parseInstaUser(instaUrl)
+        if (profile.contentCreation.instagramUser) {
+          let instaUser = profile.contentCreation.instagramUser
+          instaUsername = parseInstaUser(instaUser)
         }
-        if (profile.contentCreation.mediumUrl) {
-          let mediumUrl = profile.contentCreation.mediumUrl
-          mediumUsername = parseMediumUser(mediumUrl)
+        if (profile.contentCreation.mediumUser) {
+          let mediumUser = profile.contentCreation.mediumUser
+          mediumUsername = parseMediumUser(mediumUser)
         }
       }
 
@@ -115,6 +117,7 @@ class ProfileView extends React.Component {
 
       if (mediumUsername) {
         try {
+         console.log("WHYYYY")
          mediumData = await getMediumInfo(mediumUsername)
         } catch (err) {
           await this.props.analytics.logEvent("medium_functions_error")
@@ -250,7 +253,7 @@ class ProfileView extends React.Component {
                   <div className="section-header">My work(s)</div>
                   <div className="works-container">
                     {this.state.githubData ?
-                      <a className="works-item" href={`https://github.com/${this.state.freelancerInfo.profile.dataAnalytics.githubUrl.slice(1)}`} target="_blank">
+                      <a className="works-item" href={`https://github.com/${this.state.freelancerInfo.profile.dataAnalytics.githubUser.slice(1)}`} target="_blank">
                         <div className="works-header github">
                           <IoLogoGithub className="works-header-img"/>
                           Github
@@ -381,7 +384,7 @@ class ProfileView extends React.Component {
 
                       {this.state.mediumData && this.state.mediumData.data.publications !== 0 ?
                         <a className="works-item column-works-item"
-                          href={`https://medium.com/${this.state.freelancerInfo.profile.contentCreation.mediumUrl}`}>
+                          href={`https://medium.com/${this.state.freelancerInfo.profile.contentCreation.mediumUser}`}>
                           <div className="works-header medium">
                             <AiFillMediumCircle className="works-header-img"/>
                             Medium
@@ -407,7 +410,7 @@ class ProfileView extends React.Component {
 
                       {this.state.instaData && !this.state.instaData.isPrivate ?
                         <a className="works-item column-works-item"
-                          href={`https://www.instagram.com/${this.state.freelancerInfo.profile.contentCreation.instagramUrl.slice(1)}`}>
+                          href={`https://www.instagram.com/${this.state.freelancerInfo.profile.contentCreation.instagramUser.slice(1)}`}>
                           <div className="works-header instagram">
                             <AiFillInstagram className="works-header-img"/>
                             Instagram
@@ -416,7 +419,7 @@ class ProfileView extends React.Component {
                           <div className="works-section flex-row">
                             <img src={this.state.instaData.data.profilePhoto} className="insta-propic"></img>
                             <div className='flex-column' style={{justifyContent: 'center'}}>
-                              <b className="insta-handle">{this.state.freelancerInfo.profile.contentCreation.instagramUrl}</b>
+                              <b className="insta-handle">{this.state.freelancerInfo.profile.contentCreation.instagramUser}</b>
                               <div className="insta-handle">{this.state.instaData.data.numFollowers} followers</div>
                             </div>
                           </div>
@@ -573,7 +576,7 @@ class ProfileView extends React.Component {
                   <div className="section-header">My work(s)</div>
                   <div className="works-container">
                     {this.state.githubData ?
-                      <a className="works-item" href={`https://github.com/${this.state.freelancerInfo.profile.softwareDev.githubUrl.slice(1)}`} target="_blank">
+                      <a className="works-item" href={`https://github.com/${this.state.freelancerInfo.profile.softwareDev.githubUser.slice(1)}`} target="_blank">
                         <div className="works-header github">
                           <IoLogoGithub className="works-header-img"/>
                           Github

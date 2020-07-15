@@ -146,7 +146,6 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
         const mediumRssUrl = "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@" + mediumUser
 
         let result = {}
-
         try {
             await axios.get(mediumRssUrl)
                 .then(function(response) {

@@ -5,6 +5,7 @@ const getMediumInfo = (user) => {
       mediumUser: user
     })
     .then(res => {
+      console.log("RES", res)
       return res
     })
     .catch(error => {
