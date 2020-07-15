@@ -93,7 +93,7 @@ class ProfileView extends React.Component {
       let mediumData = null
 
       if (githubUsername) {
-        githubData = await getGithubInfo(githubUsername)
+        githubData = await getGithubInfo("L1NDA")
       }
 
       if (instaUsername) {
@@ -101,7 +101,7 @@ class ProfileView extends React.Component {
       }
 
       if (mediumUsername) {
-        mediumData = getMediumInfo(mediumUsername)
+         mediumData = await getMediumInfo("marianoaavila")
       }
 
       this.setState({
