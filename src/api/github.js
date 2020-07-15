@@ -8,14 +8,14 @@ const getGithubInfo = (user) => {
         githubUser: user,
       }
     )
-    .then(res => {
-      return res
+    .then((res) => {
+      return res;
     })
-    .catch(error => {
-      console.log("ERROR MESSAGE", error.message)
-      throw error
-    })
-}
+    .catch((error) => {
+      console.log("ERROR MESSAGE", error.message);
+      throw error;
+    });
+};
 
 module.exports = {
   getGithubInfo,

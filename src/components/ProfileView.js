@@ -116,7 +116,6 @@ class ProfileView extends React.Component {
           } catch (err) {
             await this.props.analytics.logEvent(GITHUB_FUNCTIONS_ERROR);
           }
-
         }
 
         if (instaUsername) {
@@ -133,7 +132,6 @@ class ProfileView extends React.Component {
           } catch (err) {
             await this.props.analytics.logEvent(MEDIUM_FUNCTIONS_ERROR);
           }
-
         }
 
         this.setState({
@@ -191,503 +189,878 @@ class ProfileView extends React.Component {
   render() {
     return (
       <div className="container">
-        <Menu/>
-        {this.state.freelancerInfo
-          ? <><section className="padding flex-row profile-item">
-            <img id="profile-img" src={this.props.auth.photoURL} className="my-profile-img"></img>
-            <div>
-              <h1 style={{margin: '0'}}>{this.props.auth.displayName.split(' ')[0]}</h1>
-              <div style={{margin: '0'}}>{this.state.freelancerInfo.profile.education.majors[0]}
-                {this.state.freelancerInfo.profile.education.majors[1] ? ` & ` + this.state.freelancerInfo.profile.education.majors[1] : null}
-                {this.state.freelancerInfo.profile.education.minors ? ` / ` + this.state.freelancerInfo.profile.education.minors[0] + ` (minor)` : null}
-                {this.state.freelancerInfo.profile.education.minors && this.state.freelancerInfo.profile.education.minors[1] ?  `& ` + this.state.freelancerInfo.profile.education.minors[0] + ` (minor)` : null}</div>
-              <div style={{margin: '0'}}>{this.state.freelancerInfo.profile.education.year.charAt(0).toUpperCase() + this.state.freelancerInfo.profile.education.year.slice(1)} @ {this.state.freelancerInfo.profile.education.school}</div>
-            </div>
-          </section>
-
-          <section className="profile-item flex-row padding experience-section">
-            <div className="experience">
-              <h2>Work Experience</h2>
-              <div className="experience-container">
-                <div className="experience-line"></div>
-                {this.state.freelancerInfo.profile.workExperience.companies.map((company, index) => {
-                  return (
-                    <div className="experience-item">
-                      <div className="experience-label">‘{this.state.freelancerInfo.profile.workExperience.companyYears[index].slice(2)}</div>
-                      {this.state.freelancerInfo.profile.workExperience.companyRoles[index]} @ <b> {company}</b>
-                    </div>
-                  )})}
+        <Menu />
+        {this.state.freelancerInfo ? (
+          <>
+            <section className="padding flex-row profile-item">
+              <img
+                id="profile-img"
+                src={this.props.auth.photoURL}
+                className="my-profile-img"
+              ></img>
+              <div>
+                <h1 style={{ margin: "0" }}>
+                  {this.props.auth.displayName.split(" ")[0]}
+                </h1>
+                <div style={{ margin: "0" }}>
+                  {this.state.freelancerInfo.profile.education.majors[0]}
+                  {this.state.freelancerInfo.profile.education.majors[1]
+                    ? ` & ` +
+                      this.state.freelancerInfo.profile.education.majors[1]
+                    : null}
+                  {this.state.freelancerInfo.profile.education.minors
+                    ? ` / ` +
+                      this.state.freelancerInfo.profile.education.minors[0] +
+                      ` (minor)`
+                    : null}
+                  {this.state.freelancerInfo.profile.education.minors &&
+                  this.state.freelancerInfo.profile.education.minors[1]
+                    ? `& ` +
+                      this.state.freelancerInfo.profile.education.minors[0] +
+                      ` (minor)`
+                    : null}
+                </div>
+                <div style={{ margin: "0" }}>
+                  {this.state.freelancerInfo.profile.education.year
+                    .charAt(0)
+                    .toUpperCase() +
+                    this.state.freelancerInfo.profile.education.year.slice(
+                      1
+                    )}{" "}
+                  @ {this.state.freelancerInfo.profile.education.school}
+                </div>
               </div>
-            </div>
-            <div className="experience">
-              <h2 style={{color: "#05D9B2"}}>Other Experience</h2>
-              <div className="experience-container">
-                <div className="experience-line" style={{backgroundColor: "#05D9B2"}}></div>
-                  {this.state.freelancerInfo.profile.orgExperience.organizations.map((organization, index) => {
-                    return (
-                      <div className="experience-item">
-                        <div className="experience-label" style={{backgroundColor: "#05D9B2"}}>
-                          ‘{this.state.freelancerInfo.profile.orgExperience.orgYears[index].slice(2)}</div>
-                        {this.state.freelancerInfo.profile.orgExperience.orgRoles[index]} @ <b> {organization}</b>
-                      </div>
-                    )})}
-              </div>
-            </div>
-          </section>
+            </section>
 
-          {this.state.freelancerInfo.profile.dataAnalytics ?
-            <section className="profile-item">
-              <h1>Analytics</h1>
-              {
-                this.state.freelancerInfo.profile.dataAnalytics.skills ?
-                <div className="profile-skills">
-                  <div className="section-header">My skill(s) and proficiency</div>
-                  <div className="skill-container">
-                    {this.sortSkills(this.state.freelancerInfo.profile.dataAnalytics.skills).map((skillTuple, index) => {
+            <section className="profile-item flex-row padding experience-section">
+              <div className="experience">
+                <h2>Work Experience</h2>
+                <div className="experience-container">
+                  <div className="experience-line"></div>
+                  {this.state.freelancerInfo.profile.workExperience.companies.map(
+                    (company, index) => {
                       return (
-                        <div className="skill-static" style={{ minWidth: this.state.width }}>
-                          <span className="skill-name-static">{skillTuple[0]}: {skillTuple[1]}</span>
-                          <div className="skill-bar" style={{width: `${skillTuple[1] * 20}%`}}></div>
-                          <div className="skill-static" id="hidden-skill-level">Skill Level</div>
+                        <div className="experience-item">
+                          <div className="experience-label">
+                            ‘
+                            {this.state.freelancerInfo.profile.workExperience.companyYears[
+                              index
+                            ].slice(2)}
+                          </div>
+                          {
+                            this.state.freelancerInfo.profile.workExperience
+                              .companyRoles[index]
+                          }{" "}
+                          @ <b> {company}</b>
                         </div>
-                      )})}
+                      );
+                    }
+                  )}
+                </div>
+              </div>
+              <div className="experience">
+                <h2 style={{ color: "#05D9B2" }}>Other Experience</h2>
+                <div className="experience-container">
+                  <div
+                    className="experience-line"
+                    style={{ backgroundColor: "#05D9B2" }}
+                  ></div>
+                  {this.state.freelancerInfo.profile.orgExperience.organizations.map(
+                    (organization, index) => {
+                      return (
+                        <div className="experience-item">
+                          <div
+                            className="experience-label"
+                            style={{ backgroundColor: "#05D9B2" }}
+                          >
+                            ‘
+                            {this.state.freelancerInfo.profile.orgExperience.orgYears[
+                              index
+                            ].slice(2)}
+                          </div>
+                          {
+                            this.state.freelancerInfo.profile.orgExperience
+                              .orgRoles[index]
+                          }{" "}
+                          @ <b> {organization}</b>
+                        </div>
+                      );
+                    }
+                  )}
+                </div>
+              </div>
+            </section>
+
+            {this.state.freelancerInfo.profile.dataAnalytics ? (
+              <section className="profile-item">
+                <h1>Analytics</h1>
+                {this.state.freelancerInfo.profile.dataAnalytics.skills ? (
+                  <div className="profile-skills">
+                    <div className="section-header">
+                      My skill(s) and proficiency
+                    </div>
+                    <div className="skill-container">
+                      {this.sortSkills(
+                        this.state.freelancerInfo.profile.dataAnalytics.skills
+                      ).map((skillTuple, index) => {
+                        return (
+                          <div
+                            className="skill-static"
+                            style={{ minWidth: this.state.width }}
+                          >
+                            <span className="skill-name-static">
+                              {skillTuple[0]}: {skillTuple[1]}
+                            </span>
+                            <div
+                              className="skill-bar"
+                              style={{ width: `${skillTuple[1] * 20}%` }}
+                            ></div>
+                            <div
+                              className="skill-static"
+                              id="hidden-skill-level"
+                            >
+                              Skill Level
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div> : null
-              }
+                ) : null}
 
-              {this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl ?
-                <div className="profile-works">
-                <div className="section-header">My personal website</div>
-                <a className="personal-website" href={this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl} target="_blank">
-                    <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
-                    <iframe
-
-                      src={this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl}
-                      className="works-laptop-screen"></iframe>
-                </a>
-                </div> : null
-              }
-
-              {
-                this.state.githubData ?
-                <div className="profile-works">
-                  <div className="section-header">My work(s)</div>
-                  <div className="works-container">
-                    {this.state.githubData ?
-                      <a className="works-item" href={`https://github.com/${this.state.freelancerInfo.profile.dataAnalytics.githubUser.slice(1)}`} target="_blank">
-                        <div className="works-header github">
-                          <IoLogoGithub className="works-header-img"/>
-                          Github
-                        </div>
-
-                        {
-                          this.state.githubData.data.repoNames.length !== 0
-                          ?
-                          <div className="works-section">
-                            <div className="works-section-header">- My recent repositories</div>
-                            {this.state.githubData.data.repoNames.map((repoArray, index) => {
-                              return (
-                                <a className="works-section-item works-section-item-link flex-column" href={repoArray[2]} target="_blank">
-                                  <b>{repoArray[0]}</b>
-                                  {repoArray[1] ? <>{repoArray[1]}</> : null}
-                                </a>
-                              )})}
-                          </div>
-                          : <div className="works-section">
-                            <div className="works-section-header">(No public repositories.)</div>
-                            </div>
+                {this.state.freelancerInfo.profile.dataAnalytics
+                  .personalWebsiteUrl ? (
+                  <div className="profile-works">
+                    <div className="section-header">My personal website</div>
+                    <a
+                      className="personal-website"
+                      href={
+                        this.state.freelancerInfo.profile.dataAnalytics
+                          .personalWebsiteUrl
+                      }
+                      target="_blank"
+                    >
+                      <img
+                        src={require("./imgs/macbook.png")}
+                        className="works-laptop"
+                      ></img>
+                      <iframe
+                        src={
+                          this.state.freelancerInfo.profile.dataAnalytics
+                            .personalWebsiteUrl
                         }
+                        className="works-laptop-screen"
+                      ></iframe>
+                    </a>
+                  </div>
+                ) : null}
 
-                        {
-                          this.state.githubData.data.eventCount ?
-                          <div className="works-section">
-                            <div className="works-section-header">- Number of contributions</div>
-                            <div className="works-section-item">
-                              <b>{this.state.githubData.data.eventCount}</b> in the last year (average <b>{Math.round(this.state.githubData.data.eventCount/12)}</b> per month)
+                {this.state.githubData ? (
+                  <div className="profile-works">
+                    <div className="section-header">My work(s)</div>
+                    <div className="works-container">
+                      {this.state.githubData ? (
+                        <a
+                          className="works-item"
+                          href={`https://github.com/${this.state.freelancerInfo.profile.dataAnalytics.githubUser.slice(
+                            1
+                          )}`}
+                          target="_blank"
+                        >
+                          <div className="works-header github">
+                            <IoLogoGithub className="works-header-img" />
+                            Github
+                          </div>
+
+                          {this.state.githubData.data.repoNames.length !== 0 ? (
+                            <div className="works-section">
+                              <div className="works-section-header">
+                                - My recent repositories
+                              </div>
+                              {this.state.githubData.data.repoNames.map(
+                                (repoArray, index) => {
+                                  return (
+                                    <a
+                                      className="works-section-item works-section-item-link flex-column"
+                                      href={repoArray[2]}
+                                      target="_blank"
+                                    >
+                                      <b>{repoArray[0]}</b>
+                                      {repoArray[1] ? (
+                                        <>{repoArray[1]}</>
+                                      ) : null}
+                                    </a>
+                                  );
+                                }
+                              )}
                             </div>
-                            <div className="subtitle works-section-item" style={{color: "#b0b0b0"}}>The max contributions logged by Github is 30.</div>
-                          </div>
-                          : <div className="works-section">
-                            <div className="works-section-header">(No contributions this past year.)</div>
-                          </div>
-                        }
+                          ) : (
+                            <div className="works-section">
+                              <div className="works-section-header">
+                                (No public repositories.)
+                              </div>
+                            </div>
+                          )}
 
-                        {
-                          this.state.githubData.data.orgs.length !== 0 ?
-                          <div className="works-section">
-                            <div className="works-section-header">- My organizations</div>
-                              {this.state.githubData.data.orgs.map((orgArray, index) => {
-                                return (
-                                    <a className="works-section-item works-section-item-link" href={orgArray[2]} target="_blank">
-                                      <b>{orgArray[0]}</b><br/>
+                          {this.state.githubData.data.eventCount ? (
+                            <div className="works-section">
+                              <div className="works-section-header">
+                                - Number of contributions
+                              </div>
+                              <div className="works-section-item">
+                                <b>{this.state.githubData.data.eventCount}</b>{" "}
+                                in the last year (average{" "}
+                                <b>
+                                  {Math.round(
+                                    this.state.githubData.data.eventCount / 12
+                                  )}
+                                </b>{" "}
+                                per month)
+                              </div>
+                              <div
+                                className="subtitle works-section-item"
+                                style={{ color: "#b0b0b0" }}
+                              >
+                                The max contributions logged by Github is 30.
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="works-section">
+                              <div className="works-section-header">
+                                (No contributions this past year.)
+                              </div>
+                            </div>
+                          )}
+
+                          {this.state.githubData.data.orgs.length !== 0 ? (
+                            <div className="works-section">
+                              <div className="works-section-header">
+                                - My organizations
+                              </div>
+                              {this.state.githubData.data.orgs.map(
+                                (orgArray, index) => {
+                                  return (
+                                    <a
+                                      className="works-section-item works-section-item-link"
+                                      href={orgArray[2]}
+                                      target="_blank"
+                                    >
+                                      <b>{orgArray[0]}</b>
+                                      <br />
                                       {orgArray[1]}
                                     </a>
-
-                                )})}
-
-                          </div>
-                          : <div className="works-section">
-                            <div className="works-section-header">(No public organizations to show.)</div>
-                          </div>
-                        }
-
-
-
-                      </a> : null
-                    }
-
-
-                  </div>
-                </div>
-                : null
-              }
-
-
-
-              {this.state.freelancerInfo.profile.dataAnalytics.awardCategories ?
-                <div className="profile-awards">
-                  <div className="section-header">My awards</div>
-                  {this.state.freelancerInfo.profile.dataAnalytics.awardCategories.map((awardCategory, index) => {
-                    return (
-                      <h3><b>{this.state.freelancerInfo.profile.dataAnalytics.awardContent[index]} </b>
-                        ({awardCategory === "competition" ? `a competition` : awardCategory === "academic" ? "an academic" : `an`} award from {this.state.freelancerInfo.profile.dataAnalytics.awardProviders[index]})</h3>
-                    )})}
-
-                </div>
-                : null
-              }
-
-
-            </section>
-            : null
-          }
-
-          {this.state.freelancerInfo.profile.contentCreation ?
-            <section className="profile-item">
-              <h1>Content Creation & Management</h1>
-                {
-                  this.state.freelancerInfo.profile.contentCreation.skills ?
-                  <div className="profile-skills">
-                    <div className="section-header">My skill(s) and proficiency</div>
-                    <div className="skill-container">
-                      {this.sortSkills(this.state.freelancerInfo.profile.contentCreation.skills).map((skillTuple, index) => {
-                        return (
-                          <div className="skill-static" style={{ minWidth: this.state.width }}>
-                            <span className="skill-name-static">{skillTuple[0]}: {skillTuple[1]}</span>
-                            <div className="skill-bar" style={{width: `${skillTuple[1] * 20}%`}}></div>
-                            <div className="skill-static" id="hidden-skill-level">Skill Level</div>
-                          </div>
-                        )})}
+                                  );
+                                }
+                              )}
+                            </div>
+                          ) : (
+                            <div className="works-section">
+                              <div className="works-section-header">
+                                (No public organizations to show.)
+                              </div>
+                            </div>
+                          )}
+                        </a>
+                      ) : null}
                     </div>
-                  </div> : null
-                }
+                  </div>
+                ) : null}
 
-                {this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl ?
+                {this.state.freelancerInfo.profile.dataAnalytics
+                  .awardCategories ? (
+                  <div className="profile-awards">
+                    <div className="section-header">My awards</div>
+                    {this.state.freelancerInfo.profile.dataAnalytics.awardCategories.map(
+                      (awardCategory, index) => {
+                        return (
+                          <h3>
+                            <b>
+                              {
+                                this.state.freelancerInfo.profile.dataAnalytics
+                                  .awardContent[index]
+                              }{" "}
+                            </b>
+                            (
+                            {awardCategory === "competition"
+                              ? `a competition`
+                              : awardCategory === "academic"
+                              ? "an academic"
+                              : `an`}{" "}
+                            award from{" "}
+                            {
+                              this.state.freelancerInfo.profile.dataAnalytics
+                                .awardProviders[index]
+                            }
+                            )
+                          </h3>
+                        );
+                      }
+                    )}
+                  </div>
+                ) : null}
+              </section>
+            ) : null}
+
+            {this.state.freelancerInfo.profile.contentCreation ? (
+              <section className="profile-item">
+                <h1>Content Creation & Management</h1>
+                {this.state.freelancerInfo.profile.contentCreation.skills ? (
+                  <div className="profile-skills">
+                    <div className="section-header">
+                      My skill(s) and proficiency
+                    </div>
+                    <div className="skill-container">
+                      {this.sortSkills(
+                        this.state.freelancerInfo.profile.contentCreation.skills
+                      ).map((skillTuple, index) => {
+                        return (
+                          <div
+                            className="skill-static"
+                            style={{ minWidth: this.state.width }}
+                          >
+                            <span className="skill-name-static">
+                              {skillTuple[0]}: {skillTuple[1]}
+                            </span>
+                            <div
+                              className="skill-bar"
+                              style={{ width: `${skillTuple[1] * 20}%` }}
+                            ></div>
+                            <div
+                              className="skill-static"
+                              id="hidden-skill-level"
+                            >
+                              Skill Level
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : null}
+
+                {this.state.freelancerInfo.profile.contentCreation
+                  .personalWebsiteUrl ? (
                   <div className="profile-works">
-                  <div className="section-header">My personal website</div>
-                  <a className="personal-website" href={this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl} target="_blank">
-                      <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
+                    <div className="section-header">My personal website</div>
+                    <a
+                      className="personal-website"
+                      href={
+                        this.state.freelancerInfo.profile.contentCreation
+                          .personalWebsiteUrl
+                      }
+                      target="_blank"
+                    >
+                      <img
+                        src={require("./imgs/macbook.png")}
+                        className="works-laptop"
+                      ></img>
                       <iframe
+                        src={
+                          this.state.freelancerInfo.profile.contentCreation
+                            .personalWebsiteUrl
+                        }
+                        className="works-laptop-screen"
+                      ></iframe>
+                    </a>
+                  </div>
+                ) : null}
 
-                        src={this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl}
-                        className="works-laptop-screen"></iframe>
-                  </a>
-                  </div> : null
-                }
-
-              {(this.state.mediumData && this.state.mediumData.data.publications.length !== 0)
-                || (this.state.instaData && !this.state.instaData.data.isPrivate) ?
-
-                <div className="profile-works">
-                  <div className="section-header">My work(s)</div>
-                  <div className="works-container">
-
-                      {this.state.mediumData && this.state.mediumData.data.publications.length !== 0 ?
-                        <a className="works-item"
-                          href={`https://medium.com/${this.state.freelancerInfo.profile.contentCreation.mediumUser}`}>
+                {(this.state.mediumData &&
+                  this.state.mediumData.data.publications.length !== 0) ||
+                (this.state.instaData &&
+                  !this.state.instaData.data.isPrivate) ? (
+                  <div className="profile-works">
+                    <div className="section-header">My work(s)</div>
+                    <div className="works-container">
+                      {this.state.mediumData &&
+                      this.state.mediumData.data.publications.length !== 0 ? (
+                        <a
+                          className="works-item"
+                          href={`https://medium.com/${this.state.freelancerInfo.profile.contentCreation.mediumUser}`}
+                        >
                           <div className="works-header medium">
-                            <AiFillMediumCircle className="works-header-img"/>
+                            <AiFillMediumCircle className="works-header-img" />
                             Medium
                           </div>
 
                           <div className="works-section">
-                            <div className="works-section-header">- My recent publications</div>
-                              {this.state.mediumData.data.publications.map((pubArray, index) => {
+                            <div className="works-section-header">
+                              - My recent publications
+                            </div>
+                            {this.state.mediumData.data.publications.map(
+                              (pubArray, index) => {
                                 return (
-                                  <a className="works-section-item works-section-item-link flex-column"
-                                    href={pubArray.link} target="_blank">
-                                    <div style={{backgroundImage: `url(${pubArray.thumbnail})`}} className="medium-img"></div>
+                                  <a
+                                    className="works-section-item works-section-item-link flex-column"
+                                    href={pubArray.link}
+                                    target="_blank"
+                                  >
+                                    <div
+                                      style={{
+                                        backgroundImage: `url(${pubArray.thumbnail})`,
+                                      }}
+                                      className="medium-img"
+                                    ></div>
                                     <b>{pubArray.title}</b>
-                                    <i>Published on {pubArray.pubDate.split(' ')[0]}</i>
-                                    <div style={{color: "#878787", marginTop: "10px"}}>{pubArray.description}</div>
-                                    <br/>
+                                    <i>
+                                      Published on{" "}
+                                      {pubArray.pubDate.split(" ")[0]}
+                                    </i>
+                                    <div
+                                      style={{
+                                        color: "#878787",
+                                        marginTop: "10px",
+                                      }}
+                                    >
+                                      {pubArray.description}
+                                    </div>
+                                    <br />
                                   </a>
-                                )})}
+                                );
+                              }
+                            )}
                           </div>
+                        </a>
+                      ) : null}
 
-                        </a> : null
-                      }
-
-                      {this.state.instaData && !this.state.instaData.data.isPrivate ?
-                        <a className="works-item"
-                          href={`https://www.instagram.com/${this.state.freelancerInfo.profile.contentCreation.instagramUser.slice(1)}`}>
+                      {this.state.instaData &&
+                      !this.state.instaData.data.isPrivate ? (
+                        <a
+                          className="works-item"
+                          href={`https://www.instagram.com/${this.state.freelancerInfo.profile.contentCreation.instagramUser.slice(
+                            1
+                          )}`}
+                        >
                           <div className="works-header instagram">
-                            <AiFillInstagram className="works-header-img"/>
+                            <AiFillInstagram className="works-header-img" />
                             Instagram
                           </div>
 
                           <div className="works-section flex-row">
-                            <img src={this.state.instaData.data.profilePhoto} className="insta-propic"></img>
-                            <div className='flex-column' style={{justifyContent: 'center'}}>
-                              <b className="insta-handle">{this.state.freelancerInfo.profile.contentCreation.instagramUser}</b>
-                              <div className="insta-handle">{this.state.instaData.data.numFollowers} followers</div>
+                            <img
+                              src={this.state.instaData.data.profilePhoto}
+                              className="insta-propic"
+                            ></img>
+                            <div
+                              className="flex-column"
+                              style={{ justifyContent: "center" }}
+                            >
+                              <b className="insta-handle">
+                                {
+                                  this.state.freelancerInfo.profile
+                                    .contentCreation.instagramUser
+                                }
+                              </b>
+                              <div className="insta-handle">
+                                {this.state.instaData.data.numFollowers}{" "}
+                                followers
+                              </div>
                             </div>
                           </div>
 
                           <div className="works-section insta-grid">
-                            {this.state.instaData.data.photos.map((img, index) => {
-                              return (
-                                <div style={{backgroundImage: `url(${img})`}} className="insta-img"></div>
-                              )})}
-                          </div>
-
-                        </a> : null
-                      }
-
-                  </div>
-                </div>
-              : null}
-
-
-
-              {this.state.freelancerInfo.profile.contentCreation.awardCategories ?
-                <div className="profile-awards">
-                  <div className="section-header">My awards</div>
-                  {this.state.freelancerInfo.profile.contentCreation.awardCategories.map((awardCategory, index) => {
-                    return (
-                      <h3><b>{this.state.freelancerInfo.profile.contentCreation.awardContent[index]} </b>
-                        ({awardCategory === "competition" ? `a competition` : awardCategory === "academic" ? "an academic" : `an`} award from {this.state.freelancerInfo.profile.contentCreation.awardProviders[index]})</h3>
-                    )})}
-
-                </div>
-                : null
-              }
-
-
-            </section>
-          : null}
-
-          {this.state.freelancerInfo.profile.design ?
-            <section className="profile-item">
-              <h1>Design and Branding</h1>
-                {
-                  this.state.freelancerInfo.profile.design.skills ?
-                  <div className="profile-skills">
-                    <div className="section-header">My skill(s) and proficiency</div>
-                    <div className="skill-container">
-                      {this.sortSkills(this.state.freelancerInfo.profile.design.skills).map((skillTuple, index) => {
-                        return (
-                          <div className="skill-static" style={{ minWidth: this.state.width }}>
-                            <span className="skill-name-static">{skillTuple[0]}: {skillTuple[1]}</span>
-                            <div className="skill-bar" style={{width: `${skillTuple[1] * 20}%`}}></div>
-                            <div className="skill-static" id="hidden-skill-level">Skill Level</div>
-                          </div>
-                        )})}
-                    </div>
-                  </div> : null
-                }
-
-                {this.state.freelancerInfo.profile.design.personalWebsiteUrl ?
-                  <div className="profile-works">
-                  <div className="section-header">My personal website</div>
-                  <a className="personal-website" href={this.state.freelancerInfo.profile.design.personalWebsiteUrl} target="_blank">
-                      <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
-                      <iframe
-
-                        src={this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl}
-                        className="works-laptop-screen"></iframe>
-                  </a>
-                  </div> : null
-                }
-
-              {this.state.fileUrls.designShowcase ?
-                <div className="profile-works">
-                  <div className="section-header">My work(s)</div>
-                  <div className="works-container">
-
-                    {
-                      this.state.fileUrls.designShowcase ?
-                      <a className="works-item" href={this.state.fileUrls.designShowcase} target="_blank">
-                        <div className="works-header gray">
-                          <FiLink className="works-header-img"/>
-                          Sample work
-                        </div>
-                        <div className="works-section flex-column center">
-                          <iframe
-                            src={this.state.fileUrls.designShowcase + `#toolbar=0&navpanes=0&statusbar=0&messages=0`}
-                            className="work-iframe"></iframe>
-                        </div>
-                      </a> : null
-                    }
-
-
-                  </div>
-                </div>
-
-              : null}
-
-              {this.state.freelancerInfo.profile.design.awardCategories ?
-                <div className="profile-awards">
-                  <div className="section-header">My awards</div>
-                  {this.state.freelancerInfo.profile.design.awardCategories.map((awardCategory, index) => {
-                    return (
-                      <h3><b>{this.state.freelancerInfo.profile.design.awardContent[index]} </b>
-                        ({awardCategory === "competition" ? `a competition` : awardCategory === "academic" ? "an academic" : `an`} award from {this.state.freelancerInfo.profile.design.awardProviders[index]})</h3>
-                    )})}
-
-                </div>
-                : null
-              }
-
-
-
-            </section>
-             : null}
-
-          {this.state.freelancerInfo.profile.softwareDev ?
-            <section className="profile-item">
-              <h1>Software Development</h1>
-                {
-                  this.state.freelancerInfo.profile.softwareDev.skills ?
-                  <div className="profile-skills">
-                    <div className="section-header">My skill(s) and proficiency</div>
-                    <div className="skill-container">
-                      {this.sortSkills(this.state.freelancerInfo.profile.softwareDev.skills).map((skillTuple, index) => {
-                        return (
-                          <div className="skill-static" style={{ minWidth: this.state.width }}>
-                            <span className="skill-name-static">{skillTuple[0]}: {skillTuple[1]}</span>
-                            <div className="skill-bar" style={{width: `${skillTuple[1] * 20}%`}}></div>
-                            <div className="skill-static" id="hidden-skill-level">Skill Level</div>
-                          </div>
-                        )})}
-                    </div>
-                  </div> : null
-                }
-
-                {this.state.freelancerInfo.profile.design.personalWebsiteUrl ?
-                  <div className="profile-works">
-                  <div className="section-header">My personal website</div>
-                  <a className="personal-website" href={this.state.freelancerInfo.profile.design.personalWebsiteUrl} target="_blank">
-                      <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
-                      <iframe
-
-                        src={this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl}
-                        className="works-laptop-screen"></iframe>
-                  </a>
-                  </div> : null
-                }
-
-              {this.state.githubData ?
-                <div className="profile-works">
-                  <div className="section-header">My work(s)</div>
-                  <div className="works-container">
-                    {this.state.githubData ?
-                      <a className="works-item" href={`https://github.com/${this.state.freelancerInfo.profile.softwareDev.githubUser.slice(1)}`} target="_blank">
-                        <div className="works-header github">
-                          <IoLogoGithub className="works-header-img"/>
-                          Github
-                        </div>
-
-                        {
-                          this.state.githubData.data.repoNames.length !== 0
-                          ?
-                          <div className="works-section">
-                            <div className="works-section-header">- My recent repositories</div>
-                            {this.state.githubData.data.repoNames.map((repoArray, index) => {
-                              return (
-                                <a className="works-section-item works-section-item-link flex-column" href={repoArray[2]} target="_blank">
-                                  <b>{repoArray[0]}</b>
-                                  {repoArray[1] ? <><br/> {repoArray[1]}</> : null}
-                                </a>
-                              )})}
-                          </div>
-                          : <div className="works-section">
-                            <div className="works-section-header">(No public repositories.)</div>
-                            </div>
-                        }
-
-                        {
-                          this.state.githubData.data.eventCount ?
-                          <div className="works-section">
-                            <div className="works-section-header">- Number of contributions</div>
-                            <div className="works-section-item">
-                              <b>{this.state.githubData.data.eventCount}</b> in the last year (average <b>{Math.round(this.state.githubData.data.eventCount/12)}</b> per month)
-                            </div>
-                            <div className="subtitle works-section-item" style={{color: "#b0b0b0"}}>The max contributions logged by Github is 30.</div>
-                          </div>
-                          : <div className="works-section">
-                            <div className="works-section-header">(No contributions this past year.)</div>
-                          </div>
-                        }
-
-                        {
-                          this.state.githubData.data.orgs.length !== 0 ?
-                          <div className="works-section">
-                            <div className="works-section-header">- My organizations</div>
-                              {this.state.githubData.data.orgs.map((orgArray, index) => {
+                            {this.state.instaData.data.photos.map(
+                              (img, index) => {
                                 return (
-                                    <a className="works-section-item works-section-item-link" href={orgArray[2]} target="_blank">
-                                      <b>{orgArray[0]}</b><br/>
+                                  <div
+                                    style={{ backgroundImage: `url(${img})` }}
+                                    className="insta-img"
+                                  ></div>
+                                );
+                              }
+                            )}
+                          </div>
+                        </a>
+                      ) : null}
+                    </div>
+                  </div>
+                ) : null}
+
+                {this.state.freelancerInfo.profile.contentCreation
+                  .awardCategories ? (
+                  <div className="profile-awards">
+                    <div className="section-header">My awards</div>
+                    {this.state.freelancerInfo.profile.contentCreation.awardCategories.map(
+                      (awardCategory, index) => {
+                        return (
+                          <h3>
+                            <b>
+                              {
+                                this.state.freelancerInfo.profile
+                                  .contentCreation.awardContent[index]
+                              }{" "}
+                            </b>
+                            (
+                            {awardCategory === "competition"
+                              ? `a competition`
+                              : awardCategory === "academic"
+                              ? "an academic"
+                              : `an`}{" "}
+                            award from{" "}
+                            {
+                              this.state.freelancerInfo.profile.contentCreation
+                                .awardProviders[index]
+                            }
+                            )
+                          </h3>
+                        );
+                      }
+                    )}
+                  </div>
+                ) : null}
+              </section>
+            ) : null}
+
+            {this.state.freelancerInfo.profile.design ? (
+              <section className="profile-item">
+                <h1>Design and Branding</h1>
+                {this.state.freelancerInfo.profile.design.skills ? (
+                  <div className="profile-skills">
+                    <div className="section-header">
+                      My skill(s) and proficiency
+                    </div>
+                    <div className="skill-container">
+                      {this.sortSkills(
+                        this.state.freelancerInfo.profile.design.skills
+                      ).map((skillTuple, index) => {
+                        return (
+                          <div
+                            className="skill-static"
+                            style={{ minWidth: this.state.width }}
+                          >
+                            <span className="skill-name-static">
+                              {skillTuple[0]}: {skillTuple[1]}
+                            </span>
+                            <div
+                              className="skill-bar"
+                              style={{ width: `${skillTuple[1] * 20}%` }}
+                            ></div>
+                            <div
+                              className="skill-static"
+                              id="hidden-skill-level"
+                            >
+                              Skill Level
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : null}
+
+                {this.state.freelancerInfo.profile.design.personalWebsiteUrl ? (
+                  <div className="profile-works">
+                    <div className="section-header">My personal website</div>
+                    <a
+                      className="personal-website"
+                      href={
+                        this.state.freelancerInfo.profile.design
+                          .personalWebsiteUrl
+                      }
+                      target="_blank"
+                    >
+                      <img
+                        src={require("./imgs/macbook.png")}
+                        className="works-laptop"
+                      ></img>
+                      <iframe
+                        src={
+                          this.state.freelancerInfo.profile.contentCreation
+                            .personalWebsiteUrl
+                        }
+                        className="works-laptop-screen"
+                      ></iframe>
+                    </a>
+                  </div>
+                ) : null}
+
+                {this.state.fileUrls.designShowcase ? (
+                  <div className="profile-works">
+                    <div className="section-header">My work(s)</div>
+                    <div className="works-container">
+                      {this.state.fileUrls.designShowcase ? (
+                        <a
+                          className="works-item"
+                          href={this.state.fileUrls.designShowcase}
+                          target="_blank"
+                        >
+                          <div className="works-header gray">
+                            <FiLink className="works-header-img" />
+                            Sample work
+                          </div>
+                          <div className="works-section flex-column center">
+                            <iframe
+                              src={
+                                this.state.fileUrls.designShowcase +
+                                `#toolbar=0&navpanes=0&statusbar=0&messages=0`
+                              }
+                              className="work-iframe"
+                            ></iframe>
+                          </div>
+                        </a>
+                      ) : null}
+                    </div>
+                  </div>
+                ) : null}
+
+                {this.state.freelancerInfo.profile.design.awardCategories ? (
+                  <div className="profile-awards">
+                    <div className="section-header">My awards</div>
+                    {this.state.freelancerInfo.profile.design.awardCategories.map(
+                      (awardCategory, index) => {
+                        return (
+                          <h3>
+                            <b>
+                              {
+                                this.state.freelancerInfo.profile.design
+                                  .awardContent[index]
+                              }{" "}
+                            </b>
+                            (
+                            {awardCategory === "competition"
+                              ? `a competition`
+                              : awardCategory === "academic"
+                              ? "an academic"
+                              : `an`}{" "}
+                            award from{" "}
+                            {
+                              this.state.freelancerInfo.profile.design
+                                .awardProviders[index]
+                            }
+                            )
+                          </h3>
+                        );
+                      }
+                    )}
+                  </div>
+                ) : null}
+              </section>
+            ) : null}
+
+            {this.state.freelancerInfo.profile.softwareDev ? (
+              <section className="profile-item">
+                <h1>Software Development</h1>
+                {this.state.freelancerInfo.profile.softwareDev.skills ? (
+                  <div className="profile-skills">
+                    <div className="section-header">
+                      My skill(s) and proficiency
+                    </div>
+                    <div className="skill-container">
+                      {this.sortSkills(
+                        this.state.freelancerInfo.profile.softwareDev.skills
+                      ).map((skillTuple, index) => {
+                        return (
+                          <div
+                            className="skill-static"
+                            style={{ minWidth: this.state.width }}
+                          >
+                            <span className="skill-name-static">
+                              {skillTuple[0]}: {skillTuple[1]}
+                            </span>
+                            <div
+                              className="skill-bar"
+                              style={{ width: `${skillTuple[1] * 20}%` }}
+                            ></div>
+                            <div
+                              className="skill-static"
+                              id="hidden-skill-level"
+                            >
+                              Skill Level
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : null}
+
+                {this.state.freelancerInfo.profile.design.personalWebsiteUrl ? (
+                  <div className="profile-works">
+                    <div className="section-header">My personal website</div>
+                    <a
+                      className="personal-website"
+                      href={
+                        this.state.freelancerInfo.profile.design
+                          .personalWebsiteUrl
+                      }
+                      target="_blank"
+                    >
+                      <img
+                        src={require("./imgs/macbook.png")}
+                        className="works-laptop"
+                      ></img>
+                      <iframe
+                        src={
+                          this.state.freelancerInfo.profile.contentCreation
+                            .personalWebsiteUrl
+                        }
+                        className="works-laptop-screen"
+                      ></iframe>
+                    </a>
+                  </div>
+                ) : null}
+
+                {this.state.githubData ? (
+                  <div className="profile-works">
+                    <div className="section-header">My work(s)</div>
+                    <div className="works-container">
+                      {this.state.githubData ? (
+                        <a
+                          className="works-item"
+                          href={`https://github.com/${this.state.freelancerInfo.profile.softwareDev.githubUser.slice(
+                            1
+                          )}`}
+                          target="_blank"
+                        >
+                          <div className="works-header github">
+                            <IoLogoGithub className="works-header-img" />
+                            Github
+                          </div>
+
+                          {this.state.githubData.data.repoNames.length !== 0 ? (
+                            <div className="works-section">
+                              <div className="works-section-header">
+                                - My recent repositories
+                              </div>
+                              {this.state.githubData.data.repoNames.map(
+                                (repoArray, index) => {
+                                  return (
+                                    <a
+                                      className="works-section-item works-section-item-link flex-column"
+                                      href={repoArray[2]}
+                                      target="_blank"
+                                    >
+                                      <b>{repoArray[0]}</b>
+                                      {repoArray[1] ? (
+                                        <>
+                                          <br /> {repoArray[1]}
+                                        </>
+                                      ) : null}
+                                    </a>
+                                  );
+                                }
+                              )}
+                            </div>
+                          ) : (
+                            <div className="works-section">
+                              <div className="works-section-header">
+                                (No public repositories.)
+                              </div>
+                            </div>
+                          )}
+
+                          {this.state.githubData.data.eventCount ? (
+                            <div className="works-section">
+                              <div className="works-section-header">
+                                - Number of contributions
+                              </div>
+                              <div className="works-section-item">
+                                <b>{this.state.githubData.data.eventCount}</b>{" "}
+                                in the last year (average{" "}
+                                <b>
+                                  {Math.round(
+                                    this.state.githubData.data.eventCount / 12
+                                  )}
+                                </b>{" "}
+                                per month)
+                              </div>
+                              <div
+                                className="subtitle works-section-item"
+                                style={{ color: "#b0b0b0" }}
+                              >
+                                The max contributions logged by Github is 30.
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="works-section">
+                              <div className="works-section-header">
+                                (No contributions this past year.)
+                              </div>
+                            </div>
+                          )}
+
+                          {this.state.githubData.data.orgs.length !== 0 ? (
+                            <div className="works-section">
+                              <div className="works-section-header">
+                                - My organizations
+                              </div>
+                              {this.state.githubData.data.orgs.map(
+                                (orgArray, index) => {
+                                  return (
+                                    <a
+                                      className="works-section-item works-section-item-link"
+                                      href={orgArray[2]}
+                                      target="_blank"
+                                    >
+                                      <b>{orgArray[0]}</b>
+                                      <br />
                                       {orgArray[1]}
                                     </a>
-
-                                )})}
-
-                          </div>
-                          : <div className="works-section">
-                            <div className="works-section-header">(No public organizations to show.)</div>
-                          </div>
-                        }
-
-
-
-                      </a> : null
-                    }
-
+                                  );
+                                }
+                              )}
+                            </div>
+                          ) : (
+                            <div className="works-section">
+                              <div className="works-section-header">
+                                (No public organizations to show.)
+                              </div>
+                            </div>
+                          )}
+                        </a>
+                      ) : null}
+                    </div>
                   </div>
-                </div>
-              : null}
+                ) : null}
 
-              {this.state.freelancerInfo.profile.softwareDev.awardCategories ?
-                <div className="profile-awards">
-                  <div className="section-header">My awards</div>
-                  {this.state.freelancerInfo.profile.softwareDev.awardCategories.map((awardCategory, index) => {
-                    return (
-                      <h3><b>{this.state.freelancerInfo.profile.softwareDev.awardContent[index]} </b>
-                        ({awardCategory === "competition" ? `a competition` : awardCategory === "academic" ? "an academic" : `an`} award from {this.state.freelancerInfo.profile.softwareDev.awardProviders[index]})</h3>
-                    )})}
+                {this.state.freelancerInfo.profile.softwareDev
+                  .awardCategories ? (
+                  <div className="profile-awards">
+                    <div className="section-header">My awards</div>
+                    {this.state.freelancerInfo.profile.softwareDev.awardCategories.map(
+                      (awardCategory, index) => {
+                        return (
+                          <h3>
+                            <b>
+                              {
+                                this.state.freelancerInfo.profile.softwareDev
+                                  .awardContent[index]
+                              }{" "}
+                            </b>
+                            (
+                            {awardCategory === "competition"
+                              ? `a competition`
+                              : awardCategory === "academic"
+                              ? "an academic"
+                              : `an`}{" "}
+                            award from{" "}
+                            {
+                              this.state.freelancerInfo.profile.softwareDev
+                                .awardProviders[index]
+                            }
+                            )
+                          </h3>
+                        );
+                      }
+                    )}
+                  </div>
+                ) : null}
+              </section>
+            ) : null}
 
-                </div>
-                : null
-              }
-
-            </section>
-            : null}
-
-             <Footer/>
-
-
+            <Footer />
           </>
-
-        : <div className="react-loading"><ReactLoading
-            className={"Loading"}
-            type={"bubbles"}
-            width={"15%"}
-            height={"auto"}
-            color={"#8F8DFF"}
-          /></div>}
-
-
+        ) : (
+          <div className="react-loading">
+            <ReactLoading
+              className={"Loading"}
+              type={"bubbles"}
+              width={"15%"}
+              height={"auto"}
+              color={"#8F8DFF"}
+            />
+          </div>
+        )}
       </div>
     );
   }

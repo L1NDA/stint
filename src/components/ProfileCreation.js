@@ -181,7 +181,7 @@ class ProfileCreation extends React.Component {
       temp.sd.awardCategories,
       temp.sd.awardContent,
       temp.sd.awardProviders,
-      
+
       temp.phonenum
     );
     await this.props.analytics.logEvent(SIGNUP_EVENT);
