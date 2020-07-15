@@ -1,5 +1,6 @@
 const functions = require('firebase-functions');
 const cors = require('cors')({origin: true});
+const htmlToText = require('html-to-text');
 
 const nodemailer = require("nodemailer")
 
@@ -80,13 +81,13 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
         await axios.get(githubApiUrl + "/repos", AUTH_HEADER)
             .then(function(response) {
                 if (response.data[0]) {
-                    result.repoNames = [[response.data[0].name, response.data[0].description]]
+                    result.repoNames = [[response.data[0].name, response.data[0].description, response.data[0].url]]
                 }
                 if (response.data[1]) {
-                    result.repoNames.push([response.data[1].name, response.data[1].description])
+                    result.repoNames.push([response.data[1].name, response.data[1].description, response.data[1].url])
                 }
                 if (response.data[2]) {
-                    result.repoNames.push([response.data[2].name, response.data[2].description])
+                    result.repoNames.push([response.data[2].name, response.data[2].descriptio, response.data[2].url])
                 }
             }).catch(err => {
                 return res.status(300).send(result)
@@ -95,7 +96,7 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
         await axios.get(githubApiUrl + "/orgs", AUTH_HEADER)
             .then(function(response) {
                 result.orgs = []
-                response.data.forEach((org) => {
+                response.data.slice([0], [3]).map((org, i) => {
                     result.orgs.push([org.login, org.description])
                 })
             }).catch(err => {
@@ -152,17 +153,34 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
                         const res = response.data.items
                         const posts = res.filter(item => item.categories.length > 0)
 
+                        
+                        // function toText(node) {
+                        //     console.log("HWAT THE FUK ", node)
+                        //     let tag = document.createElement('div')
+                        //     tag.innerHTML = node
+                        //     node = tag.innerText
+
+                        //     console.log("NODE", node.innerText)
+                        //  }
+
                         function shortenText(text,startingPoint ,maxLength) {
                             return text.length > maxLength?
                             text.slice(startingPoint, maxLength):
                             text
                         }
-
+                        
+  
                         result.publications = []
                         posts.slice([0], [3]).map((item, i) => {
+                            const text = htmlToText.fromString(item.description, {
+                                wordwrap: 130
+                            });
+                            
                             let publication = {}
                             publication.link = item.link
+                            publication.pubDate = item.pubDate
                             publication.thumbnail = item.thumbnail
+                            publication.description = shortenText(text, 0, 200) + '...'
                             publication.title = shortenText(item.title, 0, 30)+ '...'
                             result.publications.push(publication)
                         })
