@@ -12,7 +12,6 @@ const getGithubInfo = (user) => {
       return res
     })
     .catch(error => {
-      console.log("ERROR MESSAGE", error.message)
       throw error
     })
 }

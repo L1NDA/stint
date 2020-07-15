@@ -114,6 +114,9 @@ class ProfileView extends React.Component {
           try {
             githubData = await getGithubInfo(githubUsername);
           } catch (err) {
+            if (err.response.request.status == 404) {
+              githubData = {}
+            }
             await this.props.analytics.logEvent(GITHUB_FUNCTIONS_ERROR);
           }
 
@@ -133,7 +136,10 @@ class ProfileView extends React.Component {
           } catch (err) {
             await this.props.analytics.logEvent(MEDIUM_FUNCTIONS_ERROR);
           }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         }
 
         this.setState({
@@ -249,13 +255,19 @@ class ProfileView extends React.Component {
                               index
                             ].slice(2)}
                           </div>
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
                           {
                             this.state.freelancerInfo.profile.workExperience
                               .companyRoles[index]
                           }{" "}
                           @ <b> {company}</b>
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
                         </div>
                       );
                     }
