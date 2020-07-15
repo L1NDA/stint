@@ -74,6 +74,11 @@
   padding: 75px 20%
 }
 
+.bip {
+  width: 40px;
+  margin-left: 10px;
+}
+
 .process-container {
   padding: 0 20%;
   margin: 100px 0;
@@ -231,7 +236,6 @@
 }
 
 .example-company-square, .example-company-rect {
-  margin: 0 50px;
   filter: grayscale(0.5);
 }
 
@@ -241,14 +245,26 @@
   -webkit-transition : -webkit-filter 200ms linear
 }
 
+.example-company-square-container {
+  margin: 0 50px;
+  min-width: 100px;
+  width: 20%;
+  height: auto;
+}
+
 .example-company-square {
-  width: 200px;
+  width: 100%;
+}
+
+.example-company-rect-container {
+  margin: 0 50px;
+  min-width: 150px;
+  width: 30%;
   height: auto;
 }
 
 .example-company-rect {
-  height: 100px;
-  width: auto;
+  width: 100%;
 }
 
 .accordion {
@@ -456,17 +472,15 @@
     height: 10px;
   }
 
-  .example-company-square {
-    height: 150px;
-    width: auto;
-    max-width: 100%;
+  .example-company-square-container {
+    min-width: 75px;
+    height: auto;
     margin: 0
   }
 
-  .example-company-rect {
-    height: 75px;
-    width: auto;
-    max-width: 100%;
+  .example-company-rect-container {
+    min-width: 75px;
+    height: auto;
     margin: 0
   }
 
