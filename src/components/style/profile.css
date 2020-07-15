@@ -3,16 +3,16 @@
 }
 
 .profile-container > * {
-  margin-bottom: 50px
+  margin-bottom: 50px;
 }
 
 .profile-container > :last-child {
-  margin-bottom: 0px
+  margin-bottom: 0px;
 }
 
 .stint-dialogue {
   box-shadow: 0px 4px 32px rgba(71, 68, 72, 0.15);
-  background: linear-gradient(270deg, #8F8DFF 0%, #05D9B2 100%);
+  background: linear-gradient(270deg, #8f8dff 0%, #05d9b2 100%);
   background-size: 200% 100%;
   animation: gradient 2s linear infinite;
   animation-direction: alternate;
@@ -23,7 +23,7 @@
 
   padding: 50px;
   filter: opacity(1);
-  transition: opacity 0.2s ease-in
+  transition: opacity 0.2s ease-in;
 }
 
 .stint-dialogue > * {
@@ -39,13 +39,17 @@
 }
 
 @keyframes gradient {
-    0% {background-position: 0%}
-    100% {background-position: 100%}
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
+  }
 }
 
 .loading {
   box-shadow: 0px 4px 32px rgba(71, 68, 72, 0.15);
-  background: linear-gradient(270deg, #8F8DFF 0%, #05D9B2 100%);
+  background: linear-gradient(270deg, #8f8dff 0%, #05d9b2 100%);
   background-size: 200% 100%;
   animation: gradient 2s linear infinite;
   animation-direction: alternate;
@@ -57,14 +61,14 @@
   padding: 50px;
 
   filter: opacity(0.25);
-  transition: opacity 0.2s ease-in
+  transition: opacity 0.2s ease-in;
 }
 
 .loading > * {
   margin: 0;
   margin-bottom: 20px;
   filter: opacity(0);
-  transition: opacity 0.2s ease-in
+  transition: opacity 0.2s ease-in;
 }
 
 .loading > :last-child {
@@ -72,7 +76,7 @@
 }
 
 .hline {
-  border: 2px solid #F5F5F5;
+  border: 2px solid #f5f5f5;
   width: 100%;
 }
 
@@ -97,28 +101,27 @@
 .student-dialogue-block > * {
   margin: 0;
   margin-bottom: 20px;
-
 }
 
 .student-dialogue-block > :last-child {
-  margin-bottom: 0
+  margin-bottom: 0;
 }
 
 .custom-select {
   background-color: transparent;
   outline: none;
   border: none;
-  border-bottom: 4px solid #8F8DFF;
+  border-bottom: 4px solid #8f8dff;
   border-radius: 0;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
 
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 24px;
   font-weight: bold;
 
-  color: #8F8DFF;
+  color: #8f8dff;
 
   margin: 0 4px;
   display: inline-block;
@@ -135,7 +138,7 @@
 }
 
 .optional-chunk * {
-  z-index: 10
+  z-index: 10;
 }
 
 .optional-chunk > h3 {
@@ -149,7 +152,7 @@
 }
 
 .skills-header:hover .skills-header-row > h3 {
-  color: #8F8DFF;
+  color: #8f8dff;
 }
 
 .skills-header-row {
@@ -163,12 +166,12 @@
 }
 
 .student-skill-status {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-weight: bold;
   font-size: 12px;
   padding: 5px 10px;
 
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .skill-container {
@@ -178,13 +181,13 @@
 }
 
 .skill-container > *:last-child {
-  margin-right: 0
+  margin-right: 0;
 }
 
 .skill {
   padding: 5px 40px;
   margin: 5px;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   position: relative;
   display: flex;
   justify-content: center;
@@ -194,7 +197,7 @@
 .skill:hover {
   cursor: pointer;
   box-shadow: 0px 4px 32px rgba(71, 68, 72, 0.15);
-  background-color: #E0E0E0;
+  background-color: #e0e0e0;
   transition: background-color 0.4s linear;
 }
 
@@ -213,11 +216,15 @@
   visibility: hidden;
 }
 
-.skill-level, .plus, .minus {
+.skill-level,
+.plus,
+.minus {
   visibility: hidden;
 }
 
-.skill:hover > .skill-level, .skill:hover > .plus, .skill:hover > .minus {
+.skill:hover > .skill-level,
+.skill:hover > .plus,
+.skill:hover > .minus {
   visibility: visible;
   z-index: 5;
 }
@@ -238,13 +245,14 @@
   background-color: none;
 }
 
-.plus:hover, .minus:hover {
-  background-color: rgb(0,0,0,0.1);
+.plus:hover,
+.minus:hover {
+  background-color: rgb(0, 0, 0, 0.1);
   transition: all 0.1s linear;
 }
 
 .skill-bar {
-  background-color: #05D9B2;
+  background-color: #05d9b2;
   height: 100%;
   position: absolute;
   left: 0;
@@ -277,14 +285,14 @@
 }
 
 [type="file"] + label {
-  background: linear-gradient(to left, #8F8DFF 50.1%, #474448 50%);
+  background: linear-gradient(to left, #8f8dff 50.1%, #474448 50%);
   background-size: 200% 100%;
   background-position: right bottom;
   border-radius: 0;
   color: white;
   cursor: pointer;
   display: inline-block;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-weight: bold;
   font-size: 14px;
   border: none;
@@ -300,52 +308,38 @@
 }
 
 [type="file"]:focus + label {
-  outline: 4px solid #8F8DFF;
+  outline: 4px solid #8f8dff;
   outline: -webkit-focus-ring-color auto 5px;
 }
 
 /* Media Queries */
 
 /* Smaller Laptops ----------- */
-@media only screen and (max-width : 1200px) {
-
+@media only screen and (max-width: 1200px) {
   .custom-select {
     font-size: 20px;
   }
-
-
 }
 
 /* Mini Screens */
-@media only screen and (max-height : 1024px) {
-
+@media only screen and (max-height: 1024px) {
 }
 
 /* Large Phones */
-@media only screen and (max-height : 950px) and (max-width: 800px) {
+@media only screen and (max-height: 950px) and (max-width: 800px) {
   .custom-select {
     font-size: 18px;
   }
-
 }
 
 /* iPhone 6 */
-@media only screen and (max-height : 670px) {
-
-
-
+@media only screen and (max-height: 670px) {
 }
 
 /* Small Phones */
-@media only screen and (max-height : 570px) {
-
-
-
+@media only screen and (max-height: 570px) {
 }
 
 /* Smaller Phones */
-@media only screen and (max-width : 320px) {
-
-
-
+@media only screen and (max-width: 320px) {
 }

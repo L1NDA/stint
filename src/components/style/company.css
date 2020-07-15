@@ -1,5 +1,5 @@
 .container {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -36,12 +36,12 @@
 }
 
 .tri-title {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-weight: bold;
   font-size: 36px;
   line-height: 45px;
 
-  color: #8F8DFF;
+  color: #8f8dff;
 }
 
 .company-carousel {
@@ -97,7 +97,8 @@
   transition: 0.2s all linear;
 }
 
-.button-back, .button-next {
+.button-back,
+.button-next {
   position: absolute;
   top: 45%;
   z-index: 10;
@@ -107,18 +108,19 @@
 }
 
 .button-back:hover {
-  color: #8F8DFF;
+  color: #8f8dff;
   left: -8.5%;
   transition: all 0.2s linear;
 }
 
 .button-next:hover {
-  color: #8F8DFF;
+  color: #8f8dff;
   right: -8.5%;
   transition: all 0.2s linear;
 }
 
-.button-back:focus, .button-next:focus {
+.button-back:focus,
+.button-next:focus {
   outline: none;
 }
 
@@ -147,23 +149,18 @@
 /* Media Queries */
 
 /* Smaller Laptops ----------- */
-@media only screen and (max-width : 1200px) {
-
+@media only screen and (max-width: 1200px) {
   .tri-title {
     font-size: 25px;
   }
-
-
 }
 
 /* Mini Screens */
-@media only screen and (max-height : 1024px) {
-
+@media only screen and (max-height: 1024px) {
 }
 
 /* Large Phones */
-@media only screen and (max-height : 950px) and (max-width: 800px) {
-
+@media only screen and (max-height: 950px) and (max-width: 800px) {
   .company-text {
     margin-top: 25px;
   }
@@ -188,7 +185,7 @@
   }
 
   .tri-text {
-    width: 100%
+    width: 100%;
   }
 
   .tri-title {
@@ -211,11 +208,11 @@
   }
 
   .carousel-container {
-    padding: 20px;;
+    padding: 20px;
   }
 
   .carousel-section > h3 {
-    text-align: center
+    text-align: center;
   }
 
   .unis {
@@ -231,33 +228,23 @@
   .company-cta {
     padding: 150px 20%;
   }
-
 }
 
 /* iPhone 6 */
-@media only screen and (max-height : 670px) {
-
+@media only screen and (max-height: 670px) {
   .company-image {
     width: 80%;
   }
-
-
 }
 
 /* Small Phones */
-@media only screen and (max-height : 570px) {
-
+@media only screen and (max-height: 570px) {
   .input {
     width: auto;
     min-width: 200px;
   }
-
-
 }
 
 /* Smaller Phones */
-@media only screen and (max-width : 320px) {
-
-
-
+@media only screen and (max-width: 320px) {
 }

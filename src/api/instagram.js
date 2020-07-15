@@ -1,17 +1,21 @@
-const axios = require('axios')
+const axios = require("axios");
 
 const getInstaInfo = (user) => {
-    return axios.post('http://localhost:5001/stint-staging-eb100/us-central1/getInstaInfo', {
-      instaUser: user
+  return axios
+    .post(
+      "http://localhost:5001/stint-staging-eb100/us-central1/getInstaInfo",
+      {
+        instaUser: user,
+      }
+    )
+    .then((res) => {
+      return res;
     })
-    .then(res => {
-      return res
-    })
-    .catch(error => {
-      throw error
-    })
-}
+    .catch((error) => {
+      throw error;
+    });
+};
 
 module.exports = {
-    getInstaInfo
-}
+  getInstaInfo,
+};
