@@ -82,13 +82,13 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
         await axios.get(githubApiUrl + "/repos", AUTH_HEADER)
             .then(function(response) {
                 if (response.data[0]) {
-                    result.repoNames = [[response.data[0].name, response.data[0].description, response.data[0].url]]
+                    result.repoNames = [[response.data[0].name, response.data[0].description, response.data[0].html_url]]
                 }
                 if (response.data[1]) {
-                    result.repoNames.push([response.data[1].name, response.data[1].description, response.data[1].url])
+                    result.repoNames.push([response.data[1].name, response.data[1].description, response.data[1].html_url])
                 }
                 if (response.data[2]) {
-                    result.repoNames.push([response.data[2].name, response.data[2].descriptio, response.data[2].url])
+                    result.repoNames.push([response.data[2].name, response.data[2].descriptio, response.data[2].html_url])
                 }
             }).catch(err => {
                 return res.status(300).send(result)
