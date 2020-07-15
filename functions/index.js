@@ -79,16 +79,16 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
 
 
 
-        await axios.get(githubApiUrl + "/repos", AUTH_HEADER)
+        await axios.get("https://api.github.com/search/repositories?q=user:" + githubUser + "+sort:updated-desc", AUTH_HEADER)
             .then(function(response) {
-                if (response.data[0]) {
-                    result.repoNames = [[response.data[0].name, response.data[0].description, response.data[0].html_url]]
+                if (response.data.items[0]) {
+                    result.repoNames = [[response.data.items[0].name, response.data.items[0].description, response.data.items[0].html_url]]
                 }
-                if (response.data[1]) {
-                    result.repoNames.push([response.data[1].name, response.data[1].description, response.data[1].html_url])
+                if (response.data.items[1]) {
+                    result.repoNames.push([response.data.items[1].name, response.data.items[1].description, response.data.items[1].html_url])
                 }
-                if (response.data[2]) {
-                    result.repoNames.push([response.data[2].name, response.data[2].descriptio, response.data[2].html_url])
+                if (response.data.items[2]) {
+                    result.repoNames.push([response.data.items[2].name, response.data.items[2].descriptio, response.data.items[2].html_url])
                 }
             }).catch(err => {
                 return res.status(300).send(result)
@@ -98,7 +98,7 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
             .then(function(response) {
                 result.orgs = []
                 response.data.slice([0], [3]).map((org, i) => {
-                    result.orgs.push([org.login, org.description])
+                    result.orgs.push([org.login, org.description, "https://www.github.com/" + org.login])
                 })
             }).catch(err => {
                 return res.status(300).send(result)
