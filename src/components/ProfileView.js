@@ -119,7 +119,6 @@ class ProfileView extends React.Component {
             }
             await this.props.analytics.logEvent(GITHUB_FUNCTIONS_ERROR);
           }
-
         }
 
         if (instaUsername) {
