@@ -244,10 +244,24 @@
   .profile-item {
     flex-direction: column;
     padding: 50px 10%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .profile-item > div > * {
+    text-align: center
   }
 
   .my-profile-img {
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0;
+  }
+
+  .self-view > h2 {
+    text-align: center;
   }
 
   .experience-section {
@@ -260,6 +274,10 @@
 
   .experience-section > *:last-child {
     margin-top: 50px;
+  }
+
+  .profile-item > h1 {
+    text-align: center;
   }
 
   .works-col-wrapper {
@@ -275,12 +293,12 @@
   }
 
   .works-header {
-    flex-direction: column;
-    align-items: flex-start
+    font-size: 28px;
+    line-height: 28px;
   }
 
   .works-header > *:first-child {
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
   }
 
   .work-iframe {
