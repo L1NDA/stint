@@ -155,10 +155,13 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
 
                         
                         function toText(t) {
-                            const text = htmlToText.fromString(t, {
+                            text = htmlToText.fromString(t, {
                                 wordwrap: 130
                             });
-                            return text.replace(/ *\([^)]*\) */g, "");
+
+                            text = text.replace(/(\[.*?\])/g, '');
+                            text = text.replace(/(\r\n|\n|\r)/gm, "");
+                            return text
                          }
 
                         function shortenText(text,startingPoint ,maxLength) {
@@ -167,15 +170,13 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
                             text
                         }
                         
-  
                         result.publications = []
                         posts.slice([0], [3]).map((item, i) => {
-                            
                             let publication = {}
                             publication.link = item.link
                             publication.pubDate = item.pubDate
                             publication.thumbnail = item.thumbnail
-                            publication.description = shortenText(toText(item.description), 0, 200) + '...'
+                            publication.description = shortenText(toText(item.description), 30, 300) + '...'
                             publication.title = shortenText(item.title, 0, 30)+ '...'
                             result.publications.push(publication)
                         })
