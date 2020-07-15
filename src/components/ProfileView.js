@@ -114,7 +114,7 @@ class ProfileView extends React.Component {
 
     },
     function(error) {
-      console.error(error)
+      console.error("above error", error)
     })
   }
 
