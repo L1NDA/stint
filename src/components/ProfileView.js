@@ -1,36 +1,46 @@
-import React from 'react'
-import Menu from './Menu.js'
-import Footer from './Footer.js'
-import { connect } from "react-redux"
+import React from "react";
+import Menu from "./Menu.js";
+import Footer from "./Footer.js";
+import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
-import './style/my-profile.css'
+import "./style/my-profile.css";
 import { IoLogoGithub } from "react-icons/io";
 import { FiLink } from "react-icons/fi";
 import { AiFillMediumCircle, AiFillInstagram } from "react-icons/ai";
-import { getFreelancerRef } from '../api/freelancer'
-import { TiSortNumericallyOutline } from 'react-icons/ti';
-import {getInstaInfo} from "../api/instagram"
-import medium, {getMediumInfo} from "../api/medium"
-import {getGithubInfo} from "../api/github"
+import { getFreelancerRef } from "../api/freelancer";
+import { TiSortNumericallyOutline } from "react-icons/ti";
+import { getInstaInfo } from "../api/instagram";
+import medium, { getMediumInfo } from "../api/medium";
+import { getGithubInfo } from "../api/github";
 import ReactLoading from "react-loading";
 
-import { PROFILE_CREATION_PATH } from "../constants/ROUTING_CONSTANTS"
+import { PROFILE_CREATION_PATH } from "../constants/ROUTING_CONSTANTS";
+import {
+  GITHUB_FUNCTIONS_ERROR,
+  INSTAGRAM_FUNCTIONS_ERROR,
+  MEDIUM_FUNCTIONS_ERROR,
+} from "../constants/ANALYTICS_CONSTANTS";
 
-
-const SKILLS = ['React', 'Python', 'Javascript', 'HTML/CSS', 'C/C++', 'SQL', 'Java']
-const LEVEL = ['5', '4', '4', '4', '2', '1', '1']
-const DESIGN_SHOWCASE_PREFIX = "designshowcase-"
-const PERSONAL_WEBSITE_PREFIX = "personalwebsite-"
-const OTHER_FILES = "otherFiles"
+const SKILLS = [
+  "React",
+  "Python",
+  "Javascript",
+  "HTML/CSS",
+  "C/C++",
+  "SQL",
+  "Java",
+];
+const LEVEL = ["5", "4", "4", "4", "2", "1", "1"];
+const DESIGN_SHOWCASE_PREFIX = "designshowcase-";
+const PERSONAL_WEBSITE_PREFIX = "personalwebsite-";
+const OTHER_FILES = "otherFiles";
 
 class ProfileView extends React.Component {
-
-  constructor(){
+  constructor() {
     super();
-    this.state = {
-    }
+    this.state = {};
   }
 
   componentDidUpdate() {
@@ -45,143 +55,141 @@ class ProfileView extends React.Component {
       const width = optionEle.offsetWidth + 5; // padding width or arrows
       this.setState({ width: `${width}px` });
     }
-
   };
 
   updateProfilePic = (imgUrl) => {
-    this.state.freelancerRef.child("avatarUrl").set(imgUrl)
-    document.getElementById("profile-img").src = imgUrl
-  }
+    this.state.freelancerRef.child("avatarUrl").set(imgUrl);
+    document.getElementById("profile-img").src = imgUrl;
+  };
 
   componentDidMount = async () => {
-    console.log("COMPOENENT DID MOUNT")
-    let fileUrls = await this.getFilesFromStorage()
+    console.log("COMPOENENT DID MOUNT");
+    let fileUrls = await this.getFilesFromStorage();
 
-    let freelancerRef = await getFreelancerRef(this.props.auth.uid)
-    freelancerRef.on("value", async (snapshot) => {
-      console.log("COMPOENENT DID MOUNT FREELANCERRE")
-      let info = snapshot.val()
-      let profile = info.profile
+    let freelancerRef = await getFreelancerRef(this.props.auth.uid);
+    freelancerRef.on(
+      "value",
+      async (snapshot) => {
+        console.log("COMPOENENT DID MOUNT FREELANCERRE");
+        let info = snapshot.val();
+        let profile = info.profile;
 
-      if (!profile) {
-        this.props.history.push(PROFILE_CREATION_PATH)
-        return
-      }
-
-      let githubUsername = null
-      let instaUsername = null
-      let mediumUsername = null
-      console.log(profile)
-      if (profile.dataAnalytics) {
-        if (profile.dataAnalytics.githubUser) {
-          let githubUser = profile.dataAnalytics.githubUser
-          githubUsername = parseGithubUser(githubUser)
+        if (!profile) {
+          this.props.history.push(PROFILE_CREATION_PATH);
+          return;
         }
-      }
-      if (profile.softwareDev) {
-        if (profile.softwareDev.githubUser) {
-          let githubUser = profile.softwareDev.githubUser
-          githubUsername = parseGithubUser(githubUser)
-        }
-      }
-      if (profile.contentCreation) {
-        if (profile.contentCreation.instagramUser) {
-          let instaUser = profile.contentCreation.instagramUser
-          instaUsername = parseInstaUser(instaUser)
-        }
-        if (profile.contentCreation.mediumUser) {
-          let mediumUser = profile.contentCreation.mediumUser
-          mediumUsername = parseMediumUser(mediumUser)
-        }
-      }
 
-      let githubData = null
-      let instaData = null
-      let mediumData = null
-
-      if (githubUsername) {
-        try {
-          githubData = await getGithubInfo(githubUsername)
-        } catch (err) {
-          await this.props.analytics.logEvent("github_functions_error")
+        let githubUsername = null;
+        let instaUsername = null;
+        let mediumUsername = null;
+        console.log(profile);
+        if (profile.dataAnalytics) {
+          if (profile.dataAnalytics.githubUser) {
+            let githubUser = profile.dataAnalytics.githubUser;
+            githubUsername = parseGithubUser(githubUser);
+          }
         }
-      }
-
-      if (instaUsername) {
-        try {
-          instaData = await getInstaInfo(instaUsername)
-        } catch (err) {
-          await this.props.analytics.logEvent("insta_functions_error")
+        if (profile.softwareDev) {
+          if (profile.softwareDev.githubUser) {
+            let githubUser = profile.softwareDev.githubUser;
+            githubUsername = parseGithubUser(githubUser);
+          }
         }
-      }
-
-      if (mediumUsername) {
-        try {
-         console.log("WHYYYY")
-         mediumData = await getMediumInfo(mediumUsername)
-        } catch (err) {
-          await this.props.analytics.logEvent("medium_functions_error")
+        if (profile.contentCreation) {
+          if (profile.contentCreation.instagramUser) {
+            let instaUser = profile.contentCreation.instagramUser;
+            instaUsername = parseInstaUser(instaUser);
+          }
+          if (profile.contentCreation.mediumUser) {
+            let mediumUser = profile.contentCreation.mediumUser;
+            mediumUsername = parseMediumUser(mediumUser);
+          }
         }
+
+        let githubData = null;
+        let instaData = null;
+        let mediumData = null;
+
+        if (githubUsername) {
+          try {
+            githubData = await getGithubInfo(githubUsername);
+          } catch (err) {
+            await this.props.analytics.logEvent(GITHUB_FUNCTIONS_ERROR);
+          }
+
+        }
+
+        if (instaUsername) {
+          try {
+            instaData = await getInstaInfo(instaUsername);
+          } catch (err) {
+            await this.props.analytics.logEvent(INSTAGRAM_FUNCTIONS_ERROR);
+          }
+        }
+
+        if (mediumUsername) {
+          try {
+            mediumData = await getMediumInfo(mediumUsername);
+          } catch (err) {
+            await this.props.analytics.logEvent(MEDIUM_FUNCTIONS_ERROR);
+          }
+
+        }
+
+        this.setState({
+          freelancerInfo: info,
+          freelancerRef,
+          githubData,
+          instaData,
+          mediumData,
+          fileUrls,
+        });
+      },
+      function (error) {
+        console.error("above error", error);
       }
-
-      this.setState({
-        freelancerInfo: info,
-        freelancerRef,
-        githubData,
-        instaData,
-        mediumData,
-        fileUrls
-      }, () => {console.log(this.state)})
-
-    },
-    function(error) {
-      console.error("above error", error)
-    })
-  }
+    );
+  };
 
   getFilesFromStorage = async () => {
-    let storageRef = this.props.storage.ref()
-    let filesRef = storageRef.child("images" + "/" + this.props.auth.uid)
-    let res = await filesRef.listAll()
+    let storageRef = this.props.storage.ref();
+    let filesRef = storageRef.child("images" + "/" + this.props.auth.uid);
+    let res = await filesRef.listAll();
 
-    let fileUrls = {}
+    let fileUrls = {};
     res.items.forEach(async (item) => {
-      let fileData = await item.getMetadata()
-      let fileUrl = await item.getDownloadURL()
+      let fileData = await item.getMetadata();
+      let fileUrl = await item.getDownloadURL();
       if (fileData.name.startsWith(DESIGN_SHOWCASE_PREFIX)) {
-        fileUrls.designShowcase = fileUrl
-      }
-      else if (fileData.name.startsWith(PERSONAL_WEBSITE_PREFIX)) {
-        fileUrls.personalWebsite = fileUrl
-      }
-      else {
+        fileUrls.designShowcase = fileUrl;
+      } else if (fileData.name.startsWith(PERSONAL_WEBSITE_PREFIX)) {
+        fileUrls.personalWebsite = fileUrl;
+      } else {
         if (fileUrls[OTHER_FILES]) {
-          fileUrls[OTHER_FILES].push(fileUrl)
-        }
-        else {
-          fileUrls[OTHER_FILES] = [fileUrl]
+          fileUrls[OTHER_FILES].push(fileUrl);
+        } else {
+          fileUrls[OTHER_FILES] = [fileUrl];
         }
       }
-    })
-    return fileUrls
-  }
+    });
+    return fileUrls;
+  };
 
   sortSkills = (skills) => {
-    var items = Object.keys(skills).map(function(key) {
+    var items = Object.keys(skills).map(function (key) {
       return [key, skills[key]];
     });
 
     // Sort the array based on the second element
-    items.sort(function(first, second) {
+    items.sort(function (first, second) {
       return second[1] - first[1];
     });
 
-    return items
-  }
+    return items;
+  };
 
   render() {
-      return (
-
+    return (
       <div className="container">
         <Menu/>
         {this.state.freelancerInfo
@@ -681,44 +689,48 @@ class ProfileView extends React.Component {
 
 
       </div>
-    )}
+    );
   }
+}
 
-  // <section className="self-view">
-  //   <h2 style={{marginTop: '0', color: 'white'}}>(Visible to you only)</h2>
-  //   <div className="flex-column">
-  //     {this.state.freelancerInfo.profile.dataAnalytics ?
-  //       <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>analytics</b> stints.</div> : null}
-  //
-  //     {this.state.freelancerInfo.profile.contentCreation ? <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>content creation & management</b> stints.</div> : null}
-  //
-  //     {this.state.freelancerInfo.profile.design ? <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>design & branding</b> stints.</div> : null}
-  //
-  //     {this.state.freelancerInfo.profile.softwareDev ? <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>software engineering</b> stints.</div> : null}
-  //
-  //   </div>
-  //   <div className="subtitle" style={{color: 'white', marginTop: '30px'}}>(If you set yourself as ‘not available’ for a category, you will not show up in relevant search results for that area.)</div>
-  // </section>
+// <section className="self-view">
+//   <h2 style={{marginTop: '0', color: 'white'}}>(Visible to you only)</h2>
+//   <div className="flex-column">
+//     {this.state.freelancerInfo.profile.dataAnalytics ?
+//       <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>analytics</b> stints.</div> : null}
+//
+//     {this.state.freelancerInfo.profile.contentCreation ? <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>content creation & management</b> stints.</div> : null}
+//
+//     {this.state.freelancerInfo.profile.design ? <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>design & branding</b> stints.</div> : null}
+//
+//     {this.state.freelancerInfo.profile.softwareDev ? <div style={{color: 'white', margin: '5px 0'}}>I am currently <b style={{color: '#8F8DFF'}}>available</b> for <b>software engineering</b> stints.</div> : null}
+//
+//   </div>
+//   <div className="subtitle" style={{color: 'white', marginTop: '30px'}}>(If you set yourself as ‘not available’ for a category, you will not show up in relevant search results for that area.)</div>
+// </section>
 
 function parseGithubUser(user) {
-  return user.substring(1)
+  return user.substring(1);
 }
 
 function parseMediumUser(user) {
-  return user.substring(1)
+  return user.substring(1);
 }
 
 function parseInstaUser(user) {
-
-  return user.substring(1)
+  return user.substring(1);
 }
 
 function mapStateToProps(state, props) {
-  const { firebase } = props
+  const { firebase } = props;
   return {
     storage: firebase.storage(),
-    analytics: firebase.analytics()
-  }
+    analytics: firebase.analytics(),
+  };
 }
 
-export default compose(firebaseConnect(), withRouter, connect(mapStateToProps))(ProfileView);
+export default compose(
+  firebaseConnect(),
+  withRouter,
+  connect(mapStateToProps)
+)(ProfileView);

@@ -7,38 +7,42 @@ class Select extends React.Component {
     super(props);
     let tempSelected;
     if (this.props.selected) {
-      tempSelected = this.props.selected
+      tempSelected = this.props.selected;
     } else {
-      tempSelected = this.props.items[0]
+      tempSelected = this.props.items[0];
     }
     this.state = {
-      selected: tempSelected
+      selected: tempSelected,
     };
   }
 
-  componentDidMount(){
-    this.setWidth()
+  componentDidMount() {
+    this.setWidth();
 
     if (this.props.have) {
-      this.props.saveData(this.props.name, this.state.selected)
+      this.props.saveData(this.props.name, this.state.selected);
     }
-
   }
 
   setWidth = () => {
-    const optionEle = document.getElementById(`selectedOptionHidden${this.props.name}`);
+    const optionEle = document.getElementById(
+      `selectedOptionHidden${this.props.name}`
+    );
     const width = optionEle.offsetWidth + 5; // padding width or arrows
     this.setState({ width: `${width}px` });
   };
 
-  handleSelect = e => {
+  handleSelect = (e) => {
     this.setState({ selected: e.target.value }, () => {
       this.setWidth();
       if (this.props.index) {
-        this.props.saveData(this.props.name, this.state.selected, this.props.index)
-      }
-      else {
-        this.props.saveData(this.props.name, this.state.selected)
+        this.props.saveData(
+          this.props.name,
+          this.state.selected,
+          this.props.index
+        );
+      } else {
+        this.props.saveData(this.props.name, this.state.selected);
       }
     });
   };
@@ -74,13 +78,16 @@ class Select extends React.Component {
             );
           })}
         </select>
-          <span style={{ visibility: "hidden", position: "absolute", left: '0'}} className="custom-select" id={`selectedOptionHidden${this.props.name}`}>
-            {selectedObj}
-          </span>
+        <span
+          style={{ visibility: "hidden", position: "absolute", left: "0" }}
+          className="custom-select"
+          id={`selectedOptionHidden${this.props.name}`}
+        >
+          {selectedObj}
+        </span>
       </React.Fragment>
     );
   }
-
 }
 
 export default Select;

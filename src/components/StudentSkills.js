@@ -38,7 +38,7 @@ const DESIGN_SKILLS = [
   "Illustrator",
   "Animation",
   "Digital Illustration",
-  "Physical Illustration"
+  "Physical Illustration",
 ];
 const SOFTWARE_SKILLS = [
   "Java",
@@ -76,7 +76,10 @@ class StudentSkills extends React.Component {
           title="Data Analytics"
           subtitle="Given messy data scraped from a webpage, you can clean it up nicely and identify customer profiles or pinpoint key trends."
           section="da"
-          content={[["a GitHub profile", "user"], ["a personal website", "url"]]}
+          content={[
+            ["a GitHub profile", "user"],
+            ["a personal website", "url"],
+          ]}
           skills={DATA_SKILLS}
           handleButton={this.saveEntireState}
         />
@@ -114,11 +117,14 @@ class StudentSkills extends React.Component {
           title="Software Development"
           subtitle="You can pull a few programming languages out of your toolbox and use them for front-end or back-end work."
           section="sd"
-          content={[["a GitHub profile", "user"], ["a personal website", "url"]]}
+          content={[
+            ["a GitHub profile", "user"],
+            ["a personal website", "url"],
+          ]}
           skills={SOFTWARE_SKILLS}
           handleButton={this.saveEntireState}
         />
-    </div>
+      </div>
     );
   }
 }
