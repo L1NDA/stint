@@ -153,31 +153,31 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
                         const res = response.data.items
                         const posts = res.filter(item => item.categories.length > 0)
 
-                        
+
                         function toText(t) {
                             text = htmlToText.fromString(t, {
                                 wordwrap: 130
                             });
 
                             text = text.replace(/(\[.*?\])/g, '');
-                            text = text.replace(/(\r\n|\n|\r)/gm, "");
+                            text = text.replace(/(\r\n|\n|\r)/gm, " ");
                             return text
                          }
 
                         function shortenText(text,startingPoint ,maxLength) {
                             return text.length > maxLength?
-                            text.slice(startingPoint, maxLength):
+                            text.slice(startingPoint, maxLength) + '...' :
                             text
                         }
-                        
+
                         result.publications = []
                         posts.slice([0], [3]).map((item, i) => {
                             let publication = {}
                             publication.link = item.link
                             publication.pubDate = item.pubDate
                             publication.thumbnail = item.thumbnail
-                            publication.description = shortenText(toText(item.description), 30, 300) + '...'
-                            publication.title = shortenText(item.title, 0, 30)+ '...'
+                            publication.description = shortenText(toText(item.description), 0, 200)
+                            publication.title = shortenText(item.title, 0, 40)
                             result.publications.push(publication)
                         })
                     })

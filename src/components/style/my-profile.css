@@ -158,6 +158,7 @@
 
 .works-col-wrapper {
   max-width: 45%;
+  width: 45%;
 }
 
 .works-header-img {
@@ -206,6 +207,14 @@
   transform: translate(-50%, -50%);
   width: 75%;
   z-index: 0
+}
+
+.medium-img {
+  width: 100%;
+  height: 100px;
+  background-size: cover;
+  background-position: center;
+  margin: 10px 0;
 }
 
 .insta-propic {
@@ -305,7 +314,8 @@
   }
 
   .works-col-wrapper {
-    max-width: 100%
+    max-width: 100%;
+    width: 100%;
   }
 
   .works-container {
