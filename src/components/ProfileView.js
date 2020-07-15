@@ -12,7 +12,7 @@ import { AiFillMediumCircle, AiFillInstagram } from "react-icons/ai";
 import { getFreelancerRef } from '../api/freelancer'
 import { TiSortNumericallyOutline } from 'react-icons/ti';
 import {getInstaInfo} from "../api/instagram"
-import {getMediumInfo} from "../api/medium"
+import medium, {getMediumInfo} from "../api/medium"
 import {getGithubInfo} from "../api/github"
 import ReactLoading from "react-loading";
 
@@ -96,15 +96,27 @@ class ProfileView extends React.Component {
       let mediumData = null
 
       if (githubUsername) {
-        githubData = await getGithubInfo(githubUsername)
+        try {
+          githubData = await getGithubInfo(githubUsername)
+        } catch (err) {
+          await this.props.analytics.logEvent("github_functions_error")
+        }
       }
 
       if (instaUsername) {
+        try {          
           instaData = await getInstaInfo(instaUsername)
+        } catch (err) {
+          await this.props.analytics.logEvent("insta_functions_error")
+        }
       }
 
       if (mediumUsername) {
+        try {
          mediumData = await getMediumInfo(mediumUsername)
+        } catch (err) {
+          await this.props.analytics.logEvent("medium_functions_error")
+        }
       }
 
       this.setState({
@@ -668,7 +680,8 @@ function parseInstaUser(user) {
 function mapStateToProps(state, props) {
   const { firebase } = props
   return {
-    storage: firebase.storage()
+    storage: firebase.storage(),
+    analytics: firebase.analytics()
   }
 }
 
