@@ -1,9 +1,11 @@
 const axios = require("axios");
+const { INDEX_URL } = require("../config")
 
 const getGithubInfo = (user) => {
+  let targetUrl = INDEX_URL + "getGithubRepos"
   return axios
     .post(
-      "http://localhost:5001/stint-staging-eb100/us-central1/getGithubRepos",
+      targetUrl,
       {
         githubUser: user,
       }
