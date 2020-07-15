@@ -64,7 +64,7 @@ class ProfileView extends React.Component {
         this.setState({
           freelancerInfo: info,
         })
-    
+
         let githubUsername = null
         let instaUsername = null
         let mediumUsername = null
@@ -160,8 +160,8 @@ class ProfileView extends React.Component {
               <h1 style={{margin: '0'}}>{this.props.auth.displayName.split(' ')[0]}</h1>
               <div style={{margin: '0'}}>{this.state.freelancerInfo.profile.education.majors[0]}
                 {this.state.freelancerInfo.profile.education.majors[1] ? ` & ` + this.state.freelancerInfo.profile.education.majors[1] : null}
-                {this.state.freelancerInfo.profile.education.minors[0] ? ` / ` + this.state.freelancerInfo.profile.education.minors[0] + ` (minor)` : null}
-                {this.state.freelancerInfo.profile.education.minors[1] ?  `& ` + this.state.freelancerInfo.profile.education.minors[0] + ` (minor)` : null}</div>
+                {this.state.freelancerInfo.profile.education.minors ? ` / ` + this.state.freelancerInfo.profile.education.minors[0] + ` (minor)` : null}
+                {this.state.freelancerInfo.profile.education.minors && this.state.freelancerInfo.profile.education.minors[1] ?  `& ` + this.state.freelancerInfo.profile.education.minors[0] + ` (minor)` : null}</div>
               <div style={{margin: '0'}}>{this.state.freelancerInfo.profile.education.year.charAt(0).toUpperCase() + this.state.freelancerInfo.profile.education.year.slice(1)} @ {this.state.freelancerInfo.profile.education.school}</div>
             </div>
           </section>
@@ -231,55 +231,81 @@ class ProfileView extends React.Component {
               <div className="profile-works">
                 <div className="section-header">My work(s)</div>
                 <div className="works-container">
-                  <a className="works-item" href={`https://github.com/${this.state.freelancerInfo.profile.dataAnalytics.githubUrl.slice(1)}`} target="_blank">
-                    <div className="works-header github">
-                      <IoLogoGithub className="works-header-img"/>
-                      Github
-                    </div>
-
-                    <div className="works-section">
-                      <div className="works-section-header">My recent repositories</div>
-                      <div className="works-section-item">
-                        <b>Lorem-ipsum-dolor</b><br/>
-                        Lorem ipsum dolor sit amet, consectetur
+                  {this.state.githubInfo ?
+                    <a className="works-item" href={`https://github.com/${this.state.freelancerInfo.profile.dataAnalytics.githubUrl.slice(1)}`} target="_blank">
+                      <div className="works-header github">
+                        <IoLogoGithub className="works-header-img"/>
+                        Github
                       </div>
-                      <div className="works-section-item">
-                        <b>Ultrices at magna</b><br/>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ornare.
-                      </div>
-                      <div className="works-section-item">
-                        <b>Lorem ipsum</b><br/>
-                        Lorem ipsum dolor sit
-                      </div>
-                    </div>
 
-                    <div className="works-section">
-                      <div className="works-section-header">Number of contributions</div>
-                      <div className="works-section-item">
-                        <b>180</b> in the last year (average <b>15</b> per month)
+                      {
+                        this.state.githubInfo.data.repoNames
+                        ?
+                        <div className="works-section">
+                          <div className="works-section-header">My recent repositories</div>
+                          {this.state.githubInfo.data.repoNames.map((repoArray, index) => {
+                            return (
+                              <div className="works-section-item">
+                                <b>{repoArray[0]}</b><br/>
+                                {repoArray[1]}
+                              </div>
+                            )})}
+                        </div>
+                        : <div className="works-section">
+                          <div className="works-section-header">No public repositories.</div>
+                          </div>
+                      }
+
+                      {
+                        this.state.githubInfo.data.eventCount ?
+                        <div className="works-section">
+                          <div className="works-section-header">Number of contributions</div>
+                          <div className="works-section-item">
+                            <b>{this.state.githubInfo.data.eventCount}</b> in the last year (average <b>{Math.round(this.state.githubInfo.data.eventCount/12)}</b> per month)
+                          </div>
+                        </div>
+                        : <div className="works-section">
+                          <div className="works-section-header">No contributions this past year</div>
+                        </div>
+                      }
+
+                      {
+                        this.state.githubInfo.data.orgs ?
+                        <div className="works-section">
+                          <div className="works-section-header">My organizations</div>
+                            {this.state.githubInfo.data.orgs.map((orgArray, index) => {
+                              return (
+                                  <div className="works-section-item">
+                                    <b>{orgArray[0]}</b><br/>
+                                    {orgArray[1]}
+                                  </div>
+
+                              )})}
+
+                        </div>
+                        : <div className="works-section">
+                          <div className="works-section-header">No public organizations to show.</div>
+                        </div>
+                      }
+
+
+
+                    </a> : null
+                  }
+
+                  {this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl ?
+                    <a className="works-item" href={this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl} target="_blank">
+                      <div className="works-header gray">
+                        <FiLink className="works-header-img"/>
+                        My personal website
                       </div>
-                    </div>
-
-                    <div className="works-section">
-                      <div className="works-section-header">My organizations</div>
-                      <div className="works-section-item">
-                        <b>cs61</b><br/>
-                        A systems class taught at Harvard
+                      <div className="works-section">
+                        <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
+                        <img src={require('./imgs/example-website.png')} className="works-laptop-screen"></img>
                       </div>
-                    </div>
+                    </a> : null
+                  }
 
-                  </a>
-
-                  <a className="works-item" href={this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl} target="_blank">
-                    <div className="works-header gray">
-                      <FiLink className="works-header-img"/>
-                      My personal website
-                    </div>
-                    <div className="works-section">
-                      <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
-                      <img src={require('./imgs/example-website.png')} className="works-laptop-screen"></img>
-                    </div>
-                  </a>
 
                 </div>
               </div>
