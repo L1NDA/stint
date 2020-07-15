@@ -104,7 +104,7 @@ class ProfileView extends React.Component {
       }
 
       if (instaUsername) {
-        try {          
+        try {
           instaData = await getInstaInfo(instaUsername)
         } catch (err) {
           await this.props.analytics.logEvent("insta_functions_error")
@@ -361,7 +361,7 @@ class ProfileView extends React.Component {
 
                   <div className='flex-column works-col-wrapper'>
 
-                    {this.state.mediumData.data.publications ?
+                    {this.state.mediumData && this.state.mediumData.data.publications ?
                       <a className="works-item column-works-item"
                         href={`https://medium.com/${this.state.freelancerInfo.profile.contentCreation.mediumUrl}`}>
                         <div className="works-header medium">
@@ -387,7 +387,7 @@ class ProfileView extends React.Component {
                       </a> : null
                     }
 
-                    {this.state.freelancerInfo.profile.contentCreation.instagramUrl && !this.state.instaData.isPrivate ?
+                    {this.state.instaData && !this.state.instaData.isPrivate ?
                       <a className="works-item column-works-item"
                         href={`https://www.instagram.com/${this.state.freelancerInfo.profile.contentCreation.instagramUrl.slice(1)}`}>
                         <div className="works-header instagram">
