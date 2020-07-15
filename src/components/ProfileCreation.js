@@ -12,6 +12,9 @@ import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { withRouter } from "react-router-dom";
 import { Link } from 'react-router-dom';
+
+import { SIGNUP_EVENT } from "./constants/ANALYTICS_CONSTANTS"
+
 const {setFreelancerProfile, getFreelancerRef} = require('../api/freelancer')
 
 class ProfileCreation extends React.Component {
@@ -121,7 +124,7 @@ class ProfileCreation extends React.Component {
                                doesContent, temp.ccm.ccm0, temp.ccm.ccm1, temp.ccm.ccm2, temp.ccm.ccm3, temp.ccm.skills, temp.ccm.awardCategories, temp.ccm.awardContent, temp.ccm.awardProviders,
                                doesSoftware, temp.sd.sd0, temp.sd.sd1, temp.sd.skills, temp.sd.awardCategories, temp.sd.awardContent, temp.sd.awardProviders,
                                temp.phonenum)
-    await this.props.analytics.logEvent("sign_up")
+    await this.props.analytics.logEvent(SIGNUP_EVENT)
     this.props.history.push("/you-did-it")
   }
 

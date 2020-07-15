@@ -10,6 +10,8 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
 
+import { LOGIN_EVENT } from "./constants/ANALYTICS_CONSTANTS"
+
 class FourOhFour extends React.Component {
 
   constructor(){
@@ -37,7 +39,7 @@ class FourOhFour extends React.Component {
   loginWithProvider = async (provider) => {
     this.setState({ loading: true });
     if (!this.props.isLoggedIn) {
-      this.props.loginUser({ provider, onError: this.onError }, () => this.props.analytics.logEvent("login"))
+      this.props.loginUser({ provider, onError: this.onError }, () => this.props.analytics.logEvent(LOGIN_EVENT))
     }
     else {
       this.props.history.push("/this-is-me")

@@ -25,6 +25,8 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
 
+import { SCREEN_VIEW_EVENT, LOGIN_EVENT } from "./constants/ANALYTICS_CONSTANTS"
+
 const axios = require('axios')
 const {setCompanyBetaInfo} = require('../api/company')
 
@@ -44,7 +46,7 @@ class Homepage extends React.Component {
   }
 
   componentDidMount() {
-    this.props.analytics.logEvent("screen_view")
+    this.props.analytics.logEvent(SCREEN_VIEW_EVENT)
     let cookies = localStorage.getItem("cookies")
     this.setState({
       cookies: cookies
@@ -74,7 +76,7 @@ class Homepage extends React.Component {
 
     // TODO: Get rid of this check, as homepage is protected by publicroute, so publicroute will redirect already if you're logged in anyways
     if (!this.props.isLoggedIn) {
-      this.props.loginUser({ provider, onError: this.onError }, () => this.props.analytics.logEvent("login"))
+      this.props.loginUser({ provider, onError: this.onError }, () => this.props.analytics.logEvent(LOGIN_EVENT))
     }
     else {
       this.props.history.push("/this-is-me")
