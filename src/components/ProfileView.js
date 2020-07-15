@@ -17,6 +17,9 @@ import {getGithubInfo} from "../api/github"
 import ReactLoading from "react-loading";
 
 import { PROFILE_CREATION_PATH } from "../constants/ROUTING_CONSTANTS"
+import { GITHUB_FUNCTIONS_ERROR,
+         INSTAGRAM_FUNCTIONS_ERROR,
+         MEDIUM_FUNCTIONS_ERROR } from "../constants/ANALYTICS_CONSTANTS"
 
 
 const SKILLS = ['React', 'Python', 'Javascript', 'HTML/CSS', 'C/C++', 'SQL', 'Java']
@@ -103,7 +106,7 @@ class ProfileView extends React.Component {
         try {
           githubData = await getGithubInfo(githubUsername)
         } catch (err) {
-          await this.props.analytics.logEvent("github_functions_error")
+          await this.props.analytics.logEvent(GITHUB_FUNCTIONS_ERROR)
         }
       }
 
@@ -111,7 +114,7 @@ class ProfileView extends React.Component {
         try {
           instaData = await getInstaInfo(instaUsername)
         } catch (err) {
-          await this.props.analytics.logEvent("insta_functions_error")
+          await this.props.analytics.logEvent(INSTAGRAM_FUNCTIONS_ERROR)
         }
       }
 
@@ -120,7 +123,7 @@ class ProfileView extends React.Component {
          console.log("WHYYYY")
          mediumData = await getMediumInfo(mediumUsername)
         } catch (err) {
-          await this.props.analytics.logEvent("medium_functions_error")
+          await this.props.analytics.logEvent(MEDIUM_FUNCTIONS_ERROR)
         }
       }
 

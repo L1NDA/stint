@@ -120,8 +120,6 @@ class StudentSkillsDropdown extends React.Component {
 
   handleSkillClick = (e, skill, type) => {
     e.stopPropagation();
-    console.log("skill", skill)
-    console.log("type", type)
     let tempLevel = this.state[SKILLS][skill]
     if (tempLevel === undefined) {
       tempLevel = 0
@@ -142,8 +140,6 @@ class StudentSkillsDropdown extends React.Component {
     }
     this.setState({
       [SKILLS]: newSkills
-    }, function(){
-      console.log("charles: ", this.state)
     })
   }
 
@@ -164,7 +160,7 @@ class StudentSkillsDropdown extends React.Component {
       return
     }
 
-    const acceptedFileTypes = [".png", ".pdf", ".jpg", ".jpeg", ".gif"]
+    const acceptedFileTypes = [".png", ".pdf", ".jpg", ".jpeg", ".gif", ".svg"]
     // check file type is accepted and that it is below 10MB (in bytes)
     if (acceptedFileTypes.some(type => files[0].name.endsWith(type)) &&
         files[0].size <= 10000000) {
@@ -175,7 +171,7 @@ class StudentSkillsDropdown extends React.Component {
       })
     }
     else {
-      fileErrorHandler.innerHTML = "Please upload a .png, .pdf, .jpg, .jpeg, or .gif file below 10MB"
+      fileErrorHandler.innerHTML = "Please upload a .png, .pdf, .jpg, .jpeg, .svg,  or .gif file below 10MB"
     }
   }
 
@@ -199,7 +195,7 @@ class StudentSkillsDropdown extends React.Component {
         fileErrorHandler.innerHTML = "Upload cancelled"
         break;
       case 'storage/unknown':
-        fileErrorHandler.innerHTML = "Unknown error"
+        fileErrorHandler.innerHTML = "Unknown error, please try again"
         break;
     }}, function() {
     // Upload completed successfully, now we can get the download URL

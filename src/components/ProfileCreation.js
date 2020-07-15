@@ -1,5 +1,6 @@
 import React from 'react';
 import './style/profile.css';
+
 import Menu from './Menu.js';
 import Footer from './Footer.js'
 import Button from './Button.js'
@@ -7,6 +8,8 @@ import StudentInfo from './StudentInfo.js'
 import StudentSkills from './StudentSkills.js'
 import Select from './Select.js'
 import Autocomplete from './Autocomplete.js'
+import ReactLoading from "react-loading";
+
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
@@ -42,20 +45,6 @@ class ProfileCreation extends React.Component {
 
   componentDidMount() {
     document.title = 'Create Profile | Stint';
-  }
-
-  redirectUponProfileCompletion = () => {
-    let _this = this
-    getFreelancerRef(this.props.auth.uid)
-      .then(function(ref) {
-        ref.on("value", function(snapshot) {
-          if (snapshot.val()) {
-            if (snapshot.val().profile) {
-              _this.props.history.push(THANK_YOU_PATH)
-            }
-          }
-        })
-      })
   }
 
   handleChange = (name, content) => {
@@ -130,8 +119,6 @@ class ProfileCreation extends React.Component {
   }
 
   render() {
-    this.redirectUponProfileCompletion()
-
     const temp = this.state
     let doesData = Object.keys(temp.da).length !== 0
     let doesDesign = Object.keys(temp.db).length !== 0
@@ -143,6 +130,9 @@ class ProfileCreation extends React.Component {
     return (
       <div className="container">
 
+      {this.props.freelancerRef ? 
+
+      <>
       <Menu/>
 
       <form className="padding flex-column profile-container" onSubmit={this.submitProfile} autocomplete="off">
@@ -194,6 +184,15 @@ class ProfileCreation extends React.Component {
 
       </form>
       <Footer/>
+      </>
+      : <div className="react-loading"><ReactLoading
+            className={"Loading"}
+            type={"bubbles"}
+            width={"15%"}
+            height={"auto"}
+            color={"#8F8DFF"}
+          /></div>
+      }
 
       </div>
 
@@ -201,10 +200,21 @@ class ProfileCreation extends React.Component {
   }
 }
 
-function mapStateToProps(state, props) {
-  const { firebase } = props
+async function mapStateToProps (state, props) {
+  const { firebase, history } = props
+  let freelancerRef = await getFreelancerRef(props.auth.uid)
+  // Redirect if profile is completed already
+  freelancerRef.on("value", function(snapshot) {
+    if (snapshot.val()) {
+      if (snapshot.val().profile) {
+        history.push(THANK_YOU_PATH)
+      }
+    }
+  })
+  console.log("freelancerref", freelancerRef)
   return {
-    analytics: firebase.analytics()
+    analytics: firebase.analytics(),
+    freelancerRef: freelancerRef
   };
 }
 
