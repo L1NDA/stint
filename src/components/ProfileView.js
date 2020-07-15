@@ -17,16 +17,15 @@ import ReactLoading from "react-loading";
 
 const SKILLS = ['React', 'Python', 'Javascript', 'HTML/CSS', 'C/C++', 'SQL', 'Java']
 const LEVEL = ['5', '4', '4', '4', '2', '1', '1']
+const DESIGN_SHOWCASE_PREFIX = "designshowcase-"
+const PERSONAL_WEBSITE_PREFIX = "personalwebsite-"
+const OTHER_FILES = "otherFiles"
 
 class ProfileView extends React.Component {
 
   constructor(){
     super();
     this.state = {
-      freelancerInfo: null,
-      githubInfo: null,
-      instagramInfo: null,
-      mediumInfo: null
     }
   }
 
@@ -34,8 +33,6 @@ class ProfileView extends React.Component {
     if (!this.state.width) {
       this.setWidth();
     }
-
-    console.log(this.state)
   }
 
   setWidth = () => {
@@ -53,11 +50,11 @@ class ProfileView extends React.Component {
   }
 
   componentDidMount = async () => {
-
     let fileUrls = await this.getFilesFromStorage()
-    console.log('fileurls', fileUrls)
+    console.log("fileurls", fileUrls)
 
     let freelancerRef = await getFreelancerRef(this.props.auth.uid)
+<<<<<<< HEAD
     let fInfo = await freelancerRef.on("value", (snapshot) => {
         let info = snapshot.val()
 
@@ -91,33 +88,68 @@ class ProfileView extends React.Component {
             let mediumUrl = info.profile.contentCreation.mediumUrl
             mediumUsername = parseMediumUser(mediumUrl)
           }
-        }
+=======
+    freelancerRef.on("value", async (snapshot) => {
+      let info = snapshot.val()
+      let profile = info.profile
+      // this.setState({
+      //   freelancerInfo: info,
+      // })
 
-        if (githubUsername) {
-          getGithubInfo(githubUsername).then((data) => {
-            console.log(data)
-            this.setState({
-              githubInfo: data,
-          })})
-        }
+      let githubUsername = null
+      let instaUsername = null
+      let mediumUsername = null
 
-        if (instaUsername) {
-            getInstaInfo(instaUsername).then((data) => {
-              console.log("insta", data)
-              this.setState({
-                instagramInfo: data,
-            })})
+      if (profile.dataAnalytics) {
+        if (profile.dataAnalytics.githubUrl) {
+          let githubUrl = profile.dataAnalytics.githubUrl
+          githubUsername = parseGithubUser(githubUrl)
+>>>>>>> 64571c3a89efd2aafdacd6cbe9aa7af2486744e1
         }
+      }
+      if (profile.softwareDev) {
+        if (profile.softwareDev.githubUrl) {
+          let githubUrl = profile.softwareDev.githubUrl
+          githubUsername = parseGithubUser(githubUrl)
+        }
+      }
+      if (profile.contentCreation) {
+        if (profile.contentCreation.instagramUrl) {
+          let instaUrl = profile.contentCreation.instagramUrl
+          instaUsername = parseInstaUser(instaUrl)
+        }
+        if (profile.contentCreation.mediumUrl) {
+          let mediumUrl = profile.contentCreation.mediumUrl
+          mediumUsername = parseMediumUser(mediumUrl)
+        }
+      }
 
-        if (mediumUsername) {
-          getMediumInfo(mediumUsername).then((data) => {
-            console.log("medium", data)
-            this.setState({
-              mediumInfo: data,
-            })
-          })
-        }
-      }, function(error) {
+      let githubData = null
+      let instaData = null
+      let mediumData = null
+
+      if (githubUsername) {
+        githubData = await getGithubInfo(githubUsername)
+      }
+
+      if (instaUsername) {
+          instaData = await getInstaInfo(instaUsername)
+      }
+
+      if (mediumUsername) {
+        mediumData = getMediumInfo(mediumUsername)
+      }
+
+      this.setState({
+        freelancerInfo: info,
+        githubData,
+        instaData,
+        mediumData,
+        fileUrls
+      }, () => {console.log("state", this.state)})
+
+    },
+    function(error) {
       console.error(error)
     })
   }
@@ -127,9 +159,24 @@ class ProfileView extends React.Component {
     let filesRef = storageRef.child("images" + "/" + this.props.auth.uid)
     let res = await filesRef.listAll()
 
-    let fileUrls = []
-    res.items.forEach((item) => {
-      fileUrls.push(item.getDownloadURL())
+    let fileUrls = {}
+    res.items.forEach(async (item) => {
+      let fileData = await item.getMetadata()
+      let fileUrl = await item.getDownloadURL()
+      if (fileData.name.startsWith(DESIGN_SHOWCASE_PREFIX)) {
+        fileUrls.designShowcase = fileUrl
+      }
+      else if (fileData.name.startsWith(PERSONAL_WEBSITE_PREFIX)) {
+        fileUrls.personalWebsite = fileUrl
+      }
+      else {
+        if (fileUrls[OTHER_FILES]) {
+          fileUrls[OTHER_FILES].push(fileUrl)
+        }
+        else {
+          fileUrls[OTHER_FILES] = [fileUrl]
+        }
+      }
     })
     console.log("getfilesfunction", fileUrls)
     return fileUrls
