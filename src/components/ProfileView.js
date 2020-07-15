@@ -1,5 +1,6 @@
 import React from 'react'
 import Menu from './Menu.js'
+import { useParams } from 'react-router-dom'
 import { connect } from "react-redux"
 import { firebaseConnect } from "react-redux-firebase";
 import { compose } from "redux";
@@ -23,10 +24,12 @@ const OTHER_FILES = "otherFiles"
 
 class ProfileView extends React.Component {
 
-  constructor(){
+
+  constructor(props){
     super();
     this.state = {
     }
+    console.log("param uid", props.match.params.uid)
   }
 
   componentDidUpdate() {
@@ -97,7 +100,7 @@ class ProfileView extends React.Component {
       }
 
       if (instaUsername) {
-          instaData = await getInstaInfo(instaUsername)
+        instaData = await getInstaInfo(instaUsername)
       }
 
       if (mediumUsername) {
