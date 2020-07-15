@@ -154,14 +154,12 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
                         const posts = res.filter(item => item.categories.length > 0)
 
                         
-                        // function toText(node) {
-                        //     console.log("HWAT THE FUK ", node)
-                        //     let tag = document.createElement('div')
-                        //     tag.innerHTML = node
-                        //     node = tag.innerText
-
-                        //     console.log("NODE", node.innerText)
-                        //  }
+                        function toText(t) {
+                            const text = htmlToText.fromString(t, {
+                                wordwrap: 130
+                            });
+                            return text.replace(/ *\([^)]*\) */g, "");
+                         }
 
                         function shortenText(text,startingPoint ,maxLength) {
                             return text.length > maxLength?
@@ -172,15 +170,12 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
   
                         result.publications = []
                         posts.slice([0], [3]).map((item, i) => {
-                            const text = htmlToText.fromString(item.description, {
-                                wordwrap: 130
-                            });
                             
                             let publication = {}
                             publication.link = item.link
                             publication.pubDate = item.pubDate
                             publication.thumbnail = item.thumbnail
-                            publication.description = shortenText(text, 0, 200) + '...'
+                            publication.description = shortenText(toText(item.description), 0, 200) + '...'
                             publication.title = shortenText(item.title, 0, 30)+ '...'
                             result.publications.push(publication)
                         })
