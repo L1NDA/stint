@@ -16,6 +16,8 @@ import medium, {getMediumInfo} from "../api/medium"
 import {getGithubInfo} from "../api/github"
 import ReactLoading from "react-loading";
 
+import { PROFILE_CREATION_PATH } from "../constants/ROUTING_CONSTANTS"
+
 
 const SKILLS = ['React', 'Python', 'Javascript', 'HTML/CSS', 'C/C++', 'SQL', 'Java']
 const LEVEL = ['5', '4', '4', '4', '2', '1', '1']
@@ -60,7 +62,7 @@ class ProfileView extends React.Component {
       let profile = info.profile
 
       if (!profile) {
-        this.props.history.push("/this-is-me")
+        this.props.history.push(PROFILE_CREATION_PATH)
         return
       }
 

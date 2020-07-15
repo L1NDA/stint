@@ -25,7 +25,8 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
 
-import { SCREEN_VIEW_EVENT, LOGIN_EVENT } from "./constants/ANALYTICS_CONSTANTS"
+import { SCREEN_VIEW_EVENT, LOGIN_EVENT } from "../constants/ANALYTICS_CONSTANTS"
+import { PROFILE_CREATION_PATH } from  "../constants/ROUTING_CONSTANTS"
 
 const axios = require('axios')
 const {setCompanyBetaInfo} = require('../api/company')
@@ -79,7 +80,7 @@ class Homepage extends React.Component {
       this.props.loginUser({ provider, onError: this.onError }, () => this.props.analytics.logEvent(LOGIN_EVENT))
     }
     else {
-      this.props.history.push("/this-is-me")
+      this.props.history.push(PROFILE_CREATION_PATH)
     }
   };
 
@@ -299,7 +300,7 @@ function mapStateToProps(state, props) {
     loginUser: async ({ provider, onError }) => {
       try {
         await firebase.login({ provider: provider, type: "popup" })
-          .then(() => history.push("/this-is-me"));
+          .then(() => history.push(PROFILE_CREATION_PATH));
       } catch (err) {
          onError(err)
       }

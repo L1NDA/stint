@@ -10,7 +10,9 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
 
-import { LOGIN_EVENT } from "./constants/ANALYTICS_CONSTANTS"
+import { LOGIN_EVENT } from "../constants/ANALYTICS_CONSTANTS"
+
+import { PROFILE_CREATION_PATH } from "../constants/ROUTING_CONSTANTS"
 
 class FourOhFour extends React.Component {
 
@@ -42,7 +44,7 @@ class FourOhFour extends React.Component {
       this.props.loginUser({ provider, onError: this.onError }, () => this.props.analytics.logEvent(LOGIN_EVENT))
     }
     else {
-      this.props.history.push("/this-is-me")
+      this.props.history.push(PROFILE_CREATION_PATH)
     }
   };
 
@@ -90,8 +92,7 @@ function mapStateToProps(state, props) {
   return {
     loginUser: async ({ provider, onError }) => {
       try {
-        await firebase.login({ provider: provider, type: "popup" })
-          .then(() => window.location.pathname = "/this-is-me");
+        await firebase.login({ provider: provider, type: "popup" });
       } catch (err) {
          onError(err)
       }

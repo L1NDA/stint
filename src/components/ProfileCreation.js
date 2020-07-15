@@ -13,7 +13,8 @@ import { firebaseConnect } from "react-redux-firebase";
 import { withRouter } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
-import { SIGNUP_EVENT } from "./constants/ANALYTICS_CONSTANTS"
+import { SIGNUP_EVENT } from "../constants/ANALYTICS_CONSTANTS"
+import { THANK_YOU_PATH } from "../constants/ROUTING_CONSTANTS"
 
 const {setFreelancerProfile, getFreelancerRef} = require('../api/freelancer')
 
@@ -50,7 +51,7 @@ class ProfileCreation extends React.Component {
         ref.on("value", function(snapshot) {
           if (snapshot.val()) {
             if (snapshot.val().profile) {
-              _this.props.history.push("/you-did-it")
+              _this.props.history.push(THANK_YOU_PATH)
             }
           }
         })
@@ -125,7 +126,7 @@ class ProfileCreation extends React.Component {
                                doesSoftware, temp.sd.sd0, temp.sd.sd1, temp.sd.skills, temp.sd.awardCategories, temp.sd.awardContent, temp.sd.awardProviders,
                                temp.phonenum)
     await this.props.analytics.logEvent(SIGNUP_EVENT)
-    this.props.history.push("/you-did-it")
+    this.props.history.push(THANK_YOU_PATH)
   }
 
   render() {
