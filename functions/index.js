@@ -177,7 +177,7 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
                             publication.link = item.link
                             publication.pubDate = item.pubDate
                             publication.thumbnail = item.thumbnail
-                            publication.description = shortenText(toText(item.description), 0, 200)
+                            publication.description = shortenText(toText(item.description), 0, 150)
                             publication.title = shortenText(item.title, 0, 40)
                             result.publications.push(publication)
                         })

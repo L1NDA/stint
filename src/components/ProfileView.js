@@ -495,17 +495,21 @@ class ProfileView extends React.Component {
                     </a> : null
                   }
 
-                  <a className="works-item" href={this.state.fileUrls.designShowcase} target="_blank">
-                    <div className="works-header gray">
-                      <FiLink className="works-header-img"/>
-                      My work
-                    </div>
-                    <div className="works-section flex-column center">
-                      <iframe
-                        src={this.state.fileUrls.designShowcase + `#toolbar=0&navpanes=0&statusbar=0&messages=0`}
-                        className="work-iframe"></iframe>
-                    </div>
-                  </a>
+                  {
+                    this.state.fileUrls.designShowcase ?
+                    <a className="works-item" href={this.state.fileUrls.designShowcase} target="_blank">
+                      <div className="works-header gray">
+                        <FiLink className="works-header-img"/>
+                        My work
+                      </div>
+                      <div className="works-section flex-column center">
+                        <iframe
+                          src={this.state.fileUrls.designShowcase + `#toolbar=0&navpanes=0&statusbar=0&messages=0`}
+                          className="work-iframe"></iframe>
+                      </div>
+                    </a> : null
+                  }
+
 
                 </div>
               </div>
