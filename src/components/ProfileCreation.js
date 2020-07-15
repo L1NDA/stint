@@ -45,8 +45,10 @@ class ProfileCreation extends React.Component {
     getFreelancerRef(this.props.auth.uid)
       .then(function(ref) {
         ref.on("value", function(snapshot) {
-          if (snapshot.val().profile) {
-            _this.props.history.push("/you-did-it")
+          if (snapshot.val()) {
+            if (snapshot.val().profile) {
+              _this.props.history.push("/you-did-it")
+            }
           }
         })
       })
