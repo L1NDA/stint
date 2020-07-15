@@ -198,6 +198,7 @@
   width: 100%;
   z-index: 1;
   position: relative;
+  pointer-events: none;
 }
 
 .works-laptop-screen {
@@ -206,7 +207,15 @@
   top: 50%;
   transform: translate(-50%, -50%);
   width: 75%;
+  height: 75%;
   z-index: 0
+}
+
+.personal-website {
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+  pointer-events: all;
 }
 
 .medium-img {

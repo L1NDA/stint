@@ -131,7 +131,7 @@ class ProfileView extends React.Component {
         instaData,
         mediumData,
         fileUrls
-      })
+      }, () => {console.log(this.state)})
 
     },
     function(error) {
@@ -247,8 +247,21 @@ class ProfileView extends React.Component {
                 </div> : null
               }
 
+              {this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl ?
+                <div className="profile-works">
+                <div className="section-header">My personal website</div>
+                <a className="personal-website" href={this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl} target="_blank">
+                    <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
+                    <iframe
+
+                      src={this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl}
+                      className="works-laptop-screen"></iframe>
+                </a>
+                </div> : null
+              }
+
               {
-                this.state.githubData || this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl ?
+                this.state.githubData ?
                 <div className="profile-works">
                   <div className="section-header">My work(s)</div>
                   <div className="works-container">
@@ -315,19 +328,6 @@ class ProfileView extends React.Component {
                       </a> : null
                     }
 
-                    {this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl ?
-                      <a className="works-item" href={this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl} target="_blank">
-                        <div className="works-header gray">
-                          <FiLink className="works-header-img"/>
-                          My personal website
-                        </div>
-                        <div className="works-section">
-                          <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
-                          <img src={this.state.fileUrls.personalWebsite} className="works-laptop-screen"></img>
-                        </div>
-                      </a> : null
-                    }
-
 
                   </div>
                 </div>
@@ -374,16 +374,28 @@ class ProfileView extends React.Component {
                   </div> : null
                 }
 
-              {this.state.mediumData || this.state.instaData || this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl ?
+                {this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl ?
+                  <div className="profile-works">
+                  <div className="section-header">My personal website</div>
+                  <a className="personal-website" href={this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl} target="_blank">
+                      <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
+                      <iframe
+
+                        src={this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl}
+                        className="works-laptop-screen"></iframe>
+                  </a>
+                  </div> : null
+                }
+
+              {(this.state.mediumData && this.state.mediumData.data.publications.length !== 0)
+                || (this.state.instaData && !this.state.instaData.data.isPrivate) ?
 
                 <div className="profile-works">
                   <div className="section-header">My work(s)</div>
                   <div className="works-container">
 
-                    <div className='flex-column works-col-wrapper'>
-
-                      {this.state.mediumData && this.state.mediumData.data.publications !== 0 ?
-                        <a className="works-item column-works-item"
+                      {this.state.mediumData && this.state.mediumData.data.publications.length !== 0 ?
+                        <a className="works-item"
                           href={`https://medium.com/${this.state.freelancerInfo.profile.contentCreation.mediumUser}`}>
                           <div className="works-header medium">
                             <AiFillMediumCircle className="works-header-img"/>
@@ -408,8 +420,8 @@ class ProfileView extends React.Component {
                         </a> : null
                       }
 
-                      {this.state.instaData && !this.state.instaData.isPrivate ?
-                        <a className="works-item column-works-item"
+                      {this.state.instaData && !this.state.instaData.data.isPrivate ?
+                        <a className="works-item"
                           href={`https://www.instagram.com/${this.state.freelancerInfo.profile.contentCreation.instagramUser.slice(1)}`}>
                           <div className="works-header instagram">
                             <AiFillInstagram className="works-header-img"/>
@@ -433,23 +445,6 @@ class ProfileView extends React.Component {
 
                         </a> : null
                       }
-
-
-
-                    </div>
-
-                  {this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl ?
-                    <a className="works-item" href={this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl} target="_blank">
-                      <div className="works-header gray">
-                        <FiLink className="works-header-img"/>
-                        My personal website
-                      </div>
-                      <div className="works-section">
-                        <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
-                        <img src={this.state.fileUrls.personalWebsite} className="works-laptop-screen"></img>
-                      </div>
-                    </a> : null
-                  }
 
                   </div>
                 </div>
@@ -494,30 +489,30 @@ class ProfileView extends React.Component {
                   </div> : null
                 }
 
-              {this.state.freelancerInfo.profile.design.personalWebsiteUrl || this.state.fileUrls.designShowcase ?
+                {this.state.freelancerInfo.profile.design.personalWebsiteUrl ?
+                  <div className="profile-works">
+                  <div className="section-header">My personal website</div>
+                  <a className="personal-website" href={this.state.freelancerInfo.profile.design.personalWebsiteUrl} target="_blank">
+                      <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
+                      <iframe
+
+                        src={this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl}
+                        className="works-laptop-screen"></iframe>
+                  </a>
+                  </div> : null
+                }
+
+              {this.state.fileUrls.designShowcase ?
                 <div className="profile-works">
                   <div className="section-header">My work(s)</div>
                   <div className="works-container">
-
-                    {this.state.freelancerInfo.profile.design.personalWebsiteUrl ?
-                      <a className="works-item" href={this.state.freelancerInfo.profile.design.personalWebsiteUrl} target="_blank">
-                        <div className="works-header gray">
-                          <FiLink className="works-header-img"/>
-                          My personal website
-                        </div>
-                        <div className="works-section">
-                          <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
-                          <img src={this.state.fileUrls.personalWebsite} className="works-laptop-screen"></img>
-                        </div>
-                      </a> : null
-                    }
 
                     {
                       this.state.fileUrls.designShowcase ?
                       <a className="works-item" href={this.state.fileUrls.designShowcase} target="_blank">
                         <div className="works-header gray">
                           <FiLink className="works-header-img"/>
-                          My work
+                          Sample work
                         </div>
                         <div className="works-section flex-column center">
                           <iframe
@@ -571,7 +566,20 @@ class ProfileView extends React.Component {
                   </div> : null
                 }
 
-              {this.state.githubData || this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl ?
+                {this.state.freelancerInfo.profile.design.personalWebsiteUrl ?
+                  <div className="profile-works">
+                  <div className="section-header">My personal website</div>
+                  <a className="personal-website" href={this.state.freelancerInfo.profile.design.personalWebsiteUrl} target="_blank">
+                      <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
+                      <iframe
+
+                        src={this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl}
+                        className="works-laptop-screen"></iframe>
+                  </a>
+                  </div> : null
+                }
+
+              {this.state.githubData ?
                 <div className="profile-works">
                   <div className="section-header">My work(s)</div>
                   <div className="works-container">
@@ -615,7 +623,7 @@ class ProfileView extends React.Component {
                         }
 
                         {
-                          this.state.githubData.data.orgs !== 0 ?
+                          this.state.githubData.data.orgs.length !== 0 ?
                           <div className="works-section">
                             <div className="works-section-header">- My organizations</div>
                               {this.state.githubData.data.orgs.map((orgArray, index) => {
@@ -635,19 +643,6 @@ class ProfileView extends React.Component {
 
 
 
-                      </a> : null
-                    }
-
-                    {this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl ?
-                      <a className="works-item" href={this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl} target="_blank">
-                        <div className="works-header gray">
-                          <FiLink className="works-header-img"/>
-                          My personal website
-                        </div>
-                        <div className="works-section">
-                          <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
-                          <img src={this.state.fileUrls.personalWebsite} className="works-laptop-screen"></img>
-                        </div>
                       </a> : null
                     }
 
