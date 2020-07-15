@@ -242,88 +242,94 @@ class ProfileView extends React.Component {
                 </div> : null
               }
 
-              <div className="profile-works">
-                <div className="section-header">My work(s)</div>
-                <div className="works-container">
-                  {this.state.githubData ?
-                    <a className="works-item" href={`https://github.com/${this.state.freelancerInfo.profile.dataAnalytics.githubUrl.slice(1)}`} target="_blank">
-                      <div className="works-header github">
-                        <IoLogoGithub className="works-header-img"/>
-                        Github
-                      </div>
-
-                      {
-                        this.state.githubData.data.repoNames.length !== 0
-                        ?
-                        <div className="works-section">
-                          <div className="works-section-header">- My recent repositories</div>
-                          {this.state.githubData.data.repoNames.map((repoArray, index) => {
-                            return (
-                              <a className="works-section-item works-section-item-link flex-column" href={repoArray[2]} target="_blank">
-                                <b>{repoArray[0]}</b>
-                                {repoArray[1] ? <>{repoArray[1]}</> : null}
-                              </a>
-                            )})}
+              {
+                this.state.githubData || this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl ?
+                <div className="profile-works">
+                  <div className="section-header">My work(s)</div>
+                  <div className="works-container">
+                    {this.state.githubData ?
+                      <a className="works-item" href={`https://github.com/${this.state.freelancerInfo.profile.dataAnalytics.githubUrl.slice(1)}`} target="_blank">
+                        <div className="works-header github">
+                          <IoLogoGithub className="works-header-img"/>
+                          Github
                         </div>
-                        : <div className="works-section">
-                          <div className="works-section-header">(No public repositories.)</div>
-                          </div>
-                      }
 
-                      {
-                        this.state.githubData.data.eventCount ?
-                        <div className="works-section">
-                          <div className="works-section-header">- Number of contributions</div>
-                          <div className="works-section-item">
-                            <b>{this.state.githubData.data.eventCount}</b> in the last year (average <b>{Math.round(this.state.githubData.data.eventCount/12)}</b> per month)
-                          </div>
-                          <div className="subtitle works-section-item" style={{color: "#b0b0b0"}}>The max contributions logged by Github is 30.</div>
-                        </div>
-                        : <div className="works-section">
-                          <div className="works-section-header">(No contributions this past year.)</div>
-                        </div>
-                      }
-
-                      {
-                        this.state.githubData.data.orgs.length !== 0 ?
-                        <div className="works-section">
-                          <div className="works-section-header">- My organizations</div>
-                            {this.state.githubData.data.orgs.map((orgArray, index) => {
+                        {
+                          this.state.githubData.data.repoNames.length !== 0
+                          ?
+                          <div className="works-section">
+                            <div className="works-section-header">- My recent repositories</div>
+                            {this.state.githubData.data.repoNames.map((repoArray, index) => {
                               return (
-                                  <div className="works-section-item">
-                                    <b>{orgArray[0]}</b><br/>
-                                    {orgArray[1]}
-                                  </div>
-
+                                <a className="works-section-item works-section-item-link flex-column" href={repoArray[2]} target="_blank">
+                                  <b>{repoArray[0]}</b>
+                                  {repoArray[1] ? <>{repoArray[1]}</> : null}
+                                </a>
                               )})}
+                          </div>
+                          : <div className="works-section">
+                            <div className="works-section-header">(No public repositories.)</div>
+                            </div>
+                        }
 
+                        {
+                          this.state.githubData.data.eventCount ?
+                          <div className="works-section">
+                            <div className="works-section-header">- Number of contributions</div>
+                            <div className="works-section-item">
+                              <b>{this.state.githubData.data.eventCount}</b> in the last year (average <b>{Math.round(this.state.githubData.data.eventCount/12)}</b> per month)
+                            </div>
+                            <div className="subtitle works-section-item" style={{color: "#b0b0b0"}}>The max contributions logged by Github is 30.</div>
+                          </div>
+                          : <div className="works-section">
+                            <div className="works-section-header">(No contributions this past year.)</div>
+                          </div>
+                        }
+
+                        {
+                          this.state.githubData.data.orgs.length !== 0 ?
+                          <div className="works-section">
+                            <div className="works-section-header">- My organizations</div>
+                              {this.state.githubData.data.orgs.map((orgArray, index) => {
+                                return (
+                                    <div className="works-section-item">
+                                      <b>{orgArray[0]}</b><br/>
+                                      {orgArray[1]}
+                                    </div>
+
+                                )})}
+
+                          </div>
+                          : <div className="works-section">
+                            <div className="works-section-header">(No public organizations to show.)</div>
+                          </div>
+                        }
+
+
+
+                      </a> : null
+                    }
+
+                    {this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl ?
+                      <a className="works-item" href={this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl} target="_blank">
+                        <div className="works-header gray">
+                          <FiLink className="works-header-img"/>
+                          My personal website
                         </div>
-                        : <div className="works-section">
-                          <div className="works-section-header">(No public organizations to show.)</div>
+                        <div className="works-section">
+                          <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
+                          <img src={this.state.fileUrls.personalWebsite} className="works-laptop-screen"></img>
                         </div>
-                      }
+                      </a> : null
+                    }
 
 
-
-                    </a> : null
-                  }
-
-                  {this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl ?
-                    <a className="works-item" href={this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl} target="_blank">
-                      <div className="works-header gray">
-                        <FiLink className="works-header-img"/>
-                        My personal website
-                      </div>
-                      <div className="works-section">
-                        <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
-                        <img src={this.state.fileUrls.personalWebsite} className="works-laptop-screen"></img>
-                      </div>
-                    </a> : null
-                  }
-
-
+                  </div>
                 </div>
-              </div>
+                : null
+              }
+
+
 
               {this.state.freelancerInfo.profile.dataAnalytics.awardCategories ?
                 <div className="profile-awards">
@@ -363,83 +369,88 @@ class ProfileView extends React.Component {
                   </div> : null
                 }
 
-              <div className="profile-works">
-                <div className="section-header">My work(s)</div>
-                <div className="works-container">
+              {this.state.mediumData || this.state.instaData || this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl ?
 
-                  <div className='flex-column works-col-wrapper'>
+                <div className="profile-works">
+                  <div className="section-header">My work(s)</div>
+                  <div className="works-container">
 
-                    {this.state.mediumData && this.state.mediumData.data.publications !== 0 ?
-                      <a className="works-item column-works-item"
-                        href={`https://medium.com/${this.state.freelancerInfo.profile.contentCreation.mediumUrl}`}>
-                        <div className="works-header medium">
-                          <AiFillMediumCircle className="works-header-img"/>
-                          Medium
-                        </div>
+                    <div className='flex-column works-col-wrapper'>
 
-                        <div className="works-section">
-                          <div className="works-section-header">- My recent publications</div>
-                            {this.state.mediumData.data.publications.map((pubArray, index) => {
-                              return (
-                                <a className="works-section-item works-section-item-link flex-column"
-                                  href={pubArray.link} target="_blank">
-                                  <div style={{backgroundImage: `url(${pubArray.thumbnail})`}} className="medium-img"></div>
-                                  <b>{pubArray.title}</b>
-                                  <i>Published on {pubArray.pubDate.split(' ')[0]}</i>
-                                  <div style={{color: "#878787", marginTop: "10px"}}>{pubArray.description}</div>
-                                  <br/>
-                                </a>
-                              )})}
-                        </div>
-
-                      </a> : null
-                    }
-
-                    {this.state.instaData && !this.state.instaData.isPrivate ?
-                      <a className="works-item column-works-item"
-                        href={`https://www.instagram.com/${this.state.freelancerInfo.profile.contentCreation.instagramUrl.slice(1)}`}>
-                        <div className="works-header instagram">
-                          <AiFillInstagram className="works-header-img"/>
-                          Instagram
-                        </div>
-
-                        <div className="works-section flex-row">
-                          <img src={this.state.instaData.data.profilePhoto} className="insta-propic"></img>
-                          <div className='flex-column' style={{justifyContent: 'center'}}>
-                            <b className="insta-handle">{this.state.freelancerInfo.profile.contentCreation.instagramUrl}</b>
-                            <div className="insta-handle">{this.state.instaData.data.numFollowers} followers</div>
+                      {this.state.mediumData && this.state.mediumData.data.publications !== 0 ?
+                        <a className="works-item column-works-item"
+                          href={`https://medium.com/${this.state.freelancerInfo.profile.contentCreation.mediumUrl}`}>
+                          <div className="works-header medium">
+                            <AiFillMediumCircle className="works-header-img"/>
+                            Medium
                           </div>
-                        </div>
 
-                        <div className="works-section insta-grid">
-                          {this.state.instaData.data.photos.map((img, index) => {
-                            return (
-                              <div style={{backgroundImage: `url(${img})`}} className="insta-img"></div>
-                            )})}
-                        </div>
+                          <div className="works-section">
+                            <div className="works-section-header">- My recent publications</div>
+                              {this.state.mediumData.data.publications.map((pubArray, index) => {
+                                return (
+                                  <a className="works-section-item works-section-item-link flex-column"
+                                    href={pubArray.link} target="_blank">
+                                    <div style={{backgroundImage: `url(${pubArray.thumbnail})`}} className="medium-img"></div>
+                                    <b>{pubArray.title}</b>
+                                    <i>Published on {pubArray.pubDate.split(' ')[0]}</i>
+                                    <div style={{color: "#878787", marginTop: "10px"}}>{pubArray.description}</div>
+                                    <br/>
+                                  </a>
+                                )})}
+                          </div>
 
-                      </a> : null
-                    }
+                        </a> : null
+                      }
+
+                      {this.state.instaData && !this.state.instaData.isPrivate ?
+                        <a className="works-item column-works-item"
+                          href={`https://www.instagram.com/${this.state.freelancerInfo.profile.contentCreation.instagramUrl.slice(1)}`}>
+                          <div className="works-header instagram">
+                            <AiFillInstagram className="works-header-img"/>
+                            Instagram
+                          </div>
+
+                          <div className="works-section flex-row">
+                            <img src={this.state.instaData.data.profilePhoto} className="insta-propic"></img>
+                            <div className='flex-column' style={{justifyContent: 'center'}}>
+                              <b className="insta-handle">{this.state.freelancerInfo.profile.contentCreation.instagramUrl}</b>
+                              <div className="insta-handle">{this.state.instaData.data.numFollowers} followers</div>
+                            </div>
+                          </div>
+
+                          <div className="works-section insta-grid">
+                            {this.state.instaData.data.photos.map((img, index) => {
+                              return (
+                                <div style={{backgroundImage: `url(${img})`}} className="insta-img"></div>
+                              )})}
+                          </div>
+
+                        </a> : null
+                      }
 
 
+
+                    </div>
+
+                  {this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl ?
+                    <a className="works-item" href={this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl} target="_blank">
+                      <div className="works-header gray">
+                        <FiLink className="works-header-img"/>
+                        My personal website
+                      </div>
+                      <div className="works-section">
+                        <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
+                        <img src={this.state.fileUrls.personalWebsite} className="works-laptop-screen"></img>
+                      </div>
+                    </a> : null
+                  }
 
                   </div>
-
-                {this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl ?
-                  <a className="works-item" href={this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl} target="_blank">
-                    <div className="works-header gray">
-                      <FiLink className="works-header-img"/>
-                      My personal website
-                    </div>
-                    <div className="works-section">
-                      <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
-                      <img src={this.state.fileUrls.personalWebsite} className="works-laptop-screen"></img>
-                    </div>
-                  </a> : null
-                }
-
                 </div>
-              </div>
+              : null}
+
+
 
               {this.state.freelancerInfo.profile.contentCreation.awardCategories ?
                 <div className="profile-awards">
@@ -478,41 +489,44 @@ class ProfileView extends React.Component {
                   </div> : null
                 }
 
-              <div className="profile-works">
-                <div className="section-header">My work(s)</div>
-                <div className="works-container">
+              {this.state.freelancerInfo.profile.design.personalWebsiteUrl || this.state.fileUrls.designShowcase ?
+                <div className="profile-works">
+                  <div className="section-header">My work(s)</div>
+                  <div className="works-container">
 
-                  {this.state.freelancerInfo.profile.design.personalWebsiteUrl ?
-                    <a className="works-item" href={this.state.freelancerInfo.profile.design.personalWebsiteUrl} target="_blank">
-                      <div className="works-header gray">
-                        <FiLink className="works-header-img"/>
-                        My personal website
-                      </div>
-                      <div className="works-section">
-                        <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
-                        <img src={this.state.fileUrls.personalWebsite} className="works-laptop-screen"></img>
-                      </div>
-                    </a> : null
-                  }
+                    {this.state.freelancerInfo.profile.design.personalWebsiteUrl ?
+                      <a className="works-item" href={this.state.freelancerInfo.profile.design.personalWebsiteUrl} target="_blank">
+                        <div className="works-header gray">
+                          <FiLink className="works-header-img"/>
+                          My personal website
+                        </div>
+                        <div className="works-section">
+                          <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
+                          <img src={this.state.fileUrls.personalWebsite} className="works-laptop-screen"></img>
+                        </div>
+                      </a> : null
+                    }
 
-                  {
-                    this.state.fileUrls.designShowcase ?
-                    <a className="works-item" href={this.state.fileUrls.designShowcase} target="_blank">
-                      <div className="works-header gray">
-                        <FiLink className="works-header-img"/>
-                        My work
-                      </div>
-                      <div className="works-section flex-column center">
-                        <iframe
-                          src={this.state.fileUrls.designShowcase + `#toolbar=0&navpanes=0&statusbar=0&messages=0`}
-                          className="work-iframe"></iframe>
-                      </div>
-                    </a> : null
-                  }
+                    {
+                      this.state.fileUrls.designShowcase ?
+                      <a className="works-item" href={this.state.fileUrls.designShowcase} target="_blank">
+                        <div className="works-header gray">
+                          <FiLink className="works-header-img"/>
+                          My work
+                        </div>
+                        <div className="works-section flex-column center">
+                          <iframe
+                            src={this.state.fileUrls.designShowcase + `#toolbar=0&navpanes=0&statusbar=0&messages=0`}
+                            className="work-iframe"></iframe>
+                        </div>
+                      </a> : null
+                    }
 
 
+                  </div>
                 </div>
-              </div>
+
+              : null}
 
               {this.state.freelancerInfo.profile.design.awardCategories ?
                 <div className="profile-awards">
@@ -552,87 +566,89 @@ class ProfileView extends React.Component {
                   </div> : null
                 }
 
-              <div className="profile-works">
-                <div className="section-header">My work(s)</div>
-                <div className="works-container">
-                  {this.state.githubData ?
-                    <a className="works-item" href={`https://github.com/${this.state.freelancerInfo.profile.softwareDev.githubUrl.slice(1)}`} target="_blank">
-                      <div className="works-header github">
-                        <IoLogoGithub className="works-header-img"/>
-                        Github
-                      </div>
-
-                      {
-                        this.state.githubData.data.repoNames.length !== 0
-                        ?
-                        <div className="works-section">
-                          <div className="works-section-header">- My recent repositories</div>
-                          {this.state.githubData.data.repoNames.map((repoArray, index) => {
-                            return (
-                              <a className="works-section-item works-section-item-link flex-column" href={repoArray[2]} target="_blank">
-                                <b>{repoArray[0]}</b>
-                                {repoArray[1] ? <><br/> {repoArray[1]}</> : null}
-                              </a>
-                            )})}
+              {this.state.githubData || this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl ?
+                <div className="profile-works">
+                  <div className="section-header">My work(s)</div>
+                  <div className="works-container">
+                    {this.state.githubData ?
+                      <a className="works-item" href={`https://github.com/${this.state.freelancerInfo.profile.softwareDev.githubUrl.slice(1)}`} target="_blank">
+                        <div className="works-header github">
+                          <IoLogoGithub className="works-header-img"/>
+                          Github
                         </div>
-                        : <div className="works-section">
-                          <div className="works-section-header">(No public repositories.)</div>
-                          </div>
-                      }
 
-                      {
-                        this.state.githubData.data.eventCount ?
-                        <div className="works-section">
-                          <div className="works-section-header">- Number of contributions</div>
-                          <div className="works-section-item">
-                            <b>{this.state.githubData.data.eventCount}</b> in the last year (average <b>{Math.round(this.state.githubData.data.eventCount/12)}</b> per month)
-                          </div>
-                          <div className="subtitle works-section-item" style={{color: "#b0b0b0"}}>The max contributions logged by Github is 30.</div>
-                        </div>
-                        : <div className="works-section">
-                          <div className="works-section-header">(No contributions this past year.)</div>
-                        </div>
-                      }
-
-                      {
-                        this.state.githubData.data.orgs !== 0 ?
-                        <div className="works-section">
-                          <div className="works-section-header">- My organizations</div>
-                            {this.state.githubData.data.orgs.map((orgArray, index) => {
+                        {
+                          this.state.githubData.data.repoNames.length !== 0
+                          ?
+                          <div className="works-section">
+                            <div className="works-section-header">- My recent repositories</div>
+                            {this.state.githubData.data.repoNames.map((repoArray, index) => {
                               return (
-                                  <div className="works-section-item">
-                                    <b>{orgArray[0]}</b><br/>
-                                    {orgArray[1]}
-                                  </div>
-
+                                <a className="works-section-item works-section-item-link flex-column" href={repoArray[2]} target="_blank">
+                                  <b>{repoArray[0]}</b>
+                                  {repoArray[1] ? <><br/> {repoArray[1]}</> : null}
+                                </a>
                               )})}
+                          </div>
+                          : <div className="works-section">
+                            <div className="works-section-header">(No public repositories.)</div>
+                            </div>
+                        }
 
+                        {
+                          this.state.githubData.data.eventCount ?
+                          <div className="works-section">
+                            <div className="works-section-header">- Number of contributions</div>
+                            <div className="works-section-item">
+                              <b>{this.state.githubData.data.eventCount}</b> in the last year (average <b>{Math.round(this.state.githubData.data.eventCount/12)}</b> per month)
+                            </div>
+                            <div className="subtitle works-section-item" style={{color: "#b0b0b0"}}>The max contributions logged by Github is 30.</div>
+                          </div>
+                          : <div className="works-section">
+                            <div className="works-section-header">(No contributions this past year.)</div>
+                          </div>
+                        }
+
+                        {
+                          this.state.githubData.data.orgs !== 0 ?
+                          <div className="works-section">
+                            <div className="works-section-header">- My organizations</div>
+                              {this.state.githubData.data.orgs.map((orgArray, index) => {
+                                return (
+                                    <div className="works-section-item">
+                                      <b>{orgArray[0]}</b><br/>
+                                      {orgArray[1]}
+                                    </div>
+
+                                )})}
+
+                          </div>
+                          : <div className="works-section">
+                            <div className="works-section-header">(No public organizations to show.)</div>
+                          </div>
+                        }
+
+
+
+                      </a> : null
+                    }
+
+                    {this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl ?
+                      <a className="works-item" href={this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl} target="_blank">
+                        <div className="works-header gray">
+                          <FiLink className="works-header-img"/>
+                          My personal website
                         </div>
-                        : <div className="works-section">
-                          <div className="works-section-header">(No public organizations to show.)</div>
+                        <div className="works-section">
+                          <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
+                          <img src={this.state.fileUrls.personalWebsite} className="works-laptop-screen"></img>
                         </div>
-                      }
+                      </a> : null
+                    }
 
-
-
-                    </a> : null
-                  }
-
-                  {this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl ?
-                    <a className="works-item" href={this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl} target="_blank">
-                      <div className="works-header gray">
-                        <FiLink className="works-header-img"/>
-                        My personal website
-                      </div>
-                      <div className="works-section">
-                        <img src={require('./imgs/macbook.png')} className="works-laptop"></img>
-                        <img src={this.state.fileUrls.personalWebsite} className="works-laptop-screen"></img>
-                      </div>
-                    </a> : null
-                  }
-
+                  </div>
                 </div>
-              </div>
+              : null}
 
               {this.state.freelancerInfo.profile.softwareDev.awardCategories ?
                 <div className="profile-awards">
