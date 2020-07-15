@@ -1,52 +1,52 @@
-// const functions = require('firebase-functions');
-// const cors = require('cors')({origin: true});
+const functions = require('firebase-functions');
+const cors = require('cors')({origin: true});
+const htmlToText = require('html-to-text');
 
-// const nodemailer = require("nodemailer")
-// const fetch = require("node-fetch");
+const nodemailer = require("nodemailer")
 
-// const { mailConfig } = require("./config")
-// const { githubConfig } = require("./config")
+const { mailConfig } = require("./config")
+const { githubConfig } = require("./config")
 
-// const axios = require('axios')
-// const moment = require('moment');
+const axios = require('axios')
+const moment = require('moment');
 
-// const AUTH_HEADER = { 'headers':
-//                         { 'Authorization': githubConfig.apiId + ":" + githubConfig.apiSecret}
-//                     }
+const AUTH_HEADER = { 'headers':
+                        { 'Authorization': githubConfig.apiId + ":" + githubConfig.apiSecret}
+                    }
 
-// const HOST_NAME = "smtp.gmail.com"
-// const PORT = 465
+const HOST_NAME = "smtp.gmail.com"
+const PORT = 465
 
-// let transporter = nodemailer.createTransport({
-//     host: HOST_NAME,
-//     port: PORT,
-//     secure: true, // true for 465, false for other ports
-//     auth: {
-//       user: mailConfig.address,
-//       pass: mailConfig.password,
-//     },
-// });
+let transporter = nodemailer.createTransport({
+    host: HOST_NAME,
+    port: PORT,
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: mailConfig.address,
+      pass: mailConfig.password,
+    },
+});
 
-// exports.sendEmail = functions.https.onRequest((req, res) => {
-//     cors(req, res, () => {
+exports.sendEmail = functions.https.onRequest((req, res) => {
+    cors(req, res, () => {
 
-//         const {recipientAddress, subjectLine, htmlBody} = req.body;
+        const {recipientAddress, subjectLine, htmlBody} = req.body;
 
-//         const mailOptions = {
-//             from: 'Stint <' + mailConfig.address + '>',
-//             to: recipientAddress,
-//             subject: subjectLine,
-//             html: htmlBody
-//         };
+        const mailOptions = {
+            from: 'Stint <' + mailConfig.address + '>',
+            to: recipientAddress,
+            subject: subjectLine,
+            html: htmlBody
+        };
 
-//         return transporter.sendMail(mailOptions, (error, info) => {
-//             if(error){
-//                 return res.send(error.toString());
-//             }
-//             return res.status(200).send('Sent', info);
-//         });
-//     });
-// });
+        return transporter.sendMail(mailOptions, (error, info) => {
+            if(error){
+                return res.send(error.toString());
+            }
+            return res.status(200).send('Sent', info);
+        });
+    });
+});
 
 exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
@@ -58,6 +58,7 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
         await axios.get(githubApiUrl)
             .then(result => {
             }).catch(err => {
+                console.log("INSIDE GITHUB")
                 return res.status(300).send(result)
             });
 
@@ -78,16 +79,16 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
 
 
 
-        await axios.get(githubApiUrl + "/repos", AUTH_HEADER)
+        await axios.get("https://api.github.com/search/repositories?q=user:" + githubUser + "+sort:updated-desc", AUTH_HEADER)
             .then(function(response) {
-                if (response.data[0]) {
-                    result.repoNames = [[response.data[0].name, response.data[0].description]]
+                if (response.data.items[0]) {
+                    result.repoNames = [[response.data.items[0].name, response.data.items[0].description, response.data.items[0].html_url]]
                 }
-                if (response.data[1]) {
-                    result.repoNames.push([response.data[1].name, response.data[1].description])
+                if (response.data.items[1]) {
+                    result.repoNames.push([response.data.items[1].name, response.data.items[1].description, response.data.items[1].html_url])
                 }
-                if (response.data[2]) {
-                    result.repoNames.push([response.data[2].name, response.data[2].description])
+                if (response.data.items[2]) {
+                    result.repoNames.push([response.data.items[2].name, response.data.items[2].descriptio, response.data.items[2].html_url])
                 }
             }).catch(err => {
                 return res.status(300).send(result)
@@ -96,8 +97,8 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
         await axios.get(githubApiUrl + "/orgs", AUTH_HEADER)
             .then(function(response) {
                 result.orgs = []
-                response.data.forEach((org) => {
-                    result.orgs.push([org.login, org.description])
+                response.data.slice([0], [3]).map((org, i) => {
+                    result.orgs.push([org.login, org.description, "https://www.github.com/" + org.login])
                 })
             }).catch(err => {
                 return res.status(300).send(result)
@@ -153,9 +154,20 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
                         const res = response.data.items
                         const posts = res.filter(item => item.categories.length > 0)
 
+
+                        function toText(t) {
+                            text = htmlToText.fromString(t, {
+                                wordwrap: 130
+                            });
+
+                            text = text.replace(/(\[.*?\])/g, '');
+                            text = text.replace(/(\r\n|\n|\r)/gm, " ");
+                            return text
+                         }
+
                         function shortenText(text,startingPoint ,maxLength) {
                             return text.length > maxLength?
-                            text.slice(startingPoint, maxLength):
+                            text.slice(startingPoint, maxLength) + '...' :
                             text
                         }
 
@@ -163,10 +175,12 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
                         posts.slice([0], [3]).map((item, i) => {
                             let publication = {}
                             publication.link = item.link
+                            publication.pubDate = item.pubDate
                             publication.thumbnail = item.thumbnail
-                            publication.title = shortenText(item.title, 0, 30)+ '...'
+                            publication.description = shortenText(toText(item.description), 0, 150)
+                            publication.title = shortenText(item.title, 0, 40)
                             result.publications.push(publication)
-                        })                
+                        })
                     })
         }catch (err) {
             return res.status(401).send(result)
@@ -180,12 +194,12 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
 //         const {youtubeUser} = req.body
 
 //         const channelIdApiUrl = "https://www.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=" + youtubeUser + "&type=channel&key=AIzaSyCzzixWsVDXAQnxu1bSq_nKxtmidbSHRl0"
-        
+
 //         let result = {}
 //         let channelId = undefined
 
 //         console.log(channelIdApiUrl)
-      
+
 //         await axios.get(channelIdApiUrl)
 //             .then(function(response) {
 //                 channelId = response.data.items[0].id.channelId
@@ -203,7 +217,7 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
 //                 videos = response.data.items
 //                 console.log(videos)
 //                 result.videos = []
-                
+
 //                 promises = []
 //                 let viewCounts = videos.slice([0], [3]).map((item) => {
 //                     video = {}
@@ -212,7 +226,7 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
 //                     let vidId = item.id.videoId
 
 //                     promises.push(getVideoCount(vidId))
-                        
+
 //                 })
 //                 let counts = await Promise.all(promises)
 //                 console.log(counts)

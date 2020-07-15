@@ -12,6 +12,10 @@ import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
 import { withRouter } from "react-router-dom";
 import { Link } from 'react-router-dom';
+
+import { SIGNUP_EVENT } from "../constants/ANALYTICS_CONSTANTS"
+import { THANK_YOU_PATH } from "../constants/ROUTING_CONSTANTS"
+
 const {setFreelancerProfile, getFreelancerRef} = require('../api/freelancer')
 
 class ProfileCreation extends React.Component {
@@ -45,8 +49,10 @@ class ProfileCreation extends React.Component {
     getFreelancerRef(this.props.auth.uid)
       .then(function(ref) {
         ref.on("value", function(snapshot) {
-          if (snapshot.val().profile) {
-            _this.props.history.push("/you-did-it")
+          if (snapshot.val()) {
+            if (snapshot.val().profile) {
+              _this.props.history.push(THANK_YOU_PATH)
+            }
           }
         })
       })
@@ -119,8 +125,8 @@ class ProfileCreation extends React.Component {
                                doesContent, temp.ccm.ccm0, temp.ccm.ccm1, temp.ccm.ccm2, temp.ccm.ccm3, temp.ccm.skills, temp.ccm.awardCategories, temp.ccm.awardContent, temp.ccm.awardProviders,
                                doesSoftware, temp.sd.sd0, temp.sd.sd1, temp.sd.skills, temp.sd.awardCategories, temp.sd.awardContent, temp.sd.awardProviders,
                                temp.phonenum)
-    await this.props.analytics.logEvent("sign_up")
-    this.props.history.push("/you-did-it")
+    await this.props.analytics.logEvent(SIGNUP_EVENT)
+    this.props.history.push(THANK_YOU_PATH)
   }
 
   render() {

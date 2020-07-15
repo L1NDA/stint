@@ -13,15 +13,21 @@ import ProfileCreation from './components/ProfileCreation'
 import ProfileView from './components/ProfileView'
 import ThankYou from './components/ThankYou.js'
 
+import Routes from "./constants/ROUTING_CONSTANTS"
+
 
 function App({ isLoggedIn }) {
+  let authPath = "/(" + Routes.PROFILE_CREATION_PATH.substring(1) + 
+                 "|"  + Routes.THANK_YOU_PATH.substring(1) + 
+                 "|"  + Routes.PROFILE_VIEW_PATH.substring(1) + ")"
   return (
     <Router>
       <Switch>
-        <Route path="/(|this-is-me|you-did-it|my-profile)" component={Auth} />
-        <Route path="/hire" component={Company} />
-        <Route path="/our-mission" component={About} />
-        <Route path="/privacy-policy" component={PrivatePolicy} />
+        <Route exact path={authPath} component={Auth} />
+        <Route exact path={Routes.HOMEPAGE_PATH} component={Homepage} />
+        <Route exact path={Routes.COMPANY_PATH} component={Company} />
+        <Route exact path={Routes.ABOUT_PATH} component={About} />
+        <Route exact path={Routes.PRIVACY_POLICY_PATH} component={PrivatePolicy} />
         <Route component={FourOhFour}/>
       </Switch>
     </Router>
