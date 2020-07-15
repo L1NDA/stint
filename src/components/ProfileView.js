@@ -2,6 +2,7 @@ import React from 'react'
 import Menu from './Menu.js'
 import { connect } from "react-redux"
 import { firebaseConnect } from "react-redux-firebase";
+import { withRouter } from "react-router-dom";
 import { compose } from "redux";
 import './style/my-profile.css'
 import { IoLogoGithub } from "react-icons/io";
@@ -56,10 +57,12 @@ class ProfileView extends React.Component {
     freelancerRef.on("value", async (snapshot) => {
       let info = snapshot.val()
       let profile = info.profile
-      // this.setState({
-      //   freelancerInfo: info,
-      // })
 
+      if (!profile) {
+        this.props.history.push("/this-is-me")
+        return
+      }
+      
       let githubUsername = null
       let instaUsername = null
       let mediumUsername = null
@@ -643,4 +646,4 @@ function mapStateToProps(state, props) {
   }
 }
 
-export default compose(firebaseConnect(), connect(mapStateToProps))(ProfileView);
+export default compose(firebaseConnect(), withRouter, connect(mapStateToProps))(ProfileView);
