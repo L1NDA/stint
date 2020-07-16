@@ -734,7 +734,7 @@ class ProfileView extends React.Component {
                       ></img>
                       <iframe
                         src={
-                          this.state.freelancerInfo.profile.contentCreation
+                          this.state.freelancerInfo.profile.design
                             .personalWebsiteUrl
                         }
                         className="works-laptop-screen"
@@ -843,13 +843,13 @@ class ProfileView extends React.Component {
                   </div>
                 ) : null}
 
-                {this.state.freelancerInfo.profile.design.personalWebsiteUrl ? (
+                {this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl ? (
                   <div className="profile-works">
                     <div className="section-header">My personal website</div>
                     <a
                       className="personal-website"
                       href={
-                        this.state.freelancerInfo.profile.design
+                        this.state.freelancerInfo.profile.softwareDev
                           .personalWebsiteUrl
                       }
                       target="_blank"
@@ -860,7 +860,7 @@ class ProfileView extends React.Component {
                       ></img>
                       <iframe
                         src={
-                          this.state.freelancerInfo.profile.contentCreation
+                          this.state.freelancerInfo.profile.softwareDev
                             .personalWebsiteUrl
                         }
                         className="works-laptop-screen"
