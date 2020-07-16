@@ -128,6 +128,23 @@ class ProfileView extends React.Component {
             await this.props.analytics.logEvent(MEDIUM_FUNCTIONS_ERROR);
           }
         }
+
+        // let minLengthOrg = Math.min(info.profile.orgExperience.orgRoles.length, info.profile.orgExperience.organizations.length, info.profile.orgExperience.orgYears.length)
+        // let maxLengthOrg = Math.max(info.profile.orgExperience.orgRoles.length, info.profile.orgExperience.organizations.length, info.profile.orgExperience.orgYears.length)
+        // let lengthDifferenceOrg = maxLengthOrg - minLengthOrg
+
+        // info.profile.orgExperience.orgRoles = info.profile.orgExperience.orgRoles.slice(0, lengthDifferenceOrg)
+        // info.profile.orgExperience.organizations = info.profile.orgExperience.organizations.slice(0, lengthDifferenceOrg)
+        // info.profile.orgExperience.orgYears = info.profile.orgExperience.orgYears.slice(0, lengthDifferenceOrg)
+
+        // let minLengthCo = Math.min(info.profile.workExperience.companyRoles.length, info.profile.workExperience.companies.length, info.profile.workExperience.companyYears.length)
+        // let maxLengthCo = Math.max(info.profile.workExperience.companyRoles.length, info.profile.workExperience.companies.length, info.profile.workExperience.companyYears.length)
+        // let lengthDifferenceCo = maxLengthCo - minLengthCo
+
+        // info.profile.workExperience.companyRoles = info.profile.workExperience.companyRoles.slice(0, lengthDifferenceCo)
+        // info.profile.workExperience.companies = info.profile.workExperience.companies.slice(0, lengthDifferenceCo)
+        // info.profile.workExperience.companyYears = info.profile.workExperience.companyYears.slice(0, lengthDifferenceCo)
+
         this.setState({
           freelancerInfo: info,
           freelancerRef,
