@@ -21,20 +21,13 @@ function App({ isLoggedIn }) {
     Routes.PROFILE_CREATION_PATH.substring(1) +
     "|" +
     Routes.THANK_YOU_PATH.substring(1) +
-    "|" +
-    Routes.PROFILE_VIEW_PATH.substring(1) +
     ")";
+
+  let DYNAMIC_PROFILE_VIEW_PATH = Routes.PROFILE_VIEW_PATH(":uid")
+
   return (
     <Router>
       <Switch>
-<<<<<<< HEAD
-        <Route exact path="/(this-is-me|you-did-it|my-profile)" component={Auth} />
-        <Route exact path="/" component={Homepage} />
-        <Route exact path="/hire" component={Company} />
-        <Route exact path="/our-mission" component={About} />
-        <Route exact path="/privacy-policy" component={PrivatePolicy} />
-        <Route exact path="/profile/:uid" component={ProfileView} />
-=======
         <Route exact path={authPath} component={Auth} />
         <Route exact path={Routes.HOMEPAGE_PATH} component={Homepage} />
         <Route exact path={Routes.COMPANY_PATH} component={Company} />
@@ -44,7 +37,7 @@ function App({ isLoggedIn }) {
           path={Routes.PRIVACY_POLICY_PATH}
           component={PrivatePolicy}
         />
->>>>>>> develop
+        <Route exact path={DYNAMIC_PROFILE_VIEW_PATH} component={ProfileView} />
         <Route component={FourOhFour} />
       </Switch>
     </Router>

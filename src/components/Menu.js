@@ -50,19 +50,19 @@ class Menu extends React.Component {
           </NavLink>
           {this.props.profilePic ? (
             <div className="menu-profile flex-row">
-              <Link to={PROFILE_VIEW_PATH}>
+              <Link to={() => PROFILE_VIEW_PATH(this.props.userUid)}>
                 <img src={this.props.profilePic} className="menu-propic-solo" />
               </Link>
               <div class="menu-profile-dropdown">
-                <Link to={PROFILE_VIEW_PATH}>My Profile</Link>
+                <Link to={() => PROFILE_VIEW_PATH(this.props.userUid)}>My Profile</Link>
                 <div onClick={this.props.logoutUser} className="sign-out">
                   Sign Out
                 </div>
               </div>
             </div>
-          ) : this.props.isLoggedIn ? (
+          ) : this.props.userUid ? (
             <div className="menu-profile flex-row">
-              <Link to={PROFILE_VIEW_PATH}>
+              <Link to={() => PROFILE_VIEW_PATH(this.props.userUid)}>
                 <div
                   className="menu-propic-solo"
                   style={{ backgroundColor: "#f5f5f5" }}
@@ -77,13 +77,13 @@ class Menu extends React.Component {
               className="flex-column center"
               style={{ marginBottom: "75px" }}
             >
-              <Link to={PROFILE_VIEW_PATH}>
+              <Link to={() => PROFILE_VIEW_PATH(this.props.userUid)}>
                 <img src={this.props.profilePic} className="menu-propic" />
               </Link>
               <div className="menu-name">
                 {this.props.firstName.split(" ")[0]}
               </div>
-              <Link to={PROFILE_VIEW_PATH} className="menu-burger-profile">
+              <Link to={() => PROFILE_VIEW_PATH(this.props.userUid)} className="menu-burger-profile">
                 My Profile
               </Link>
             </div>
@@ -107,7 +107,7 @@ class Menu extends React.Component {
 function mapStateToProps(state, props) {
   const { firebase } = props;
   return {
-    isLoggedIn: state.firebase.auth.uid ? true : false,
+    userUid: state.firebase.auth.uid,
     logoutUser: firebase.logout,
     profilePic: state.firebase.auth.photoURL,
     firstName: state.firebase.auth.displayName,
