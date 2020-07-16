@@ -227,8 +227,9 @@ class ProfileCreation extends React.Component {
     let doesSoftware = Object.keys(temp.sd).length !== 0;
 
     let finishedApp =
-      (temp.phonenum && this.state.checkbox) ||
-      (temp.phoneYN === "No" && this.state.checkbox)
+      (this.state.continue && (doesData || doesDesign || doesContent || doesSoftware)) &&
+      ((temp.phonenum && this.state.checkbox) ||
+      (temp.phoneYN === "No" && this.state.checkbox))
         ? false
         : true;
 
@@ -276,7 +277,7 @@ class ProfileCreation extends React.Component {
 
               <div
                 className={
-                  doesData || doesDesign || doesContent || doesSoftware
+                  this.state.continue && (doesData || doesDesign || doesContent || doesSoftware)
                     ? "stint-dialogue"
                     : "loading"
                 }
@@ -294,7 +295,7 @@ class ProfileCreation extends React.Component {
                 </p>
               </div>
 
-              {doesData || doesDesign || doesContent || doesSoftware ? (
+              {this.state.continue && (doesData || doesDesign || doesContent || doesSoftware) ? (
                 <div className="student-dialogue">
                   <h3 style={{ margin: "0" }}>
                     <Select
