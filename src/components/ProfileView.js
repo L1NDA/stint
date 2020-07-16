@@ -574,7 +574,8 @@ class ProfileView extends React.Component {
                 ) : null}
 
                 {(this.state.mediumData &&
-                  this.state.mediumData.data.publications.length !== 0) ? (
+                  this.state.mediumData.data.publications.length !== 0) ||
+                  this.state.freelancerInfo.profile.contentCreation.instagramUser ? (
                   <div className="profile-works">
                     <div className="section-header">My work(s)</div>
                     <div className="works-container">
@@ -629,9 +630,7 @@ class ProfileView extends React.Component {
                         </a>
                       ) : null}
 
-                      {this.state.instaData &&
-                       this.state.instaData.data && 
-                      !this.state.instaData.data.isPrivate ? (
+                      {this.state.freelancerInfo.profile.contentCreation.instagramUser ? (
                         <a
                           className="works-item"
                           href={`https://www.instagram.com/${this.state.freelancerInfo.profile.contentCreation.instagramUser.slice(
@@ -651,7 +650,7 @@ class ProfileView extends React.Component {
                             <div className="works-header instagram">
                               {this.state.freelancerInfo.profile.contentCreation.instagramUser}
                             </div>
-                            
+
                           </div>
 
                         </a>
