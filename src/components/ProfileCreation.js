@@ -144,17 +144,17 @@ class ProfileCreation extends React.Component {
     let maxLengthOrg = Math.max(temp.ecrole.length, temp.ec.length, temp.yearec.length)
     let lengthDifferenceOrg = maxLengthOrg - minLengthOrg
 
-    temp.ecrole.slice(0, lengthDifferenceOrg)
-    temp.ec.slice(0, lengthDifferenceOrg)
-    temp.yearec.slice(0, lengthDifferenceOrg)
+    temp.ecrole = temp.ecrole.slice(0, lengthDifferenceOrg)
+    temp.ec = temp.ec.slice(0, lengthDifferenceOrg)
+    temp.yearec = temp.yearec.slice(0, lengthDifferenceOrg)
 
     let minLengthCo = Math.min(temp.role.length, temp.company.length, temp.yearcompany.length)
     let maxLengthCo = Math.max(temp.role.length, temp.company.length, temp.yearcompany.length)
     let lengthDifferenceCo = maxLengthCo - minLengthCo
 
-    temp.role.slice(0, lengthDifferenceCo)
-    temp.company.slice(0, lengthDifferenceCo)
-    temp.yearcompany.slice(0, lengthDifferenceCo)
+    temp.role = temp.role.slice(0, lengthDifferenceCo)
+    temp.company = temp.company.slice(0, lengthDifferenceCo)
+    temp.yearcompany = temp.yearcompany.slice(0, lengthDifferenceCo)
 
     await setFreelancerProfile(
       this.props.auth.uid,
