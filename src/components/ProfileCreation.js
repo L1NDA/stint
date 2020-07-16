@@ -102,6 +102,10 @@ class ProfileCreation extends React.Component {
           this.state.ecrole[0]
         ) {
           this.setState({ continue: true });
+        } else {
+          if (this.state.continue) {
+            this.setState({ continue: false })
+          }
         }
         // else if (this.state.continue === true) {
         //   this.setState({continue: false})
@@ -248,7 +252,7 @@ class ProfileCreation extends React.Component {
                 <h3>
                   We’re Stint, a platform for connecting students and companies.{" "}
                   <br />
-                   Now tell us a little bit about yourself!
+ Now tell us a little bit about yourself!
                 </h3>
               </div>
 
