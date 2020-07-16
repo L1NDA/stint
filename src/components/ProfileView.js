@@ -632,6 +632,7 @@ class ProfileView extends React.Component {
                       ) : null}
 
                       {this.state.instaData &&
+                       this.state.instaData.data && 
                       !this.state.instaData.data.isPrivate ? (
                         <a
                           className="works-item"
