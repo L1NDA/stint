@@ -98,13 +98,15 @@ class ProfileCreation extends React.Component {
           this.state.state &&
           this.state.role[0] &&
           this.state.company[0] &&
+          (this.state.yearcompany[0] && this.state.yearcompany[0] !== "(insert year*)") &&
           this.state.ec[0] &&
-          this.state.ecrole[0]
+          this.state.ecrole[0] &&
+          (this.state.yearec[0] && this.state.yearec[0] !== "(insert year*)")
         ) {
-          this.setState({ continue: true });
+          this.setState({ continue: true }, () => {console.log("continue true", this.state)});
         } else {
           if (this.state.continue) {
-            this.setState({ continue: false })
+            this.setState({ continue: false }, () => {console.log("continue true", this.state)})
           }
         }
         // else if (this.state.continue === true) {

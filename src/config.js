@@ -1,17 +1,14 @@
-const INDEX_URL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:5001/stint-landing/us-central1/"
-    : "https://us-central1-stint-landing.cloudfunctions.net/";
+const INDEX_URL = process.env.NODE_ENV === "development" ? "http://localhost:5001/stint-landing/us-central1/" : "https://www.wearestint.com/"
 
 const firebaseConfig = {
-  "apiKey": "AIzaSyBwhjyNKWB2stpJFgG9pYHXUuV26s6U1KU",
-  "authDomain": "stint-landing.firebaseapp.com",
-  "databaseURL": "https://stint-landing.firebaseio.com",
-  "projectId": "stint-landing",
-  "storageBucket": "stint-landing.appspot.com",
-  "messagingSenderId": "989807747408",
-  "appId": "1:989807747408:web:fe02b8a376979ad8608c55",
-  "measurementId": "G-XLX384B7P4"
-}
+  apiKey: "AIzaSyCzzixWsVDXAQnxu1bSq_nKxtmidbSHRl0",
+  authDomain: "stint-staging-eb100.firebaseapp.com",
+  databaseURL: "https://stint-staging-eb100.firebaseio.com",
+  projectId: "stint-staging-eb100",
+  storageBucket: "stint-staging-eb100.appspot.com",
+  messagingSenderId: "169383986878",
+  appId: "1:169383986878:web:bbe35a48de3b4100c580ef",
+  measurementId: "G-3D8HWH7J3R"
+};
 
-module.exports = { firebaseConfig, INDEX_URL };
+module.exports = { firebaseConfig, INDEX_URL }
