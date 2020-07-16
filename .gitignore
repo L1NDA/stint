@@ -19,7 +19,6 @@
 .env.production.local
 
 #configuration/credentials
-config.js
 config.json
 staging.config.js
 

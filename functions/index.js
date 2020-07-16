@@ -11,7 +11,7 @@ const axios = require('axios')
 const moment = require('moment');
 
 const AUTH_HEADER = { 'headers':
-                        { 'Authorization': githubConfig.apiId + ":" + githubConfig.apiSecret}
+                        { 'Authorization': functions.config().github.id + ":" + functions.config().github.key}
                     }
 
 const HOST_NAME = "smtp.gmail.com"
@@ -55,10 +55,11 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
 
         let result = {}
 
-        await axios.get(githubApiUrl)
+        await axios.get(githubApiUrl, AUTH_HEADER)
             .then(result => {
             }).catch(err => {
-                if (err.request.res.statusMessage) {
+                if (err.request && err.request.res.statusMessage == 'Not Found') {
+                    
                     return res.status(404).send(result)
                 }
                 else {
@@ -66,7 +67,7 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
                 }
             });
 
-        await axios.get(githubApiUrl + "/events")
+        await axios.get(githubApiUrl + "/events", AUTH_HEADER)
             .then(function(response) {
                 let now = moment().toISOString()
                 let yearsAgo = moment().subtract(1, "years").toISOString()
@@ -78,7 +79,7 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
                 })
                 result.eventCount = eventCount
             }).catch(err => {
-                if (err.request.res.statusMessage) {
+                if (err.requesta && err.request.res.statusMessage == 'Not Found') {
                     return res.status(404).send(result)
                 }
                 else {
@@ -100,7 +101,7 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
                     result.repoNames.push([response.data.items[2].name, response.data.items[2].descriptio, response.data.items[2].html_url])
                 }
             }).catch(err => {
-                if (err.request.res.statusMessage) {
+                if (err.request && err.request.res.statusMessage == 'Not Found') {
                     return res.status(404).send(result)
                 }
                 else {
@@ -115,7 +116,7 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
                     result.orgs.push([org.login, org.description, "https://www.github.com/" + org.login])
                 })
             }).catch(err => {
-                if (err.request.res.statusMessage) {
+                if (err.request && err.request.res.statusMessage == 'Not Found') {
                     return res.status(404).send(result)
                 }
                 else {
@@ -128,7 +129,7 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
 })
 
 exports.getInstaInfo = functions.https.onRequest(async (req, res) => {
-    cors(req, res, async () => {
+    return cors(req, res, async () => {
         const {instaUser} = req.body
         const profileUrl = "https://www.instagram.com/" + instaUser
         const instaApiUrl = profileUrl + "/?__a=1"
@@ -140,6 +141,7 @@ exports.getInstaInfo = functions.https.onRequest(async (req, res) => {
         try {
             await axios.get(instaApiUrl)
                 .then(function(response) {
+                    console.log("Insta response", response)
                     let data = response.data.graphql.user
 
                     result.profilePhoto = data.profile_pic_url_hd
@@ -152,7 +154,11 @@ exports.getInstaInfo = functions.https.onRequest(async (req, res) => {
                     });
             })
         } catch (err) {
-             return res.status(401).send(result).statusMessage("invalid user")
+            console.log("Insta error", err)
+            if (err.request && err.request.res.statusMessage == 'Not Found') {
+                return res.status(404).send(result)
+            }
+            return res.status(401).send(result)
         }
 
         return res.status(200).send(result)
@@ -201,6 +207,9 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
                         })
                     })
         }catch (err) {
+            if (err.request && err.request.res.statusMessage == 'Unprocessable Entity') {
+                return res.status(404).send(result)
+            }
             return res.status(401).send(result)
         }
         return res.status(200).send(result)
