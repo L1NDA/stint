@@ -24,7 +24,6 @@ class FourOhFour extends React.Component {
 
   componentDidMount() {
     document.title = "Uh Oh | Stint";
-    console.log(this.props);
   }
 
   handleButtonClick = (event) => {

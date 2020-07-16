@@ -188,8 +188,6 @@ class ProfileCreation extends React.Component {
     this.props.history.push(THANK_YOU_PATH);
   };
   render() {
-    console.log("props freelancerref", this.props.freelancerRef);
-
     const temp = this.state;
     let doesData = Object.keys(temp.da).length !== 0;
     let doesDesign = Object.keys(temp.db).length !== 0;

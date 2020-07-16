@@ -63,14 +63,12 @@ class ProfileView extends React.Component {
   };
 
   componentDidMount = async () => {
-    console.log("COMPOENENT DID MOUNT");
     let fileUrls = await this.getFilesFromStorage();
 
     let freelancerRef = await getFreelancerRef(this.props.auth.uid);
     freelancerRef.on(
       "value",
       async (snapshot) => {
-        console.log("COMPOENENT DID MOUNT FREELANCERRE");
         let info = snapshot.val();
         let profile = info.profile;
 
@@ -82,7 +80,6 @@ class ProfileView extends React.Component {
         let githubUsername = null;
         let instaUsername = null;
         let mediumUsername = null;
-        console.log(profile);
         if (profile.dataAnalytics) {
           if (profile.dataAnalytics.githubUser) {
             let githubUser = profile.dataAnalytics.githubUser;
@@ -118,17 +115,6 @@ class ProfileView extends React.Component {
               githubData = {}
             }
             await this.props.analytics.logEvent(GITHUB_FUNCTIONS_ERROR);
-          }
-        }
-
-        if (instaUsername) {
-          try {
-            instaData = await getInstaInfo(instaUsername);
-          } catch (err) {
-            if (err.response && err.response.request.status == 401) {
-              instaData = {}
-            }
-            await this.props.analytics.logEvent(INSTAGRAM_FUNCTIONS_ERROR);
           }
         }
 
