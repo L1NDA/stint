@@ -116,10 +116,19 @@ class ProfileCreation extends React.Component {
     });
   };
 
+  trimStudentInfo = (array1, minLength) => {
+    if (array1.length > minLength) {
+      let lengthDifference = array1.length - minLength
+      array1.slice(0, lengthDifference)
+      return array1
+    }
+  }
+
   submitProfile = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    const temp = this.state;
+
+    let temp = this.state
 
     if (temp.phoneYN === "No") {
       temp.phonenum = null;
@@ -129,6 +138,23 @@ class ProfileCreation extends React.Component {
     let doesDesign = Object.keys(temp.db).length !== 0;
     let doesContent = Object.keys(temp.ccm).length !== 0;
     let doesSoftware = Object.keys(temp.sd).length !== 0;
+
+    // Make sure org info and company info are consistent
+    let minLengthOrg = Math.min(temp.ecrole.length, temp.ec.length, temp.yearec.length)
+    let maxLengthOrg = Math.max(temp.ecrole.length, temp.ec.length, temp.yearec.length)
+    let lengthDifferenceOrg = maxLengthOrg - minLengthOrg
+
+    temp.ecrole.slice(0, lengthDifferenceOrg)
+    temp.ec.slice(0, lengthDifferenceOrg)
+    temp.yearec.slice(0, lengthDifferenceOrg)
+
+    let minLengthCo = Math.min(temp.role.length, temp.company.length, temp.yearcompany.length)
+    let maxLengthCo = Math.max(temp.role.length, temp.company.length, temp.yearcompany.length)
+    let lengthDifferenceCo = maxLengthCo - minLengthCo
+
+    temp.role.slice(0, lengthDifferenceCo)
+    temp.company.slice(0, lengthDifferenceCo)
+    temp.yearcompany.slice(0, lengthDifferenceCo)
 
     await setFreelancerProfile(
       this.props.auth.uid,
@@ -188,7 +214,7 @@ class ProfileCreation extends React.Component {
     this.props.history.push(THANK_YOU_PATH);
   };
   render() {
-    const temp = this.state;
+    const temp = temp;
     let doesData = Object.keys(temp.da).length !== 0;
     let doesDesign = Object.keys(temp.db).length !== 0;
     let doesContent = Object.keys(temp.ccm).length !== 0;
