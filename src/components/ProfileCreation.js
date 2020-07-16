@@ -90,10 +90,9 @@ class ProfileCreation extends React.Component {
       },
       function () {
         if (
-          this.state.year &&
+          (this.state.year && this.state.year !== "(select year*)") &&
           this.state.colleges &&
-          this.state.major &&
-          this.state.minor &&
+          this.state.major[0] &&
           this.state.city &&
           this.state.state &&
           this.state.role[0] &&
