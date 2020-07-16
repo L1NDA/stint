@@ -121,14 +121,6 @@ class ProfileCreation extends React.Component {
     });
   };
 
-  trimStudentInfo = (array1, minLength) => {
-    if (array1.length > minLength) {
-      let lengthDifference = array1.length - minLength
-      array1.slice(0, lengthDifference)
-      return array1
-    }
-  }
-
   submitProfile = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -373,8 +365,9 @@ class ProfileCreation extends React.Component {
   }
 }
 
-async function mapStateToProps(state, props) {
+function mapStateToProps(state, props) {
   const { firebase } = props;
+  console.log("analytics", firebase.analytics())
   return {
     analytics: firebase.analytics(),
   };
