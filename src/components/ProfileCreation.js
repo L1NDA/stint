@@ -144,23 +144,6 @@ class ProfileCreation extends React.Component {
     let doesContent = Object.keys(temp.ccm).length !== 0;
     let doesSoftware = Object.keys(temp.sd).length !== 0;
 
-    // Make sure org info and company info are consistent
-    let minLengthOrg = Math.min(temp.ecrole.length, temp.ec.length, temp.yearec.length)
-    let maxLengthOrg = Math.max(temp.ecrole.length, temp.ec.length, temp.yearec.length)
-    let lengthDifferenceOrg = maxLengthOrg - minLengthOrg
-
-    temp.ecrole = temp.ecrole.slice(0, lengthDifferenceOrg)
-    temp.ec = temp.ec.slice(0, lengthDifferenceOrg)
-    temp.yearec = temp.yearec.slice(0, lengthDifferenceOrg)
-
-    let minLengthCo = Math.min(temp.role.length, temp.company.length, temp.yearcompany.length)
-    let maxLengthCo = Math.max(temp.role.length, temp.company.length, temp.yearcompany.length)
-    let lengthDifferenceCo = maxLengthCo - minLengthCo
-
-    temp.role = temp.role.slice(0, lengthDifferenceCo)
-    temp.company = temp.company.slice(0, lengthDifferenceCo)
-    temp.yearcompany = temp.yearcompany.slice(0, lengthDifferenceCo)
-
     await setFreelancerProfile(
       this.props.auth.uid,
 
