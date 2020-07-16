@@ -4,17 +4,21 @@
 /* (darker) green: #05D9B2 */
 /* gray: #474448 */
 
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Source+Sans+Pro:wght@300;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Source+Sans+Pro:wght@300;400;700&display=swap");
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   width: 100%;
   height: 100%;
   margin: 0;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 .flex-row {
@@ -24,7 +28,7 @@ html, body, #root {
 
 .flex-column {
   display: flex;
-  flex-direction: column
+  flex-direction: column;
 }
 
 .center {
@@ -39,7 +43,7 @@ a {
 
 .logo {
   color: #474448;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-weight: bold;
   font-size: 24px;
   margin-left: 10px;
@@ -69,17 +73,32 @@ a {
 }
 
 .menu-item:after {
-  display:block;
-  content: '';
-  border-bottom: solid 4px #8F8DFF;
+  display: block;
+  content: "";
+  border-bottom: solid 4px #8f8dff;
   transform: scaleX(0);
   transition: transform 250ms ease-in-out;
-  transform-origin:  0% 50%;
+  transform-origin: 0% 50%;
 }
 
 .menu-item:hover:after {
   transform: scaleX(1);
- }
+}
+
+.react-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80vh;
+}
+
+.Loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .link {
   font-weight: bold;
@@ -89,27 +108,27 @@ a {
 }
 
 .link:hover {
-  color: #8F8DFF;
+  color: #8f8dff;
   transition: all 0.2s ease-in;
 }
 
 .link:after {
-   display: block;
-   content: '';
-   border-bottom: solid 4px #8F8DFF;
-   transform: scaleX(0);
-   transition: transform 250ms ease-in-out;
-   transform-origin:  0% 50%;
+  display: block;
+  content: "";
+  border-bottom: solid 4px #8f8dff;
+  transform: scaleX(0);
+  transition: transform 250ms ease-in-out;
+  transform-origin: 0% 50%;
 }
 
 .active-item:after {
-   display:block;
-   content: '';
-   border-bottom: solid 4px #8F8DFF;
-   transform: scaleX(1);
- }
+  display: block;
+  content: "";
+  border-bottom: solid 4px #8f8dff;
+  transform: scaleX(1);
+}
 
- .modal-x {
+.modal-x {
   top: 10px;
   right: 10px;
   position: absolute;
@@ -117,32 +136,32 @@ a {
   transform: rotate(0deg);
   transition: transform 0.2s ease-in;
   z-index: 10;
- }
+}
 
- .modal-x:hover {
-  color: #8F8DFF;
+.modal-x:hover {
+  color: #8f8dff;
   cursor: pointer;
   transform: rotate(90deg);
   transition: transform 0.2s ease-in;
- }
+}
 
- .footer {
-   padding: 30px 50px;
-   font-size: 12px;
-   background-color: #474448;
-   color: white;
- }
+.footer {
+  padding: 30px 50px;
+  font-size: 12px;
+  background-color: #474448;
+  color: white;
+}
 
- .contact-us {
-   color: white;
- }
+.contact-us {
+  color: white;
+}
 
- .contact-us:hover {
-   text-decoration: underline;
- }
+.contact-us:hover {
+  text-decoration: underline;
+}
 
 .button {
-  background: linear-gradient(to left, #8F8DFF 50.1%, #474448 50%);
+  background: linear-gradient(to left, #8f8dff 50.1%, #474448 50%);
   background-size: 200% 100%;
   background-position: right bottom;
   display: flex;
@@ -151,7 +170,7 @@ a {
   padding: 10px 20px;
 
   color: white;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-weight: bold;
   font-size: 14px;
   border: none;
@@ -167,10 +186,10 @@ a {
 }
 
 .button:focus {
-  outline: 0
+  outline: 0;
 }
 
-.menu-propic {
+.menu-propic-solo {
   height: 40px;
   width: 40px;
   border-radius: 20px;
@@ -189,7 +208,7 @@ a {
   display: none;
   position: absolute;
   min-width: 150px;
-  box-shadow: 0px 8px 12px rgba(71, 68, 72, 0.10);
+  box-shadow: 0px 8px 12px rgba(71, 68, 72, 0.1);
   z-index: 1;
   right: 0;
 }
@@ -252,11 +271,11 @@ h1 {
 }
 
 h2 {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-weight: bold;
   font-size: 26px;
 
-  color: #8F8DFF;
+  color: #8f8dff;
 }
 
 h3 {
@@ -268,21 +287,21 @@ h3 {
 
 h4 {
   color: white;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-weight: bold;
   font-size: 14px;
   border: none;
 }
 
 .interstitial-text > p {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 p {
   font-size: 20px;
   line-height: 25px;
   font-weight: 400;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   color: #474448;
 }
 
@@ -300,11 +319,11 @@ p {
 }
 
 .input {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   padding: 5px 10px;
   outline: none;
   border: none;
-  border-bottom: 4px solid rgba(0,0,0,0);
+  border-bottom: 4px solid rgba(0, 0, 0, 0);
   height: 36px;
   font-size: 14px;
   width: 300px;
@@ -315,12 +334,12 @@ p {
 
 .input:focus {
   /* border-bottom: 4px solid #8F8DFF; */
-  background-color: #F2F2FF;
+  background-color: #f2f2ff;
   transition: all 0.2s ease-in;
 }
 
 .dropdown {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   padding: 5px 10px;
   outline: none;
   border: none;
@@ -328,7 +347,6 @@ p {
   height: 32px;
   font-size: 14px;
   background-color: none;
-
 }
 
 .about-text {
@@ -352,8 +370,9 @@ p {
   position: relative;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #8F8DFF;
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #8f8dff;
   opacity: 1; /* Firefox */
 }
 
@@ -361,13 +380,13 @@ p {
   min-width: 25px;
   max-width: 90%;
   border: none;
-  border-bottom: 4px solid #8F8DFF;
+  border-bottom: 4px solid #8f8dff;
   border-radius: 0;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 24px;
   font-weight: bold;
 
-  color: #8F8DFF;
+  color: #8f8dff;
   background-color: transparent;
 
   margin: 0 4px;
@@ -379,18 +398,18 @@ p {
 
 .search-box-container:focus {
   /* border-bottom: 4px solid #474448; */
-  background-color: #F2F2FF;
+  background-color: #f2f2ff;
   outline: none;
   transition: border-bottom 0.2s ease-in;
 }
 
 :disabled {
-  background: #B0B0B0;
+  background: #b0b0b0;
   cursor: not-allowed;
 }
 
 :disabled:hover {
-  background: #B0B0B0;
+  background: #b0b0b0;
   cursor: not-allowed;
   box-shadow: none;
 }
@@ -398,12 +417,12 @@ p {
 .hide {
   position: absolute;
   visibility: hidden;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 24px;
   font-weight: bold;
   white-space: nowrap;
 
-  color: #8F8DFF;
+  color: #8f8dff;
 }
 
 .ac-dropdown {
@@ -422,20 +441,20 @@ p {
   color: white;
   font-weight: bold;
   padding: 10px;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
   width: 100%;
   z-index: 10;
 }
 
 .ac-dropdown-item:hover {
-  background-color: #8F8DFF;
+  background-color: #8f8dff;
   cursor: pointer;
   transition: 0.3s all;
 }
 
 .option-active {
-  color: #8F8DFF;
+  color: #8f8dff;
 }
 
 .option-active:hover {
@@ -450,16 +469,164 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
 /* Media Queries */
 
+.menu-desktop {
+  display: flex;
+}
+
+.menu > *:last-child {
+  display: none;
+}
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: fixed;
+  width: 24px;
+  height: 20px;
+  right: 36px;
+  top: 36px;
+}
+
+.bm-burger-button > button:focus {
+  outline: none;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #474448;
+}
+
+/* Color/shape of burger icon bars on hover*/
+.bm-burger-bars-hover {
+  background: #a90000;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+.bm-cross-button > button:focus {
+  outline: none;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7;
+}
+
+/*
+Sidebar wrapper styles
+Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+*/
+
+.bm-menu-wrap {
+  position: fixed;
+  height: 100%;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: #474448;
+  /* padding: 50px; */
+  font-size: 18px;
+}
+
+/* Wrapper for item list */
+.bm-item-list > *:first-child {
+  display: flex !important;
+  margin-top: 75px;
+}
+
+/* Individual item */
+.bm-item {
+  display: inline-block;
+  color: white;
+  font-family: "IBM Plex Mono", monospace;
+  margin: 20px 0;
+  font-weight: bold;
+  padding: 0px 50px;
+}
+
+.bm-item:hover {
+  color: #8f8dff;
+}
+
+.bm-item:focus {
+  outline: none;
+}
+
+.menu-name {
+  color: white;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 28px;
+  margin-top: 10px;
+}
+
+.menu-propic {
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+}
+
+.menu-burger-profile {
+  color: white;
+  font-family: "Source Sans Pro", sans-serif;
+  padding: 10px 20px;
+  border: 1px solid white;
+  font-size: 12px;
+  margin-top: 10px;
+  min-width: 120px;
+  display: flex;
+  justify-content: center;
+}
+
+.menu-burger-profile:hover {
+  background-color: #f5f5f5;
+  color: #474448;
+}
+
+.menu-item-burger {
+  color: #8f8dff;
+}
+
+.sign-out-burger {
+  width: 100%;
+  border-top: 1px solid #f5f5f5;
+  padding: 20px;
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  text-align: center;
+  cursor: pointer;
+}
+
+.sign-out-burger:hover {
+  background-color: #f5f5f5;
+  color: #474448;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  left: 0;
+  top: 0;
+}
+
 /* Smaller Laptops ----------- */
-@media only screen and (max-width : 1200px) {
+@media only screen and (max-width: 1200px) {
   h1 {
-    font-size: 44px
+    font-size: 44px;
   }
 
   .h1-smaller {
@@ -477,17 +644,14 @@ input[type=number] {
   .hide {
     font-size: 20px;
   }
-
 }
 
 /* Mini Screens */
-@media only screen and (max-height : 1024px) {
-
+@media only screen and (max-height: 1024px) {
 }
 
 /* Large Phones */
-@media only screen and (max-height : 950px) and (max-width: 800px) {
-
+@media only screen and (max-height: 950px) and (max-width: 800px) {
   .logo {
     font-size: 20px;
     display: none;
@@ -502,7 +666,7 @@ input[type=number] {
   }
 
   h1 {
-    font-size: 32px
+    font-size: 32px;
   }
 
   .h1-smaller {
@@ -548,17 +712,26 @@ input[type=number] {
     margin-top: 10px;
   }
 
+  .menu-desktop {
+    display: none;
+  }
+
+  .menu > *:last-child {
+    display: block;
+  }
+
+  .bm-burger-button {
+    right: 30px;
+    top: 22px;
+  }
 }
 
 /* iPhone 6 */
-@media only screen and (max-height : 670px) {
-
-
+@media only screen and (max-height: 670px) {
 }
 
 /* Small Phones */
-@media only screen and (max-height : 570px) {
-
+@media only screen and (max-height: 570px) {
   .logo {
     font-size: 16px;
   }
@@ -567,10 +740,16 @@ input[type=number] {
     height: 20px;
   }
 
+  .menu-propic {
+    width: 75px;
+    height: 75px;
+  }
+
+  .bm-item-list > *:first-child {
+    margin-bottom: 50px !important;
+  }
 }
 
 /* Smaller Phones */
-@media only screen and (max-width : 320px) {
-
-
+@media only screen and (max-width: 320px) {
 }

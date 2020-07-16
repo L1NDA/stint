@@ -36,7 +36,7 @@ const googleButtonStyle = css`
   .google-button__text {
     font-size: 14px;
     font-weight: bold;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
   }
 `;
 

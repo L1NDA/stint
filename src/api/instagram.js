@@ -1,17 +1,23 @@
-const axios = require('axios')
+const axios = require("axios");
+const { INDEX_URL } = require("../config")
 
 const getInstaInfo = (user) => {
-    return axios.post('http://localhost:5001/stint-staging-eb100/us-central1/getInstaInfo', {
-      instaUser: user
+  let targetUrl = INDEX_URL + "getInstaInfo"
+  return axios
+    .post(
+      targetUrl,
+      {
+        instaUser: user,
+      }
+    )
+    .then((res) => {
+      return res;
     })
-    .then(res => {
-      return res
-    })
-    .catch(error => {
-      console.error(error)
-    })
-}
+    .catch((error) => {
+      throw error;
+    });
+};
 
 module.exports = {
-    getInstaInfo
-}
+  getInstaInfo,
+};

@@ -1,5 +1,6 @@
 const functions = require('firebase-functions');
 const cors = require('cors')({origin: true});
+const htmlToText = require('html-to-text');
 
 const nodemailer = require("nodemailer")
 
@@ -10,7 +11,7 @@ const axios = require('axios')
 const moment = require('moment');
 
 const AUTH_HEADER = { 'headers':
-                        { 'Authorization': githubConfig.apiId + ":" + githubConfig.apiSecret}
+                        { 'Authorization': functions.config().github.id + ":" + functions.config().github.key}
                     }
 
 const HOST_NAME = "smtp.gmail.com"
@@ -54,13 +55,19 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
 
         let result = {}
 
-        await axios.get(githubApiUrl)
+        await axios.get(githubApiUrl, AUTH_HEADER)
             .then(result => {
             }).catch(err => {
-                return res.status(300).send(result)
+                if (err.request && err.request.res.statusMessage == 'Not Found') {
+                    
+                    return res.status(404).send(result)
+                }
+                else {
+                    return res.status(401).send(result)
+                }
             });
 
-        await axios.get(githubApiUrl + "/events")
+        await axios.get(githubApiUrl + "/events", AUTH_HEADER)
             .then(function(response) {
                 let now = moment().toISOString()
                 let yearsAgo = moment().subtract(1, "years").toISOString()
@@ -72,34 +79,49 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
                 })
                 result.eventCount = eventCount
             }).catch(err => {
-                return res.status(300).send(result)
+                if (err.requesta && err.request.res.statusMessage == 'Not Found') {
+                    return res.status(404).send(result)
+                }
+                else {
+                    return res.status(401).send(result)
+                }
             });
 
 
 
-        await axios.get(githubApiUrl + "/repos", AUTH_HEADER)
+        await axios.get("https://api.github.com/search/repositories?q=user:" + githubUser + "+sort:updated-desc", AUTH_HEADER)
             .then(function(response) {
-                if (response.data[0]) {
-                    result.repoNames = [[response.data[0].name, response.data[0].description]]
+                if (response.data.items[0]) {
+                    result.repoNames = [[response.data.items[0].name, response.data.items[0].description, response.data.items[0].html_url]]
                 }
-                if (response.data[1]) {
-                    result.repoNames.push([response.data[1].name, response.data[1].description])
+                if (response.data.items[1]) {
+                    result.repoNames.push([response.data.items[1].name, response.data.items[1].description, response.data.items[1].html_url])
                 }
-                if (response.data[2]) {
-                    result.repoNames.push([response.data[2].name, response.data[2].description])
+                if (response.data.items[2]) {
+                    result.repoNames.push([response.data.items[2].name, response.data.items[2].descriptio, response.data.items[2].html_url])
                 }
             }).catch(err => {
-                return res.status(300).send(result)
+                if (err.request && err.request.res.statusMessage == 'Not Found') {
+                    return res.status(404).send(result)
+                }
+                else {
+                    return res.status(401).send(result)
+                }
             });
 
         await axios.get(githubApiUrl + "/orgs", AUTH_HEADER)
             .then(function(response) {
                 result.orgs = []
-                response.data.forEach((org) => {
-                    result.orgs.push([org.login, org.description])
+                response.data.slice([0], [3]).map((org, i) => {
+                    result.orgs.push([org.login, org.description, "https://www.github.com/" + org.login])
                 })
             }).catch(err => {
-                return res.status(300).send(result)
+                if (err.request && err.request.res.statusMessage == 'Not Found') {
+                    return res.status(404).send(result)
+                }
+                else {
+                    return res.status(401).send(result)
+                }
             });
 
         return res.status(200).send(result)
@@ -107,7 +129,7 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
 })
 
 exports.getInstaInfo = functions.https.onRequest(async (req, res) => {
-    cors(req, res, async () => {
+    return cors(req, res, async () => {
         const {instaUser} = req.body
         const profileUrl = "https://www.instagram.com/" + instaUser
         const instaApiUrl = profileUrl + "/?__a=1"
@@ -119,6 +141,7 @@ exports.getInstaInfo = functions.https.onRequest(async (req, res) => {
         try {
             await axios.get(instaApiUrl)
                 .then(function(response) {
+                    console.log("Insta response", response)
                     let data = response.data.graphql.user
 
                     result.profilePhoto = data.profile_pic_url_hd
@@ -131,7 +154,11 @@ exports.getInstaInfo = functions.https.onRequest(async (req, res) => {
                     });
             })
         } catch (err) {
-             return res.status(401).send(result).statusMessage("invalid user")
+            console.log("Insta error", err)
+            if (err.request && err.request.res.statusMessage == 'Not Found') {
+                return res.status(404).send(result)
+            }
+            return res.status(401).send(result)
         }
 
         return res.status(200).send(result)
@@ -144,7 +171,6 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
         const mediumRssUrl = "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@" + mediumUser
 
         let result = {}
-
         try {
             await axios.get(mediumRssUrl)
                 .then(function(response) {
@@ -152,9 +178,20 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
                         const res = response.data.items
                         const posts = res.filter(item => item.categories.length > 0)
 
+
+                        function toText(t) {
+                            text = htmlToText.fromString(t, {
+                                wordwrap: 130
+                            });
+
+                            text = text.replace(/(\[.*?\])/g, '');
+                            text = text.replace(/(\r\n|\n|\r)/gm, " ");
+                            return text
+                         }
+
                         function shortenText(text,startingPoint ,maxLength) {
                             return text.length > maxLength?
-                            text.slice(startingPoint, maxLength):
+                            text.slice(startingPoint, maxLength) + '...' :
                             text
                         }
 
@@ -162,12 +199,17 @@ exports.getMediumInfo = functions.https.onRequest(async (req, res) => {
                         posts.slice([0], [3]).map((item, i) => {
                             let publication = {}
                             publication.link = item.link
+                            publication.pubDate = item.pubDate
                             publication.thumbnail = item.thumbnail
-                            publication.title = shortenText(item.title, 0, 30)+ '...'
+                            publication.description = shortenText(toText(item.description), 0, 150)
+                            publication.title = shortenText(item.title, 0, 40)
                             result.publications.push(publication)
                         })
                     })
         }catch (err) {
+            if (err.request && err.request.res.statusMessage == 'Unprocessable Entity') {
+                return res.status(404).send(result)
+            }
             return res.status(401).send(result)
         }
         return res.status(200).send(result)

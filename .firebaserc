@@ -1,6 +1,5 @@
 {
   "projects": {
-    "default": "stint-landing",
-    "stint-staging-eb100": "stint-staging-eb100"
+    "default": "stint-landing"
   }
 }

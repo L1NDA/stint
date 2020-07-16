@@ -8,6 +8,7 @@ const style = css`
   justify-content: center;
   align-items: center;
   width: 100%;
+  height: 80vh;
 `;
 
 const Loading = ({
@@ -26,7 +27,7 @@ const Loading = ({
     <ReactLoading
       className={"Loading"}
       type={type || "bubbles"}
-      width={width || "20%"}
+      width={width || "15%"}
       height={height || "auto"}
       color={color || "#8F8DFF"}
     />

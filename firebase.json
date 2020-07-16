@@ -1,4 +1,7 @@
 {
+  "database": {
+    "rules": "database.rules.json"
+  },
   "hosting": {
     "public": "public",
     "ignore": [
@@ -11,13 +14,13 @@
         "source": "**",
         "destination": "/index.html"
       }
+<<<<<<< HEAD
+=======
+    ],
+    "headers": [
+      { "source":"/service-worker.js", "headers": [{"key": "Cache-Control", "value": "no-cache"}] }
+>>>>>>> develop
     ]
-  },
-  "database": {
-    "rules": "database.rules.json"
-  },
-  "functions": {
-    "source": "functions"
   },
   "storage": {
     "rules": "storage.rules"

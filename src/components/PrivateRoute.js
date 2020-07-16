@@ -1,19 +1,18 @@
 import React from "react";
 import { Redirect, Route, withRouter } from "react-router-dom";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { compose } from "redux";
 import { isLoaded, isEmpty } from "react-redux-firebase";
-import { getFreelancerRef } from "../api/freelancer"
-import Loading from './Auth/Loading'
+import Loading from "./Auth/Loading";
 import get from "lodash/get";
 
 const Private = ({ component: Component, ...rest }) => {
-  const auth = rest.auth
+  const auth = rest.auth;
   const pathname = get(rest, "location.state.from.pathname");
   return (
     <Route
       {...rest}
-      render={(props) => 
+      render={(props) =>
         isLoaded(auth) ? (
           !isEmpty(auth) ? (
             <Component {...props} {...rest} oldPath={pathname} />
@@ -90,7 +89,7 @@ const Private = ({ component: Component, ...rest }) => {
 // }
 
 const Public = ({ component: Component, ...rest }) => {
-  const auth = rest.auth
+  const auth = rest.auth;
   const pathname = get(rest, "location.state.from.pathname");
   return (
     <Route
@@ -107,21 +106,17 @@ const Public = ({ component: Component, ...rest }) => {
               }}
             />
           )
-        ) : (
-          null
-        )
+        ) : null
       }
     />
   );
 };
 
-
 function mapStateToProps(state, props) {
   return {
-    auth: state.firebase.auth
-  }
+    auth: state.firebase.auth,
+  };
 }
-
 
 export const PrivateRoute = connect(mapStateToProps)(Private);
 export const PublicRoute = connect(mapStateToProps)(Public);

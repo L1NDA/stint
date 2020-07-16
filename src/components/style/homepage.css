@@ -14,17 +14,19 @@
   color: white;
 }
 
-.cookies > * > a, .cookies > * > * > a {
+.cookies > * > a,
+.cookies > * > * > a {
   color: white;
   font-weight: bold;
 }
 
-.cookies > * > a:hover, .cookies > * > * > a:hover {
+.cookies > * > a:hover,
+.cookies > * > * > a:hover {
   text-decoration: underline;
 }
 
 .homepage {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -39,7 +41,7 @@
   align-items: center; */
   font-size: 14px;
   padding: 10px 10%;
-  text-align: center
+  text-align: center;
 }
 
 .padding {
@@ -66,12 +68,17 @@
 }
 
 .homepage-image {
-  width: 40vw
+  width: 40vw;
 }
 
 .one-liner {
   background-color: #f5f5f5;
-  padding: 75px 20%
+  padding: 75px 20%;
+}
+
+.bip {
+  width: 40px;
+  margin-left: 10px;
 }
 
 .process-container {
@@ -85,7 +92,7 @@
 
 .process-item {
   margin: 75px 0;
-  box-shadow: 0px 20px 50px rgba(71, 68, 72, 0.10);
+  box-shadow: 0px 20px 50px rgba(71, 68, 72, 0.1);
   display: flex;
   position: relative;
   background-color: white;
@@ -98,19 +105,19 @@
   top: -20px;
   height: 40px;
   width: 40px;
-  background-color: #8F8DFF;
+  background-color: #8f8dff;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-weight: bold;
 }
 
 .process-line {
   height: 80%;
   width: 3px;
-  background-color: #8F8DFF;
+  background-color: #8f8dff;
   position: absolute;
   left: 99px;
   top: 100px;
@@ -131,7 +138,7 @@
 
 .process-text > * {
   margin: 5px 0;
-  color: #474448
+  color: #474448;
 }
 
 .homepage-carousel {
@@ -199,7 +206,7 @@
 
 .carousel__dot:hover {
   background-color: #474448;
-  transition: all 0.2s linear
+  transition: all 0.2s linear;
 }
 
 .carousel__dot:disabled {
@@ -214,41 +221,54 @@
 
 .interstitial-item {
   width: 25%;
-  min-width: 200px
+  min-width: 200px;
 }
 
 .interstitial-item > * {
-  color: #474448
+  color: #474448;
 }
 
 .interstitial-item > h2 {
   margin-bottom: 16px;
-  color: #8F8DFF
+  color: #8f8dff;
 }
 
 .interstitial-icon {
   font-size: 50px;
 }
 
-.example-company-square, .example-company-rect {
-  margin: 0 50px;
+.example-company-square,
+.example-company-rect {
   filter: grayscale(0.5);
 }
 
-.example-company-square:hover, .example-company-rect:hover {
+.example-company-square:hover,
+.example-company-rect:hover {
   filter: grayscale(0);
   transition: all 0.2 ease-in;
-  -webkit-transition : -webkit-filter 200ms linear
+  -webkit-transition: -webkit-filter 200ms linear;
+}
+
+.example-company-square-container {
+  margin: 0 50px;
+  min-width: 100px;
+  width: 20%;
+  height: auto;
 }
 
 .example-company-square {
-  width: 200px;
+  width: 100%;
+}
+
+.example-company-rect-container {
+  margin: 0 50px;
+  min-width: 150px;
+  width: 30%;
   height: auto;
 }
 
 .example-company-rect {
-  height: 100px;
-  width: auto;
+  width: 100%;
 }
 
 .accordion {
@@ -262,7 +282,7 @@
 
   color: #474448;
   padding: 20px 0px;
-  border-bottom: solid 2px #F5F5F5;
+  border-bottom: solid 2px #f5f5f5;
   background-color: transparent;
   position: relative;
 }
@@ -277,7 +297,7 @@
 
 /* The link which when clicked opens the collapsable area */
 .Collapsible__trigger::after {
-  background-image: url('chevron.svg');
+  background-image: url("chevron.svg");
   background-size: contain;
   background-repeat: no-repeat;
   width: 15px;
@@ -291,7 +311,7 @@
 }
 
 .is-open.Collapsible__trigger::after {
-    transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
 }
 
 .Collapsible__contentInner {
@@ -339,8 +359,7 @@
 /* Media Queries */
 
 /* Smaller Laptops ----------- */
-@media only screen and (max-width : 1200px) {
-
+@media only screen and (max-width: 1200px) {
   .process-img {
     height: 250px;
     width: 250px;
@@ -354,17 +373,14 @@
     left: 124px;
     top: 100px;
   }
-
 }
 
 /* Mini Screens */
-@media only screen and (max-height : 1024px) {
-
+@media only screen and (max-height: 1024px) {
 }
 
 /* Large Phones */
-@media only screen and (max-height : 950px) and (max-width: 800px) {
-
+@media only screen and (max-height: 950px) and (max-width: 800px) {
   .covid {
     /* flex-direction: column;
     align-items: flex-start; */
@@ -456,39 +472,27 @@
     height: 10px;
   }
 
-  .example-company-square {
-    height: 150px;
-    width: auto;
-    max-width: 100%;
-    margin: 0
+  .example-company-square-container {
+    min-width: 75px;
+    height: auto;
+    margin: 0;
   }
 
-  .example-company-rect {
-    height: 75px;
-    width: auto;
-    max-width: 100%;
-    margin: 0
+  .example-company-rect-container {
+    min-width: 75px;
+    height: auto;
+    margin: 0;
   }
-
 }
 
 /* iPhone 6 */
-@media only screen and (max-height : 670px) {
-
-
+@media only screen and (max-height: 670px) {
 }
 
 /* Small Phones */
-@media only screen and (max-height : 570px) {
-
-
-
-
+@media only screen and (max-height: 570px) {
 }
 
 /* Smaller Phones */
-@media only screen and (max-width : 320px) {
-
-
-
+@media only screen and (max-width: 320px) {
 }
