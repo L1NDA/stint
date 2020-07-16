@@ -10,6 +10,7 @@ import FourOhFour from "./components/FourOhFour.js";
 import Homepage from "./components/Homepage.js";
 import PrivatePolicy from "./components/PrivatePolicy.js";
 import ProfileCreation from "./components/ProfileCreation";
+import ProfileEdit from "./components/ProfileEdit";
 import ProfileView from "./components/ProfileView";
 import ThankYou from "./components/ThankYou.js";
 
@@ -23,6 +24,8 @@ function App({ isLoggedIn }) {
     Routes.THANK_YOU_PATH.substring(1) +
     "|" +
     Routes.PROFILE_VIEW_PATH.substring(1) +
+    "|" +
+    Routes.PROFILE_EDIT_PATH.substring(1) +
     ")";
   return (
     <Router>

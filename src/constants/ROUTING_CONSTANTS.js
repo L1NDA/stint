@@ -16,6 +16,8 @@ export const THANK_YOU_PATH = "/you-did-it";
 
 export const PROFILE_VIEW_PATH = "/my-profile";
 
+export const PROFILE_EDIT_PATH = "/edit-profile";
+
 export default {
   HOMEPAGE_PATH,
   COMPANY_PATH,
@@ -24,4 +26,5 @@ export default {
   PROFILE_CREATION_PATH,
   THANK_YOU_PATH,
   PROFILE_VIEW_PATH,
+  PROFILE_EDIT_PATH,
 };

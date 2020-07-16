@@ -9,6 +9,7 @@ import Homepage from "../Homepage";
 import ThankYou from "../ThankYou";
 import Loading from "./Loading";
 import ProfileView from "../ProfileView";
+import ProfileEdit from "../ProfileEdit";
 
 import { PrivateRoute, PublicRoute } from "../PrivateRoute";
 
@@ -16,6 +17,7 @@ import {
   PROFILE_CREATION_PATH,
   THANK_YOU_PATH,
   PROFILE_VIEW_PATH,
+  PROFILE_EDIT_PATH,
 } from "../../constants/ROUTING_CONSTANTS";
 
 const Auth = ({ location }) => {
@@ -31,6 +33,7 @@ const Auth = ({ location }) => {
         />
         <PrivateRoute path={THANK_YOU_PATH} component={ThankYou} />
         <PrivateRoute path={PROFILE_VIEW_PATH} component={ProfileView} />
+        <PrivateRoute path={PROFILE_EDIT_PATH} component={ProfileEdit} />
       </Switch>
     </div>
   );
