@@ -233,6 +233,10 @@
   border-radius: 15px;
 }
 
+.insta-logo {
+  width: 50%;
+}
+
 .insta-handle {
   font-size: 12px;
   margin-left: 15px;

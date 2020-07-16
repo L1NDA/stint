@@ -566,9 +566,7 @@ class ProfileView extends React.Component {
                 ) : null}
 
                 {(this.state.mediumData &&
-                  this.state.mediumData.data.publications.length !== 0) ||
-                (this.state.instaData &&
-                  !this.state.instaData.data.isPrivate) ? (
+                  this.state.mediumData.data.publications.length !== 0) ? (
                   <div className="profile-works">
                     <div className="section-header">My work(s)</div>
                     <div className="works-container">
@@ -636,40 +634,17 @@ class ProfileView extends React.Component {
                             Instagram
                           </div>
 
-                          <div className="works-section flex-row">
+                          <div className="works-section flex-column center">
                             <img
-                              src={this.state.instaData.data.profilePhoto}
-                              className="insta-propic"
-                            ></img>
-                            <div
-                              className="flex-column"
-                              style={{ justifyContent: "center" }}
-                            >
-                              <b className="insta-handle">
-                                {
-                                  this.state.freelancerInfo.profile
-                                    .contentCreation.instagramUser
-                                }
-                              </b>
-                              <div className="insta-handle">
-                                {this.state.instaData.data.numFollowers}{" "}
-                                followers
-                              </div>
+                              src={require("./imgs/instagram-logo.png")}
+                              className="insta-logo"
+                            />
+                            <div className="works-header instagram">
+                              {this.state.freelancerInfo.profile.contentCreation.instagramUser}
                             </div>
+                            
                           </div>
 
-                          <div className="works-section insta-grid">
-                            {this.state.instaData.data.photos.map(
-                              (img, index) => {
-                                return (
-                                  <div
-                                    style={{ backgroundImage: `url(${img})` }}
-                                    className="insta-img"
-                                  ></div>
-                                );
-                              }
-                            )}
-                          </div>
                         </a>
                       ) : null}
                     </div>
