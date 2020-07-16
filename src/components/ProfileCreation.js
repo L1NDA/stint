@@ -214,7 +214,7 @@ class ProfileCreation extends React.Component {
     this.props.history.push(THANK_YOU_PATH);
   };
   render() {
-    const temp = temp;
+    const temp = this.state;
     let doesData = Object.keys(temp.da).length !== 0;
     let doesDesign = Object.keys(temp.db).length !== 0;
     let doesContent = Object.keys(temp.ccm).length !== 0;
