@@ -1,13 +1,13 @@
 {
   "rules": {
-  	"freelancers": {
-  		"$uid": {
-  			".read": "auth != null && auth.uid == $uid",
-  			".write": "auth != null && auth.uid == $uid"
-  		}
-  	},
-  	"companies": {
-  		".write": true
-  	}
+    "freelancers": {
+      "$uid": {
+        ".read": "true",
+        ".write": "auth != null && auth.uid == $uid"
+      }
+    },
+    "companies": {
+      ".write": true
+    }
   }
 }
