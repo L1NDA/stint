@@ -1,7 +1,8 @@
-import React from "react";
-import Menu from "./Menu.js";
+import React from 'react'
+import Menu from './Menu.js'
 import Footer from "./Footer.js";
-import { connect } from "react-redux";
+import { useParams } from 'react-router-dom'
+import { connect } from "react-redux"
 import { firebaseConnect } from "react-redux-firebase";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
@@ -38,9 +39,11 @@ const PERSONAL_WEBSITE_PREFIX = "personalwebsite-";
 const OTHER_FILES = "otherFiles";
 
 class ProfileView extends React.Component {
-  constructor() {
+  constructor(props){
     super();
-    this.state = {};
+    this.state = {
+    }
+    console.log("param uid", props.match.params.uid)
   }
 
   componentDidUpdate() {
@@ -65,7 +68,7 @@ class ProfileView extends React.Component {
   componentDidMount = async () => {
     let fileUrls = await this.getFilesFromStorage();
 
-    let freelancerRef = await getFreelancerRef(this.props.auth.uid);
+    let freelancerRef = await getFreelancerRef(this.props.match.params.uid);
     freelancerRef.on(
       "value",
       async (snapshot) => {
@@ -162,7 +165,7 @@ class ProfileView extends React.Component {
 
   getFilesFromStorage = async () => {
     let storageRef = this.props.storage.ref();
-    let filesRef = storageRef.child("images" + "/" + this.props.auth.uid);
+    let filesRef = storageRef.child("images" + "/" + this.props.match.params.uid);
     let res = await filesRef.listAll();
 
     let fileUrls = {};
@@ -206,12 +209,12 @@ class ProfileView extends React.Component {
             <section className="padding flex-row profile-item">
               <img
                 id="profile-img"
-                src={this.props.auth.photoURL}
+                src={this.state.freelancerInfo.avatarUrl}
                 className="my-profile-img"
               ></img>
               <div>
                 <h1 style={{ margin: "0" }}>
-                  {this.props.auth.displayName.split(" ")[0]}
+                  {this.state.freelancerInfo.displayName.split(" ")[0]}
                 </h1>
                 <div style={{ margin: "0" }}>
                   {this.state.freelancerInfo.profile.education.majors[0]}

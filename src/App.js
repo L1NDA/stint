@@ -21,9 +21,10 @@ function App({ isLoggedIn }) {
     Routes.PROFILE_CREATION_PATH.substring(1) +
     "|" +
     Routes.THANK_YOU_PATH.substring(1) +
-    "|" +
-    Routes.PROFILE_VIEW_PATH.substring(1) +
     ")";
+
+  let DYNAMIC_PROFILE_VIEW_PATH = Routes.PROFILE_VIEW_PATH(":uid")
+
   return (
     <Router>
       <Switch>
@@ -36,6 +37,7 @@ function App({ isLoggedIn }) {
           path={Routes.PRIVACY_POLICY_PATH}
           component={PrivatePolicy}
         />
+        <Route exact path={DYNAMIC_PROFILE_VIEW_PATH} component={ProfileView} />
         <Route component={FourOhFour} />
       </Switch>
     </Router>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect, Route, withRouter } from "react-router-dom";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { compose } from "redux";
 import { isLoaded, isEmpty } from "react-redux-firebase";
 import Loading from "./Auth/Loading";

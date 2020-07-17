@@ -14,7 +14,7 @@ export const PROFILE_CREATION_PATH = "/this-is-me";
 
 export const THANK_YOU_PATH = "/you-did-it";
 
-export const PROFILE_VIEW_PATH = "/my-profile";
+export const PROFILE_VIEW_PATH = (uid) => "/profile/" + uid;
 
 export default {
   HOMEPAGE_PATH,
