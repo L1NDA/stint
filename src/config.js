@@ -11,7 +11,7 @@ const firebaseConfig = {
   storageBucket: "stint-staging-eb100.appspot.com",
   messagingSenderId: "169383986878",
   appId: "1:169383986878:web:bbe35a48de3b4100c580ef",
-  measurementId: "G-3D8HWH7J3R"
+  measurementId: "G-3D8HWH7J3R",
 };
 
 module.exports = { firebaseConfig, INDEX_URL };

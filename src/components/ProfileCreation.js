@@ -90,22 +90,25 @@ class ProfileCreation extends React.Component {
       },
       function () {
         if (
-          (this.state.year && this.state.year !== "(select year*)") &&
+          this.state.year &&
+          this.state.year !== "(select year*)" &&
           this.state.colleges &&
           this.state.major[0] &&
           this.state.city &&
           this.state.state &&
           this.state.role[0] &&
           this.state.company[0] &&
-          (this.state.yearcompany[0] && this.state.yearcompany[0] !== "(insert year*)") &&
+          this.state.yearcompany[0] &&
+          this.state.yearcompany[0] !== "(insert year*)" &&
           this.state.ec[0] &&
           this.state.ecrole[0] &&
-          (this.state.yearec[0] && this.state.yearec[0] !== "(insert year*)")
+          this.state.yearec[0] &&
+          this.state.yearec[0] !== "(insert year*)"
         ) {
           this.setState({ continue: true });
         } else {
           if (this.state.continue) {
-            this.setState({ continue: false })
+            this.setState({ continue: false });
           }
         }
         // else if (this.state.continue === true) {
@@ -125,7 +128,7 @@ class ProfileCreation extends React.Component {
     e.preventDefault();
     e.stopPropagation();
 
-    let temp = this.state
+    let temp = this.state;
 
     if (temp.phoneYN === "No") {
       temp.phonenum = null;
@@ -201,9 +204,10 @@ class ProfileCreation extends React.Component {
     let doesSoftware = Object.keys(temp.sd).length !== 0;
 
     let finishedApp =
-      (this.state.continue && (doesData || doesDesign || doesContent || doesSoftware)) &&
+      this.state.continue &&
+      (doesData || doesDesign || doesContent || doesSoftware) &&
       ((temp.phonenum && this.state.checkbox) ||
-      (temp.phoneYN === "No" && this.state.checkbox))
+        (temp.phoneYN === "No" && this.state.checkbox))
         ? false
         : true;
 
@@ -229,7 +233,7 @@ class ProfileCreation extends React.Component {
                 <h3>
                   We’re Stint, a platform for connecting students and companies.{" "}
                   <br />
- Now tell us a little bit about yourself!
+                   Now tell us a little bit about yourself!
                 </h3>
               </div>
 
@@ -251,7 +255,8 @@ class ProfileCreation extends React.Component {
 
               <div
                 className={
-                  this.state.continue && (doesData || doesDesign || doesContent || doesSoftware)
+                  this.state.continue &&
+                  (doesData || doesDesign || doesContent || doesSoftware)
                     ? "stint-dialogue"
                     : "loading"
                 }
@@ -269,7 +274,8 @@ class ProfileCreation extends React.Component {
                 </p>
               </div>
 
-              {this.state.continue && (doesData || doesDesign || doesContent || doesSoftware) ? (
+              {this.state.continue &&
+              (doesData || doesDesign || doesContent || doesSoftware) ? (
                 <div className="student-dialogue">
                   <h3 style={{ margin: "0" }}>
                     <Select

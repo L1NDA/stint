@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "./imgs/logo.png";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { firebaseConnect } from "react-redux-firebase";
@@ -54,7 +54,9 @@ class Menu extends React.Component {
                 <img src={this.props.profilePic} className="menu-propic-solo" />
               </Link>
               <div class="menu-profile-dropdown">
-                <Link to={() => PROFILE_VIEW_PATH(this.props.userUid)}>My Profile</Link>
+                <Link to={() => PROFILE_VIEW_PATH(this.props.userUid)}>
+                  My Profile
+                </Link>
                 <div onClick={this.props.logoutUser} className="sign-out">
                   Sign Out
                 </div>
@@ -83,7 +85,10 @@ class Menu extends React.Component {
               <div className="menu-name">
                 {this.props.firstName.split(" ")[0]}
               </div>
-              <Link to={() => PROFILE_VIEW_PATH(this.props.userUid)} className="menu-burger-profile">
+              <Link
+                to={() => PROFILE_VIEW_PATH(this.props.userUid)}
+                className="menu-burger-profile"
+              >
                 My Profile
               </Link>
             </div>
@@ -105,16 +110,24 @@ class Menu extends React.Component {
 }
 
 function mapStateToProps(state, props) {
-  const { firebase } = props;
+  const { firebase, history } = props;
+
   return {
     userUid: state.firebase.auth.uid,
-    logoutUser: firebase.logout,
+    logoutUser: () => {
+      firebase.logout()
+        .then(() => history.push(HOMEPAGE_PATH));
+    },
     profilePic: state.firebase.auth.photoURL,
     firstName: state.firebase.auth.displayName,
   };
 }
 
-export default compose(firebaseConnect(), connect(mapStateToProps))(Menu);
+export default compose(
+  firebaseConnect(),
+  withRouter,
+  connect(mapStateToProps)
+)(Menu);
 
 // {this.props.isLoggedIn
 //   ? <button className="button" onClick={this.props.logoutUser} style={{marginLeft: "10px"}}>Sign Out</button>

@@ -24,7 +24,7 @@ function App({ isLoggedIn }) {
     ")";
 
   let DYNAMIC_PROFILE_VIEW_PATH = Routes.PROFILE_VIEW_PATH(":uid")
-
+  
   return (
     <Router>
       <Switch>
