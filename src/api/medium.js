@@ -1,15 +1,12 @@
 const axios = require("axios");
-const { INDEX_URL } = require("../config")
+const { INDEX_URL } = require("../config");
 
 const getMediumInfo = (user) => {
-  let targetUrl = INDEX_URL + "getMediumInfo"
+  let targetUrl = INDEX_URL + "getMediumInfo";
   return axios
-    .post(
-      targetUrl,
-      {
-        mediumUser: user,
-      }
-    )
+    .post(targetUrl, {
+      mediumUser: user,
+    })
     .then((res) => {
       return res;
     })

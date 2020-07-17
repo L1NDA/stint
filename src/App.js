@@ -26,7 +26,7 @@ function App({ isLoggedIn }) {
     Routes.PROFILE_EDIT_PATH.substring(1) +
     ")";
 
-  let DYNAMIC_PROFILE_VIEW_PATH = Routes.PROFILE_VIEW_PATH(":uid")
+  let DYNAMIC_PROFILE_VIEW_PATH = Routes.PROFILE_VIEW_PATH(":uid");
 
   return (
     <Router>
