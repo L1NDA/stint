@@ -218,76 +218,71 @@ class ProfileEdit extends React.Component {
               onSubmit={this.submitProfile}
               autocomplete="off"
             >
+            <h1>Edit Profile</h1>
+            <div className="student-dialogue">
+            <div className="flex-row-comp">
+              <img
+                id="profile-img"
+                src={require("./imgs/logo.png")}
+                className="my-profile-img"
+              />
+            <div className="flex-column" style={{justifyContent: "center"}}>
+              <h1 style={{ margin: "0" }}>
+                Linda
+              </h1>
+              <h3 style={{margin: '0'}}>I have a different preferred name:
+                <Autocomplete
+                  name="preferredname"
+                  placeholder="(insert preferred name*)"
+                  saveData={this.handleChange}
+                />
+              .</h3>
+            </div>
+            </div>
+            </div>
 
               <StudentInfo saveToParent={this.updateChildInfo} />
 
-              <div
-                className={this.state.continue ? "stint-dialogue" : "loading"}
-              >
-                <h2>Look at you, out there doing things!</h2>
-                <h3>
-                  You’re almost there – just let us know which skills you'd like
-                  to provide to companies and we'll add those to your profile.
-                </h3>
-              </div>
+              <StudentSkills saveToParent={this.saveAllChildren} />
 
-              {this.state.continue ? (
-                <StudentSkills saveToParent={this.saveAllChildren} />
-              ) : null}
-
-              <div
-                className={
-                  this.state.continue && (doesData || doesDesign || doesContent || doesSoftware)
-                    ? "stint-dialogue"
-                    : "loading"
-                }
-              >
-                <h2>One last thing...</h2>
-                <h3>
-                  As recent college grads, we can totally relate to having
-                  thousands of unread emails in the inbox. If you’d like us to
-                  notify you via <b>text message </b>to help you avoid those
-                  awkward missed-your-email moments, let us know down below.
-                </h3>
-                <p>
-                  We’ll only text you about site activity that is important and
-                  relevant to you, like if an employer wants to connect.
-                </p>
-              </div>
-
-              {this.state.continue && (doesData || doesDesign || doesContent || doesSoftware) ? (
-                <div className="student-dialogue">
-                  <h3 style={{ margin: "0" }}>
-                    <Select
-                      items={["Yes", "No"]}
-                      name="phoneYN"
+            <div className="student-dialogue">
+              <h3 style={{ margin: "0" }}>
+                <Select
+                  items={["Yes", "No"]}
+                  name="phoneYN"
+                  saveData={this.handleChange}
+                  have="true"
+                />
+                {this.state.phoneYN === "Yes" ? (
+                  <span>, I have enabled </span>
+                ) : (
+                  <span>, I don't want</span>
+                )}{" "}
+                text updates
+                {this.state.phoneYN === "Yes" ? (
+                  <span>
+                    {" "}
+                    at{" "}
+                    <Autocomplete
+                      name="phonenum"
+                      placeholder="(insert phone number*)"
                       saveData={this.handleChange}
-                      have="true"
+                      type="number"
                     />
-                    {this.state.phoneYN === "Yes" ? (
-                      <span>, please send me </span>
-                    ) : (
-                      <span>, I don't want</span>
-                    )}{" "}
-                    text updates
-                    {this.state.phoneYN === "Yes" ? (
-                      <span>
-                        {" "}
-                        at{" "}
-                        <Autocomplete
-                          name="phonenum"
-                          placeholder="(insert phone number*)"
-                          saveData={this.handleChange}
-                          type="number"
-                        />
-                        .
-                      </span>
-                    ) : (
-                      <span>.</span>
-                    )}
-                  </h3>
-                </div>
-              ) : null}
+                    .
+                  </span>
+                ) : (
+                  <span>.</span>
+                )}
+              </h3>
+              <br/>
+              <div className="subtitle">
+              As recent college grads, we can totally relate to having
+              thousands of unread emails in the inbox. By enabling text notifications,
+              we hope to help you avoid those awkward missed-your-email moments.
+              We’ll only text you about site activity that is important and
+              relevant to you, like if an employer wants to connect.</div>
+            </div>
 
               <div>
                 <div
