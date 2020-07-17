@@ -102,10 +102,10 @@ class ProfileCreation extends React.Component {
           this.state.ecrole[0] &&
           (this.state.yearec[0] && this.state.yearec[0] !== "(insert year*)")
         ) {
-          this.setState({ continue: true }, () => {console.log("continue true", this.state)});
+          this.setState({ continue: true });
         } else {
           if (this.state.continue) {
-            this.setState({ continue: false }, () => {console.log("continue true", this.state)})
+            this.setState({ continue: false })
           }
         }
         // else if (this.state.continue === true) {
@@ -367,7 +367,6 @@ class ProfileCreation extends React.Component {
 
 function mapStateToProps(state, props) {
   const { firebase } = props;
-  console.log("analytics", firebase.analytics())
   return {
     analytics: firebase.analytics(),
   };
