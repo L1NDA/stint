@@ -44,7 +44,6 @@ class ProfileCreation extends React.Component {
 
   componentDidMount = async () => {
     document.title = "Create Profile | Stint";
-
     let freelancerRef = await getFreelancerRef(this.props.auth.uid);
     // Redirect if profile is completed already
     freelancerRef.on("value", (snapshot) => {

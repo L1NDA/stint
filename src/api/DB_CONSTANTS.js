@@ -95,6 +95,14 @@ const COMPANY_NAME = "name";
 const COMPANY_EMAIL = "email";
 const COMPANY_INTEREST_AREAS = "interestAreas";
 
+/******************************************************
+MISC
+*******************************************************/
+
+const CREATED_AT = "createdAt"
+const UPDATED_AT = "updatedAt"
+const FINISHED_AT = "finishedAt"
+
 module.exports = {
   FREELANCERS_REF_PATH,
   FREELANCER_NAME,
@@ -145,4 +153,8 @@ module.exports = {
   COMPANY_NAME,
   COMPANY_EMAIL,
   COMPANY_INTEREST_AREAS,
+
+  CREATED_AT,
+  UPDATED_AT,
+  FINISHED_AT,
 };
