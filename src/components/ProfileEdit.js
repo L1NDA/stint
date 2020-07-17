@@ -46,18 +46,18 @@ class ProfileEdit extends React.Component {
     document.title = "Create Profile | Stint";
 
     let freelancerRef = await getFreelancerRef(this.props.auth.uid);
-    // Redirect if profile is completed already
+    let freelancerInfo
     freelancerRef.on("value", (snapshot) => {
-      if (snapshot.val()) {
-        if (snapshot.val().profile) {
-          this.props.history.push(THANK_YOU_PATH);
-        }
-      }
-    });
+      this.setState({
+        freelancerRef,
+        freelancerInfo: snapshot.val()
+      }, () => console.log("state", this.state))
+    })
+  };
 
-    this.setState({
-      freelancerRef,
-    });
+  updateProfilePic = (imgUrl) => {
+    this.state.freelancerRef.child("avatarUrl").set(imgUrl);
+    document.getElementById("profile-img").src = imgUrl;
   };
 
   handleChange = (name, content) => {
@@ -348,7 +348,6 @@ class ProfileEdit extends React.Component {
 
 function mapStateToProps(state, props) {
   const { firebase } = props;
-  console.log("analytics", firebase.analytics())
   return {
     analytics: firebase.analytics(),
   };
