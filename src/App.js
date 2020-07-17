@@ -23,7 +23,7 @@ function App({ isLoggedIn }) {
     Routes.THANK_YOU_PATH.substring(1) +
     ")";
 
-  let DYNAMIC_PROFILE_VIEW_PATH = Routes.PROFILE_VIEW_PATH(":uid")
+  let DYNAMIC_PROFILE_VIEW_PATH = Routes.PROFILE_VIEW_PATH(":uid");
 
   return (
     <Router>
