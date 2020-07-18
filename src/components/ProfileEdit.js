@@ -43,7 +43,7 @@ class ProfileEdit extends React.Component {
   }
 
   componentDidMount = async () => {
-    document.title = "Create Profile | Stint";
+    document.title = "Edit Profile | Stint";
 
     let freelancerRef = await getFreelancerRef(this.props.auth.uid);
     // Redirect if profile is completed already
@@ -241,9 +241,31 @@ class ProfileEdit extends React.Component {
             </div>
             </div>
 
+            <h2 style={{color: "#474448"}}>Basic Info</h2>
+
               <StudentInfo saveToParent={this.updateChildInfo} />
 
+            <h2 style={{color: "#474448"}}>My Stint Categories</h2>
+
+              <div className="student-dialogue">
+                <div className="student-dialogue-block">
+
+                  <h3>I am currently
+                    <Select
+                      items={["available", "not available"]}
+                      name="available"
+                      saveData={this.handleChange}
+                    /> for these stints.
+                  </h3>
+                  <div className="subtitle" style={{marginTop: '30px'}}>(If you set yourself as ‘not available’ for a category, you will not show up in relevant search results for that area.)</div>
+                </div>
+              </div>
+
               <StudentSkills saveToParent={this.saveAllChildren} />
+
+
+          <h2 style={{color: "#474448"}}>Communication</h2>
+
 
             <div className="student-dialogue">
               <h3 style={{ margin: "0" }}>
