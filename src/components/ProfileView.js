@@ -59,11 +59,6 @@ class ProfileView extends React.Component {
     }
   };
 
-  updateProfilePic = (imgUrl) => {
-    this.state.freelancerRef.child("avatarUrl").set(imgUrl);
-    document.getElementById("profile-img").src = imgUrl;
-  };
-
   componentDidMount = async () => {
     let fileUrls = await this.getFilesFromStorage();
 
