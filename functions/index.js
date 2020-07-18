@@ -1,18 +1,31 @@
 const functions = require('firebase-functions');
+const admin = require("firebase-admin")
 const cors = require('cors')({origin: true});
 const htmlToText = require('html-to-text');
 
 const nodemailer = require("nodemailer")
+const algoliasearch = require('algoliasearch')
 
 const { mailConfig } = require("./config")
 const { githubConfig } = require("./config")
+const { firebaseConfig } = require("./config");
+
 
 const axios = require('axios')
 const moment = require('moment');
+const firebase = require('firebase')
 
 const AUTH_HEADER = { 'headers':
                         { 'Authorization': functions.config().github.id + ":" + functions.config().github.key}
                     }
+
+const APP_ID = functions.config().algolia.app;
+const ADMIN_KEY = functions.config().algolia.key;
+
+firebase.initializeApp(firebaseConfig);
+
+const client = algoliasearch(APP_ID, ADMIN_KEY)
+// const database = firebase.database()
 
 const HOST_NAME = "smtp.gmail.com"
 const PORT = 465
@@ -25,6 +38,82 @@ let transporter = nodemailer.createTransport({
       user: mailConfig.address,
       pass: mailConfig.password,
     },
+});
+
+// database.ref('freelancers').once('value', users => {
+//     console.log("ins cript")
+//     // Build an array of all records to push to Algolia
+//     const records = [];
+//     users.forEach(users => {
+//       // get the key and data from the snapshot
+//       const childKey = users.key;
+//       const childData = users.val();
+//       // We set the Algolia objectID as the Firebase .key
+//       childData.objectID = childKey;
+//       // Add object for indexing
+//       records.push(childData);
+//     });
+  
+//     index
+//       .saveObjects(records)
+//       .then(() => {
+//         console.log('Users imported into Algolia');
+//       })
+//       .catch(error => {
+//         console.error('Error when importing users into Algolia', error);
+//         process.exit(1);
+//       });
+//   });
+// console.log("AFTER")
+
+exports.updateIndex = functions.database.ref('/freelancers/{id}').onUpdate((snapshot, context) => {
+    const index = client.initIndex(functions.config().algolia.index);
+
+    console.log(snapshot)
+    console.log(context)
+
+    const id = context.params.id
+    const data = snapshot.after.val()
+
+    if (!data) {
+        return index.deleteObject(id, (err)=> {
+            console.log("User removed from index", id)
+        })
+    }
+
+    data['objectID'] = id
+
+    return index.saveObject(data, (err, content) =>{
+        if (err) throw err
+        console.log("User updated in Algolia index")
+    })
+});
+
+exports.createIndex = functions.database.ref('/freelancers/{id}').onCreate((snapshot, context) => {
+    const index = client.initIndex(functions.config().algolia.index);
+
+    console.log(snapshot.val())
+    console.log(context)
+
+    const id = context.params.id
+    const data = snapshot.val()
+
+    data['objectID'] = id
+
+    return index.saveObject(data, (err, content) =>{
+        if (err) throw err
+        console.log("User updated in Algolia index")
+    })
+});
+
+exports.deleteIndex = functions.database.ref('/freelancers/{id}').onDelete((snapshot, context) => {
+    const index = client.initIndex(functions.config().algolia.index);
+    
+    const id = context.params.id
+
+    return index.deleteObject(id, (err)=> {
+            console.log("User removed from index", id)
+    })
 });
 
 exports.sendEmail = functions.https.onRequest((req, res) => {

@@ -27,6 +27,8 @@
     "react-firebaseui": "^4.1.0",
     "react-icons": "^3.10.0",
     "react-input-autosize": "^2.2.2",
+    "react-instantsearch": "^6.6.0",
+    "react-instantsearch-dom": "^6.6.0",
     "react-linkedin-sdk": "^1.0.12",
     "react-loading": "^2.0.3",
     "react-places-autocomplete": "^7.2.1",
