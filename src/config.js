@@ -14,4 +14,6 @@ const firebaseConfig = {
   measurementId: "G-3D8HWH7J3R",
 };
 
+
+
 module.exports = { firebaseConfig, INDEX_URL };
