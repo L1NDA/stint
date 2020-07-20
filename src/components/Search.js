@@ -1,17 +1,16 @@
-import React from "react";
-import {
-    InstantSearch,
-    Hits,
-    SearchBox,
-    Highlight
-  } from 'react-instantsearch-dom';
-import logo from "./imgs/logo.png";
-
+import React, { Component } from 'react';
 import algoliasearch from 'algoliasearch/lite';
-const searchClient = algoliasearch(process.env.REACT_APP_ALGOLIA_ID, process.env.REACT_APP_ALGOLIA_KEY);
-const index = searchClient.initIndex('staging_users');
+import {
+  InstantSearch,
+  Hits,
+  SearchBox,
+  Pagination,
+  Highlight,
+} from 'react-instantsearch-dom';
+import PropTypes from 'prop-types';
+import "./style/search.css";
 
-console.log("Y0000000O", process.env.REACT_APP_ALGOLIA_ID, process.env.REACT_APP_ALGOLIA_KEY)
+const searchClient = algoliasearch(process.env.REACT_APP_ALGOLIA_ID, process.env.REACT_APP_ALGOLIA_KEY);
 
 class Search extends React.Component {
     constructor() {
@@ -21,15 +20,32 @@ class Search extends React.Component {
 
     render() {
         return (
-            <div className="stint-search">
-                <h1>Stint</h1>
-                <InstantSearch indexName="staging_users" searchClient={searchClient}>
-                <div className="right-panel">
-                    <SearchBox />
+          <div>
+            <header className="header">
+              <h1 className="header-title">
+                <a href="/">Searching shit</a>
+              </h1>
+            </header>
+    
+            <div className="container">
+              <InstantSearch searchClient={searchClient} indexName="staging_users">
+                <div className="search-panel">
+                  <div className="search-panel__results">
+                    <SearchBox
+                      className="searchbox"
+                      translations={{
+                        placeholder: '',
+                      }}
+                    />
                     <Hits hitComponent={Hit} />
+                    <div className="pagination">
+                      <Pagination />
+                    </div>
+                  </div>
                 </div>
-                </InstantSearch>
+              </InstantSearch>
             </div>
+          </div>
         );
       }
 }
@@ -38,10 +54,14 @@ function Hit(props) {
     return (
       <article>
         <h1>
-          <Highlight attribute="name" hit={props.hit} />
+          <Highlight attribute="displayName" hit={props.hit} />
         </h1>
       </article>
     );
   }
+  
+  Hit.propTypes = {
+    hit: PropTypes.object.isRequired,
+  };
 
 export default Search;
