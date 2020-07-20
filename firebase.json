@@ -4,18 +4,16 @@
   },
   "hosting": {
     "public": "build",
+    "appAssociation": "AUTO",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
+    "redirects": [],
     "rewrites": [
       {
-        "source": "**",
-        "destination": "/index.html"
-      },
-      {
-        "source": "/profile/**",
+        "source": "/**",
         "dynamicLinks": true,
         "destination": "/index.html"
       }
