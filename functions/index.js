@@ -75,12 +75,6 @@ exports.updateIndex = functions.database.ref('/freelancers/{id}').onUpdate((snap
     const id = context.params.id
     const data = snapshot.after.val()
 
-    if (!data) {
-        return index.deleteObject(id, (err)=> {
-            console.log("User removed from index", id)
-        })
-    }
-
     data['objectID'] = id
 
     return index.saveObject(data, (err, content) =>{
