@@ -587,7 +587,7 @@ function mapStateToProps(state, props) {
           .then(async (auth) => {
             let uid = auth.user.uid
             let freelancerRef = await getFreelancerRef(uid)
-            await freelancerRef.child(CREATED_AT).on("value", snapshot => {
+            await freelancerRef.child(CREATED_AT).once("value", snapshot => {
               if (!snapshot.exists()) {
                 let now = moment().toISOString()
                 freelancerRef.child(CREATED_AT).set(now)
