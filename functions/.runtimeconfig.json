@@ -1,4 +1,9 @@
 {
+  "algolia": {
+    "key": "1c86cf71c54d9c52e3f3eebe40f97d0b",
+    "app": "WIKHMH6NJW",
+    "index": "staging_users"
+  },
   "github": {
     "key": "4a4d3e18f42840aac15c7077167c6460273261c1",
     "id": "090ce4141938fb7d2fb5"

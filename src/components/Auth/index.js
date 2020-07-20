@@ -8,14 +8,12 @@ import ProfileCreation from "../ProfileCreation";
 import Homepage from "../Homepage";
 import ThankYou from "../ThankYou";
 import Loading from "./Loading";
-import ProfileView from "../ProfileView";
 
 import { PrivateRoute, PublicRoute } from "../PrivateRoute";
 
 import {
   PROFILE_CREATION_PATH,
   THANK_YOU_PATH,
-  PROFILE_VIEW_PATH,
 } from "../../constants/ROUTING_CONSTANTS";
 
 const Auth = ({ location }) => {
@@ -30,7 +28,6 @@ const Auth = ({ location }) => {
           component={ProfileCreation}
         />
         <PrivateRoute path={THANK_YOU_PATH} component={ThankYou} />
-        <PrivateRoute path={PROFILE_VIEW_PATH} component={ProfileView} />
       </Switch>
     </div>
   );

@@ -13,10 +13,23 @@
       {
         "source": "**",
         "destination": "/index.html"
+      },
+      {
+        "source": "/profile/**",
+        "dynamicLinks": true,
+        "destination": "/index.html"
       }
     ],
     "headers": [
-      { "source":"/service-worker.js", "headers": [{"key": "Cache-Control", "value": "no-cache"}] }
+      {
+        "source": "/service-worker.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      }
     ]
   },
   "storage": {

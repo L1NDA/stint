@@ -1,22 +1,19 @@
 const axios = require("axios");
-const { INDEX_URL } = require("../config")
+const { INDEX_URL } = require("../config");
 
 const getGithubInfo = (user) => {
-  let targetUrl = INDEX_URL + "getGithubRepos"
+  let targetUrl = INDEX_URL + "getGithubRepos";
   return axios
-    .post(
-      targetUrl,
-      {
-        githubUser: user,
-      }
-    )
+    .post(targetUrl, {
+      githubUser: user,
+    })
     .then((res) => {
       return res;
     })
-    .catch(error => {
-      throw error
-    })
-}
+    .catch((error) => {
+      throw error;
+    });
+};
 
 module.exports = {
   getGithubInfo,
