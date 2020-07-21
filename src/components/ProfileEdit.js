@@ -43,7 +43,7 @@ class ProfileEdit extends React.Component {
   }
 
   componentDidMount = async () => {
-    document.title = "Edit Profile | Stint";
+    document.title = "Create Profile | Stint";
 
     let freelancerRef = await getFreelancerRef(this.props.auth.uid);
     let freelancerInfo
@@ -193,6 +193,8 @@ class ProfileEdit extends React.Component {
     await this.props.analytics.logEvent(SIGNUP_EVENT);
     this.props.history.push(THANK_YOU_PATH);
   };
+
+
   render() {
     const temp = this.state;
     let doesData = Object.keys(temp.da).length !== 0;
@@ -228,7 +230,7 @@ class ProfileEdit extends React.Component {
               />
             <div className="flex-column" style={{justifyContent: "center"}}>
               <h1 style={{ margin: "0" }}>
-                Linda
+
               </h1>
               <h3 style={{margin: '0'}}>I have a different preferred name:
                 <Autocomplete
@@ -370,6 +372,7 @@ class ProfileEdit extends React.Component {
 
 function mapStateToProps(state, props) {
   const { firebase } = props;
+  console.log("analytics", firebase.analytics())
   return {
     analytics: firebase.analytics(),
   };

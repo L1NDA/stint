@@ -13,6 +13,7 @@ import ProfileCreation from "./components/ProfileCreation";
 import ProfileEdit from "./components/ProfileEdit";
 import ProfileView from "./components/ProfileView";
 import ThankYou from "./components/ThankYou.js";
+import Search from "./components/Search"
 
 import Routes from "./constants/ROUTING_CONSTANTS";
 
@@ -35,6 +36,7 @@ function App({ isLoggedIn }) {
         <Route exact path={Routes.HOMEPAGE_PATH} component={Homepage} />
         <Route exact path={Routes.COMPANY_PATH} component={Company} />
         <Route exact path={Routes.ABOUT_PATH} component={About} />
+        <Route exact path={Routes.SEARCH_PATH} component={Search} />
         <Route
           exact
           path={Routes.PRIVACY_POLICY_PATH}

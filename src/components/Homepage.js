@@ -37,7 +37,10 @@ import {
   LOGIN_EVENT,
 } from "../constants/ANALYTICS_CONSTANTS";
 import { PROFILE_CREATION_PATH } from "../constants/ROUTING_CONSTANTS";
+import { CREATED_AT } from "../api/DB_CONSTANTS"
+import { getFreelancerRef } from "../api/freelancer"
 
+import moment from "moment"
 const axios = require("axios");
 const { setCompanyBetaInfo } = require("../api/company");
 
@@ -581,7 +584,17 @@ function mapStateToProps(state, props) {
       try {
         await firebase
           .login({ provider: provider, type: "popup" })
-          .then(() => history.push(PROFILE_CREATION_PATH));
+          .then(async (auth) => {
+            let uid = auth.user.uid
+            let freelancerRef = await getFreelancerRef(uid)
+            await freelancerRef.child(CREATED_AT).once("value", snapshot => {
+              if (!snapshot.exists()) {
+                let now = moment().toISOString()
+                freelancerRef.child(CREATED_AT).set(now)
+              }
+            })
+            history.push(PROFILE_CREATION_PATH)
+          });
       } catch (err) {
         onError(err);
       }
