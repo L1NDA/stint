@@ -37,7 +37,7 @@ import {
   LOGIN_EVENT,
 } from "../constants/ANALYTICS_CONSTANTS";
 import { PROFILE_CREATION_PATH } from "../constants/ROUTING_CONSTANTS";
-import { CREATED_AT } from "../api/DB_CONSTANTS"
+import { CREATED_AT } from "../constants/DB_CONSTANTS"
 import { getFreelancerRef } from "../api/freelancer"
 
 import moment from "moment"

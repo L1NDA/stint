@@ -43,8 +43,6 @@ class StudentSkillsDropdown extends React.Component {
     };
   }
 
-  componentDidMount() {}
-
   componentDidUpdate() {
     if (this.state.details && !this.state.width) {
       this.setWidth();
@@ -439,7 +437,6 @@ class StudentSkillsDropdown extends React.Component {
                   selected={
                     this.state[`${this.props.section}HaveAwardCategory`]
                   }
-                  have={true}
                 />
               ) : null}
               {this.state[`${this.props.section}HaveAward`] === "have" ? (
@@ -503,7 +500,6 @@ class StudentSkillsDropdown extends React.Component {
                       selected={
                         this.state[`${this.props.section}HaveAwardCategory1`]
                       }
-                      have={true}
                     />
                   ) : null}
                   {this.state[`${this.props.section}HaveAward1`] === "have" ? (
@@ -575,7 +571,6 @@ class StudentSkillsDropdown extends React.Component {
                       selected={
                         this.state[`${this.props.section}HaveAwardCategory2`]
                       }
-                      have={true}
                     />
                   ) : null}
                   {this.state[`${this.props.section}HaveAward2`] === "have" ? (
@@ -634,7 +629,7 @@ class StudentSkillsDropdown extends React.Component {
               type="submit"
               disabled={
                 this.state[`${this.props.section}0`] ||
-                (this.state[`${this.props.section}HaveAwardCategory`] &&
+                ( this.state[`${this.props.section}HaveAwardCategory`] &&
                   this.state[`${this.props.section}HaveAwardContent`] &&
                   this.state[`${this.props.section}HaveAwardProvider`]) ||
                 Object.keys(this.state.skills).length !== 0

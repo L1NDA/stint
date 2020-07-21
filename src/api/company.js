@@ -3,7 +3,7 @@ const {
   COMPANY_NAME,
   COMPANY_EMAIL,
   COMPANY_INTEREST_AREAS,
-} = require("./DB_CONSTANTS");
+} = require("../constants/DB_CONSTANTS");
 
 const firebase = require("firebase");
 
