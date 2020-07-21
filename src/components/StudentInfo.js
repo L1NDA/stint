@@ -111,7 +111,11 @@ class StudentInfo extends React.Component {
         <div className="student-dialogue-block">
           <h3>
             I am a{" "}
-            <Select items={Year} name="year" saveData={this.handleChange} />
+            <Select
+              items={Year}
+              name="year"
+              saveData={this.handleChange}
+              selected={this.props.education ? this.props.education.year : ""}/>
             at{" "}
             <span className="nobreak">
               <Autocomplete
@@ -119,6 +123,7 @@ class StudentInfo extends React.Component {
                 name="colleges"
                 placeholder="(insert college*)"
                 saveData={this.handleChange}
+                val={this.props.education ? this.props.education.school : ""}
                 required={true}
               />
               .
@@ -133,9 +138,10 @@ class StudentInfo extends React.Component {
               placeholder="(insert major*)"
               saveData={this.handleChange}
               required={true}
+              val={this.props.education ? this.props.education.majors[0] : ""}
               optionalParent
             />
-            {this.state.major ? (
+          {this.state.major ? (
               <span
                 className="optional-chunk"
                 style={{ filter: this.state.major2 ? "opacity(1)" : null }}
@@ -149,6 +155,7 @@ class StudentInfo extends React.Component {
                   placeholder="(insert second major)"
                   saveData={this.handleChange}
                   required={false}
+                  val={this.props.education && this.props.education.majors.length === 2 ? this.props.education.majors[1] : ""}
                 />{" "}
               </span>
             ) : null}
@@ -167,6 +174,7 @@ class StudentInfo extends React.Component {
                 saveData={this.handleChange}
                 index="0"
                 required={false}
+                val={this.props.education && this.props.education.minors.length !== 0 ? this.props.education.minors[0] : ""}
               />
             </span>
             <span className="nobreak">
@@ -184,6 +192,7 @@ class StudentInfo extends React.Component {
                     placeholder="(insert second minor)"
                     saveData={this.handleChange}
                     required={false}
+                    val={this.props.education && this.props.education.minors.length === 2 ? this.props.education.minors[1] : ""}
                   />{" "}
                 </span>
               ) : null}
@@ -199,6 +208,7 @@ class StudentInfo extends React.Component {
               placeholder="(insert city*)"
               saveData={this.handleChange}
               required={true}
+              val={this.props.residenceInfo ? this.props.residenceInfo.city : ""}
             />
             ,
             <span className="nobreak">
@@ -206,7 +216,7 @@ class StudentInfo extends React.Component {
                 items={State}
                 name="state"
                 saveData={this.handleChange}
-                saveData={this.handleChange}
+                selected={this.props.residenceInfo ? this.props.residenceInfo.state : ""}
               />
               .
             </span>
@@ -224,6 +234,7 @@ class StudentInfo extends React.Component {
               saveData={this.handleChange}
               required={true}
               optionalParent
+              val={this.props.workExperience ? this.props.workExperience.companyRoles[0] : ""}
             />
             at{" "}
             <Autocomplete
@@ -233,6 +244,7 @@ class StudentInfo extends React.Component {
               saveData={this.handleChange}
               required={true}
               optionalParent
+              val={this.props.workExperience ? this.props.workExperience.companies[0] : ""}
             />
             in{" "}
             <span className="nobreak">
@@ -248,6 +260,7 @@ class StudentInfo extends React.Component {
                 name="yearcompany1"
                 index="0"
                 saveData={this.handleChange}
+                selected={this.props.workExperience ? this.props.workExperience.companyYears[0] : ""}
               />
               .
             </span>
@@ -273,6 +286,7 @@ class StudentInfo extends React.Component {
                   saveData={this.handleChange}
                   required={false}
                   maxLength="60"
+                  val={this.props.workExperience && this.props.workExperience.companyRoles.length > 1 ? this.props.workExperience.companyRoles[1] : ""}
                 />
                 at
                 <Autocomplete
@@ -284,6 +298,7 @@ class StudentInfo extends React.Component {
                   required={false}
                   optionalParent
                   maxLength="60"
+                  val={this.props.workExperience && this.props.workExperience.companies.length > 1 ? this.props.workExperience.companies[1] : ""}
                 />
                 in
                 <span className="nobreak">
@@ -299,6 +314,7 @@ class StudentInfo extends React.Component {
                     name="yearcompany2"
                     index="1"
                     saveData={this.handleChange}
+                    selected={this.props.workExperience && this.props.workExperience.companyYears.length > 1 ? this.props.workExperience.companyYears[1] : ""}
                   />
                   .
                 </span>
@@ -325,6 +341,7 @@ class StudentInfo extends React.Component {
                   index="2"
                   saveData={this.handleChange}
                   required={false}
+                  val={this.props.workExperience && this.props.workExperience.companyRoles.length > 2 ? this.props.workExperience.companyRoles[2] : ""}
                 />
                 at
                 <Autocomplete
@@ -335,6 +352,7 @@ class StudentInfo extends React.Component {
                   saveData={this.handleChange}
                   required={false}
                   maxLength="60"
+                  val={this.props.workExperience && this.props.workExperience.companies.length > 2 ? this.props.workExperience.companies[2] : ""}
                 />
                 in
                 <span className="nobreak">
@@ -350,6 +368,7 @@ class StudentInfo extends React.Component {
                     name="yearcompany2"
                     index="2"
                     saveData={this.handleChange}
+                    selected={this.props.workExperience && this.props.workExperience.companyYears.length > 2 ? this.props.workExperience.companyYears[2] : ""}
                   />
                   .
                 </span>
@@ -369,6 +388,7 @@ class StudentInfo extends React.Component {
               required={true}
               optionalParent
               maxLength="60"
+              val={this.props.orgExperience ? this.props.orgExperience.orgRoles[0] : ""}
             />{" "}
             as a(n)
             <Autocomplete
@@ -378,6 +398,7 @@ class StudentInfo extends React.Component {
               saveData={this.handleChange}
               required={true}
               optionalParent
+              val={this.props.orgExperience ? this.props.orgExperience.organizations[0] : ""}
             />
             in{" "}
             <span className="nobreak">
@@ -393,6 +414,7 @@ class StudentInfo extends React.Component {
                 name="yearec1"
                 index="0"
                 saveData={this.handleChange}
+                selected={this.props.orgExperience ? this.props.orgExperience.orgYears[0] : ""}
               />
               .
             </span>
@@ -416,6 +438,7 @@ class StudentInfo extends React.Component {
                   required={false}
                   optionalParent
                   maxLength="60"
+                  val={this.props.orgExperience && this.props.orgExperience.orgRoles.length > 1 ? this.props.orgExperience.orgRoles[1] : ""}
                 />{" "}
                 as a(n)
                 <Autocomplete
@@ -426,6 +449,7 @@ class StudentInfo extends React.Component {
                   saveData={this.handleChange}
                   required={false}
                   optionalParent
+                  val={this.props.orgExperience && this.props.orgExperience.organizations.length > 1 ? this.props.orgExperience.organizations[1] : ""}
                 />
                 in{" "}
                 <span className="nobreak">
@@ -441,6 +465,7 @@ class StudentInfo extends React.Component {
                     name="yearec2"
                     index="1"
                     saveData={this.handleChange}
+                    selected={this.props.orgExperience && this.props.orgExperience.orgYears.length > 1 ? this.props.orgExperience.orgYears[1] : ""}
                   />
                   .
                 </span>
@@ -465,6 +490,7 @@ class StudentInfo extends React.Component {
                   saveData={this.handleChange}
                   required={false}
                   maxLength="60"
+                  val={this.props.orgExperience && this.props.orgExperience.orgRoles.length > 2 ? this.props.orgExperience.orgRoles[2] : ""}
                 />{" "}
                 as a(n)
                 <Autocomplete
@@ -474,6 +500,7 @@ class StudentInfo extends React.Component {
                   index="2"
                   saveData={this.handleChange}
                   required={false}
+                  val={this.props.orgExperience && this.props.orgExperience.organizations.length > 2 ? this.props.orgExperience.organizations[2] : ""}
                 />
                 in{" "}
                 <span className="nobreak">
@@ -489,6 +516,7 @@ class StudentInfo extends React.Component {
                     name="yearec3"
                     index="2"
                     saveData={this.handleChange}
+                    selected={this.props.orgExperience && this.props.orgExperience.orgYears.length > 2 ? this.props.orgExperience.orgYears[2] : ""}
                   />
                   .
                 </span>

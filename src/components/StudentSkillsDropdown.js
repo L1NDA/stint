@@ -379,6 +379,7 @@ class StudentSkillsDropdown extends React.Component {
                       onClick={(e) =>
                         this.handleSkillClick(e, skill, "default")
                       }
+                      key = {`${this.props.section}-skills-${index}`}
                       style={{ minWidth: this.state.width }}
                     >
                       <span className="skill-name">{skill}</span>

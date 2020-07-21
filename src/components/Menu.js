@@ -53,7 +53,7 @@ class Menu extends React.Component {
               <Link to={() => PROFILE_VIEW_PATH(this.props.userUid)}>
                 <img src={this.props.profilePic} className="menu-propic-solo" />
               </Link>
-              <div class="menu-profile-dropdown">
+              <div className="menu-profile-dropdown">
                 <Link to={() => PROFILE_VIEW_PATH(this.props.userUid)}>
                   My Profile
                 </Link>
