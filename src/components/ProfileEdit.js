@@ -21,6 +21,13 @@ import { THANK_YOU_PATH } from "../constants/ROUTING_CONSTANTS";
 
 const { setFreelancerProfile, getFreelancerRef } = require("../api/freelancer");
 
+const FREELANCER_CATEGORIES = [
+  "dataAnalytics",
+  "contentCreation",
+  "design",
+  "softwareDev"
+];
+
 class ProfileEdit extends React.Component {
   constructor(props) {
     super(props);
@@ -43,7 +50,7 @@ class ProfileEdit extends React.Component {
   }
 
   componentDidMount = async () => {
-    document.title = "Edit Profile | Stint";
+    document.title = "Create Profile | Stint";
 
     let freelancerRef = await getFreelancerRef(this.props.auth.uid);
     let freelancerInfo
@@ -193,6 +200,8 @@ class ProfileEdit extends React.Component {
     await this.props.analytics.logEvent(SIGNUP_EVENT);
     this.props.history.push(THANK_YOU_PATH);
   };
+
+
   render() {
     const temp = this.state;
     let doesData = Object.keys(temp.da).length !== 0;
@@ -208,7 +217,7 @@ class ProfileEdit extends React.Component {
         : true;
 
     return (
-      <div className="container">
+      <div className="container-stint">
         {this.state.freelancerRef ? (
           <>
             <Menu />
@@ -228,7 +237,7 @@ class ProfileEdit extends React.Component {
               />
             <div className="flex-column" style={{justifyContent: "center"}}>
               <h1 style={{ margin: "0" }}>
-                Linda
+                {this.state.freelancerInfo.displayName.split(" ")[0]}
               </h1>
               <h3 style={{margin: '0'}}>I have a different preferred name:
                 <Autocomplete
@@ -243,25 +252,42 @@ class ProfileEdit extends React.Component {
 
             <h2 style={{color: "#474448"}}>Basic Info</h2>
 
-              <StudentInfo saveToParent={this.updateChildInfo} />
+              <StudentInfo
+                saveToParent={this.updateChildInfo}
+                residenceInfo={this.state.freelancerInfo.profile.residenceInfo}
+                education={this.state.freelancerInfo.profile.education}
+                orgExperience={this.state.freelancerInfo.profile.orgExperience}
+                workExperience={this.state.freelancerInfo.profile.workExperience}/>
 
             <h2 style={{color: "#474448"}}>My Stint Categories</h2>
 
               <div className="student-dialogue">
                 <div className="student-dialogue-block">
 
-                  <h3>I am currently
-                    <Select
-                      items={["available", "not available"]}
-                      name="available"
-                      saveData={this.handleChange}
-                    /> for these stints.
-                  </h3>
-                  <div className="subtitle" style={{marginTop: '30px'}}>(If you set yourself as ‘not available’ for a category, you will not show up in relevant search results for that area.)</div>
+                  {FREELANCER_CATEGORIES.map((category, index) => {
+                    return this.state.freelancerInfo.profile[category] ?
+                      <h3>I am currently
+                        <Select
+                          items={["available", "not available"]}
+                          name={`availablility-${category}`}
+                          saveData={this.handleChange}
+                        /> for {category === "dataAnalytics" ? 'data analytics' :
+                                category === "contentCreation" ? 'content creation' :
+                                category === "design" ? 'design and branding' :
+                                'software development'}.
+                      </h3> : null
+                    })}
+                  <div className="subtitle" style={{marginTop: '30px'}}>
+                    (If you set yourself as ‘not available’ for a category, you will not show up in relevant search results for that area.)</div>
                 </div>
               </div>
 
-              <StudentSkills saveToParent={this.saveAllChildren} />
+              <StudentSkills
+                saveToParent={this.saveAllChildren}
+                dataAnalytics={this.state.freelancerInfo.profile.dataAnalytics}
+                contentCreation={this.state.freelancerInfo.profile.contentCreation}
+                design={this.state.freelancerInfo.profile.design}
+                softwareDev={this.state.freelancerInfo.profile.softwareDev}/>
 
 
           <h2 style={{color: "#474448"}}>Communication</h2>
@@ -370,6 +396,7 @@ class ProfileEdit extends React.Component {
 
 function mapStateToProps(state, props) {
   const { firebase } = props;
+  console.log("analytics", firebase.analytics())
   return {
     analytics: firebase.analytics(),
   };
