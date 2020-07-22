@@ -53,7 +53,7 @@ em {
     text-align: center;
 }
 
-body { font-family: sans-serif; padding: 1em; }
+body { font-family: sans-serif;}
 .ais-SearchBox { margin: 1em 0; }
 .ais-Pagination { margin-top: 1em }
 .left-panel { float: left; width: 250px; }
