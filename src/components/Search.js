@@ -26,8 +26,8 @@ class Search extends React.Component {
                 <a href="/">Searching shit</a>
               </h1>
             </header>
-    
-            <div className="container">
+
+            <div className="container-algo">
               <InstantSearch searchClient={searchClient} indexName="staging_users">
                 <div className="search-panel">
                   <div className="search-panel__results">
@@ -59,7 +59,7 @@ function Hit(props) {
       </article>
     );
   }
-  
+
   Hit.propTypes = {
     hit: PropTypes.object.isRequired,
   };
