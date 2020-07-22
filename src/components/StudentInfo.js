@@ -111,7 +111,7 @@ class StudentInfo extends React.Component {
         <div className="student-dialogue-block">
           <h3>
             I am a{" "}
-            <Select items={Year} name="year" saveData={this.handleChange} />
+            <Select items={Year} name="year" saveData={this.handleChange} required={true}/>
             at{" "}
             <span className="nobreak">
               <Autocomplete
@@ -133,7 +133,6 @@ class StudentInfo extends React.Component {
               placeholder="(insert major*)"
               saveData={this.handleChange}
               required={true}
-              optionalParent
             />
             {this.state.major ? (
               <span
@@ -206,7 +205,7 @@ class StudentInfo extends React.Component {
                 items={State}
                 name="state"
                 saveData={this.handleChange}
-                saveData={this.handleChange}
+                required={true}
               />
               .
             </span>
@@ -223,7 +222,6 @@ class StudentInfo extends React.Component {
               index="0"
               saveData={this.handleChange}
               required={true}
-              optionalParent
             />
             at{" "}
             <Autocomplete
@@ -248,6 +246,7 @@ class StudentInfo extends React.Component {
                 name="yearcompany1"
                 index="0"
                 saveData={this.handleChange}
+                required={true}
               />
               .
             </span>
@@ -271,7 +270,7 @@ class StudentInfo extends React.Component {
                   placeholder="(role)"
                   index="1"
                   saveData={this.handleChange}
-                  required={false}
+                  required={this.state.company2 || this.state.yearcompany2 ? true : false}
                   maxLength="60"
                 />
                 at
@@ -281,7 +280,7 @@ class StudentInfo extends React.Component {
                   placeholder="(company)"
                   index="1"
                   saveData={this.handleChange}
-                  required={false}
+                  required={this.state.role2 || this.state.yearcompany2 ? true : false}
                   optionalParent
                   maxLength="60"
                 />
@@ -299,6 +298,7 @@ class StudentInfo extends React.Component {
                     name="yearcompany2"
                     index="1"
                     saveData={this.handleChange}
+                    required={this.state.role2 || this.state.company2 ? true : false}
                   />
                   .
                 </span>
@@ -324,7 +324,7 @@ class StudentInfo extends React.Component {
                   placeholder="(role)"
                   index="2"
                   saveData={this.handleChange}
-                  required={false}
+                  required={this.state.company3 || this.state.yearcompany3 ? true : false}
                 />
                 at
                 <Autocomplete
@@ -333,7 +333,7 @@ class StudentInfo extends React.Component {
                   placeholder="(company)"
                   index="2"
                   saveData={this.handleChange}
-                  required={false}
+                  required={this.state.role3 || this.state.yearcompany3 ? true : false}
                   maxLength="60"
                 />
                 in
@@ -347,9 +347,10 @@ class StudentInfo extends React.Component {
                       "2017",
                       "2016",
                     ]}
-                    name="yearcompany2"
+                    name="yearcompany3"
                     index="2"
                     saveData={this.handleChange}
+                    required={this.state.role3 || this.state.company3 ? true : false}
                   />
                   .
                 </span>
@@ -393,6 +394,7 @@ class StudentInfo extends React.Component {
                 name="yearec1"
                 index="0"
                 saveData={this.handleChange}
+                required={true}
               />
               .
             </span>
@@ -413,8 +415,7 @@ class StudentInfo extends React.Component {
                   placeholder="(organization)"
                   index="1"
                   saveData={this.handleChange}
-                  required={false}
-                  optionalParent
+                  required={this.state.ecrole2 || this.state.yearec2 ? true : false}
                   maxLength="60"
                 />{" "}
                 as a(n)
@@ -424,7 +425,7 @@ class StudentInfo extends React.Component {
                   placeholder="(role)"
                   index="1"
                   saveData={this.handleChange}
-                  required={false}
+                  required={this.state.ec2 || this.state.yearec2 ? true : false}
                   optionalParent
                 />
                 in{" "}
@@ -441,6 +442,7 @@ class StudentInfo extends React.Component {
                     name="yearec2"
                     index="1"
                     saveData={this.handleChange}
+                    required={this.state.ec2 || this.state.ecrole2 ? true : false}
                   />
                   .
                 </span>
@@ -463,7 +465,7 @@ class StudentInfo extends React.Component {
                   placeholder="(organization)"
                   index="2"
                   saveData={this.handleChange}
-                  required={false}
+                  required={this.state.ecrole3 || this.state.yearec3 ? true : false}
                   maxLength="60"
                 />{" "}
                 as a(n)
@@ -473,7 +475,7 @@ class StudentInfo extends React.Component {
                   placeholder="(role)"
                   index="2"
                   saveData={this.handleChange}
-                  required={false}
+                  required={this.state.ec3 || this.state.yearec3 ? true : false}
                 />
                 in{" "}
                 <span className="nobreak">
@@ -489,6 +491,7 @@ class StudentInfo extends React.Component {
                     name="yearec3"
                     index="2"
                     saveData={this.handleChange}
+                    required={this.state.ec3 || this.state.ecrole3 ? true : false}
                   />
                   .
                 </span>

@@ -437,6 +437,7 @@ class StudentSkillsDropdown extends React.Component {
                   selected={
                     this.state[`${this.props.section}HaveAwardCategory`]
                   }
+                  required={true}
                 />
               ) : null}
               {this.state[`${this.props.section}HaveAward`] === "have" ? (
@@ -500,6 +501,7 @@ class StudentSkillsDropdown extends React.Component {
                       selected={
                         this.state[`${this.props.section}HaveAwardCategory1`]
                       }
+                      required={true}
                     />
                   ) : null}
                   {this.state[`${this.props.section}HaveAward1`] === "have" ? (
@@ -571,6 +573,7 @@ class StudentSkillsDropdown extends React.Component {
                       selected={
                         this.state[`${this.props.section}HaveAwardCategory2`]
                       }
+                      required={true}
                     />
                   ) : null}
                   {this.state[`${this.props.section}HaveAward2`] === "have" ? (
