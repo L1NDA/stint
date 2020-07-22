@@ -1,6 +1,14 @@
 {
   "rules": {
-    ".read": "auth != null",
-    ".write": "auth != null"
+    "freelancers": {
+      ".read": "true",
+      "$uid": {
+        ".read": "true",
+        ".write": "auth != null && auth.uid == $uid"
+      }
+    },
+    "companies": {
+      ".write": true
+    }
   }
-}
+} 
