@@ -182,7 +182,7 @@ export const setFreelancerProfile = async (
     };
   }
   if (doesDesign) {
-    freelancerInfo[FREELANCER_DESIGN] = {
+    freelancerInfo[FREELANCER_PROFILE][FREELANCER_DESIGN] = {
       [FREELANCER_PERSONAL_WEBSITE]: designWebsite,
       [FREELANCER_SKILLS]: designSkills,
       [FREELANCER_AWARD_CATEGORIES]: designAwardCategories,
