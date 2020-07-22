@@ -40,31 +40,7 @@ let transporter = nodemailer.createTransport({
     },
 });
 
-// database.ref('freelancers').once('value', users => {
-//     console.log("ins cript")
-//     // Build an array of all records to push to Algolia
-//     const records = [];
-//     users.forEach(users => {
-//       // get the key and data from the snapshot
-//       const childKey = users.key;
-//       const childData = users.val();
-//       // We set the Algolia objectID as the Firebase .key
-//       childData.objectID = childKey;
-//       // Add object for indexing
-//       records.push(childData);
-//     });
-  
-//     index
-//       .saveObjects(records)
-//       .then(() => {
-//         console.log('Users imported into Algolia');
-//       })
-//       .catch(error => {
-//         console.error('Error when importing users into Algolia', error);
-//         process.exit(1);
-//       });
-//   });
-// console.log("AFTER")
+
 
 exports.updateIndex = functions.database.ref('/freelancers/{id}').onUpdate((snapshot, context) => {
     const index = client.initIndex(functions.config().algolia.index);
@@ -74,6 +50,36 @@ exports.updateIndex = functions.database.ref('/freelancers/{id}').onUpdate((snap
 
     const id = context.params.id
     const data = snapshot.after.val()
+
+    if (data.profile) {
+        if (data.profile.softwareDev) {
+          let info = data.profile.softwareDev
+          if (info.skills) {
+            data.profile.softwareDev.skillsArray = Object.keys(info.skills)
+          }
+        }
+
+        if (data.profile.design) {
+          let info = data.profile.design
+          if (info.skills) {
+            data.profile.design.skillsArray = Object.keys(info.skills)
+          }
+        }
+
+        if (data.profile.dataAnalytics) {
+          let info = data.profile.dataAnalytics
+          if (info.skills) {
+            data.profile.dataAnalytics.skillsArray = Object.keys(info.skills)
+          }
+        }
+
+        if (data.profile.contentCreation) {
+          let info = data.profile.contentCreation
+          if (info.skills) {
+            data.profile.contentCreation.skillsArray = Object.keys(info.skills)
+          }
+        }
+    }
 
     data['objectID'] = id
 
@@ -91,6 +97,36 @@ exports.createIndex = functions.database.ref('/freelancers/{id}').onCreate((snap
 
     const id = context.params.id
     const data = snapshot.val()
+
+    if (data.profile) {
+        if (data.profile.softwareDev) {
+          let info = data.profile.softwareDev
+          if (info.skills) {
+            data.profile.softwareDev.skillsArray = Object.keys(info.skills)
+          }
+        }
+
+        if (data.profile.design) {
+          let info = data.profile.design
+          if (info.skills) {
+            data.profile.design.skillsArray = Object.keys(info.skills)
+          }
+        }
+
+        if (data.profile.dataAnalytics) {
+          let info = data.profile.dataAnalytics
+          if (info.skills) {
+            data.profile.dataAnalytics.skillsArray = Object.keys(info.skills)
+          }
+        }
+
+        if (data.profile.contentCreation) {
+          let info = data.profile.contentCreation
+          if (info.skills) {
+            data.profile.contentCreation.skillsArray = Object.keys(info.skills)
+          }
+        }
+    }
 
     data['objectID'] = id
 
