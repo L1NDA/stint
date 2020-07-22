@@ -255,10 +255,10 @@ class StudentSkillsDropdown extends React.Component {
           <div className="skills-header-row">
             <h3 style={{ fontWeight: "bold" }}>{this.props.title}</h3>
             {this.state.details ? <BsChevronUp /> : <BsChevronDown />}
-            {(this.state.details && !this.state.submitted) ||
-            (Object.keys(this.state.skills).length !== 0 &&
+            {(!this.props[this.props.section] && this.state.details && !this.state.submitted) ||
+            (!this.props[this.props.section] && Object.keys(this.state.skills).length !== 0 &&
               !this.state.submitted) ||
-            (this.state[`${this.props.section}HaveAwardContent`] &&
+            (!this.props[this.props.section] && this.state[`${this.props.section}HaveAwardContent`] &&
               !this.state.submitted) ? (
               <div
                 className="student-skill-status"
@@ -275,6 +275,14 @@ class StudentSkillsDropdown extends React.Component {
                 Completed
               </div>
             ) : null}
+            {this.props[this.props.section] || this.state.submitted ?
+              <div
+                className="student-skill-status"
+                style={{ backgroundColor: "#05D9B2" }}
+              >
+                Listed
+              </div> : null
+            }
           </div>
           <p style={{ color: "#B0B0B0", margin: "0", marginTop: "10px" }}>
             {this.props.subtitle}

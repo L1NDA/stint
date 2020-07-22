@@ -232,7 +232,6 @@ class StudentInfo extends React.Component {
               index="0"
               saveData={this.handleChange}
               required={true}
-              optionalParent
               val={this.props.workExperience ? this.props.workExperience.companyRoles[0] : ""}
             />
             at{" "}
