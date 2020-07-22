@@ -133,7 +133,6 @@ class StudentInfo extends React.Component {
               placeholder="(insert major*)"
               saveData={this.handleChange}
               required={true}
-              optionalParent
             />
             {this.state.major ? (
               <span
@@ -223,7 +222,6 @@ class StudentInfo extends React.Component {
               index="0"
               saveData={this.handleChange}
               required={true}
-              optionalParent
             />
             at{" "}
             <Autocomplete
@@ -418,7 +416,6 @@ class StudentInfo extends React.Component {
                   index="1"
                   saveData={this.handleChange}
                   required={this.state.ecrole2 || this.state.yearec2 ? true : false}
-                  optionalParent
                   maxLength="60"
                 />{" "}
                 as a(n)
