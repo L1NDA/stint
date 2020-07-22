@@ -10,10 +10,10 @@ const { mailConfig } = require("./config")
 const { githubConfig } = require("./config")
 const { firebaseConfig } = require("./config");
 
-
 const axios = require('axios')
 const moment = require('moment');
 const firebase = require('firebase')
+const stripe = require('stripe')('sk_test_51GwtRRKhM1dSlL34WSs6E7UnZUebCSpWChwf3AepFaSnEId5d6AFh3IA4kWuUbWCKdBRWlV0ucp8GP9nGjRcp2Yx00aMeGGwey');
 
 const AUTH_HEADER = { 'headers':
                         { 'Authorization': functions.config().github.id + ":" + functions.config().github.key}
@@ -41,6 +41,19 @@ let transporter = nodemailer.createTransport({
 });
 
 
+
+exports.getPaymentIntent = functions.https.onRequest((req, res) => {
+    cors(req, res, async () => {
+        const paymentIntent = await stripe.paymentIntents.create({
+          amount: 1000,
+          currency: 'usd',
+          payment_method_types: ['card'],
+          receipt_email: 'cma4@bu.edu',
+        });
+
+        return res.status(200).send(paymentIntent)
+    })
+})
 
 exports.updateIndex = functions.database.ref('/freelancers/{id}').onUpdate((snapshot, context) => {
     const index = client.initIndex(functions.config().algolia.index);
