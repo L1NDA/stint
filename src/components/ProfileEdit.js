@@ -230,11 +230,14 @@ class ProfileEdit extends React.Component {
             <h1>Edit Profile</h1>
             <div className="student-dialogue">
             <div className="flex-row-comp">
-              <img
-                id="profile-img"
-                src={require("./imgs/logo.png")}
-                className="my-profile-img"
-              />
+              <div onClick={this.updateProfilePic} className="edit-profile-img">
+                <img
+                  id="profile-img"
+                  src={this.state.freelancerInfo.avatarUrl}
+                  className="my-profile-img"
+                />
+              <div className="edit-profile-txt">Change image</div>
+              </div>
             <div className="flex-column" style={{justifyContent: "center"}}>
               <h1 style={{ margin: "0" }}>
                 {this.state.freelancerInfo.displayName.split(" ")[0]}
@@ -301,6 +304,7 @@ class ProfileEdit extends React.Component {
                   name="phoneYN"
                   saveData={this.handleChange}
                   have="true"
+                  selected={this.state.freelancerInfo.profile.phoneNum ? "Yes" : "No"}
                 />
                 {this.state.phoneYN === "Yes" ? (
                   <span>, I have enabled </span>
@@ -317,6 +321,7 @@ class ProfileEdit extends React.Component {
                       placeholder="(insert phone number*)"
                       saveData={this.handleChange}
                       type="number"
+                      val={this.state.freelancerInfo.profile.phoneNum}
                     />
                     .
                   </span>

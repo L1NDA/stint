@@ -17,6 +17,36 @@
   margin-right: 50px;
 }
 
+.edit-profile-img {
+  position: relative;
+  margin-right: 50px;
+}
+
+.edit-profile-img > img {
+  cursor: pointer;
+  margin-right: 0;
+}
+
+.edit-profile-img:hover img {
+  filter: brightness(0.5);
+}
+
+.edit-profile-txt {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  visibility: hidden;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.edit-profile-img:hover .edit-profile-txt {
+  visibility: visible;
+}
+
 .self-view {
   padding: 75px 10%;
   background-color: #474448;
