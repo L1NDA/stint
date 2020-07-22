@@ -139,7 +139,6 @@ class StudentInfo extends React.Component {
               saveData={this.handleChange}
               required={true}
               val={this.props.education ? this.props.education.majors[0] : ""}
-              optionalParent
             />
           {this.state.major ? (
               <span
@@ -436,7 +435,6 @@ class StudentInfo extends React.Component {
                   index="1"
                   saveData={this.handleChange}
                   required={false}
-                  optionalParent
                   maxLength="60"
                   val={this.props.orgExperience && this.props.orgExperience.orgRoles.length > 1 ? this.props.orgExperience.orgRoles[1] : ""}
                 />{" "}

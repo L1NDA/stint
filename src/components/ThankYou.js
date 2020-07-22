@@ -6,7 +6,7 @@ import "./style/other.css";
 class About extends React.Component {
   render() {
     return (
-      <div className="container thank-you-background">
+      <div className="container-stint thank-you-background">
         <Menu />
         <div className="thank-you-container">
           <div className="thank-you">

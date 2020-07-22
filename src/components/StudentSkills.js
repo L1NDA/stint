@@ -76,9 +76,10 @@ class StudentSkills extends React.Component {
           title="Data Analytics"
           subtitle="Given messy data scraped from a webpage, you can clean it up nicely and identify customer profiles or pinpoint key trends."
           section="da"
+          da={this.props.da}
           content={[
-            ["a GitHub profile", "user"],
-            ["a personal website", "url"],
+            ["a GitHub profile", "user", "githubUser"],
+            ["a personal website", "url", "personalWebsiteUrl"],
           ]}
           skills={DATA_SKILLS}
           handleButton={this.saveEntireState}
@@ -90,7 +91,8 @@ class StudentSkills extends React.Component {
           title="Design & Branding"
           subtitle="You’re experienced in designing logos, web pages, illustrations, or building up a specific brand image."
           section="db"
-          content={[["a portfolio or personal website", "url"]]}
+          db={this.props.db}
+          content={[["a portfolio or personal website", "url", "personalWebsiteUrl"]]}
           skills={DESIGN_SKILLS}
           handleButton={this.saveEntireState}
         />
@@ -101,11 +103,12 @@ class StudentSkills extends React.Component {
           title="Content Creation & Management"
           subtitle="You’re a content creator. Blogging, photography, videography, upping your Instagram follower game – you know how it’s done."
           section="ccm"
+          ccm={this.props.ccm}
           content={[
-            ["a Medium account", "user"],
-            ["an Instagram", "user"],
-            ["a Youtube account", "user"],
-            ["a portfolio or personal website", "url"],
+            ["a Medium account", "user", "mediumUser"],
+            ["an Instagram", "user", "instagramUser"],
+            ["a Youtube account", "user", "youtubeUser"],
+            ["a portfolio or personal website", "url", "personalWebsiteUrl"],
           ]}
           skills={CONTENT_SKILLS}
           handleButton={this.saveEntireState}
@@ -117,9 +120,10 @@ class StudentSkills extends React.Component {
           title="Software Development"
           subtitle="You can pull a few programming languages out of your toolbox and use them for front-end or back-end work."
           section="sd"
+          sd={this.props.sd}
           content={[
-            ["a GitHub profile", "user"],
-            ["a personal website", "url"],
+            ["a GitHub profile", "user", "githubUser"],
+            ["a personal website", "url", "personalWebsiteUrl"],
           ]}
           skills={SOFTWARE_SKILLS}
           handleButton={this.saveEntireState}

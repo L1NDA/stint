@@ -271,6 +271,7 @@ class ProfileEdit extends React.Component {
                           items={["available", "not available"]}
                           name={`availablility-${category}`}
                           saveData={this.handleChange}
+                          have={true}
                         /> for {category === "dataAnalytics" ? 'data analytics' :
                                 category === "contentCreation" ? 'content creation' :
                                 category === "design" ? 'design and branding' :
@@ -282,7 +283,12 @@ class ProfileEdit extends React.Component {
                 </div>
               </div>
 
-              <StudentSkills saveToParent={this.saveAllChildren} />
+              <StudentSkills
+                saveToParent={this.saveAllChildren}
+                da={this.state.freelancerInfo.profile.dataAnalytics}
+                ccm={this.state.freelancerInfo.profile.contentCreation}
+                db={this.state.freelancerInfo.profile.design}
+                sd={this.state.freelancerInfo.profile.softwareDev}/>
 
 
           <h2 style={{color: "#474448"}}>Communication</h2>
