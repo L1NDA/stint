@@ -13,6 +13,7 @@ import ProfileCreation from "./components/ProfileCreation";
 import ProfileView from "./components/ProfileView";
 import ThankYou from "./components/ThankYou.js";
 import Search from "./components/Search"
+import InjectedCheckoutForm from "./components/Payment/CheckoutForm"
 
 import Routes from "./constants/ROUTING_CONSTANTS";
 
@@ -40,6 +41,7 @@ function App({ isLoggedIn }) {
           component={PrivatePolicy}
         />
         <Route exact path={DYNAMIC_PROFILE_VIEW_PATH} component={ProfileView} />
+        <Route exact path="/checkout" component={InjectedCheckoutForm} />
         <Route component={FourOhFour} />
       </Switch>
     </Router>

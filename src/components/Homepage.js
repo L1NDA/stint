@@ -40,6 +40,8 @@ import { PROFILE_CREATION_PATH } from "../constants/ROUTING_CONSTANTS";
 import { CREATED_AT } from "../constants/DB_CONSTANTS"
 import { getFreelancerRef } from "../api/freelancer"
 
+import { getPaymentIntent } from "../api/stripe"
+
 import moment from "moment"
 const axios = require("axios");
 const { setCompanyBetaInfo } = require("../api/company");
@@ -78,6 +80,9 @@ class Homepage extends React.Component {
 
   handleButtonClick = async (event) => {
     event.preventDefault();
+
+    console.log(getPaymentIntent())
+
     let temp = this.state.modal;
     this.setState({
       modal: !temp,

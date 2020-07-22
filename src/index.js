@@ -12,13 +12,20 @@ import {
   firebaseReducer,
 } from "react-redux-firebase";
 
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+
+const stripePromise = loadStripe("pk_test_51GwtRRKhM1dSlL34AnTKoowDLOA8CVwr1MmV0r1YcMxbWoesYlYnEDR3oPh0luqTEXJ1VzJ8kbOeN8b9mI5OhYHy00tzGPnvEE");
+
 ReactDOM.render(
   <React.StrictMode>
+  <Elements stripe={stripePromise}>
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
         <App />
       </ReactReduxFirebaseProvider>
     </Provider>
+  </Elements>
   </React.StrictMode>,
   document.getElementById("root")
 );
