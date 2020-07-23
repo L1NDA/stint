@@ -68,41 +68,60 @@ class StudentInfo extends React.Component {
   }
 
   handleChange = (stateName, content, index = null, finished = null) => {
-    this.props.saveToParent(stateName, content, index);
-    if (
-      stateName === "major" ||
-      stateName === "major2" ||
-      stateName === "minor" ||
-      stateName === "minor2" ||
-      stateName === "role1" ||
-      stateName === "company1" ||
-      stateName === "role2" ||
-      stateName === "company2" ||
-      stateName === "role3" ||
-      stateName === "company3" ||
-      stateName === "ec1" ||
-      stateName === "ec2" ||
-      stateName === "ec3" ||
-      stateName === "ecrole1" ||
-      stateName === "ecrole2" ||
-      stateName === "ecrole3" ||
-      stateName === "yearcompany1" ||
-      stateName === "yearcompany2" ||
-      stateName === "yearcompany3" ||
-      stateName === "yearec1" ||
-      stateName === "yearec2" ||
-      stateName === "yearec3"
-    ) {
-      if (content) {
+    if (stateName === "havepersonalwebsite") {
+      if (content === "have") {
         this.setState({
-          [stateName]: true,
-        });
+          havepersonalwebsite: "have"
+        })
       } else {
         this.setState({
-          [stateName]: false,
-        });
+          havepersonalwebsite: "do not have"
+        })
+      }
+
+    } else {
+      this.props.saveToParent(stateName, content, index);
+      if (stateName === "personalWebsiteURL") {
+        this.setState({
+          personalWebsiteURL: content
+        })
+      }
+      if (
+        stateName === "major" ||
+        stateName === "major2" ||
+        stateName === "minor" ||
+        stateName === "minor2" ||
+        stateName === "role1" ||
+        stateName === "company1" ||
+        stateName === "role2" ||
+        stateName === "company2" ||
+        stateName === "role3" ||
+        stateName === "company3" ||
+        stateName === "ec1" ||
+        stateName === "ec2" ||
+        stateName === "ec3" ||
+        stateName === "ecrole1" ||
+        stateName === "ecrole2" ||
+        stateName === "ecrole3" ||
+        stateName === "yearcompany1" ||
+        stateName === "yearcompany2" ||
+        stateName === "yearcompany3" ||
+        stateName === "yearec1" ||
+        stateName === "yearec2" ||
+        stateName === "yearec3"
+      ) {
+        if (content) {
+          this.setState({
+            [stateName]: true,
+          });
+        } else {
+          this.setState({
+            [stateName]: false,
+          });
+        }
       }
     }
+
   };
 
   render() {
@@ -498,6 +517,51 @@ class StudentInfo extends React.Component {
               </span>
             </h3>
           ) : null}
+        </div>
+        <div className="hline"></div>
+        <div className="student-dialogue-block flex-column center">
+        <h3 style={{alignSelf: "flex-start"}}>
+          I{" "}
+          <Select
+            items={["have", "do not have"]}
+            name="havepersonalwebsite"
+            saveData={this.handleChange}
+            have={true}
+          />
+        a personal website
+          {this.state.havepersonalwebsite ===
+          "have" ? (
+            <span className="nobreak">
+              :{" "}
+                <Autocomplete
+                  name="personalWebsiteURL"
+                  placeholder="(insert URL*)"
+                  saveData={this.handleChange}
+                  required={true}
+                  type="url"
+                  optionalParent
+                />
+              .
+            </span>
+          ) : "."}
+          </h3>
+          {this.state.personalWebsiteURL ?
+          <div className="flex-column" style={{width: "100%", maxWidth: "600px", }}>
+            <div style={{position: "relative"}}>
+              <img
+                src={require("./imgs/macbook.png")}
+                className="works-laptop"
+              ></img>
+              <iframe
+                src={
+                  this.state.personalWebsiteURL
+                }
+                className="works-laptop-screen"
+              ></iframe>
+            </div>
+            <div className="subtitle">This is a preview of how your personal website will display on our site. For security purposes, we only allow https URLs. If you are receiving an error in the display, your website may be missing an SSL certificate or may be misspelled.</div>
+          </div>
+           : null }
         </div>
       </div>
     );

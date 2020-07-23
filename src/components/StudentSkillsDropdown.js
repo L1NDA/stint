@@ -283,7 +283,7 @@ class StudentSkillsDropdown extends React.Component {
           <form className="flex-column" onSubmit={this.handleSubmit}>
             {this.props.content.map((social, index) => {
               return (
-                <h3>
+                <><h3>
                   I{" "}
                   <Select
                     items={["have", "do not have"]}
@@ -300,7 +300,7 @@ class StudentSkillsDropdown extends React.Component {
                       {social[1] === "url" ? (
                         <Autocomplete
                           name={`${this.props.section}${index}`}
-                          placeholder="(insert http URL*)"
+                          placeholder="(insert URL*)"
                           saveData={this.saveState}
                           required={true}
                           val={this.state[`${this.props.section}${index}`]}
@@ -322,6 +322,23 @@ class StudentSkillsDropdown extends React.Component {
                     <React.Fragment>.</React.Fragment>
                   )}
                 </h3>
+                {social[1] === "url" && this.state[`${this.props.section}${index}`] ?
+                <div className="flex-column" style={{width: "100%", maxWidth: "600px", }}>
+                  <div style={{position: "relative"}}>
+                    <img
+                      src={require("./imgs/macbook.png")}
+                      className="works-laptop"
+                    ></img>
+                    <iframe
+                      src={
+                        this.state[`${this.props.section}${index}`]
+                      }
+                      className="works-laptop-screen"
+                    ></iframe>
+                  </div>
+                  <div className="subtitle">This is a preview of how your link will display on our site. For security purposes, we only allow https URLs. If you are receiving an error in the display, your website may be missing an SSL certificate or may be misspelled.</div>
+                </div>
+                 : null }</>
               );
             })}
             {this.props.section === "db" ? (

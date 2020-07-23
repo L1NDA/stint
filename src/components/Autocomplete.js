@@ -65,12 +65,13 @@ export class Autocomplete extends Component {
     }
   };
 
-  handleFocus = () => {
-    // if (this.props.type === 'url' && !this.state.userInput) {
-    //   this.setState({
-    //     userInput: 'http://'
-    //   })
-    // }
+  handleFocus = (e) => {
+
+    if (this.props.type === 'url' && !this.state.userInput) {
+      this.setState({
+        userInput: 'https://'
+      })
+    }
 
     if (this.props.username && !this.state.userInput) {
       this.setState({
@@ -92,6 +93,18 @@ export class Autocomplete extends Component {
       } else {
         this.setState({ focus: false });
       }
+    }
+
+    if (this.props.username && this.state.userInput === "@") {
+      this.setState({
+        userInput: "",
+      });
+    }
+
+    if (this.props.type === 'url' && this.state.userInput === "https://") {
+      this.setState({
+        userInput: ''
+      })
     }
 
     // setTimeout(
@@ -116,6 +129,31 @@ export class Autocomplete extends Component {
     let filteredOptions = [];
     if (this.props.username && !userInput.startsWith("@")) {
       userInput = "@" + userInput;
+    }
+
+    if (this.props.type === "url") {
+      if (userInput.length < 9) {
+        userInput = "https://"
+      }
+      // if (userInput.indexOf('https://') !== 0) {
+      //   if (userInput.indexOf('https://') === -1) {
+      //     userInput = "https://" + userInput
+      //   } else {
+      //     userInput = userInput
+      //   }
+      //   console.log("zero index", userInput.indexOf('https://'))
+      // }
+      if (userInput.indexOf('https://', 8) !== -1 ) {
+
+        let httpInstance = userInput.indexOf('https://', 8)
+        console.log("https", userInput, httpInstance)
+        userInput = userInput.slice(0,httpInstance) + userInput.slice(httpInstance + 8)
+      }
+      if (userInput.indexOf('http://') !== -1 ) {
+        let httpInstance = userInput.indexOf('http://')
+        console.log("http", userInput, httpInstance)
+        userInput = "https://" + userInput.slice(httpInstance + 7)
+      }
     }
 
     if (

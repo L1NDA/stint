@@ -77,8 +77,7 @@ class StudentSkills extends React.Component {
           subtitle="Given messy data scraped from a webpage, you can clean it up nicely and identify customer profiles or pinpoint key trends."
           section="da"
           content={[
-            ["a GitHub profile", "user"],
-            ["a personal website", "url"],
+            ["a GitHub profile", "user"]
           ]}
           skills={DATA_SKILLS}
           handleButton={this.saveEntireState}
@@ -90,7 +89,7 @@ class StudentSkills extends React.Component {
           title="Design & Branding"
           subtitle="You’re experienced in designing logos, web pages, illustrations, or building up a specific brand image."
           section="db"
-          content={[["a portfolio or personal website", "url"]]}
+          content={[["a portfolio or example work outside of my personal website", "url"]]}
           skills={DESIGN_SKILLS}
           handleButton={this.saveEntireState}
         />
@@ -105,7 +104,7 @@ class StudentSkills extends React.Component {
             ["a Medium account", "user"],
             ["an Instagram", "user"],
             ["a Youtube account", "user"],
-            ["a portfolio or personal website", "url"],
+            ["a portfolio or example work outside of my personal website", "url"],
           ]}
           skills={CONTENT_SKILLS}
           handleButton={this.saveEntireState}
@@ -119,7 +118,6 @@ class StudentSkills extends React.Component {
           section="sd"
           content={[
             ["a GitHub profile", "user"],
-            ["a personal website", "url"],
           ]}
           skills={SOFTWARE_SKILLS}
           handleButton={this.saveEntireState}
