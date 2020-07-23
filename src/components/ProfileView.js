@@ -208,6 +208,17 @@ class ProfileView extends React.Component {
   };
 
   render() {
+    var personalwebsite = null;
+    if (this.state.freelancerInfo && this.state.freelancerInfo.profile.dataAnalytics && this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl) {
+      personalwebsite = this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl
+    } else if (this.state.freelancerInfo && this.state.freelancerInfo.profile.contentCreation && this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl) {
+      personalwebsite = this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl
+    } else if (this.state.freelancerInfo && this.state.freelancerInfo.profile.design && this.state.freelancerInfo.profile.design.personalWebsiteUrl) {
+      personalwebsite = this.state.freelancerInfo.profile.design.personalWebsiteUrl
+    } else if (this.state.freelancerInfo && this.state.freelancerInfo.profile.softwareDev && this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl) {
+      personalwebsite = this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl
+    }
+
     return (
       <div className="container">
         <Menu />
@@ -312,6 +323,53 @@ class ProfileView extends React.Component {
               </div>
             </section>
 
+            { personalwebsite && personalwebsite.startsWith("https://") ?
+              <section className="profile-item">
+                <h2 style={{color: "#474448"}}>My Personal Website</h2>
+                  <a
+                    className="personal-website"
+                    href={
+                      this.state.freelancerInfo.profile.dataAnalytics
+                        .personalWebsiteUrl
+                    }
+                    target="_blank"
+                  >
+                    <img
+                      src={require("./imgs/macbook.png")}
+                      className="works-laptop"
+                    ></img>
+                    <iframe
+                      src={
+                        personalwebsite
+                      }
+                      className="works-laptop-screen"
+                    ></iframe>
+                  </a>
+              </section> :
+              personalwebsite ?
+              <section className="profile-item">
+                <h2 style={{color: "#474448"}}>My Personal Website</h2>
+                  <a
+                    className="personal-website"
+                    href={
+                      this.state.freelancerInfo.profile.dataAnalytics
+                        .personalWebsiteUrl
+                    }
+                    target="_blank"
+                  >
+                    <img
+                      src={require("./imgs/macbook.png")}
+                      className="works-laptop"
+                    ></img>
+                  <div className="works-laptop-screen flex-column center" style={{backgroundColor: "#474448"}}>
+                    <h1 style={{color: "white"}}>{personalwebsite}</h1>
+                    <div className="subtitle" style={{color: "white"}}>This website cannot previewed as it does not use https. Please click to view.</div>
+                  </div>
+                  </a>
+              </section>
+              : null
+            }
+
             {this.state.freelancerInfo.profile.dataAnalytics ? (
               <section className="profile-item">
                 <h1>Analytics</h1>
@@ -346,33 +404,6 @@ class ProfileView extends React.Component {
                         );
                       })}
                     </div>
-                  </div>
-                ) : null}
-
-                {this.state.freelancerInfo.profile.dataAnalytics
-                  .personalWebsiteUrl ? (
-                  <div className="profile-works">
-                    <div className="section-header">My personal website</div>
-                    <a
-                      className="personal-website"
-                      href={
-                        this.state.freelancerInfo.profile.dataAnalytics
-                          .personalWebsiteUrl
-                      }
-                      target="_blank"
-                    >
-                      <img
-                        src={require("./imgs/macbook.png")}
-                        className="works-laptop"
-                      ></img>
-                      <iframe
-                        src={
-                          this.state.freelancerInfo.profile.dataAnalytics
-                            .personalWebsiteUrl
-                        }
-                        className="works-laptop-screen"
-                      ></iframe>
-                    </a>
                   </div>
                 ) : null}
 
@@ -559,33 +590,6 @@ class ProfileView extends React.Component {
                   </div>
                 ) : null}
 
-                {this.state.freelancerInfo.profile.contentCreation
-                  .personalWebsiteUrl ? (
-                  <div className="profile-works">
-                    <div className="section-header">My personal website</div>
-                    <a
-                      className="personal-website"
-                      href={
-                        this.state.freelancerInfo.profile.contentCreation
-                          .personalWebsiteUrl
-                      }
-                      target="_blank"
-                    >
-                      <img
-                        src={require("./imgs/macbook.png")}
-                        className="works-laptop"
-                      ></img>
-                      <iframe
-                        src={
-                          this.state.freelancerInfo.profile.contentCreation
-                            .personalWebsiteUrl
-                        }
-                        className="works-laptop-screen"
-                      ></iframe>
-                    </a>
-                  </div>
-                ) : null}
-
                 {(this.state.mediumData &&
                   this.state.mediumData.data.publications.length !== 0) ||
                 this.state.freelancerInfo.profile.contentCreation
@@ -747,32 +751,6 @@ class ProfileView extends React.Component {
                   </div>
                 ) : null}
 
-                {this.state.freelancerInfo.profile.design.personalWebsiteUrl ? (
-                  <div className="profile-works">
-                    <div className="section-header">My personal website</div>
-                    <a
-                      className="personal-website"
-                      href={
-                        this.state.freelancerInfo.profile.design
-                          .personalWebsiteUrl
-                      }
-                      target="_blank"
-                    >
-                      <img
-                        src={require("./imgs/macbook.png")}
-                        className="works-laptop"
-                      ></img>
-                      <iframe
-                        src={
-                          this.state.freelancerInfo.profile.design
-                            .personalWebsiteUrl
-                        }
-                        className="works-laptop-screen"
-                      ></iframe>
-                    </a>
-                  </div>
-                ) : null}
-
                 {this.state.fileUrls.designShowcase ? (
                   <div className="profile-works">
                     <div className="section-header">My work(s)</div>
@@ -870,33 +848,6 @@ class ProfileView extends React.Component {
                         );
                       })}
                     </div>
-                  </div>
-                ) : null}
-
-                {this.state.freelancerInfo.profile.softwareDev
-                  .personalWebsiteUrl ? (
-                  <div className="profile-works">
-                    <div className="section-header">My personal website</div>
-                    <a
-                      className="personal-website"
-                      href={
-                        this.state.freelancerInfo.profile.softwareDev
-                          .personalWebsiteUrl
-                      }
-                      target="_blank"
-                    >
-                      <img
-                        src={require("./imgs/macbook.png")}
-                        className="works-laptop"
-                      ></img>
-                      <iframe
-                        src={
-                          this.state.freelancerInfo.profile.softwareDev
-                            .personalWebsiteUrl
-                        }
-                        className="works-laptop-screen"
-                      ></iframe>
-                    </a>
                   </div>
                 ) : null}
 
