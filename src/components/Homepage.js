@@ -172,13 +172,15 @@ class Homepage extends React.Component {
               Connect with companies through virtual{" "}
               <span className="nobreak">short-term projects.</span>
             </h3>
-            <button
-              style={{ marginTop: "50px" }}
-              className="button"
-              onClick={this.handleButtonClick}
-            >
-              Let's go 😎
+            {this.props.isLoggedIn ? null :
+              <button
+                style={{ marginTop: "50px" }}
+                className="button"
+                onClick={this.handleButtonClick}
+              > Let's go 😎
             </button>
+            }
+
           </div>
           <img src={homepageImage} className="homepage-image" />
         </div>
