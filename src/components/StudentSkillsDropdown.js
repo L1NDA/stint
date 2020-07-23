@@ -414,7 +414,7 @@ class StudentSkillsDropdown extends React.Component {
               </div>
             </div>
 
-            <h3>
+            <h3 style={{marginBottom: "0"}}>
               I{" "}
               <Select
                 items={["have", "have not"]}

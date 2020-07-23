@@ -247,7 +247,7 @@ class ProfileView extends React.Component {
                     : null}
                   {this.state.freelancerInfo.profile.education.minors &&
                   this.state.freelancerInfo.profile.education.minors[1]
-                    ? `& ` +
+                    ? ` & ` +
                       this.state.freelancerInfo.profile.education.minors[0] +
                       ` (minor)`
                     : null}
