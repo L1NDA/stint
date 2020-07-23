@@ -17,7 +17,7 @@ import medium, { getMediumInfo } from "../api/medium";
 import { getGithubInfo } from "../api/github";
 import ReactLoading from "react-loading";
 
-import { PROFILE_CREATION_PATH } from "../constants/ROUTING_CONSTANTS";
+import { PROFILE_CREATION_PATH, FOUR_OH_FOUR_PATH } from "../constants/ROUTING_CONSTANTS";
 import {
   GITHUB_FUNCTIONS_ERROR,
   INSTAGRAM_FUNCTIONS_ERROR,
@@ -72,6 +72,12 @@ class ProfileView extends React.Component {
       "value",
       async (snapshot) => {
         let info = snapshot.val();
+
+        if (!info) {
+          this.props.history.push(FOUR_OH_FOUR_PATH)
+          return
+        }
+
         let profile = info.profile;
 
         if (!profile) {
