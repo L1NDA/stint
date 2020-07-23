@@ -329,8 +329,7 @@ class ProfileView extends React.Component {
                   <a
                     className="personal-website"
                     href={
-                      this.state.freelancerInfo.profile.dataAnalytics
-                        .personalWebsiteUrl
+                      personalwebsite
                     }
                     target="_blank"
                   >
@@ -352,8 +351,7 @@ class ProfileView extends React.Component {
                   <a
                     className="personal-website"
                     href={
-                      this.state.freelancerInfo.profile.dataAnalytics
-                        .personalWebsiteUrl
+                      personalwebsite
                     }
                     target="_blank"
                   >
@@ -363,7 +361,7 @@ class ProfileView extends React.Component {
                     ></img>
                   <div className="works-laptop-screen flex-column center" style={{backgroundColor: "#474448"}}>
                     <h1 style={{color: "white"}}>{personalwebsite.replace(/http:\/\/|\//g, "")}</h1>
-                    <div className="subtitle" style={{color: "white"}}>This website cannot previewed as it does not use https. Please click to view.</div>
+                    <div className="subtitle" style={{color: "white"}}>This website cannot be previewed as it does not use https. Please click to view.</div>
                   </div>
                   </a>
               </section>
