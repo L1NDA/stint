@@ -53,20 +53,64 @@ class ProfileEdit extends React.Component {
     document.title = "Create Profile | Stint";
 
     let freelancerRef = await getFreelancerRef(this.props.auth.uid);
-    let freelancerInfo
+    let freelancerInfo;
     freelancerRef.on("value", (snapshot) => {
       this.setState({
         freelancerRef,
         freelancerInfo: snapshot.val()
-      }, () => console.log("state", this.state))
+      })
     })
   };
 
-  updateProfilePic = (imgUrl) => {
-    let fileRef = this.props.storage.ref(
-      "images" + "/" + this.props.userUid + "/" + "designshowcase-" + file.name
-    );
-    document.getElementById("profile-img").src = imgUrl;
+  updateProfilePic = (profilePicFiles) => {
+    var fileErrorHandler = document.getElementById("file-error");
+    if (profilePicFiles.length === 0) {
+      fileErrorHandler.innerHTML = "Please upload a file.";
+      return;
+    }
+
+    const acceptedFileTypes = [".png", ".jpg", ".jpeg", ".svg"];
+    // check file type is accepted and that it is below 10MB (in bytes)
+    if (
+      acceptedFileTypes.some((type) => profilePicFiles[0].name.endsWith(type)) &&
+      profilePicFiles[0].size <= 10000000
+    ) {
+      let fileRef = this.props.storage.ref(
+        "images" + "/" + this.props.userUid + "/" + "profilepic-" + profilePicFiles[0].name
+      );
+      let uploadTask = fileRef.put(profilePicFiles[0])
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          fileErrorHandler.innerHTML = `Upload is ${Math.round(progress)} % done`;
+        },
+        function (error) {
+          // A full list of error codes is available at
+          // https://firebase.google.com/docs/storage/web/handle-errors
+          switch (error.code) {
+            case "storage/unauthorized":
+              fileErrorHandler.innerHTML = "Not authorized";
+              break;
+            case "storage/canceled":
+              fileErrorHandler.innerHTML = "Upload cancelled";
+              break;
+            case "storage/unknown":
+              fileErrorHandler.innerHTML = "Unknown error, please try again";
+              break;
+          }
+        },
+        () => {
+          // Upload completed successfully, now we can get the download URL
+          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            this.state.freelancerRef.child("avatarUrl").set(downloadURL)
+            document.getElementById("profile-img").src = downloadURL
+            fileErrorHandler.innerHTML = `Successfully uploaded ${profilePicFiles[0].name}`;
+          });
+        }
+      )
+    }
   };
 
   handleChange = (name, content) => {
@@ -230,6 +274,22 @@ class ProfileEdit extends React.Component {
               autocomplete="off"
             >
             <h1>Edit Profile</h1>
+              <>
+                <input
+                  id="fileInput"
+                  type="file"
+                  onChange={(e) => {
+                    this.updateProfilePic(e.target.files);
+                  }}
+                  required
+                />
+                <label for="fileInput">Test</label>
+              </>
+              <div
+                className="subtitle"
+                id="file-error"
+                style={{ marginTop: "10px" }}
+              ></div>
             <div className="student-dialogue">
             <div className="flex-row-comp">
               <div onClick={this.updateProfilePic} className="edit-profile-img">
@@ -404,7 +464,6 @@ class ProfileEdit extends React.Component {
 
 function mapStateToProps(state, props) {
   const { firebase } = props;
-  console.log("analytics", firebase.analytics())
   return {
     analytics: firebase.analytics(),
     storage: firebase.storage(),

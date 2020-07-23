@@ -173,7 +173,9 @@ class StudentInfo extends React.Component {
                 saveData={this.handleChange}
                 index="0"
                 required={false}
-                val={this.props.education && this.props.education.minors.length !== 0 ? this.props.education.minors[0] : ""}
+                val={this.props.education && 
+                     this.props.education.minors && 
+                     this.props.education.minors.length !== 0 ? this.props.education.minors[0] : ""}
               />
             </span>
             <span className="nobreak">
