@@ -3,7 +3,7 @@ import Menu from "./Menu.js";
 import Footer from "./Footer.js";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
-import { firebaseConnect } from "react-redux-firebase";
+import { firebaseConnec, isLoaded, isEmpty } from "react-redux-firebase";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
 import "./style/my-profile.css";
@@ -195,6 +195,18 @@ class ProfileView extends React.Component {
 
     return items;
   };
+
+/* For Linda's edit profile button:
+  Use the following conditional to check whether to display the edit profile button or display a null:
+
+  this.props.auth && this.props.auth.uid === this.props.match.params.uid ?
+    <display edit profile redirect button> :
+    null or whatever u wanna display instead
+
+  Notes:
+  this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed - 
+  (because this.props.auth is null at first)
+*/
 
   render() {
     return (
@@ -1085,9 +1097,11 @@ function parseInstaUser(user) {
 
 function mapStateToProps(state, props) {
   const { firebase } = props;
+
   return {
     storage: firebase.storage(),
     analytics: firebase.analytics(),
+    auth: state.firebase.auth,
   };
 }
 
