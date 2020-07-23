@@ -360,7 +360,7 @@ class ProfileView extends React.Component {
                       className="works-laptop"
                     ></img>
                   <div className="works-laptop-screen flex-column center" style={{backgroundColor: "#474448"}}>
-                    <h1 style={{color: "white"}}>{personalwebsite.replace(/http:\/\/|\//g, "")}</h1>
+                    <h1 style={{color: "white"}}>{personalwebsite.endsWith("/") ? personalwebsite.replace(/http:\/\//, "").slice(0, -1) : personalwebsite.replace(/http:\/\//, "")}</h1>
                     <div className="subtitle" style={{color: "white"}}>This website cannot be previewed as it does not use https. Please click to view.</div>
                   </div>
                   </a>
