@@ -81,9 +81,9 @@ class StudentInfo extends React.Component {
 
     } else {
       this.props.saveToParent(stateName, content, index);
-      if (stateName === "personalWebsiteURL") {
+      if (stateName === "personalWebsiteUrl") {
         this.setState({
-          personalWebsiteURL: content
+          personalWebsiteUrl: content
         })
       }
       if (
@@ -534,7 +534,7 @@ class StudentInfo extends React.Component {
             <span className="nobreak">
               :{" "}
                 <Autocomplete
-                  name="personalWebsiteURL"
+                  name="personalWebsiteUrl"
                   placeholder="(insert URL*)"
                   saveData={this.handleChange}
                   required={true}
@@ -545,7 +545,7 @@ class StudentInfo extends React.Component {
             </span>
           ) : "."}
           </h3>
-          {this.state.personalWebsiteURL ?
+          {this.state.personalWebsiteUrl ?
           <div className="flex-column" style={{width: "100%", maxWidth: "600px", }}>
             <div style={{position: "relative"}}>
               <img
@@ -554,7 +554,7 @@ class StudentInfo extends React.Component {
               ></img>
               <iframe
                 src={
-                  this.state.personalWebsiteURL
+                  this.state.personalWebsiteUrl
                 }
                 className="works-laptop-screen"
               ></iframe>

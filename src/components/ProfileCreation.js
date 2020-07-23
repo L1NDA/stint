@@ -138,6 +138,8 @@ class ProfileCreation extends React.Component {
     let doesContent = Object.keys(temp.ccm).length !== 0;
     let doesSoftware = Object.keys(temp.sd).length !== 0;
 
+    console.log("TEMP", temp)
+
     await setFreelancerProfile(
       this.props.auth.uid,
 
@@ -156,6 +158,8 @@ class ProfileCreation extends React.Component {
       temp.ecrole,
       temp.ec,
       temp.yearec,
+
+      temp.personalWebsiteUrl,
 
       doesData,
       temp.da.da0,
@@ -232,7 +236,7 @@ class ProfileCreation extends React.Component {
                 <h3>
                   We’re Stint, a platform for connecting students and companies.{" "}
                   <br />
-                   Now tell us a little bit about yourself!
+                  Now tell us a little bit about yourself!
                 </h3>
               </div>
 

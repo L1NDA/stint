@@ -6,6 +6,8 @@ const {
 
   FREELANCER_PROFILE,
 
+  FREELANCER_PERSONAL_WEBSITE_URL,
+
   FREELANCER_EDUCATION,
   FREELANCER_SCHOOL,
   FREELANCER_YEAR,
@@ -31,7 +33,7 @@ const {
   FREELANCER_SOFTWARE,
 
   FREELANCER_SKILLS,
-  FREELANCER_PERSONAL_WEBSITE,
+  FREELANCER_DESIGN_WEBSITE,
   FREELANCER_AWARD_CATEGORIES,
   FREELANCER_AWARD_CONTENT,
   FREELANCER_AWARD_PROVIDERS,
@@ -110,6 +112,7 @@ export const setFreelancerProfile = async (
   orgRoles,
   organizations,
   orgYears,
+  personalWebsiteUrl = null, 
   doesData,
   dataGithubUser,
   dataWebsite = null,
@@ -168,13 +171,13 @@ export const setFreelancerProfile = async (
 	    [FREELANCER_ORG_ROLES]: orgRoles,
 	    [FREELANCER_ORG_NAMES]: organizations,
 	    [FREELANCER_ORG_YEARS]: orgYears,
-	  }
+    },
+    [FREELANCER_PERSONAL_WEBSITE_URL]: personalWebsiteUrl
 	}
 
   if (doesData) {
     freelancerInfo[FREELANCER_PROFILE][FREELANCER_DATA_ANALYTICS] = {
       [FREELANCER_GITHUB]: dataGithubUser,
-      [FREELANCER_PERSONAL_WEBSITE]: dataWebsite,
       [FREELANCER_SKILLS]: dataSkills,
       [FREELANCER_AWARD_CATEGORIES]: dataAwardCategories,
       [FREELANCER_AWARD_CONTENT]: dataAwardContent,
@@ -183,7 +186,7 @@ export const setFreelancerProfile = async (
   }
   if (doesDesign) {
     freelancerInfo[FREELANCER_PROFILE][FREELANCER_DESIGN] = {
-      [FREELANCER_PERSONAL_WEBSITE]: designWebsite,
+      [FREELANCER_DESIGN_WEBSITE]: designWebsite,
       [FREELANCER_SKILLS]: designSkills,
       [FREELANCER_AWARD_CATEGORIES]: designAwardCategories,
       [FREELANCER_AWARD_CONTENT]: designAwardContent,
@@ -195,7 +198,6 @@ export const setFreelancerProfile = async (
       [FREELANCER_MEDIUM]: mediumUser,
       [FREELANCER_INSTAGRAM]: instagramUser,
       [FREELANCER_YOUTUBE]: youtubeUser,
-      [FREELANCER_PERSONAL_WEBSITE]: contentWebsite,
       [FREELANCER_SKILLS]: contentSkills,
       [FREELANCER_AWARD_CATEGORIES]: contentAwardCategories,
       [FREELANCER_AWARD_CONTENT]: contentAwardContent,
@@ -205,7 +207,6 @@ export const setFreelancerProfile = async (
   if (doesSoftware) {
     freelancerInfo[FREELANCER_PROFILE][FREELANCER_SOFTWARE] = {
       [FREELANCER_GITHUB]: githubUser,
-      [FREELANCER_PERSONAL_WEBSITE]: softwareWebsite,
       [FREELANCER_SKILLS]: softwareSkills,
       [FREELANCER_AWARD_CATEGORIES]: softwareAwardCategories,
       [FREELANCER_AWARD_CONTENT]: softwareAwardContent,
