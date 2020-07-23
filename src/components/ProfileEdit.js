@@ -63,7 +63,9 @@ class ProfileEdit extends React.Component {
   };
 
   updateProfilePic = (imgUrl) => {
-    this.state.freelancerRef.child("avatarUrl").set(imgUrl);
+    let fileRef = this.props.storage.ref(
+      "images" + "/" + this.props.userUid + "/" + "designshowcase-" + file.name
+    );
     document.getElementById("profile-img").src = imgUrl;
   };
 
@@ -405,6 +407,8 @@ function mapStateToProps(state, props) {
   console.log("analytics", firebase.analytics())
   return {
     analytics: firebase.analytics(),
+    storage: firebase.storage(),
+    userUid: state.firebase.auth.uid,
   };
 }
 

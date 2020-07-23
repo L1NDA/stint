@@ -24,7 +24,6 @@ import {
   ButtonNext,
   DotGroup,
 } from "pure-react-carousel";
-// import { TiMediaPlayReverse, TiMediaPlay } from "react-icons/ti";
 
 import GoogleButton from "./Auth/GoogleButton";
 import { firebaseConnect, isLoaded, isEmpty } from "react-redux-firebase";
