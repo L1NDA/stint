@@ -55,6 +55,19 @@ exports.getPaymentIntent = functions.https.onRequest((req, res) => {
     })
 })
 
+exports.getPaymentIntent = functions.https.onRequest((req, res) => {
+    cors(req, res, async () => {
+        const paymentIntent = await stripe.paymentIntents.create({
+          amount: 1000,
+          currency: 'usd',
+          payment_method_types: ['card'],
+          receipt_email: 'cma4@bu.edu',
+        });
+
+        return res.status(200).send(paymentIntent)
+    })
+})
+
 exports.updateIndex = functions.database.ref('/freelancers/{id}').onUpdate((snapshot, context) => {
     const index = client.initIndex(functions.config().algolia.index);
 
