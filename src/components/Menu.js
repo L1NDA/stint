@@ -50,11 +50,9 @@ class Menu extends React.Component {
           </NavLink>
           {this.props.profilePic ? (
             <div className="menu-profile flex-row">
-              <Link to={() => PROFILE_VIEW_PATH(this.props.userUid)}>
-                <img src={this.props.profilePic} className="menu-propic-solo" />
-              </Link>
+                <img src={this.props.profilePic} className="menu-propic-solo" onClick={this.redirectToProfile} />
               <div className="menu-profile-dropdown">
-                <Link to={() => PROFILE_VIEW_PATH(this.props.userUid)}>
+                <Link to={() => PROFILE_VIEW_PATH(this.props.userUid)} onChange={() => window.location.reload()}>
                   My Profile
                 </Link>
                 <div onClick={this.props.logoutUser} className="sign-out">
