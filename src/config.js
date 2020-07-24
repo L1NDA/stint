@@ -1,4 +1,6 @@
-const INDEX_URL = process.env.NODE_ENV === "development" ? "http://localhost:5001/stint-landing/us-central1/" : "https://www.wearestint.com/"
+const INDEX_URL = process.env.NODE_ENV === "development" 
+  ? "http://localhost:5001/stint-landing/us-central1/"
+  : "https://us-central1-stint-landing.cloudfunctions.net/";
 
 const firebaseConfig = {
   "apiKey": "AIzaSyBwhjyNKWB2stpJFgG9pYHXUuV26s6U1KU",
