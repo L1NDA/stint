@@ -81,7 +81,7 @@ class Homepage extends React.Component {
   handleButtonClick = async (event) => {
     event.preventDefault();
 
-    console.log(createCheckoutSession({"name": "stint stuff"}, 1000, "https://wearestint.com/hire", "https://wearestint.com/our-mission"))
+    console.log(await createCheckoutSession({"name": "stint stuff"}, 1000, "https://wearestint.com/hire", "https://wearestint.com/our-mission"))
 
     let temp = this.state.modal;
     this.setState({
