@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import createCheckoutSession from "../../api/stripe"
+import { createCheckoutSession } from "../../api/stripe"
+import { loadStripe } from '@stripe/stripe-js' 
+import { STRIPE_PK } from "../../config"
 
+const stripePromise = loadStripe(STRIPE_PK);
 
 class CheckoutForm extends React.Component {
     constructor() {
