@@ -55,8 +55,9 @@ exports.getPaymentIntent = functions.https.onRequest((req, res) => {
     })
 })
 
-exports.getStripeCheckoutSession = functions.https.onRequest((req, res) => {
+exports.createCheckoutSession = functions.https.onRequest((req, res) => {
     cors(req, res, async () => {
+        console.log("HELLOHELLO HELLOO")
         console.log("req.body", req.body)
         const { product_data, unit_amount, success_url, cancel_url } = req.body
         const session = await stripe.checkout.sessions.create({

@@ -1,67 +1,37 @@
-import React from 'react'
-import {CardElement, ElementsConsumer} from '@stripe/react-stripe-js';
+import React, { Component } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import createCheckoutSession from "../../api/stripe"
+
+const stripePromise = loadStripe('pk_test_51GwtRRKhM1dSlL34AnTKoowDLOA8CVwr1MmV0r1YcMxbWoesYlYnEDR3oPh0luqTEXJ1VzJ8kbOeN8b9mI5OhYHy00tzGPnvEE');
 
 class CheckoutForm extends React.Component {
-  handleSubmit = async (event) => {
-    // Block native form submission.
-    event.preventDefault();
-
-    const {stripe, elements} = this.props;
-
-    if (!stripe || !elements) {
-      // Stripe.js has not loaded yet. Make sure to disable
-      // form submission until Stripe.js has loaded.
-      return;
+    constructor() {
+        super();
+        this.state = {};
     }
 
-    // Get a reference to a mounted CardElement. Elements knows how
-    // to find your CardElement because there can only ever be one of
-    // each type of element.
-    const result = await stripe.confirmCardPayment('{CLIENT_SECRET}', {
-      payment_method: {
-        card: elements.getElement(CardElement),
-        billing_details: {
-          name: 'Jenny Rosen',
-        },
-      }
-    });
+    handleClick = async (event) => {
 
-    if (result.error) {
-      // Show error to your customer (e.g., insufficient funds)
-      console.log(result.error.message);
-    } else {
-      // The payment has been processed!
-      if (result.paymentIntent.status === 'succeeded') {
-        // Show a success message to your customer
-        // There's a risk of the customer closing the window before callback
-        // execution. Set up a webhook or plugin to listen for the
-        // payment_intent.succeeded event that handles any business critical
-        // post-payment actions.
-      }
-    }
-  };
+      // Call your backend to create the Checkout Session—see previous step
+      // const { sessionId } = await createCheckoutSession({}, 3, "asf", "asdg");
+      const { sessionId } = await createCheckoutSession({}, 3, "asf", "asdg");
+      // When the customer clicks on the button, redirect them to Checkout.
+      // const stripe = await stripePromise;
+      // const { error } = await stripe.redirectToCheckout({
+      //   sessionId,
+      // });
+      // If `redirectToCheckout` fails due to a browser or network
+      // error, display the localized error message to your customer
+      // using `error.message`.
+    };
 
-  render() {
-    const {stripe} = this.props;
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <CardElement />
-        <button type="submit" disabled={!stripe}>
-          Pay
-        </button>
-      </form>
-    );
-  }
+    render() {
+        return (
+          <button role="link" onClick={this.handleClick}>
+            Checkout
+          </button>
+        );
+      }
 }
 
-const InjectedCheckoutForm = () => {
-  return (
-    <ElementsConsumer>
-      {({elements, stripe}) => (
-        <CheckoutForm elements={elements} stripe={stripe} />
-      )}
-    </ElementsConsumer>
-  );
-};
-
-export default InjectedCheckoutForm;
+export default CheckoutForm;

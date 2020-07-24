@@ -1,8 +1,9 @@
 const axios = require("axios");
 const { INDEX_URL } = require("../config");
 
-const getStripeCheckoutSession = (product_data, unit_amount, success_url, cancel_url) => {
-  let targetUrl = INDEX_URL + "getStripeCheckoutSession";
+const createCheckoutSession = (product_data, unit_amount, success_url, cancel_url) => {
+  console.log("CREATES")
+  let targetUrl = INDEX_URL + "createCheckoutSession";
   return axios
     .post(targetUrl, {
       product_data,
@@ -19,5 +20,5 @@ const getStripeCheckoutSession = (product_data, unit_amount, success_url, cancel
 };
 
 module.exports = {
-  getStripeCheckoutSession,
+  createCheckoutSession,
 };

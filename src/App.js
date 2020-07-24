@@ -13,6 +13,7 @@ import ProfileCreation from "./components/ProfileCreation";
 import ProfileView from "./components/ProfileView";
 import ThankYou from "./components/ThankYou.js";
 import Search from "./components/Search"
+import CheckoutForm from "./components/Payment/CheckoutForm"
 import InjectedCheckoutForm from "./components/Payment/CheckoutForm"
 
 import Routes from "./constants/ROUTING_CONSTANTS";
@@ -35,6 +36,7 @@ function App({ isLoggedIn }) {
         <Route exact path={Routes.COMPANY_PATH} component={Company} />
         <Route exact path={Routes.ABOUT_PATH} component={About} />
         <Route exact path={Routes.SEARCH_PATH} component={Search} />
+        <Route exact path={Routes.CHECKOUT_PATH} component={CheckoutForm} />
         <Route
           exact
           path={Routes.PRIVACY_POLICY_PATH}
