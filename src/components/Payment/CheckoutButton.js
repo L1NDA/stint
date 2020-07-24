@@ -5,7 +5,7 @@ import { STRIPE_PK } from "../../config"
 
 const stripePromise = loadStripe(STRIPE_PK);
 
-class CheckoutForm extends React.Component {
+class CheckoutButton extends React.Component {
     constructor() {
         super();
         this.state = {};
@@ -15,7 +15,7 @@ class CheckoutForm extends React.Component {
 
       // Call your backend to create the Checkout Session—see previous step
       // const { sessionId } = await createCheckoutSession({}, 3, "asf", "asdg");
-      const sessionData  = await createCheckoutSession({"name": "stint stuff"}, 1000, "https://wearestint.com/hire", "https://wearestint.com/our-mission")
+      const sessionData  = await createCheckoutSession({"name": "stint stuff"}, 100, "https://wearestint.com/hire", "https://wearestint.com/our-mission")
       // When the customer clicks on the button, redirect them to Checkout.
       
       const stripe = await stripePromise;
@@ -39,4 +39,4 @@ class CheckoutForm extends React.Component {
       }
 }
 
-export default CheckoutForm;
+export default CheckoutButton;
