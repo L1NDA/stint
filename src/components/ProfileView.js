@@ -849,7 +849,7 @@ class ProfileView extends React.Component {
                   </div>
                 ) : null}
 
-                {this.state.githubData ? (
+                {this.state.freelancerInfo.profile.softwareDev && this.state.githubData ? (
                   <div className="profile-works">
                     <div className="section-header">My work(s)</div>
                     <div className="works-container">
