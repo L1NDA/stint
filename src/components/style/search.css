@@ -2,7 +2,7 @@ em {
     background: cyan;
     font-style: normal;
   }
-  
+
 .header {
     display: flex;
     align-items: center;
@@ -26,7 +26,7 @@ em {
     font-size: 1.2rem;
 }
 
-.container {
+.container-algo {
     max-width: 1200px;
     margin: 0 auto;
     padding: 1rem;
@@ -52,3 +52,9 @@ em {
     margin: 2rem auto;
     text-align: center;
 }
+
+body { font-family: sans-serif;}
+.ais-SearchBox { margin: 1em 0; }
+.ais-Pagination { margin-top: 1em }
+.left-panel { float: left; width: 250px; }
+.right-panel { margin-left: 260px; }

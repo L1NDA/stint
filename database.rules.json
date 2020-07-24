@@ -1,6 +1,10 @@
 {
   "rules": {
     "freelancers": {
+<<<<<<< HEAD
+      ".read": "true",
+=======
+>>>>>>> 723f13a584ff4307f50dd3431ce0e83d9a9b56fd
       "$uid": {
         ".read": "true",
         ".write": "auth != null && auth.uid == $uid"
@@ -10,4 +14,8 @@
       ".write": true
     }
   }
+<<<<<<< HEAD
 } 
+=======
+} 
+>>>>>>> 723f13a584ff4307f50dd3431ce0e83d9a9b56fd
