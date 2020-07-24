@@ -403,7 +403,7 @@ class ProfileView extends React.Component {
                             Github
                           </div>
 
-                          {this.state.githubData.data.repoNames.length !== 0 ? (
+                          {this.state.githubData.data && this.state.githubData.data.repoNames.length !== 0 ? (
                             <div className="works-section">
                               <div className="works-section-header">
                                 - My recent repositories
