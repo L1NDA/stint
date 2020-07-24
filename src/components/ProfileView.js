@@ -3,7 +3,7 @@ import Menu from "./Menu.js";
 import Footer from "./Footer.js";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
-import { firebaseConnec, isLoaded, isEmpty } from "react-redux-firebase";
+import { firebaseConnect, isLoaded, isEmpty } from "react-redux-firebase";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
 import "./style/my-profile.css";
@@ -17,7 +17,8 @@ import medium, { getMediumInfo } from "../api/medium";
 import { getGithubInfo } from "../api/github";
 import ReactLoading from "react-loading";
 
-import { PROFILE_CREATION_PATH } from "../constants/ROUTING_CONSTANTS";
+import { PROFILE_CREATION_PATH,
+         PROFILE_EDIT_PATH } from "../constants/ROUTING_CONSTANTS";
 import {
   GITHUB_FUNCTIONS_ERROR,
   INSTAGRAM_FUNCTIONS_ERROR,
@@ -196,6 +197,10 @@ class ProfileView extends React.Component {
     return items;
   };
 
+  redirectToEditProfile = () => {
+    this.props.history.push(PROFILE_EDIT_PATH)
+  }
+
 /* For Linda's edit profile button:
   Use the following conditional to check whether to display the edit profile button or display a null:
 
@@ -211,6 +216,10 @@ class ProfileView extends React.Component {
   render() {
     return (
       <div className="container-stint">
+      {this.props.auth && this.props.auth.uid === this.props.match.params.uid ?
+        <button onClick={this.redirectToEditProfile}>edit profile</button> :
+        null
+      }
         <Menu />
         {this.state.freelancerInfo ? (
           <>
