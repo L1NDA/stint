@@ -13,7 +13,7 @@ const { firebaseConfig } = require("./config");
 const axios = require('axios')
 const moment = require('moment');
 const firebase = require('firebase')
-const stripe = require('stripe')('sk_test_51GwtRRKhM1dSlL34WSs6E7UnZUebCSpWChwf3AepFaSnEId5d6AFh3IA4kWuUbWCKdBRWlV0ucp8GP9nGjRcp2Yx00aMeGGwey');
+const stripe = require('stripe')(functions.config().stripe.key);
 
 const AUTH_HEADER = { 'headers':
                         { 'Authorization': functions.config().github.id + ":" + functions.config().github.key}
@@ -66,16 +66,26 @@ let transporter = nodemailer.createTransport({
 //   });
 // console.log("AFTER")
 
-exports.getPaymentIntent = functions.https.onRequest((req, res) => {
+exports.getStripeCheckoutSession = functions.https.onRequest((req, res) => {
     cors(req, res, async () => {
-        const paymentIntent = await stripe.paymentIntents.create({
-          amount: 1000,
-          currency: 'usd',
+        console.log("req.body", req.body)
+        const { product_data, unit_amount, success_url, cancel_url } = req.body
+        const session = await stripe.checkout.sessions.create({
           payment_method_types: ['card'],
-          receipt_email: 'cma4@bu.edu',
+          line_items: [{
+            price_data: {
+              currency: 'usd',
+              product_data: product_data,
+              unit_amount: unit_amount,
+            },
+            quantity: 1,
+          }],
+          mode: 'payment',
+          success_url: success_url, // 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}'
+          cancel_url: cancel_url, // 'https://example.com/cancel'
         });
 
-        return res.status(200).send(paymentIntent)
+        return res.status(200).send(session.id)
     })
 })
 

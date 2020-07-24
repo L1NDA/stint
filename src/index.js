@@ -11,11 +11,12 @@ import {
   ReactReduxFirebaseProvider,
   firebaseReducer,
 } from "react-redux-firebase";
+import { STRIPE_PK } from "./config"
 
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 
-const stripePromise = loadStripe("pk_test_51GwtRRKhM1dSlL34AnTKoowDLOA8CVwr1MmV0r1YcMxbWoesYlYnEDR3oPh0luqTEXJ1VzJ8kbOeN8b9mI5OhYHy00tzGPnvEE");
+const stripePromise = loadStripe(STRIPE_PK);
 
 ReactDOM.render(
   <React.StrictMode>

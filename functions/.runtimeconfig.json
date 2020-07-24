@@ -1,8 +1,11 @@
 {
+  "stripe": {
+    "key": "sk_test_51GwtRRKhM1dSlL34WSs6E7UnZUebCSpWChwf3AepFaSnEId5d6AFh3IA4kWuUbWCKdBRWlV0ucp8GP9nGjRcp2Yx00aMeGGwey"
+  },
   "algolia": {
-    "key": "1c86cf71c54d9c52e3f3eebe40f97d0b",
     "app": "WIKHMH6NJW",
-    "index": "staging_users"
+    "index": "staging_users",
+    "key": "1c86cf71c54d9c52e3f3eebe40f97d0b"
   },
   "github": {
     "key": "4a4d3e18f42840aac15c7077167c6460273261c1",

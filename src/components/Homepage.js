@@ -40,7 +40,7 @@ import { PROFILE_CREATION_PATH } from "../constants/ROUTING_CONSTANTS";
 import { CREATED_AT } from "../constants/DB_CONSTANTS"
 import { getFreelancerRef } from "../api/freelancer"
 
-import { getPaymentIntent } from "../api/stripe"
+import { getStripeCheckoutSession } from "../api/stripe"
 
 import moment from "moment"
 const axios = require("axios");
@@ -81,7 +81,7 @@ class Homepage extends React.Component {
   handleButtonClick = async (event) => {
     event.preventDefault();
 
-    console.log(getPaymentIntent())
+    console.log(getStripeCheckoutSession({"name": "stint stuff"}, 1000, "https://wearestint.com/hire", "https://wearestint.com/our-mission"))
 
     let temp = this.state.modal;
     this.setState({
