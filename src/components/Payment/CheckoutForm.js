@@ -12,12 +12,16 @@ class CheckoutForm extends React.Component {
 
       // Call your backend to create the Checkout Session—see previous step
       // const { sessionId } = await createCheckoutSession({}, 3, "asf", "asdg");
-      const { sessionId } = await createCheckoutSession({"name": "stint stuff"}, 1000, "https://wearestint.com/hire", "https://wearestint.com/our-mission");
+      const sessionData  = await createCheckoutSession({"name": "stint stuff"}, 1000, "https://wearestint.com/hire", "https://wearestint.com/our-mission")
       // When the customer clicks on the button, redirect them to Checkout.
-      // const stripe = await stripePromise;
-      // const { error } = await stripe.redirectToCheckout({
-      //   sessionId,
-      // });
+      
+      const stripe = await stripePromise;
+      
+      let sessionId = sessionData.data
+      const { error } = await stripe.redirectToCheckout({
+        sessionId,
+      });
+      console.log(error.message)
       // If `redirectToCheckout` fails due to a browser or network
       // error, display the localized error message to your customer
       // using `error.message`.

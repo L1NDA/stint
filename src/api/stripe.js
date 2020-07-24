@@ -18,6 +18,7 @@ const createCheckoutSession = (product_data, unit_amount, success_url, cancel_ur
       cancel_url,
     })
     .then((res) => {
+      console.log("RES", res)
       return res;
     })
     .catch((error) => {
