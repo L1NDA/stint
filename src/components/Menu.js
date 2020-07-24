@@ -19,6 +19,11 @@ class Menu extends React.Component {
     this.state = {};
   }
 
+  redirectToProfile = async () => {
+    let userUid = await this.props.userUid
+    this.props.history.push(PROFILE_VIEW_PATH(userUid))
+  }
+
   render() {
     return (
       <div
