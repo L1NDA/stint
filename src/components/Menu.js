@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "./imgs/logo.png";
-import { NavLink, Link, withRouter } from "react-router-dom";
+import { Redirect, NavLink, Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { firebaseConnect } from "react-redux-firebase";
@@ -16,12 +16,13 @@ import {
 class Menu extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      redirect: false
+    };
   }
 
   redirectToProfile = async () => {
-    let userUid = await this.props.userUid
-    this.props.history.push(PROFILE_VIEW_PATH(userUid))
+    window.location.pathname = PROFILE_VIEW_PATH(this.props.userUid)
   }
 
   render() {
@@ -57,9 +58,9 @@ class Menu extends React.Component {
             <div className="menu-profile flex-row">
                 <img src={this.props.profilePic} className="menu-propic-solo" onClick={this.redirectToProfile} />
               <div className="menu-profile-dropdown">
-                <Link to={() => PROFILE_VIEW_PATH(this.props.userUid)} onChange={() => window.location.reload()}>
+                <div onClick={this.redirectToProfile}>
                   My Profile
-                </Link>
+                </div>
                 <div onClick={this.props.logoutUser} className="sign-out">
                   Sign Out
                 </div>
@@ -67,12 +68,12 @@ class Menu extends React.Component {
             </div>
           ) : this.props.userUid ? (
             <div className="menu-profile flex-row">
-              <Link to={() => PROFILE_VIEW_PATH(this.props.userUid)}>
+              <div onClick={this.redirectToProfile}>
                 <div
                   className="menu-propic-solo"
                   style={{ backgroundColor: "#f5f5f5" }}
                 ></div>
-              </Link>
+              </div>
             </div>
           ) : null}
         </div>
@@ -82,18 +83,16 @@ class Menu extends React.Component {
               className="flex-column center"
               style={{ marginBottom: "75px" }}
             >
-              <Link to={() => PROFILE_VIEW_PATH(this.props.userUid)}>
+              <div onClick={this.redirectToProfile}>
                 <img src={this.props.profilePic} className="menu-propic" />
-              </Link>
+              </div>
               <div className="menu-name">
                 {this.props.firstName.split(" ")[0]}
               </div>
-              <Link
-                to={() => PROFILE_VIEW_PATH(this.props.userUid)}
-                className="menu-burger-profile"
-              >
+              <div onClick={this.redirectToProfile}
+                className="menu-burger-profile">
                 My Profile
-              </Link>
+              </div>
             </div>
           ) : null}
 

@@ -12,9 +12,9 @@ import { AiFillSchedule } from "react-icons/ai";
 import { TiTimes } from "react-icons/ti";
 import { getGithubInfo } from "../api/github";
 import Collapsible from "react-collapsible";
-import { getInstaInfo } from "../api/instagram";
-import { getMediumInfo } from "../api/medium";
-import { getYoutubeInfo } from "../api/youtube";
+// import { getInstaInfo } from "../api/instagram";
+// import { getMediumInfo } from "../api/medium";
+// import { getYoutubeInfo } from "../api/youtube";
 import { Link } from "react-router-dom";
 import {
   CarouselProvider,
@@ -36,7 +36,7 @@ import {
   LOGIN_EVENT,
 } from "../constants/ANALYTICS_CONSTANTS";
 import { PROFILE_CREATION_PATH } from "../constants/ROUTING_CONSTANTS";
-import { CREATED_AT } from "../api/DB_CONSTANTS"
+import { CREATED_AT } from "../constants/DB_CONSTANTS"
 import { getFreelancerRef } from "../api/freelancer"
 
 import moment from "moment"
@@ -171,13 +171,15 @@ class Homepage extends React.Component {
               Connect with companies through virtual{" "}
               <span className="nobreak">short-term projects.</span>
             </h3>
-            <button
-              style={{ marginTop: "50px" }}
-              className="button"
-              onClick={this.handleButtonClick}
-            >
-              Let's go 😎
+            {this.props.isLoggedIn ? null :
+              <button
+                style={{ marginTop: "50px" }}
+                className="button"
+                onClick={this.handleButtonClick}
+              > Let's go 😎
             </button>
+            }
+
           </div>
           <img src={homepageImage} className="homepage-image" />
         </div>

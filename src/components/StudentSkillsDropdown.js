@@ -43,8 +43,6 @@ class StudentSkillsDropdown extends React.Component {
     };
   }
 
-  componentDidMount() {}
-
   componentDidUpdate() {
     if (this.state.details && !this.state.width) {
       this.setWidth();
@@ -429,7 +427,7 @@ class StudentSkillsDropdown extends React.Component {
               </div>
             </div>
 
-            <h3>
+            <h3 style={{marginBottom: "0"}}>
               I{" "}
               <Select
                 items={["have", "have not"]}
@@ -450,7 +448,7 @@ class StudentSkillsDropdown extends React.Component {
                   name={`${this.props.section}HaveAwardCategory`}
                   saveData={this.saveState}
                   selected={this.props[this.props.section] && this.props[this.props.section].awardCategories ? this.props[this.props.section].awardCategories[0] : this.state[`${this.props.section}HaveAwardCategory`]}
-                  have={true}
+                  required={true}
                 />
               ) : null}
               {this.state[`${this.props.section}HaveAward`] === "have" ? (
@@ -512,7 +510,7 @@ class StudentSkillsDropdown extends React.Component {
                       name={`${this.props.section}HaveAwardCategory1`}
                       saveData={this.saveState}
                       selected={this.props[this.props.section] && this.props[this.props.section].awardCategories && this.props[this.props.section].awardCategories.length > 1 ? this.props[this.props.section].awardCategories[1] : this.state[`${this.props.section}HaveAwardCategory1`]}
-                      have={true}
+                      required={true}
                     />
                   ) : null}
                   {this.state[`${this.props.section}HaveAward1`] === "have" ? (
@@ -576,7 +574,7 @@ class StudentSkillsDropdown extends React.Component {
                       name={`${this.props.section}HaveAwardCategory2`}
                       saveData={this.saveState}
                       selected={this.props[this.props.section] && this.props[this.props.section].awardCategories && this.props[this.props.section].awardCategories.length > 2 ? this.props[this.props.section].awardCategories[2] : this.state[`${this.props.section}HaveAwardCategory2`]}
-                      have={true}
+                      required={true}
                     />
                   ) : null}
                   {this.state[`${this.props.section}HaveAward2`] === "have" ? (
@@ -629,7 +627,7 @@ class StudentSkillsDropdown extends React.Component {
               type="submit"
               disabled={
                 this.state[`${this.props.section}0`] ||
-                (this.state[`${this.props.section}HaveAwardCategory`] &&
+                ( this.state[`${this.props.section}HaveAwardCategory`] &&
                   this.state[`${this.props.section}HaveAwardContent`] &&
                   this.state[`${this.props.section}HaveAwardProvider`]) ||
                 Object.keys(this.state.skills).length !== 0

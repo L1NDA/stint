@@ -25,15 +25,38 @@ JSON Structure:
 				orgRoles: list[string]
 				organizations: list[string]
 			}
-			dataAnalytics: {}
-			design: {}
-			contentCreation: {}
+			dataAnalytics: {
+        githubUser: string
+        personalWebsiteUrl: string
+        skills: dict[string] => int
+        awardCategories: list[string]
+        awardContent: list[string]
+        awardProviders: list[string]
+      }
+			design: {
+        personalWebsiteUrl: string
+        skills: dict[string] => int
+        awardCategories: list[string]
+        awardContent: list[string]
+        awardProviders: list[string]
+      }
+			contentCreation: {
+        instagramUser: string
+        mediumUser: string
+        youtubeUser: string
+        personalWebsiteUrl: string
+        skills: dict[string] => int
+        awardCategories: list[string]
+        awardContent: list[string]
+        awardProviders: list[string]
+      }
 			softwareDev: {
-				githubUrl: string
-				personalWebsite: string
-				softwareSkills: dict[string]
-				softwareAwardCategories: list[string]
-				softwareAwards: list[string]
+				githubUser: string
+				personalWebsiteUrl: string
+        skills: dict[string] => int
+				awardCategories: list[string]
+        awardContent: list[string]
+        awardProviders: list[string]
 			}
 		}
 	}

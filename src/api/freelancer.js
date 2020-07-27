@@ -44,7 +44,7 @@ const {
   FREELANCER_PHONE_NUM,
 
   FINISHED_AT,
-} = require("./DB_CONSTANTS");
+} = require("../constants/DB_CONSTANTS");
 const firebase = require("firebase");
 const moment = require("moment")
 // TODO: get rid of uid and instead make it return data for current signed in freelancer
@@ -182,7 +182,7 @@ export const setFreelancerProfile = async (
     };
   }
   if (doesDesign) {
-    freelancerInfo[FREELANCER_DESIGN] = {
+    freelancerInfo[FREELANCER_PROFILE][FREELANCER_DESIGN] = {
       [FREELANCER_PERSONAL_WEBSITE]: designWebsite,
       [FREELANCER_SKILLS]: designSkills,
       [FREELANCER_AWARD_CATEGORIES]: designAwardCategories,

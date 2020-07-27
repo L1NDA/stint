@@ -464,6 +464,7 @@ class ProfileEdit extends React.Component {
 
 function mapStateToProps(state, props) {
   const { firebase } = props;
+  console.log("analytics", firebase.analytics())
   return {
     analytics: firebase.analytics(),
     storage: firebase.storage(),
