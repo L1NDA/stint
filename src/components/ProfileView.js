@@ -436,9 +436,7 @@ class ProfileView extends React.Component {
                                       target="_blank"
                                     >
                                       <b>{repoArray[0]}</b>
-                                      {repoArray[1] ? (
-                                        <>{repoArray[1]}</>
-                                      ) : null}
+                                      {repoArray[1]}
                                     </a>
                                   );
                                 }
@@ -491,12 +489,11 @@ class ProfileView extends React.Component {
                                 (orgArray, index) => {
                                   return (
                                     <a
-                                      className="works-section-item works-section-item-link"
+                                      className="works-section-item works-section-item-link flex-column"
                                       href={orgArray[2]}
                                       target="_blank"
                                     >
                                       <b>{orgArray[0]}</b>
-                                      <br />
                                       {orgArray[1]}
                                     </a>
                                   );
@@ -880,11 +877,7 @@ class ProfileView extends React.Component {
                                       target="_blank"
                                     >
                                       <b>{repoArray[0]}</b>
-                                      {repoArray[1] ? (
-                                        <>
-                                          <br /> {repoArray[1]}
-                                        </>
-                                      ) : null}
+                                      {repoArray[1]}
                                     </a>
                                   );
                                 }
@@ -937,12 +930,11 @@ class ProfileView extends React.Component {
                                 (orgArray, index) => {
                                   return (
                                     <a
-                                      className="works-section-item works-section-item-link"
+                                      className="works-section-item works-section-item-link flex-column"
                                       href={orgArray[2]}
                                       target="_blank"
                                     >
                                       <b>{orgArray[0]}</b>
-                                      <br />
                                       {orgArray[1]}
                                     </a>
                                   );
