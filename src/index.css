@@ -21,7 +21,8 @@ body,
   font-family: "Source Sans Pro", sans-serif;
 }
 
-.flex-row, .flex-row-comp {
+.flex-row,
+.flex-row-comp {
   display: flex;
   flex-direction: row;
 }
@@ -659,7 +660,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* Large Phones */
 @media only screen and (max-height: 950px) and (max-width: 800px) {
-
   .flex-row-comp {
     flex-direction: column;
   }

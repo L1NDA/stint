@@ -13,7 +13,7 @@ import ProfileCreation from "./components/ProfileCreation";
 import ProfileEdit from "./components/ProfileEdit";
 import ProfileView from "./components/ProfileView";
 import ThankYou from "./components/ThankYou.js";
-import Search from "./components/Search"
+import Search from "./components/Search";
 
 import Routes from "./constants/ROUTING_CONSTANTS";
 

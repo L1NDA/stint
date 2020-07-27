@@ -36,10 +36,10 @@ import {
   LOGIN_EVENT,
 } from "../constants/ANALYTICS_CONSTANTS";
 import { PROFILE_CREATION_PATH } from "../constants/ROUTING_CONSTANTS";
-import { CREATED_AT } from "../constants/DB_CONSTANTS"
-import { getFreelancerRef } from "../api/freelancer"
+import { CREATED_AT } from "../constants/DB_CONSTANTS";
+import { getFreelancerRef } from "../api/freelancer";
 
-import moment from "moment"
+import moment from "moment";
 const axios = require("axios");
 const { setCompanyBetaInfo } = require("../api/company");
 
@@ -171,15 +171,16 @@ class Homepage extends React.Component {
               Connect with companies through virtual{" "}
               <span className="nobreak">short-term projects.</span>
             </h3>
-            {this.props.isLoggedIn ? null :
+            {this.props.isLoggedIn ? null : (
               <button
                 style={{ marginTop: "50px" }}
                 className="button"
                 onClick={this.handleButtonClick}
-              > Let's go 😎
-            </button>
-            }
-
+              >
+                {" "}
+                Let's go 😎
+              </button>
+            )}
           </div>
           <img src={homepageImage} className="homepage-image" />
         </div>
@@ -586,15 +587,15 @@ function mapStateToProps(state, props) {
         await firebase
           .login({ provider: provider, type: "popup" })
           .then(async (auth) => {
-            let uid = auth.user.uid
-            let freelancerRef = await getFreelancerRef(uid)
-            await freelancerRef.child(CREATED_AT).once("value", snapshot => {
+            let uid = auth.user.uid;
+            let freelancerRef = await getFreelancerRef(uid);
+            await freelancerRef.child(CREATED_AT).once("value", (snapshot) => {
               if (!snapshot.exists()) {
-                let now = moment().toISOString()
-                freelancerRef.child(CREATED_AT).set(now)
+                let now = moment().toISOString();
+                freelancerRef.child(CREATED_AT).set(now);
               }
-            })
-            history.push(PROFILE_CREATION_PATH)
+            });
+            history.push(PROFILE_CREATION_PATH);
           });
       } catch (err) {
         onError(err);

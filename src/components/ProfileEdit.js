@@ -25,7 +25,7 @@ const FREELANCER_CATEGORIES = [
   "dataAnalytics",
   "contentCreation",
   "design",
-  "softwareDev"
+  "softwareDev",
 ];
 
 class ProfileEdit extends React.Component {
@@ -57,9 +57,9 @@ class ProfileEdit extends React.Component {
     freelancerRef.on("value", (snapshot) => {
       this.setState({
         freelancerRef,
-        freelancerInfo: snapshot.val()
-      })
-    })
+        freelancerInfo: snapshot.val(),
+      });
+    });
   };
 
   updateProfilePic = (profilePicFiles) => {
@@ -72,19 +72,29 @@ class ProfileEdit extends React.Component {
     const acceptedFileTypes = [".png", ".jpg", ".jpeg", ".svg"];
     // check file type is accepted and that it is below 10MB (in bytes)
     if (
-      acceptedFileTypes.some((type) => profilePicFiles[0].name.endsWith(type)) &&
+      acceptedFileTypes.some((type) =>
+        profilePicFiles[0].name.endsWith(type)
+      ) &&
       profilePicFiles[0].size <= 10000000
     ) {
       let fileRef = this.props.storage.ref(
-        "images" + "/" + this.props.userUid + "/" + "profilepic-" + profilePicFiles[0].name
+        "images" +
+          "/" +
+          this.props.userUid +
+          "/" +
+          "profilepic-" +
+          profilePicFiles[0].name
       );
-      let uploadTask = fileRef.put(profilePicFiles[0])
+      let uploadTask = fileRef.put(profilePicFiles[0]);
 
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          fileErrorHandler.innerHTML = `Upload is ${Math.round(progress)} % done`;
+          var progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          fileErrorHandler.innerHTML = `Upload is ${Math.round(
+            progress
+          )} % done`;
         },
         function (error) {
           // A full list of error codes is available at
@@ -104,12 +114,12 @@ class ProfileEdit extends React.Component {
         () => {
           // Upload completed successfully, now we can get the download URL
           uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-            this.state.freelancerRef.child("avatarUrl").set(downloadURL)
-            document.getElementById("profile-img").src = downloadURL
+            this.state.freelancerRef.child("avatarUrl").set(downloadURL);
+            document.getElementById("profile-img").src = downloadURL;
             fileErrorHandler.innerHTML = `Successfully uploaded ${profilePicFiles[0].name}`;
           });
         }
-      )
+      );
     }
   };
 
@@ -143,22 +153,29 @@ class ProfileEdit extends React.Component {
       },
       function () {
         if (
-          (this.state.year && this.state.year !== "(select year*)") &&
+          this.state.year &&
+          this.state.year !== "(select year*)" &&
           this.state.colleges &&
           this.state.major[0] &&
           this.state.city &&
           this.state.state &&
           this.state.role[0] &&
           this.state.company[0] &&
-          (this.state.yearcompany[0] && this.state.yearcompany[0] !== "(insert year*)") &&
+          this.state.yearcompany[0] &&
+          this.state.yearcompany[0] !== "(insert year*)" &&
           this.state.ec[0] &&
           this.state.ecrole[0] &&
-          (this.state.yearec[0] && this.state.yearec[0] !== "(insert year*)")
+          this.state.yearec[0] &&
+          this.state.yearec[0] !== "(insert year*)"
         ) {
-          this.setState({ continue: true }, () => {console.log("continue true", this.state)});
+          this.setState({ continue: true }, () => {
+            console.log("continue true", this.state);
+          });
         } else {
           if (this.state.continue) {
-            this.setState({ continue: false }, () => {console.log("continue true", this.state)})
+            this.setState({ continue: false }, () => {
+              console.log("continue true", this.state);
+            });
           }
         }
         // else if (this.state.continue === true) {
@@ -178,7 +195,7 @@ class ProfileEdit extends React.Component {
     e.preventDefault();
     e.stopPropagation();
 
-    let temp = this.state
+    let temp = this.state;
 
     if (temp.phoneYN === "No") {
       temp.phonenum = null;
@@ -247,7 +264,6 @@ class ProfileEdit extends React.Component {
     this.props.history.push(THANK_YOU_PATH);
   };
 
-
   render() {
     const temp = this.state;
     let doesData = Object.keys(temp.da).length !== 0;
@@ -256,9 +272,10 @@ class ProfileEdit extends React.Component {
     let doesSoftware = Object.keys(temp.sd).length !== 0;
 
     let finishedApp =
-      (this.state.continue && (doesData || doesDesign || doesContent || doesSoftware)) &&
+      this.state.continue &&
+      (doesData || doesDesign || doesContent || doesSoftware) &&
       ((temp.phonenum && this.state.checkbox) ||
-      (temp.phoneYN === "No" && this.state.checkbox))
+        (temp.phoneYN === "No" && this.state.checkbox))
         ? false
         : true;
 
@@ -273,7 +290,7 @@ class ProfileEdit extends React.Component {
               onSubmit={this.submitProfile}
               autocomplete="off"
             >
-            <h1>Edit Profile</h1>
+              <h1>Edit Profile</h1>
               <>
                 <input
                   id="fileInput"
@@ -290,61 +307,81 @@ class ProfileEdit extends React.Component {
                 id="file-error"
                 style={{ marginTop: "10px" }}
               ></div>
-            <div className="student-dialogue">
-            <div className="flex-row-comp">
-              <div onClick={this.updateProfilePic} className="edit-profile-img">
-                <img
-                  id="profile-img"
-                  src={this.state.freelancerInfo.avatarUrl}
-                  className="my-profile-img"
-                />
-              <div className="edit-profile-txt">Change image</div>
+              <div className="student-dialogue">
+                <div className="flex-row-comp">
+                  <div
+                    onClick={this.updateProfilePic}
+                    className="edit-profile-img"
+                  >
+                    <img
+                      id="profile-img"
+                      src={this.state.freelancerInfo.avatarUrl}
+                      className="my-profile-img"
+                    />
+                    <div className="edit-profile-txt">Change image</div>
+                  </div>
+                  <div
+                    className="flex-column"
+                    style={{ justifyContent: "center" }}
+                  >
+                    <h1 style={{ margin: "0" }}>
+                      {this.state.freelancerInfo.displayName.split(" ")[0]}
+                    </h1>
+                    <h3 style={{ margin: "0" }}>
+                      I have a different preferred name:
+                      <Autocomplete
+                        name="preferredname"
+                        placeholder="(insert preferred name*)"
+                        saveData={this.handleChange}
+                      />
+                      .
+                    </h3>
+                  </div>
+                </div>
               </div>
-            <div className="flex-column" style={{justifyContent: "center"}}>
-              <h1 style={{ margin: "0" }}>
-                {this.state.freelancerInfo.displayName.split(" ")[0]}
-              </h1>
-              <h3 style={{margin: '0'}}>I have a different preferred name:
-                <Autocomplete
-                  name="preferredname"
-                  placeholder="(insert preferred name*)"
-                  saveData={this.handleChange}
-                />
-              .</h3>
-            </div>
-            </div>
-            </div>
 
-            <h2 style={{color: "#474448"}}>Basic Info</h2>
+              <h2 style={{ color: "#474448" }}>Basic Info</h2>
 
               <StudentInfo
                 saveToParent={this.updateChildInfo}
                 residenceInfo={this.state.freelancerInfo.profile.residenceInfo}
                 education={this.state.freelancerInfo.profile.education}
                 orgExperience={this.state.freelancerInfo.profile.orgExperience}
-                workExperience={this.state.freelancerInfo.profile.workExperience}/>
+                workExperience={
+                  this.state.freelancerInfo.profile.workExperience
+                }
+              />
 
-            <h2 style={{color: "#474448"}}>My Stint Categories</h2>
+              <h2 style={{ color: "#474448" }}>My Stint Categories</h2>
 
               <div className="student-dialogue">
                 <div className="student-dialogue-block">
-
                   {FREELANCER_CATEGORIES.map((category, index) => {
-                    return this.state.freelancerInfo.profile[category] ?
-                      <h3>I am currently
+                    return this.state.freelancerInfo.profile[category] ? (
+                      <h3>
+                        I am currently
                         <Select
                           items={["available", "not available"]}
                           name={`availablility-${category}`}
                           saveData={this.handleChange}
                           have={true}
-                        /> for {category === "dataAnalytics" ? 'data analytics' :
-                                category === "contentCreation" ? 'content creation' :
-                                category === "design" ? 'design and branding' :
-                                'software development'}.
-                      </h3> : null
-                    })}
-                  <div className="subtitle" style={{marginTop: '30px'}}>
-                    (If you set yourself as ‘not available’ for a category, you will not show up in relevant search results for that area.)</div>
+                        />{" "}
+                        for{" "}
+                        {category === "dataAnalytics"
+                          ? "data analytics"
+                          : category === "contentCreation"
+                          ? "content creation"
+                          : category === "design"
+                          ? "design and branding"
+                          : "software development"}
+                        .
+                      </h3>
+                    ) : null;
+                  })}
+                  <div className="subtitle" style={{ marginTop: "30px" }}>
+                    (If you set yourself as ‘not available’ for a category, you
+                    will not show up in relevant search results for that area.)
+                  </div>
                 </div>
               </div>
 
@@ -353,52 +390,55 @@ class ProfileEdit extends React.Component {
                 da={this.state.freelancerInfo.profile.dataAnalytics}
                 ccm={this.state.freelancerInfo.profile.contentCreation}
                 db={this.state.freelancerInfo.profile.design}
-                sd={this.state.freelancerInfo.profile.softwareDev}/>
+                sd={this.state.freelancerInfo.profile.softwareDev}
+              />
 
+              <h2 style={{ color: "#474448" }}>Communication</h2>
 
-          <h2 style={{color: "#474448"}}>Communication</h2>
-
-
-            <div className="student-dialogue">
-              <h3 style={{ margin: "0" }}>
-                <Select
-                  items={["Yes", "No"]}
-                  name="phoneYN"
-                  saveData={this.handleChange}
-                  have="true"
-                  selected={this.state.freelancerInfo.profile.phoneNum ? "Yes" : "No"}
-                />
-                {this.state.phoneYN === "Yes" ? (
-                  <span>, I have enabled </span>
-                ) : (
-                  <span>, I don't want</span>
-                )}{" "}
-                text updates
-                {this.state.phoneYN === "Yes" ? (
-                  <span>
-                    {" "}
-                    at{" "}
-                    <Autocomplete
-                      name="phonenum"
-                      placeholder="(insert phone number*)"
-                      saveData={this.handleChange}
-                      type="number"
-                      val={this.state.freelancerInfo.profile.phoneNum}
-                    />
-                    .
-                  </span>
-                ) : (
-                  <span>.</span>
-                )}
-              </h3>
-              <br/>
-              <div className="subtitle">
-              As recent college grads, we can totally relate to having
-              thousands of unread emails in the inbox. By enabling text notifications,
-              we hope to help you avoid those awkward missed-your-email moments.
-              We’ll only text you about site activity that is important and
-              relevant to you, like if an employer wants to connect.</div>
-            </div>
+              <div className="student-dialogue">
+                <h3 style={{ margin: "0" }}>
+                  <Select
+                    items={["Yes", "No"]}
+                    name="phoneYN"
+                    saveData={this.handleChange}
+                    have="true"
+                    selected={
+                      this.state.freelancerInfo.profile.phoneNum ? "Yes" : "No"
+                    }
+                  />
+                  {this.state.phoneYN === "Yes" ? (
+                    <span>, I have enabled </span>
+                  ) : (
+                    <span>, I don't want</span>
+                  )}{" "}
+                  text updates
+                  {this.state.phoneYN === "Yes" ? (
+                    <span>
+                      {" "}
+                      at{" "}
+                      <Autocomplete
+                        name="phonenum"
+                        placeholder="(insert phone number*)"
+                        saveData={this.handleChange}
+                        type="number"
+                        val={this.state.freelancerInfo.profile.phoneNum}
+                      />
+                      .
+                    </span>
+                  ) : (
+                    <span>.</span>
+                  )}
+                </h3>
+                <br />
+                <div className="subtitle">
+                  As recent college grads, we can totally relate to having
+                  thousands of unread emails in the inbox. By enabling text
+                  notifications, we hope to help you avoid those awkward
+                  missed-your-email moments. We’ll only text you about site
+                  activity that is important and relevant to you, like if an
+                  employer wants to connect.
+                </div>
+              </div>
 
               <div>
                 <div
@@ -464,7 +504,7 @@ class ProfileEdit extends React.Component {
 
 function mapStateToProps(state, props) {
   const { firebase } = props;
-  console.log("analytics", firebase.analytics())
+  console.log("analytics", firebase.analytics());
   return {
     analytics: firebase.analytics(),
     storage: firebase.storage(),

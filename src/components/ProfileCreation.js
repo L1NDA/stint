@@ -232,7 +232,7 @@ class ProfileCreation extends React.Component {
                 <h3>
                   We’re Stint, a platform for connecting students and companies.{" "}
                   <br />
- Now tell us a little bit about yourself!
+                   Now tell us a little bit about yourself!
                 </h3>
               </div>
 

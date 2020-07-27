@@ -16,7 +16,7 @@ import { PrivateRoute, PublicRoute } from "../PrivateRoute";
 import {
   PROFILE_CREATION_PATH,
   THANK_YOU_PATH,
-  PROFILE_EDIT_PATH
+  PROFILE_EDIT_PATH,
 } from "../../constants/ROUTING_CONSTANTS";
 
 const Auth = ({ location }) => {

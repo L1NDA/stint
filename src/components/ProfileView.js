@@ -17,9 +17,11 @@ import medium, { getMediumInfo } from "../api/medium";
 import { getGithubInfo } from "../api/github";
 import ReactLoading from "react-loading";
 
-import { PROFILE_CREATION_PATH,
-         PROFILE_EDIT_PATH,
-         FOUR_OH_FOUR_PATH } from "../constants/ROUTING_CONSTANTS";
+import {
+  PROFILE_CREATION_PATH,
+  PROFILE_EDIT_PATH,
+  FOUR_OH_FOUR_PATH,
+} from "../constants/ROUTING_CONSTANTS";
 import {
   GITHUB_FUNCTIONS_ERROR,
   INSTAGRAM_FUNCTIONS_ERROR,
@@ -71,8 +73,8 @@ class ProfileView extends React.Component {
         let info = snapshot.val();
 
         if (!info) {
-          this.props.history.push(FOUR_OH_FOUR_PATH)
-          return
+          this.props.history.push(FOUR_OH_FOUR_PATH);
+          return;
         }
 
         let profile = info.profile;
@@ -205,10 +207,10 @@ class ProfileView extends React.Component {
   };
 
   redirectToEditProfile = () => {
-    this.props.history.push(PROFILE_EDIT_PATH)
-  }
+    this.props.history.push(PROFILE_EDIT_PATH);
+  };
 
-/* For Linda's edit profile button:
+  /* For Linda's edit profile button:
   Use the following conditional to check whether to display the edit profile button or display a null:
 
   this.props.auth && this.props.auth.uid === this.props.match.params.uid ?
@@ -222,22 +224,42 @@ class ProfileView extends React.Component {
 
   render() {
     var personalwebsite = null;
-    if (this.state.freelancerInfo && this.state.freelancerInfo.profile.dataAnalytics && this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl) {
-      personalwebsite = this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl
-    } else if (this.state.freelancerInfo && this.state.freelancerInfo.profile.contentCreation && this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl) {
-      personalwebsite = this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl
-    } else if (this.state.freelancerInfo && this.state.freelancerInfo.profile.design && this.state.freelancerInfo.profile.design.personalWebsiteUrl) {
-      personalwebsite = this.state.freelancerInfo.profile.design.personalWebsiteUrl
-    } else if (this.state.freelancerInfo && this.state.freelancerInfo.profile.softwareDev && this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl) {
-      personalwebsite = this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl
+    if (
+      this.state.freelancerInfo &&
+      this.state.freelancerInfo.profile.dataAnalytics &&
+      this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl
+    ) {
+      personalwebsite = this.state.freelancerInfo.profile.dataAnalytics
+        .personalWebsiteUrl;
+    } else if (
+      this.state.freelancerInfo &&
+      this.state.freelancerInfo.profile.contentCreation &&
+      this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl
+    ) {
+      personalwebsite = this.state.freelancerInfo.profile.contentCreation
+        .personalWebsiteUrl;
+    } else if (
+      this.state.freelancerInfo &&
+      this.state.freelancerInfo.profile.design &&
+      this.state.freelancerInfo.profile.design.personalWebsiteUrl
+    ) {
+      personalwebsite = this.state.freelancerInfo.profile.design
+        .personalWebsiteUrl;
+    } else if (
+      this.state.freelancerInfo &&
+      this.state.freelancerInfo.profile.softwareDev &&
+      this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl
+    ) {
+      personalwebsite = this.state.freelancerInfo.profile.softwareDev
+        .personalWebsiteUrl;
     }
 
     return (
       <div className="container-stint">
-      {this.props.auth && this.props.auth.uid === this.props.match.params.uid ?
-        <button onClick={this.redirectToEditProfile}>edit profile</button> :
-        null
-      }
+        {this.props.auth &&
+        this.props.auth.uid === this.props.match.params.uid ? (
+          <button onClick={this.redirectToEditProfile}>edit profile</button>
+        ) : null}
         <Menu />
         {this.state.freelancerInfo ? (
           <>
@@ -340,50 +362,54 @@ class ProfileView extends React.Component {
               </div>
             </section>
 
-            { personalwebsite && personalwebsite.startsWith("https://") ?
+            {personalwebsite && personalwebsite.startsWith("https://") ? (
               <section className="profile-item">
-                <h2 style={{color: "#474448"}}>My Personal Website</h2>
-                  <a
-                    className="personal-website"
-                    href={
-                      personalwebsite
-                    }
-                    target="_blank"
-                  >
-                    <img
-                      src={require("./imgs/macbook.png")}
-                      className="works-laptop"
-                    ></img>
-                    <iframe
-                      src={
-                        personalwebsite
-                      }
-                      className="works-laptop-screen"
-                    ></iframe>
-                  </a>
-              </section> :
-              personalwebsite ?
-              <section className="profile-item">
-                <h2 style={{color: "#474448"}}>My Personal Website</h2>
-                  <a
-                    className="personal-website"
-                    href={
-                      personalwebsite
-                    }
-                    target="_blank"
-                  >
-                    <img
-                      src={require("./imgs/macbook.png")}
-                      className="works-laptop"
-                    ></img>
-                  <div className="works-laptop-screen flex-column center" style={{backgroundColor: "#474448"}}>
-                    <h1 style={{color: "white"}}>{personalwebsite.endsWith("/") ? personalwebsite.replace("http://", "").slice(0, -1) : personalwebsite.replace("http://", "")}</h1>
-                    <div className="subtitle" style={{color: "white"}}>This website cannot be previewed as it either does not use https or does not allow cross-origin previews. Please click to view.</div>
-                  </div>
-                  </a>
+                <h2 style={{ color: "#474448" }}>My Personal Website</h2>
+                <a
+                  className="personal-website"
+                  href={personalwebsite}
+                  target="_blank"
+                >
+                  <img
+                    src={require("./imgs/macbook.png")}
+                    className="works-laptop"
+                  ></img>
+                  <iframe
+                    src={personalwebsite}
+                    className="works-laptop-screen"
+                  ></iframe>
+                </a>
               </section>
-              : null
-            }
+            ) : personalwebsite ? (
+              <section className="profile-item">
+                <h2 style={{ color: "#474448" }}>My Personal Website</h2>
+                <a
+                  className="personal-website"
+                  href={personalwebsite}
+                  target="_blank"
+                >
+                  <img
+                    src={require("./imgs/macbook.png")}
+                    className="works-laptop"
+                  ></img>
+                  <div
+                    className="works-laptop-screen flex-column center"
+                    style={{ backgroundColor: "#474448" }}
+                  >
+                    <h1 style={{ color: "white" }}>
+                      {personalwebsite.endsWith("/")
+                        ? personalwebsite.replace("http://", "").slice(0, -1)
+                        : personalwebsite.replace("http://", "")}
+                    </h1>
+                    <div className="subtitle" style={{ color: "white" }}>
+                      This website cannot be previewed as it either does not use
+                      https or does not allow cross-origin previews. Please
+                      click to view.
+                    </div>
+                  </div>
+                </a>
+              </section>
+            ) : null}
 
             {this.state.freelancerInfo.profile.dataAnalytics ? (
               <section className="profile-item">
@@ -422,7 +448,8 @@ class ProfileView extends React.Component {
                   </div>
                 ) : null}
 
-                {this.state.freelancerInfo.profile.dataAnalytics && this.state.githubData ? (
+                {this.state.freelancerInfo.profile.dataAnalytics &&
+                this.state.githubData ? (
                   <div className="profile-works">
                     <div className="section-header">My work(s)</div>
                     <div className="works-container">
@@ -439,7 +466,8 @@ class ProfileView extends React.Component {
                             Github
                           </div>
 
-                          {this.state.githubData.data && this.state.githubData.data.repoNames.length !== 0 ? (
+                          {this.state.githubData.data &&
+                          this.state.githubData.data.repoNames.length !== 0 ? (
                             <div className="works-section">
                               <div className="works-section-header">
                                 - My recent repositories
@@ -866,7 +894,8 @@ class ProfileView extends React.Component {
                   </div>
                 ) : null}
 
-                {this.state.freelancerInfo.profile.softwareDev && this.state.githubData ? (
+                {this.state.freelancerInfo.profile.softwareDev &&
+                this.state.githubData ? (
                   <div className="profile-works">
                     <div className="section-header">My work(s)</div>
                     <div className="works-container">

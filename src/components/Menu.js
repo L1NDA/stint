@@ -17,15 +17,15 @@ class Menu extends React.Component {
   constructor() {
     super();
     this.state = {
-      redirect: false
+      redirect: false,
     };
   }
 
   redirectToProfile = async () => {
     // window.location used here as it auto-reloads on update
     // needed because history api does not auto-reload, and we need to refetch data from appropriate apis on path change
-    window.location.pathname = PROFILE_VIEW_PATH(this.props.userUid)
-  }
+    window.location.pathname = PROFILE_VIEW_PATH(this.props.userUid);
+  };
 
   render() {
     return (
@@ -58,11 +58,13 @@ class Menu extends React.Component {
           </NavLink>
           {this.props.profilePic ? (
             <div className="menu-profile flex-row">
-                <img src={this.props.profilePic} className="menu-propic-solo" onClick={this.redirectToProfile} />
+              <img
+                src={this.props.profilePic}
+                className="menu-propic-solo"
+                onClick={this.redirectToProfile}
+              />
               <div className="menu-profile-dropdown">
-                <div onClick={this.redirectToProfile}>
-                  My Profile
-                </div>
+                <div onClick={this.redirectToProfile}>My Profile</div>
                 <div onClick={this.props.logoutUser} className="sign-out">
                   Sign Out
                 </div>
@@ -91,8 +93,10 @@ class Menu extends React.Component {
               <div className="menu-name">
                 {this.props.firstName.split(" ")[0]}
               </div>
-              <div onClick={this.redirectToProfile}
-                className="menu-burger-profile">
+              <div
+                onClick={this.redirectToProfile}
+                className="menu-burger-profile"
+              >
                 My Profile
               </div>
             </div>
@@ -119,8 +123,7 @@ function mapStateToProps(state, props) {
   return {
     userUid: state.firebase.auth.uid,
     logoutUser: () => {
-      firebase.logout()
-        .then(() => history.push(HOMEPAGE_PATH));
+      firebase.logout().then(() => history.push(HOMEPAGE_PATH));
     },
     profilePic: state.firebase.auth.photoURL,
     firstName: state.firebase.auth.displayName,

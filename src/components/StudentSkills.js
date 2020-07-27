@@ -92,7 +92,9 @@ class StudentSkills extends React.Component {
           subtitle="You’re experienced in designing logos, web pages, illustrations, or building up a specific brand image."
           section="db"
           db={this.props.db}
-          content={[["a portfolio or personal website", "url", "personalWebsiteUrl"]]}
+          content={[
+            ["a portfolio or personal website", "url", "personalWebsiteUrl"],
+          ]}
           skills={DESIGN_SKILLS}
           handleButton={this.saveEntireState}
         />

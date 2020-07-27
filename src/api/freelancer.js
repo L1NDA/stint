@@ -46,7 +46,7 @@ const {
   FINISHED_AT,
 } = require("../constants/DB_CONSTANTS");
 const firebase = require("firebase");
-const moment = require("moment")
+const moment = require("moment");
 // TODO: get rid of uid and instead make it return data for current signed in freelancer
 // Given freelancer's Google uid, returns all data associated with that freelancer
 export const getFreelancerRef = async (uid) => {
@@ -146,30 +146,30 @@ export const setFreelancerProfile = async (
   }
   var freelancerInfo = {};
 
-  freelancerInfo[FINISHED_AT] = moment().toISOString()
+  freelancerInfo[FINISHED_AT] = moment().toISOString();
 
   freelancerInfo[FREELANCER_PROFILE] = {
-  	[FREELANCER_EDUCATION]: {
-	    [FREELANCER_SCHOOL]: school,
-	    [FREELANCER_YEAR]: year,
-	    [FREELANCER_MAJORS]: majors,
-	    [FREELANCER_MINORS]: minors,
-	  },
-	  [FREELANCER_RESIDENCE_INFO]: {
-	    [FREELANCER_CITY]: cityOfResidence,
-	    [FREELANCER_STATE]: stateOfResidence,
-	  },
-	  [FREELANCER_WORK_EXPERIENCE]: {
-	    [FREELANCER_COMPANY_ROLES]: companyRoles,
-	    [FREELANCER_COMPANIES]: companies,
-	    [FREELANCER_COMPANY_YEARS]: companyYears,
-	  },
-	  [FREELANCER_ORG_EXPERIENCE]: {
-	    [FREELANCER_ORG_ROLES]: orgRoles,
-	    [FREELANCER_ORG_NAMES]: organizations,
-	    [FREELANCER_ORG_YEARS]: orgYears,
-	  }
-	}
+    [FREELANCER_EDUCATION]: {
+      [FREELANCER_SCHOOL]: school,
+      [FREELANCER_YEAR]: year,
+      [FREELANCER_MAJORS]: majors,
+      [FREELANCER_MINORS]: minors,
+    },
+    [FREELANCER_RESIDENCE_INFO]: {
+      [FREELANCER_CITY]: cityOfResidence,
+      [FREELANCER_STATE]: stateOfResidence,
+    },
+    [FREELANCER_WORK_EXPERIENCE]: {
+      [FREELANCER_COMPANY_ROLES]: companyRoles,
+      [FREELANCER_COMPANIES]: companies,
+      [FREELANCER_COMPANY_YEARS]: companyYears,
+    },
+    [FREELANCER_ORG_EXPERIENCE]: {
+      [FREELANCER_ORG_ROLES]: orgRoles,
+      [FREELANCER_ORG_NAMES]: organizations,
+      [FREELANCER_ORG_YEARS]: orgYears,
+    },
+  };
 
   if (doesData) {
     freelancerInfo[FREELANCER_PROFILE][FREELANCER_DATA_ANALYTICS] = {
@@ -211,14 +211,13 @@ export const setFreelancerProfile = async (
       [FREELANCER_AWARD_CONTENT]: softwareAwardContent,
       [FREELANCER_AWARD_PROVIDERS]: softwareAwardProviders,
     };
-		
-	}
+  }
 
   if (phoneNumber) {
     freelancerInfo[FREELANCER_PROFILE][FREELANCER_PHONE_NUM] = phoneNumber;
   }
 
-  const freelancerRef = await getFreelancerRef(uid)
+  const freelancerRef = await getFreelancerRef(uid);
   freelancerRef.update(freelancerInfo, function (error) {
     if (error) {
       console.error(

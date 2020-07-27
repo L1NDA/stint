@@ -72,13 +72,15 @@ class Select extends React.Component {
           required={this.props.required}
         >
           {items.map((item, index) => {
-            return !this.props.have && index === 0 ?
+            return !this.props.have && index === 0 ? (
               <option key={`option:${item}`} value="">
                 {item}
               </option>
-            : <option key={`option:${item}`} value={item}>
-              {item}
-            </option>
+            ) : (
+              <option key={`option:${item}`} value={item}>
+                {item}
+              </option>
+            );
           })}
         </select>
         <span
