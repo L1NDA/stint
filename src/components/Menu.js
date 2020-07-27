@@ -22,6 +22,8 @@ class Menu extends React.Component {
   }
 
   redirectToProfile = async () => {
+    // window.location used here as it auto-reloads on update
+    // needed because history api does not auto-reload, and we need to refetch data from appropriate apis on path change
     window.location.pathname = PROFILE_VIEW_PATH(this.props.userUid)
   }
 
