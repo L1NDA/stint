@@ -9,13 +9,17 @@ import { compose } from "redux";
 import "./style/my-profile.css";
 import { IoLogoGithub } from "react-icons/io";
 import { FiLink } from "react-icons/fi";
-import { AiFillMediumCircle, AiFillInstagram } from "react-icons/ai";
+import { AiFillMediumCircle, AiFillInstagram, AiFillClockCircle, AiFillDollarCircle } from "react-icons/ai";
 import { getFreelancerRef } from "../api/freelancer";
-import { TiSortNumericallyOutline } from "react-icons/ti";
+import { TiSortNumericallyOutline, TiTimes, TiEquals } from "react-icons/ti";
 import { getInstaInfo } from "../api/instagram";
 import medium, { getMediumInfo } from "../api/medium";
 import { getGithubInfo } from "../api/github";
 import ReactLoading from "react-loading";
+import { RangeDatePicker } from 'react-google-flight-datepicker';
+import 'react-google-flight-datepicker/dist/main.css';
+import moment from 'moment';
+import { WeekDayCalc } from 'moment-weekday-calc'
 
 import { PROFILE_CREATION_PATH } from "../constants/ROUTING_CONSTANTS";
 import {
@@ -38,10 +42,62 @@ const DESIGN_SHOWCASE_PREFIX = "designshowcase-";
 const PERSONAL_WEBSITE_PREFIX = "personalwebsite-";
 const OTHER_FILES = "otherFiles";
 
+const STINT_CATEGORIES = {
+  da: [
+    "Data Entry",
+    "Data Visualization",
+    "Data Research & Analysis",
+    "Data Collection",
+    "Database Maintenance",
+    "Data Cleaning & Pipelining",
+    "Machine Learning",
+    "Other (Analytics)",
+  ],
+  ccm: [
+    "Blog Writing",
+    "Social Media Management",
+    "Digital Marketing",
+    "Listserv Management",
+    "Newsletter Creation",
+    "Video Creation & Editing",
+    "Photography & Editing",
+    "Voice-over",
+    "Music Recording",
+    "Language Translation",
+    "Other (Content Creation & Management)"
+  ],
+  db: [
+    "Design & Branding",
+    "Logo (Re)design",
+    "Website (Re)design",
+    "App (Re)design",
+    "Flyer & Print Design",
+    "Digital Illustration",
+    "Physical Illustration",
+    "UX Research",
+    "User Profiles & Journey Maps",
+    "Other (Design)"
+  ],
+  sd: [
+    "Web Development",
+    "Mobile Development",
+    "Native Development",
+    "MVPs & Landing Pages",
+    "QA Testing",
+    "Data Science",
+    "Cloud Computing",
+    "Cybersecurity",
+    "Blockchain",
+    "Other"
+  ]
+}
+
 class ProfileView extends React.Component {
   constructor(props) {
     super();
-    this.state = {};
+    this.state = {
+      bookCategory: null,
+    };
     console.log("param uid", props.match.params.uid);
   }
 
@@ -162,6 +218,15 @@ class ProfileView extends React.Component {
     );
   };
 
+  handleSelect = (e) => {
+    if (e.target.value !== this.state.bookCategory) {
+      this.setState({
+        bookCategory: e.target.value
+      })
+    }
+
+  }
+
   getFilesFromStorage = async () => {
     let storageRef = this.props.storage.ref();
     let filesRef = storageRef.child(
@@ -188,6 +253,25 @@ class ProfileView extends React.Component {
     return fileUrls;
   };
 
+  handleInput = (e, stateName) => {
+    if (e.target.value < 0) {
+      e.target.value = ""
+    }
+    this.setState({
+      [stateName]: e.target.value
+    })
+  }
+
+  onDateChange = (startDate, endDate) => {
+    console.log("onDateChange Called")
+    if (startDate && endDate) {
+      let numWeekdays = moment().weekdayCalc(startDate.toDate(), endDate.toDate(), [1,2,3,4,5])
+      this.setState({
+        numWeekdays: numWeekdays,
+      })
+    }
+  }
+
   sortSkills = (skills) => {
     var items = Object.keys(skills).map(function (key) {
       return [key, skills[key]];
@@ -207,6 +291,106 @@ class ProfileView extends React.Component {
         <Menu />
         {this.state.freelancerInfo ? (
           <>
+          <div className={this.state.bookCategory ? "book-container book-container-fullscreen" : "book-container"}>
+
+            {this.state.bookCategory
+              ? <div className="pricing-container flex-column">
+                <div className="flex-column">
+                <p style={{marginTop: "0", marginBottom: "20px"}}><b>DETAILS</b></p>
+                <RangeDatePicker
+                  startDatePlaceholder="Start Date"
+                  endDatePlaceholder="End Date"
+                  minDate={new Date()}
+                  disabled={false}
+                  className="book-calendar"
+                  startWeekDay="sunday"
+                  onChange={(startDate, endDate) => this.onDateChange(startDate, endDate)}
+                />
+                <br/>
+                <i className="subtitle">We believe in work-life balance lorem ipsum.</i>
+                <br/>
+                <div className="flex-row" style={{margin: "0", width: "100%", alignItems: "center"}}>
+                <div className="book-hours-container">
+                  <AiFillClockCircle/>
+                  <input className="book-hours"
+                    type="number"
+                    placeholder="#"
+                    min="0"
+                    onChange={(e) => this.handleInput(e, "hours")}
+                    value={this.state.hours ? this.state.hours : ""}/>
+                  hrs / day
+                </div>
+                <div className="input-line"></div>
+                <div className="book-price-container">
+                  <div className="flex-row" style={{alignItems: "center"}}>
+                    <AiFillDollarCircle/>
+                      $
+                      <input className="book-price"
+                        type="number"
+                        placeholder="Price"
+                        min="0"
+                        onChange={(e) => this.handleInput(e, "price")}
+                        value={this.state.price ? this.state.price : ""}/>
+                  </div>
+                  / day
+                </div>
+
+                </div>
+                <br/>
+                <i className="subtitle">More text explaining pricing and benchmarks.</i>
+                <i className="subtitle">Information about money back for cancelled stints.</i>
+                </div>
+                <div className="book-total">
+                    <p><b>{this.state.numWeekdays && this.state.hours
+                        ? <span><b>{this.state.numWeekdays * this.state.hours}</b> total</span>
+                        : "Total"} hours </b> </p>
+                      <div className="subtitle">({this.state.hours ? <span><b>{this.state.hours}</b> hours</span> : "Hours"} / day x {this.state.numWeekdays ? <span><b>{this.state.numWeekdays}</b> weekdays</span> : "# weekdays"})</div>
+                      <br/>
+                      <p><b><TiTimes style={{position: "absolute", left: "0"}}/> {this.state.price
+                        ? `$ ${this.state.price}`
+                        : "Price"} / hour </b></p>
+                      <br/>
+                      <p style={{borderTop: "1px solid lightgray", paddingTop: "20px"}}><b><TiEquals style={{position: "absolute", left: "0"}}/> {this.state.hours && this.state.numWeekdays && this.state.price ? `$ ${this.state.hours * this.state.numWeekdays * this.state.price} total` : "Total price"}</b></p></div>
+
+              </div>
+              : null}
+
+
+            <div className={this.state.bookCategory ? "flex-column half-container" : null}>
+              <div className={this.state.bookCategory ? "book-title-opened" : "flex-row book-title"}>
+                <img
+                  src={this.state.freelancerInfo.avatarUrl}
+                ></img>
+                <p>Book {this.state.freelancerInfo.displayName.split(" ")[0]} for {" "}
+                  <select
+                    name="booking-category"
+                    className="booking-category-select"
+                    onChange={this.handleSelect}>
+                    <option value="">(insert task)</option>
+                    <optgroup label="design">
+                      <option value="web design">web design</option>
+                      <option value="wireframes">wireframes</option>
+                    </optgroup>
+                    <optgroup label="Software Development">
+                      <option value="front-end">front-end</option>
+                      <option value="app development">app development</option>
+                    </optgroup>
+                  </select></p>
+              </div>
+
+          <i className="subtitle" style={{color: "white"}}>First time booking on Stint? Learn more about our process here.</i>
+
+            <div className="flex-column">
+            <p style={{color: "white"}}><b>PROJECT OVERVIEW</b></p>
+            <textarea
+              className="book-textarea"
+              placeholder={`Give ${this.state.freelancerInfo.displayName.split(" ")[0]} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements.`}></textarea>
+
+            </div>
+            </div>
+
+          </div>
+
             <section className="padding flex-row profile-item">
               <img
                 id="profile-img"

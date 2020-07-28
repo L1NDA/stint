@@ -26,6 +26,11 @@ body,
   flex-direction: row;
 }
 
+.flex-row-comp {
+  display: flex;
+  flex-direction: row
+}
+
 .flex-column {
   display: flex;
   flex-direction: column;
@@ -364,6 +369,10 @@ p {
   width: 45%;
 }
 
+.half-container {
+  width: 45%;
+}
+
 /* Autocomplete */
 
 .autocomplete-container {
@@ -665,6 +674,11 @@ Note: Beware of modifying this element as it can break the animations - you shou
     font-size: 10px;
   }
 
+  .flex-row-comp {
+    display: flex;
+    flex-direction: column
+  }
+
   h1 {
     font-size: 32px;
   }
@@ -697,6 +711,10 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
   .search-box-container {
     font-size: 18px;
+  }
+
+  .half-container {
+    width: 100%;
   }
 
   .hide {
