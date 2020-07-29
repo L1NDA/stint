@@ -18,6 +18,7 @@ const stripePromise = loadStripe(STRIPE_PK);
     stintCategory
     stintDescription
     totalHours
+    hourlyRate
     totalAmount
     redirectOnSuccessUrl
     redirectOnFailUrl
@@ -30,10 +31,12 @@ class CheckoutButton extends React.Component {
 
     handleClick = async (event) => {
 
+      console.log("Props:", this.props)
+
       // Call your backend to create the Checkout Session—see previous step
       let product_data = {
         name: "Stint with " + this.props.freelancerName, // replace xxx with name of freelancer - probably from this.props
-        description: "A " + this.props.totalDays + " stint with " + this.props.freelancerName + " for " + this.props.stintCategory + ".",
+        description: "A " + this.props.totalDays + " day stint with " + this.props.freelancerName + " for " + this.props.stintCategory + ".",
         images: [this.props.freelancerPhotoUrl], // image_url of freelancer
       }
 
@@ -44,14 +47,15 @@ class CheckoutButton extends React.Component {
         stintCategory: this.props.stintCategory,
         stintDescription: this.props.stintDescription,
         totalHours: this.props.totalHours,
+        hourlyRate: this.props.hourlyRate,
       }
 
       const sessionData  = await createCheckoutSession(
         product_data,
-        this.props.totalAmount,
+        this.props.totalAmount, // Stripe takes cents, whereas our total amount is dollars currently
         this.props.redirectOnSuccessUrl,
         this.props.redirectOnFailUrl,
-        metadata
+        metadata,
       )
       // When the customer clicks on the button, redirect them to Checkout.
 

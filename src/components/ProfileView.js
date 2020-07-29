@@ -390,19 +390,24 @@ class ProfileView extends React.Component {
             <p style={{color: "white"}}><b>PROJECT OVERVIEW</b></p>
             <textarea
               className="book-textarea"
-              placeholder={`Give ${this.state.freelancerInfo.displayName.split(" ")[0]} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements.`}></textarea>
+              placeholder={`Give ${this.state.freelancerInfo.displayName.split(" ")[0]} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements.`}
+              onChange={(e) => this.setState({ stintDescription: e.target.value })}></textarea>
 
             </div>
             <CheckoutButton
-              freelancerUid={`https://wearestint.com/profile/${this.props.match.params.uid}`}
+              freelancerUid={this.props.match.params.uid}
               startDate={this.state.startDate}
               endDate={this.state.endDate}
               freelancerName={this.state.freelancerInfo.displayName.split(" ")[0]}
               totalDays={this.state.numWeekdays}
               freelancerPhotoUrl={this.state.freelancerInfo.avatarUrl}
               stintCategory={this.state.bookCategory}
+              stintDescription={this.state.stintDescription}
+              redirectOnSuccessUrl="https://www.wearestint.com/hire"
+              redirectOnFailUrl="https://www.wearestint.com/our-mission"
               totalHours={this.state.hours * this.state.numWeekdays}
-              totalAmount={this.state.hours * this.state.numWeekdays * this.state.price}
+              hourlyRate={this.state.price}
+              totalAmount={this.state.hours * this.state.numWeekdays * this.state.price * 100}
               disabled={this.state.startDate
                 && this.state.endDate
                 && this.state.numWeekdays
