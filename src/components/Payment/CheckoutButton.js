@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createCheckoutSession, retrieveCheckoutSession, listAllCustomers } from "../../api/stripe"
+import { createCheckoutSession, retrieveCheckoutSession, } from "../../api/stripe"
 import { loadStripe } from '@stripe/stripe-js' 
 import { STRIPE_PK } from "../../config"
 import StripeCheckout from 'react-stripe-checkout'
