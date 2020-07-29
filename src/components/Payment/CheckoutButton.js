@@ -16,32 +16,32 @@ class CheckoutButton extends React.Component {
 
       // Call your backend to create the Checkout Session—see previous step
       let product_data = {
-        name: "Stint with xxx", // replace xxx with name of freelancer - probably from this.props
-        description: "freelancer_uid", // self-explanatory
-        images: ["https://firebasestorage.googleapis.com/v0/b/stint-staging-eb100.appspot.com/o/images%2FSjia8zvNclQcaL2J3bJnBTwUYAa2%2Fprofilepic-logo.png?alt=media&token=f471062f-c513-4179-8753-329e5bff20c7"], // image_url of freelancer
+        name: "Stint with " + this.props.freelancerName, // replace xxx with name of freelancer - probably from this.props
+        description: "A " + this.props.totalDays + " stint with " + this.props.freelancerName + " for " + this.props.stintCategory + ".",
+        images: [this.props.freelancerPhotoUrl], // image_url of freelancer
       }
 
       let metadata = {
-        freelancerUid: "plswork",
-        startDate: "startdateisostring",
-        endDate: "enddateisostring",
-        stintCategory: "category here",
-        stintDescription: "description here",
-        totalHours: 10,
+        freelancerUid: this.props.freelancerUid,
+        startDate: this.props.startDate,
+        endDate: this.props.endDate,
+        stintCategory: this.props.stintCategory,
+        stintDescription: this.props.stintDescription,
+        totalHours: this.props.totalHours,
       }
 
-      const sessionData  = await createCheckoutSession(product_data, 100, "https://wearestint.com/hire", "https://wearestint.com/our-mission", metadata)
+      const sessionData  = await createCheckoutSession(
+        product_data,
+        this.props.totalAmount,
+        this.props.redirectOnSuccessUrl,
+        this.props.redirectOnFailUrl,
+        metadata
+      )
       // When the customer clicks on the button, redirect them to Checkout.
 
       const stripe = await stripePromise;
 
       let sessionId = sessionData.data
-
-      // let checkoutSession = await retrieveCheckoutSession(sessionId)
-      // console.log("checkoutSession", checkoutSession)
-
-      // let customerList = await listAllCustomers("cma4@bu.edu")
-      // console.log("customer list", customerList)
 
       const { error } = stripe.redirectToCheckout({
         sessionId,
