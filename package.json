@@ -42,6 +42,7 @@
     "react-redux-firebase": "^3.6.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-stripe-checkout": "^2.6.3",
     "react-typist": "^2.0.5",
     "reducers": "^3.0.0-alpha",
     "redux": "^4.0.5",
