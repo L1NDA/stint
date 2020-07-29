@@ -394,9 +394,21 @@ class ProfileView extends React.Component {
 
             </div>
             <CheckoutButton
-              uid={`https://wearestint.com/profile/${this.props.match.params.uid}`}
+              freelancerUid={`https://wearestint.com/profile/${this.props.match.params.uid}`}
               startDate={this.state.startDate}
-              endDate={this.state.endDate}/>
+              endDate={this.state.endDate}
+              freelancerName={this.state.freelancerInfo.displayName.split(" ")[0]}
+              totalDays={this.state.numWeekdays}
+              freelancerPhotoUrl={this.state.freelancerInfo.avatarUrl}
+              stintCategory={this.state.bookCategory}
+              totalHours={this.state.hours * this.state.numWeekdays}
+              totalAmount={this.state.hours * this.state.numWeekdays * this.state.price}
+              disabled={this.state.startDate
+                && this.state.endDate
+                && this.state.numWeekdays
+                && this.state.bookCategory
+                && this.state.hours
+                && this.state.price ? false : true}/>
           </div>
 
           </div>
