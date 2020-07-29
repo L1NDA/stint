@@ -6,6 +6,22 @@ import StripeCheckout from 'react-stripe-checkout'
 
 const stripePromise = loadStripe(STRIPE_PK);
 
+
+/*
+  Props:
+    freelancerName
+    totalDays
+    freelancerPhotoUrl
+    freelancerUid
+    startDate
+    endDate
+    stintCategory
+    stintDescription
+    totalHours
+    totalAmount
+    redirectOnSuccessUrl
+    redirectOnFailUrl
+*/
 class CheckoutButton extends React.Component {
     constructor() {
         super();
