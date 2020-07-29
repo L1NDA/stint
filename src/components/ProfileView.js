@@ -269,8 +269,8 @@ class ProfileView extends React.Component {
       let numWeekdays = moment().weekdayCalc(startDate.toDate(), endDate.toDate(), [1,2,3,4,5])
       this.setState({
         numWeekdays: numWeekdays,
-        startDate: moment().toISOString(startDate),
-        endDate: moment().toISOString(endDate),
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
       }, () => console.log(this.state))
     }
   }
