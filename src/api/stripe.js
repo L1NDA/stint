@@ -16,7 +16,7 @@ const listAllCustomers = (emailFilter=null) => {
     })
 }
 
-const createCheckoutSession = (product_data, unit_amount, success_url, cancel_url) => {
+const createCheckoutSession = (product_data, unit_amount, success_url, cancel_url, metadata) => {
   if (Object.keys(product_data).length === 0) {
     throw new Error("Please enter non-empty dictionary of product_data.")
   }
@@ -31,6 +31,7 @@ const createCheckoutSession = (product_data, unit_amount, success_url, cancel_ur
       unit_amount,
       success_url,
       cancel_url,
+      metadata,
     })
     .then((res) => {
       console.log("RES", res)

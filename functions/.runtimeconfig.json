@@ -1,6 +1,9 @@
 {
   "stripe": {
-    "key": "sk_test_51GwtRRKhM1dSlL34WSs6E7UnZUebCSpWChwf3AepFaSnEId5d6AFh3IA4kWuUbWCKdBRWlV0ucp8GP9nGjRcp2Yx00aMeGGwey"
+    "key": "sk_test_51GwtRRKhM1dSlL34WSs6E7UnZUebCSpWChwf3AepFaSnEId5d6AFh3IA4kWuUbWCKdBRWlV0ucp8GP9nGjRcp2Yx00aMeGGwey",
+    "checkout_session_webhook": {
+      "secret": "whsec_PLR3rlMjxG90AdmFCdQctZouuHVXUePT"
+    }
   },
   "algolia": {
     "app": "WIKHMH6NJW",

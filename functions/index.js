@@ -42,7 +42,7 @@ let transporter = nodemailer.createTransport({
 
 exports.onCheckoutSessionCompleted = functions.https.onRequest((req, res) => {
     cors(req, res, async () => {
-        const endpointSecret = "whsec_PLR3rlMjxG90AdmFCdQctZouuHVXUePT"
+        const endpointSecret = functions.config().stripe.checkout_session_webhook.secret
 
         const sig = req.headers["stripe-signature"];
 
@@ -54,8 +54,41 @@ exports.onCheckoutSessionCompleted = functions.https.onRequest((req, res) => {
         }
 
         // get freelancer uid
+        let freelancerUid = event.data.object.metadata.freelancerUid
+        let customerId = event.data.object.customer
 
-        return admin.database().ref('/stripeEvents').push(event)
+        console.log("event", event)
+        console.log("customerid", customerId)
+
+        let customer = await stripe.customers.retrieve(customerId)
+
+        console.log("customer", customer)
+
+        let customerEmail = customer.email
+
+        let amountReceived = (event.data.object.amount_total * 0.971) - 30
+        let amountPaidOut = amountReceived * 0.85
+        let amountKept = amountReceived - amountPaidOut
+
+        let stintDetails = {
+            category: event.data.object.metadata.stintCategory,
+            description: event.data.object.metadata.stintDescription,
+            totalHours: event.data.object.metadata.totalHours,
+            startDate: event.data.object.metadata.startDate,
+            endDate: event.data.object.metadata.startDate,
+        }
+
+        let transaction = {
+            [customerId]: {
+                customerEmail,
+                amountReceived,
+                amountPaidOut,
+                amountKept,
+                stintDetails,
+            },
+        }
+
+        return admin.database().ref('stripeEvents/' + freelancerUid).update(transaction)
           .then((snapshot) => {
             return res.json({ received: true });
           })
@@ -80,7 +113,7 @@ exports.listAllCustomers = functions.https.onRequest((req, res) => {
 
 exports.createCheckoutSession = functions.https.onRequest((req, res) => {
     cors(req, res, async () => {
-        const { product_data, unit_amount, success_url, cancel_url } = req.body
+        const { product_data, unit_amount, success_url, cancel_url, metadata } = req.body
         const session = await stripe.checkout.sessions.create({
           payment_method_types: ['card'],
           line_items: [{
@@ -94,6 +127,7 @@ exports.createCheckoutSession = functions.https.onRequest((req, res) => {
           mode: 'payment',
           success_url: success_url, // 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}'
           cancel_url: cancel_url, // 'https://example.com/cancel'
+          metadata: metadata,
         });
 
         return res.status(200).send(session.id)
