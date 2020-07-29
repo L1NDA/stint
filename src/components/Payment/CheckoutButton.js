@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { createCheckoutSession, retrieveCheckoutSession, } from "../../api/stripe"
-import { loadStripe } from '@stripe/stripe-js' 
+import { createCheckoutSession } from "../../api/stripe"
+import { loadStripe } from '@stripe/stripe-js'
 import { STRIPE_PK } from "../../config"
 import StripeCheckout from 'react-stripe-checkout'
 
@@ -38,7 +38,7 @@ class CheckoutButton extends React.Component {
         metadata
       )
       // When the customer clicks on the button, redirect them to Checkout.
-      
+
       const stripe = await stripePromise;
 
       let sessionId = sessionData.data
@@ -56,7 +56,7 @@ class CheckoutButton extends React.Component {
 
     render() {
         return (
-          <button role="link" onClick={this.handleClick}>
+          <button role="link" onClick={this.handleClick} className="button" style={{alignSelf: "flex-start", position: "absolute", right: "0", bottom: "0"}}>
             Checkout
           </button>
         );

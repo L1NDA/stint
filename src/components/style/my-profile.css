@@ -116,7 +116,7 @@
 }
 
 .book-hours-container, .book-price-container {
-  height: 56px;
+  height: 66px;
   width: 50%;
   outline: none;
   border: 1px solid lightgray;
@@ -128,8 +128,21 @@
   letter-spacing: 0.2px;
   color: #3c4043;
   display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.book-container-content {
+  font-size: 14px;
+  line-height: normal;
+  letter-spacing: 0.2px;
+  color: #3c4043;
+  display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 5px;
+  width: 100%;
 }
 
 .book-hours-container {
@@ -138,7 +151,7 @@
   border-right: none;
 }
 
-.book-hours-container > svg, .book-price-container > div > svg {
+.book-container-content > svg {
   margin-right: 10px;
   color: #8F8DFF;
   font-size: 20px;
@@ -150,7 +163,8 @@
   font-size: 14px;
   line-height: normal;
   letter-spacing: 0.2px;
-  width: 35px;
+  width: 25%;
+  flex-grow: 1;
 
   color: #3c4043;
 
@@ -168,7 +182,7 @@
 }
 
 .input-line {
-  height: 30px;
+  height: 45px;
   width: 1px;
   background-color: lightgray;
 }

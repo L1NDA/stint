@@ -1,6 +1,7 @@
 import React from "react";
 import Menu from "./Menu.js";
 import Footer from "./Footer.js";
+import CheckoutButton from "./Payment/CheckoutButton.js";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
@@ -268,7 +269,9 @@ class ProfileView extends React.Component {
       let numWeekdays = moment().weekdayCalc(startDate.toDate(), endDate.toDate(), [1,2,3,4,5])
       this.setState({
         numWeekdays: numWeekdays,
-      })
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+      }, () => console.log(this.state))
     }
   }
 
@@ -307,32 +310,35 @@ class ProfileView extends React.Component {
                   onChange={(startDate, endDate) => this.onDateChange(startDate, endDate)}
                 />
                 <br/>
-                <i className="subtitle">We believe in work-life balance lorem ipsum.</i>
+                <i className="subtitle">Please note: freelancers are only expected to work on business days. At Stint, we believe in a healthy work-life balance.</i>
                 <br/>
                 <div className="flex-row" style={{margin: "0", width: "100%", alignItems: "center"}}>
                 <div className="book-hours-container">
-                  <AiFillClockCircle/>
-                  <input className="book-hours"
-                    type="number"
-                    placeholder="#"
-                    min="0"
-                    onChange={(e) => this.handleInput(e, "hours")}
-                    value={this.state.hours ? this.state.hours : ""}/>
-                  hrs / day
+                  <div className="subtitle" style={{fontWeight: "bold"}}>HOURS PER DAY</div>
+                  <div className="book-container-content">
+                    <AiFillClockCircle/>
+                    <input className="book-hours"
+                      type="number"
+                      placeholder="#"
+                      min="0"
+                      onChange={(e) => this.handleInput(e, "hours")}
+                      value={this.state.hours ? this.state.hours : ""}/>
+                    hrs / day
+                  </div>
                 </div>
                 <div className="input-line"></div>
                 <div className="book-price-container">
-                  <div className="flex-row" style={{alignItems: "center"}}>
-                    <AiFillDollarCircle/>
-                      $
-                      <input className="book-price"
-                        type="number"
-                        placeholder="Price"
-                        min="0"
-                        onChange={(e) => this.handleInput(e, "price")}
-                        value={this.state.price ? this.state.price : ""}/>
+                  <div className="subtitle" style={{fontWeight: "bold"}}>HOURLY WAGE</div>
+                  <div className="book-container-content">
+                      <AiFillDollarCircle/>
+                        <input className="book-price"
+                          type="number"
+                          placeholder="Price"
+                          min="0"
+                          onChange={(e) => this.handleInput(e, "price")}
+                          value={this.state.price ? this.state.price : ""}/>
+                    / hr
                   </div>
-                  / day
                 </div>
 
                 </div>
@@ -344,7 +350,7 @@ class ProfileView extends React.Component {
                     <p><b>{this.state.numWeekdays && this.state.hours
                         ? <span><b>{this.state.numWeekdays * this.state.hours}</b> total</span>
                         : "Total"} hours </b> </p>
-                      <div className="subtitle">({this.state.hours ? <span><b>{this.state.hours}</b> hours</span> : "Hours"} / day x {this.state.numWeekdays ? <span><b>{this.state.numWeekdays}</b> weekdays</span> : "# weekdays"})</div>
+                      <div className="subtitle">({this.state.hours ? <span><b>{this.state.hours}</b> hours</span> : "Hours"} / day  x  {this.state.numWeekdays ? <span><b>{this.state.numWeekdays}</b> weekdays</span> : "Number of weekdays"})</div>
                       <br/>
                       <p><b><TiTimes style={{position: "absolute", left: "0"}}/> {this.state.price
                         ? `$ ${this.state.price}`
@@ -356,7 +362,7 @@ class ProfileView extends React.Component {
               : null}
 
 
-            <div className={this.state.bookCategory ? "flex-column half-container" : null}>
+            <div className={this.state.bookCategory ? "flex-column half-container" : null} style={{position: "relative"}}>
               <div className={this.state.bookCategory ? "book-title-opened" : "flex-row book-title"}>
                 <img
                   src={this.state.freelancerInfo.avatarUrl}
@@ -387,7 +393,11 @@ class ProfileView extends React.Component {
               placeholder={`Give ${this.state.freelancerInfo.displayName.split(" ")[0]} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements.`}></textarea>
 
             </div>
-            </div>
+            <CheckoutButton
+              uid={`https://wearestint.com/profile/${this.props.match.params.uid}`}
+              startDate={this.state.startDate}
+              endDate={this.state.endDate}/>
+          </div>
 
           </div>
 
