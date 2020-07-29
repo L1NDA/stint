@@ -7,26 +7,26 @@ const nodemailer = require("nodemailer")
 const algoliasearch = require('algoliasearch')
 
 const { mailConfig } = require("./config")
-const { githubConfig } = require("./config")
-const { firebaseConfig } = require("./config");
 
 const axios = require('axios')
 const moment = require('moment');
-const firebase = require('firebase')
 const stripe = require('stripe')(functions.config().stripe.key);
 
+// GitHub
 const AUTH_HEADER = { 'headers':
                         { 'Authorization': functions.config().github.id + ":" + functions.config().github.key}
                     }
-
+// Algolia
 const APP_ID = functions.config().algolia.app;
 const ADMIN_KEY = functions.config().algolia.key;
 
-firebase.initializeApp(firebaseConfig);
-
 const client = algoliasearch(APP_ID, ADMIN_KEY)
-// const database = firebase.database()
 
+// For Firebase Realtime DB
+admin.initializeApp();
+
+
+// Node emailer
 const HOST_NAME = "smtp.gmail.com"
 const PORT = 465
 
@@ -40,9 +40,46 @@ let transporter = nodemailer.createTransport({
     },
 });
 
+exports.onCheckoutSessionCompleted = functions.https.onRequest((req, res) => {
+    cors(req, res, async () => {
+        const endpointSecret = "whsec_PLR3rlMjxG90AdmFCdQctZouuHVXUePT"
+
+        const sig = req.headers["stripe-signature"];
+
+        let event;
+        try {
+            event = stripe.webhooks.constructEvent(req.rawBody, sig, endpointSecret);
+        } catch (err) {
+            res.status(400).send(err);
+        }
+
+        // get freelancer uid
+
+        return admin.database().ref('/stripeEvents').push(event)
+          .then((snapshot) => {
+            return res.json({ received: true });
+          })
+          .catch((err) => {
+            console.error(err);
+            return res.status(500).end();
+          });
+    })
+})
+
+exports.listAllCustomers = functions.https.onRequest((req, res) => {
+    cors(req, res, async () => {
+        const { emailFilter } = req.body
+        const customersList = await stripe.customers.list({
+            limit: 10,
+            email: emailFilter,
+        })
+
+        return res.status(200).send(customersList)
+    })
+})
+
 exports.createCheckoutSession = functions.https.onRequest((req, res) => {
     cors(req, res, async () => {
-        console.log("req.body", req.body)
         const { product_data, unit_amount, success_url, cancel_url } = req.body
         const session = await stripe.checkout.sessions.create({
           payment_method_types: ['card'],
@@ -60,6 +97,16 @@ exports.createCheckoutSession = functions.https.onRequest((req, res) => {
         });
 
         return res.status(200).send(session.id)
+    })
+})
+
+exports.retrieveCheckoutSession = functions.https.onRequest((req, res) => {
+    cors(req, res, () => {
+        const { sessionId } = req.body
+        stripe.checkout.sessions.retrieve(sessionId, (err, session) => {
+            console.log("retrieved session", session)
+            res.status(200).send(session)
+        })
     })
 })
 
