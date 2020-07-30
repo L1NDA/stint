@@ -289,12 +289,14 @@ class ProfileView extends React.Component {
   };
 
   render() {
+
     return (
       <div className="container">
         <Menu />
         {this.state.freelancerInfo ? (
           <>
           <div className={this.state.bookCategory ? "book-container book-container-fullscreen" : "book-container"}>
+            <TiTimes className="modal-x" onClick={()=>this.setState({bookCategory: null})} style={{fontSize: "30px", top: "15px", right: "15px"}}/>
 
             {this.state.bookCategory
               ? <div className="pricing-container flex-column">
@@ -368,20 +370,57 @@ class ProfileView extends React.Component {
                   src={this.state.freelancerInfo.avatarUrl}
                 ></img>
                 <p>Book {this.state.freelancerInfo.displayName.split(" ")[0]} for {" "}
-                  <select
-                    name="booking-category"
-                    className="booking-category-select"
-                    onChange={this.handleSelect}>
-                    <option value="">(insert task)</option>
-                    <optgroup label="design">
-                      <option value="web design">web design</option>
-                      <option value="wireframes">wireframes</option>
-                    </optgroup>
-                    <optgroup label="Software Development">
-                      <option value="front-end">front-end</option>
-                      <option value="app development">app development</option>
-                    </optgroup>
-                  </select></p>
+                  {this.state.bookCategory ?
+                    <b>{this.state.bookCategory}</b> :
+                    <select
+                      name="booking-category"
+                      className="booking-category-select"
+                      onChange={this.handleSelect}>
+                      <option value="">(insert task)</option>
+                      {this.state.freelancerInfo.profile.dataAnalytics ?
+                        <optgroup label="Analytics">
+                          {STINT_CATEGORIES.da.map(
+                            (category) => {
+                              return (
+                                <option value={category}>{category}</option>
+                              )})}
+                        </optgroup>
+                        : null
+                      }
+                      {this.state.freelancerInfo.profile.contentCreation ?
+                        <optgroup label="Content Creation">
+                          {STINT_CATEGORIES.ccm.map(
+                            (category) => {
+                              return (
+                                <option value={category}>{category}</option>
+                              )})}
+                        </optgroup>
+                        : null
+                      }
+                      {this.state.freelancerInfo.profile.design ?
+                        <optgroup label="Design">
+                          {STINT_CATEGORIES.db.map(
+                            (category) => {
+                              return (
+                                <option value={category}>{category}</option>
+                              )})}
+                        </optgroup>
+                        : null
+                      }
+                      {this.state.freelancerInfo.profile.softwareDev ?
+                        <optgroup label="Software Development">
+                          {STINT_CATEGORIES.sd.map(
+                            (category) => {
+                              return (
+                                <option value={category}>{category}</option>
+                              )})}
+                        </optgroup>
+                        : null
+                      }
+
+                    </select>
+                  }
+                  </p>
               </div>
 
           <i className="subtitle" style={{color: "white"}}>First time booking on Stint? Learn more about our process here.</i>
@@ -390,7 +429,7 @@ class ProfileView extends React.Component {
             <p style={{color: "white"}}><b>PROJECT OVERVIEW</b></p>
             <textarea
               className="book-textarea"
-              placeholder={`Give ${this.state.freelancerInfo.displayName.split(" ")[0]} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements.`}></textarea>
+              placeholder={`Give ${this.state.freelancerInfo.displayName.split(" ")[0]} a brief description of the work s/he will be doing. You don’t need to be overly specific, but please highlight any specific requirements you may have.`}></textarea>
 
             </div>
             <CheckoutButton
