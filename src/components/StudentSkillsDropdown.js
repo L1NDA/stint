@@ -305,8 +305,8 @@ class StudentSkillsDropdown extends React.Component {
                     name={`${this.props.section}Have${index}`}
                     saveData={this.saveState}
                     selected={
-                      this.props[this.props.section] &&
-                      this.props[this.props.section][social[2]]
+                      Object.keys(this.props[this.props.section]).length > 0 &&
+                      this.props[this.props.section][`${this.props.section}${index}`]
                         ? "have"
                         : this.state[`${this.props.section}Have${index}`]
                     }
@@ -314,8 +314,7 @@ class StudentSkillsDropdown extends React.Component {
                   />
                   {social[0]}
                   {this.state[`${this.props.section}Have${index}`] === "have" ||
-                  (this.props[this.props.section] &&
-                    this.props[this.props.section][social[2]]) ? (
+                  Object.keys(this.props[this.props.section]).length > 0 ? (
                     <span className="nobreak">
                       :{" "}
                       {social[1] === "url" ? (
@@ -326,7 +325,7 @@ class StudentSkillsDropdown extends React.Component {
                           required={true}
                           val={
                             Object.keys(this.props[this.props.section]).length > 0
-                              ? this.props[this.props.section][social[2]]
+                              ? this.props[this.props.section][`${this.props.section}${index}`]
                               : this.state[`${this.props.section}${index}`]
                           }
                           type="url"
@@ -339,8 +338,8 @@ class StudentSkillsDropdown extends React.Component {
                           required={true}
                           username={true}
                           val={
-                            this.props[this.props.section]
-                              ? this.props[this.props.section][social[2]]
+                            Object.keys(this.props[this.props.section]).length > 0
+                              ? this.props[this.props.section][`${this.props.section}${index}`]
                               : this.state[`${this.props.section}${index}`]
                           }
                         />
