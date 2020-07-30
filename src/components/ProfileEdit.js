@@ -76,12 +76,12 @@ class ProfileEdit extends React.Component {
             daHaveAwardProvider: profile.dataAnalytics.awardProviders && profile.dataAnalytics.awardProviders[0] ? profile.dataAnalytics.awardProviders[0] : null,
             daHaveAwardProvider1: profile.dataAnalytics.awardProviders && profile.dataAnalytics.awardProviders[1] ? profile.dataAnalytics.awardProviders[1] : null,
             daHaveAwardProvider2: profile.dataAnalytics.awardProviders && profile.dataAnalytics.awardProviders[2] ? profile.dataAnalytics.awardProviders[2] : null,
-            details: true,
+            details: false,
             files: null,
             skills: profile.dataAnalytics.skills ? profile.dataAnalytics.skills : {},
             width: "151px",
           }
-          : null
+          : {}
 
       let db = 
         profile.design && Object.keys(profile.design).length > 0
@@ -100,13 +100,13 @@ class ProfileEdit extends React.Component {
             dbHaveAwardProvider: profile.design.awardProviders && profile.design.awardProviders[0] ? profile.design.awardProviders[0] : null,
             dbHaveAwardProvider1: profile.design.awardProviders && profile.design.awardProviders[1] ? profile.design.awardProviders[1] : null,
             dbHaveAwardProvider2: profile.design.awardProviders && profile.design.awardProviders[2] ? profile.design.awardProviders[2] : null,
-            details: true,
+            details: false,
             files: null,
             haveFileUpload: "have",
             skills: profile.design.skills ? profile.design.skills : {},
             width: "151px",
           }
-          : null
+          : {}
 
       let ccm = 
         profile.contentCreation && Object.keys(profile.contentCreation).length > 0
@@ -131,12 +131,38 @@ class ProfileEdit extends React.Component {
             ccmHaveAwardProvider: profile.contentCreation.awardProviders && profile.contentCreation.awardProviders[0] ? profile.contentCreation.awardProviders[0] : null,
             ccmHaveAwardProvider1: profile.contentCreation.awardProviders && profile.contentCreation.awardProviders[1] ? profile.contentCreation.awardProviders[1] : null,
             ccmHaveAwardProvider2: profile.contentCreation.awardProviders && profile.contentCreation.awardProviders[2] ? profile.contentCreation.awardProviders[2] : null,
-            details: true,
+            details: false,
             files: null,
             skills: profile.contentCreation.skills ? profile.contentCreation.skills : {},
             width: "151px",
           }
-          : null 
+          : {} 
+
+      let sd = 
+        profile.softwareDev && Object.keys(profile.softwareDev).length > 0
+          ? {
+            sd0: profile.softwareDev.githubUser ? profile.softwareDev.githubUser : null,
+            sd1: profile.softwareDev.personalWebsiteUrl ? profile.softwareDev.personalWebsiteUrl : null,
+            sdHave0: profile.softwareDev.githubUser ? "have" : "do not have",
+            sdHave1: profile.softwareDev.personalWebsiteUrl ? "have" : "do not have",
+            sdHaveAward: profile.softwareDev.awardCategories ? "have" : "have not",
+            sdHaveAward1: profile.softwareDev.awardCategories && profile.softwareDev.awardCategories[1] ? "have" : "have not",
+            sdHaveAward2: profile.softwareDev.awardCategories && profile.softwareDev.awardCategories[2] ? "have" : "have not",
+            sdHaveAwardCategory: profile.softwareDev.awardCategories && profile.softwareDev.awardCategories[0] ? profile.softwareDev.awardCategories[0] : null,
+            sdHaveAwardCategory1: profile.softwareDev.awardCategories && profile.softwareDev.awardCategories[1] ? profile.softwareDev.awardCategories[1] : null,
+            sdHaveAwardCategory2: profile.softwareDev.awardCategories && profile.softwareDev.awardCategories[2] ? profile.softwareDev.awardCategories[2] : null,
+            sdHaveAwardContent: profile.softwareDev.awardContent && profile.softwareDev.awardContent[0] ? profile.softwareDev.awardContent[0] : null,
+            sdHaveAwardContent1: profile.softwareDev.awardContent && profile.softwareDev.awardContent[1] ? profile.softwareDev.awardContent[1] : null,
+            sdHaveAwardContent2: profile.softwareDev.awardContent && profile.softwareDev.awardContent[2] ? profile.softwareDev.awardContent[2] : null,
+            sdHaveAwardProvider: profile.softwareDev.awardProviders && profile.softwareDev.awardProviders[0] ? profile.softwareDev.awardProviders[0] : null,
+            sdHaveAwardProvider1: profile.softwareDev.awardProviders && profile.softwareDev.awardProviders[1] ? profile.softwareDev.awardProviders[1] : null,
+            sdHaveAwardProvider2: profile.softwareDev.awardProviders && profile.softwareDev.awardProviders[2] ? profile.softwareDev.awardProviders[2] : null,
+            details: false,
+            files: null,
+            skills: profile.softwareDev.skills ? profile.softwareDev.skills : {},
+            width: "151px",
+          }
+          : {} 
 
 
       this.setState({
@@ -160,6 +186,9 @@ class ProfileEdit extends React.Component {
         yearec: profile.orgExperience.orgYears,
 
         da: da,
+        db: db,
+        ccm: ccm,
+        sd: sd,
       });
     });
   };
@@ -507,10 +536,10 @@ class ProfileEdit extends React.Component {
 
               <StudentSkills
                 saveToParent={this.saveAllChildren}
-                da={this.state.freelancerInfo.profile.dataAnalytics}
-                ccm={this.state.freelancerInfo.profile.contentCreation}
-                db={this.state.freelancerInfo.profile.design}
-                sd={this.state.freelancerInfo.profile.softwareDev}
+                da={this.state.da}
+                ccm={this.state.ccm}
+                db={this.state.db}
+                sd={this.state.sd}
               />
 
               <h2 style={{ color: "#474448" }}>Communication</h2>

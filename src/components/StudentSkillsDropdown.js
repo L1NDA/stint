@@ -325,7 +325,7 @@ class StudentSkillsDropdown extends React.Component {
                           saveData={this.saveState}
                           required={true}
                           val={
-                            this.props[this.props.section]
+                            Object.keys(this.props[this.props.section]).length > 0
                               ? this.props[this.props.section][social[2]]
                               : this.state[`${this.props.section}${index}`]
                           }
