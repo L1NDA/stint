@@ -16,6 +16,7 @@
   top: 0;
   transition: all 0.3s ease-out;
   padding: 0;
+  z-index: 1001;
 }
 
 .book-container-inner {
@@ -529,6 +530,11 @@
 /* Large Phones */
 @media only screen and (max-height: 950px) and (max-width: 800px) {
 
+  .booking-category-select {
+    font-size: 14px;
+    margin-left: 0;
+  }
+
   .half-container-book {
     width: 100%;
     position: static;
@@ -544,11 +550,56 @@
     margin-bottom: 50px;
   }
 
+  .react-google-flight-datepicker .icon-calendar.mobile {
+    display: none !important;
+  }
+
+  .react-google-flight-datepicker .date-picker-date-group {
+    flex-direction: column;
+  }
+
+  .react-google-flight-datepicker .date-picker-input {
+    height: 100px !important;
+  }
+
+  .react-google-flight-datepicker .date {
+    width: 100% !important;
+  }
+
+  .react-google-flight-datepicker .date:nth-child(2) {
+    margin-left: 0 !important;
+    border-top: none;
+  }
+
   .pricing-container {
     min-width: 0;
     width: 100%;
     margin-bottom: 100px;
     margin-right: 0;
+  }
+
+  .book-total {
+    margin-top: 30px;
+  }
+
+  .book-hours-container, .book-price-container {
+    width: 100%;
+    border: 1px solid lightgray;
+    margin: 0;
+  }
+
+  .book-hours-container {
+    border-bottom: none;
+  }
+
+  .input-line {
+    display: none;
+  }
+
+  .button-container {
+    right: 10%;
+    bottom: 25px;
+    width: 80%;
   }
 
   .profile-item {
@@ -624,6 +675,12 @@
 
 /* Small Phones */
 @media only screen and (max-height: 570px) {
+
+  .book-textarea {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
   .works-item {
     min-width: 150px;
     padding: 30px;
