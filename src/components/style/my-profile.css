@@ -6,19 +6,28 @@
   background-color: #474448;
   box-shadow: 0px -10px 20px rgba(71, 68, 72, 0.15);
   z-index: 20;
-  padding: 0 10%;
   transition: all 0.3s ease-out;
   overflow-y: scroll;
+  padding: 0 10%;
+  z-index: 30;
 }
 
 .book-container-fullscreen {
   top: 0;
   transition: all 0.3s ease-out;
+  padding: 0;
+}
+
+.book-container-inner {
+  min-height: 100vh;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 50px 10%;
+  position: relative;
+}
 
+.add-padding {
+  padding: 50px 10%;
 }
 
 .book-title {
@@ -181,6 +190,13 @@
   margin: 0;
 }
 
+.button-container {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  align-items: flex-end
+}
+
 .input-line {
   height: 45px;
   width: 1px;
@@ -194,12 +210,19 @@
 
 .pricing-container {
   width: 40%;
+  min-width: 400px;
   background-color: #f5f5f5;
   box-shadow: 0px -10px 20px rgba(0, 0, 0, 0.15);
   padding: 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-right: 50px;
+}
+
+.half-container-book {
+  width: 45%;
+  position: relative;
 }
 
 .book-textarea {
@@ -207,10 +230,10 @@
   height: 200px;
   resize: none;
   color: #474448;
-  padding: 20px;
+  padding: 30px;
   font-family: "Source Sans", sans-serif;
   font-size: 16px;
-  line-height: 20px;
+  line-height: 24px;
 }
 
 .book-price::placeholder, .book-textarea::placeholder, .book-hours::placeholder {
@@ -505,6 +528,29 @@
 
 /* Large Phones */
 @media only screen and (max-height: 950px) and (max-width: 800px) {
+
+  .half-container-book {
+    width: 100%;
+    position: static;
+  }
+
+  .book-container-inner {
+    overflow-y: scroll;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+  }
+
+  .half-container-book {
+    margin-bottom: 50px;
+  }
+
+  .pricing-container {
+    min-width: 0;
+    width: 100%;
+    margin-bottom: 100px;
+    margin-right: 0;
+  }
+
   .profile-item {
     flex-direction: column;
     padding: 50px 10%;

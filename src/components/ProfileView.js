@@ -296,12 +296,14 @@ class ProfileView extends React.Component {
         {this.state.freelancerInfo ? (
           <>
           <div className={this.state.bookCategory ? "book-container book-container-fullscreen" : "book-container"}>
-            <TiTimes className="modal-x" onClick={()=>this.setState({bookCategory: null})} style={{fontSize: "30px", top: "15px", right: "15px"}}/>
-
+            <div className={this.state.bookCategory ? "book-container-inner add-padding" : "book-container-inner"}>
+            {this.state.bookCategory
+            ? <TiTimes className="modal-x" onClick={()=>this.setState({bookCategory: null})} style={{fontSize: "30px", top: "15px", right: "15px"}}/>
+            : null}
             {this.state.bookCategory
               ? <div className="pricing-container flex-column">
                 <div className="flex-column">
-                <p style={{marginTop: "0", marginBottom: "20px"}}><b>DETAILS</b></p>
+
                 <RangeDatePicker
                   startDatePlaceholder="Start Date"
                   endDatePlaceholder="End Date"
@@ -345,8 +347,9 @@ class ProfileView extends React.Component {
 
                 </div>
                 <br/>
-                <i className="subtitle">More text explaining pricing and benchmarks.</i>
-                <i className="subtitle">Information about money back for cancelled stints.</i>
+                <i className="subtitle">We respect that startups may be in varying stages of funding and allow you to set student wages based on what your budget permits. In return, please be courteous to our students. As a benchmark, the average hourly wage for past stints is <b>$23</b>.</i>
+                <br/>
+                <i className="subtitle">If you ever find that you are unsatisfied with a student’s progress, We’ll fully refund you for any stint canceled before the end of the first quarter.</i>
                 </div>
                 <div className="book-total">
                     <p><b>{this.state.numWeekdays && this.state.hours
@@ -364,7 +367,7 @@ class ProfileView extends React.Component {
               : null}
 
 
-            <div className={this.state.bookCategory ? "flex-column half-container" : null} style={{position: "relative"}}>
+            <div className={this.state.bookCategory ? "flex-column half-container-book" : null}>
               <div className={this.state.bookCategory ? "book-title-opened" : "flex-row book-title"}>
                 <img
                   src={this.state.freelancerInfo.avatarUrl}
@@ -421,33 +424,42 @@ class ProfileView extends React.Component {
                     </select>
                   }
                   </p>
+
               </div>
 
-          <i className="subtitle" style={{color: "white"}}>First time booking on Stint? Learn more about our process here.</i>
-
-            <div className="flex-column">
+            <div className="flex-column" style={{marginTop: "30px"}}>
             <p style={{color: "white"}}><b>PROJECT OVERVIEW</b></p>
             <textarea
               className="book-textarea"
-              placeholder={`Give ${this.state.freelancerInfo.displayName.split(" ")[0]} a brief description of the work s/he will be doing. You don’t need to be overly specific, but please highlight any specific requirements you may have.`}></textarea>
+              placeholder={`Give ${this.state.freelancerInfo.displayName.split(" ")[0]} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements.`}
+              onChange={(e) => this.setState({ stintDescription: e.target.value })}></textarea>
 
             </div>
-            <CheckoutButton
-              freelancerUid={`https://wearestint.com/profile/${this.props.match.params.uid}`}
-              startDate={this.state.startDate}
-              endDate={this.state.endDate}
-              freelancerName={this.state.freelancerInfo.displayName.split(" ")[0]}
-              totalDays={this.state.numWeekdays}
-              freelancerPhotoUrl={this.state.freelancerInfo.avatarUrl}
-              stintCategory={this.state.bookCategory}
-              totalHours={this.state.hours * this.state.numWeekdays}
-              totalAmount={this.state.hours * this.state.numWeekdays * this.state.price}
-              disabled={this.state.startDate
-                && this.state.endDate
-                && this.state.numWeekdays
-                && this.state.bookCategory
-                && this.state.hours
-                && this.state.price ? false : true}/>
+            <div className="flex-column button-container">
+              <CheckoutButton
+                freelancerUid={this.props.match.params.uid}
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
+                freelancerName={this.state.freelancerInfo.displayName.split(" ")[0]}
+                totalDays={this.state.numWeekdays}
+                freelancerPhotoUrl={this.state.freelancerInfo.avatarUrl}
+                stintCategory={this.state.bookCategory}
+                stintDescription={this.state.stintDescription}
+                redirectOnSuccessUrl="https://www.wearestint.com/hire"
+                redirectOnFailUrl="https://www.wearestint.com/our-mission"
+                totalHours={this.state.hours * this.state.numWeekdays}
+                hourlyRate={this.state.price}
+                totalAmount={this.state.hours * this.state.numWeekdays * this.state.price * 100}
+                disabled={this.state.startDate
+                  && this.state.endDate
+                  && this.state.numWeekdays
+                  && this.state.bookCategory
+                  && this.state.hours
+                  && this.state.price ? false : true}/>
+                <i className="subtitle" style={{color: "white", marginTop: "10px", textAlign: "right"}}>First time booking on Stint? Learn more about our process here.</i>
+            </div>
+
+          </div>
           </div>
 
           </div>

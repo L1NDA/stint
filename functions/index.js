@@ -58,6 +58,7 @@ exports.onCheckoutSessionCompleted = functions.https.onRequest((req, res) => {
         let customerId = event.data.object.customer
 
         console.log("event", event)
+        console.log("metadata", event.data.object.metadata)
         console.log("customerid", customerId)
 
         let customer = await stripe.customers.retrieve(customerId)
@@ -74,8 +75,9 @@ exports.onCheckoutSessionCompleted = functions.https.onRequest((req, res) => {
             category: event.data.object.metadata.stintCategory,
             description: event.data.object.metadata.stintDescription,
             totalHours: event.data.object.metadata.totalHours,
+            hourlyRate: event.data.object.metadata.hourlyRate,
             startDate: event.data.object.metadata.startDate,
-            endDate: event.data.object.metadata.startDate,
+            endDate: event.data.object.metadata.endDate,
         }
 
         let transaction = {
