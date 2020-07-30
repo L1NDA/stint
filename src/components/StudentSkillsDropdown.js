@@ -151,20 +151,21 @@ class StudentSkillsDropdown extends React.Component {
   };
 
   handleFiles = (files) => {
+    console.log("handlefiles being called")
     // check if there's already a file uploaded - if so, delete it first from firebase and state
     if (this.state.files && this.state.files.length > 0) {
-      let prevFile = this.state.files[0].name;
       this.setState(
         {
           files: null,
         },
         async function () {
-          await this.handleDeleteUpload(prevFile);
+          await this.handleDeleteDesignShowcase();
         }
       );
     }
-
+    console.log("design showwcase deleted")
     var fileErrorHandler = document.getElementById("file-error");
+    console.log('fileerrorhandler', fileErrorHandler)
     if (files.length === 0) {
       fileErrorHandler.innerHTML = "Please upload a file.";
       return;
@@ -188,16 +189,17 @@ class StudentSkillsDropdown extends React.Component {
       fileErrorHandler.innerHTML =
         "Please upload a .png, .pdf, .jpg, .jpeg, .svg,  or .gif file below 10MB";
     }
+    console.log("uploaded")
   };
 
   handleUpload = (fileErrorHandler) => {
     let file = this.state.files[0];
 
     let fileRef = this.props.storage.ref(
-      "images" + "/" + this.props.userUid + "/" + "designshowcase-" + file.name
+      "images" + "/" + this.props.userUid + "/" + "designshowcase"
     );
     let uploadTask = fileRef.put(file);
-
+    console.log("listening for upload progress")
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -222,15 +224,16 @@ class StudentSkillsDropdown extends React.Component {
       function () {
         // Upload completed successfully, now we can get the download URL
         uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+          console.log("fileerrorhandler after upload", fileErrorHandler)
           fileErrorHandler.innerHTML = `Successfully uploaded ${file.name}`;
         });
       }
     );
   };
 
-  handleDeleteUpload = (fileName) => {
+  handleDeleteDesignShowcase = () => {
     let fileRef = this.props.storage.ref(
-      "images" + "/" + this.props.userUid + "/" + "designshowcase-" + fileName
+      "images" + "/" + this.props.userUid + "/" + "designshowcase"
     );
     fileRef
       .delete()

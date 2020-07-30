@@ -206,6 +206,7 @@ class StudentInfo extends React.Component {
                     required={false}
                     val={
                       this.props.education &&
+                      this.props.education.minors &&
                       this.props.education.minors.length === 2
                         ? this.props.education.minors[1]
                         : ""

@@ -38,8 +38,8 @@ const SKILLS = [
   "Java",
 ];
 const LEVEL = ["5", "4", "4", "4", "2", "1", "1"];
-const DESIGN_SHOWCASE_PREFIX = "designshowcase-";
-const PERSONAL_WEBSITE_PREFIX = "personalwebsite-";
+const DESIGN_SHOWCASE_PREFIX = "designshowcase";
+const PERSONAL_WEBSITE_PREFIX = "personalwebsite-"; // this needs to be taken out
 const OTHER_FILES = "otherFiles";
 
 class ProfileView extends React.Component {

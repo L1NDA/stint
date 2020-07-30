@@ -51,24 +51,142 @@ class ProfileEdit extends React.Component {
 
   componentDidMount = async () => {
     document.title = "Create Profile | Stint";
-    console.log("this.state.da", this.state[FREELANCER_CATEGORIES[0]])
 
     let freelancerRef = await getFreelancerRef(this.props.auth.uid);
     let freelancerInfo;
     freelancerRef.on("value", (snapshot) => {
+      let profile = snapshot.val().profile
+
+      let da = 
+        Object.keys(profile.dataAnalytics).length > 0
+          ? {
+            da0: profile.dataAnalytics.githubUser ? profile.dataAnalytics.githubUser : null,
+            da1: profile.dataAnalytics.personalWebsiteUrl ? profile.dataAnalytics.personalWebsiteUrl : null,
+            daHave0: profile.dataAnalytics.githubUser ? "have" : "do not have",
+            daHave1: profile.dataAnalytics.personalWebsiteUrl ? "have" : "do not have",
+            daHaveAward: profile.dataAnalytics.awardCategories ? "have" : "have not",
+            daHaveAward1: profile.dataAnalytics.awardCategories && profile.dataAnalytics.awardCategories[1] ? "have" : "have not",
+            daHaveAward2: profile.dataAnalytics.awardCategories && profile.dataAnalytics.awardCategories[2] ? "have" : "have not",
+            daHaveAwardCategory: profile.dataAnalytics.awardCategories && profile.dataAnalytics.awardCategories[0] ? profile.dataAnalytics.awardCategories[0] : null,
+            daHaveAwardCategory1: profile.dataAnalytics.awardCategories && profile.dataAnalytics.awardCategories[1] ? profile.dataAnalytics.awardCategories[1] : null,
+            daHaveAwardCategory2: profile.dataAnalytics.awardCategories && profile.dataAnalytics.awardCategories[2] ? profile.dataAnalytics.awardCategories[2] : null,
+            daHaveAwardContent: profile.dataAnalytics.awardContent && profile.dataAnalytics.awardContent[0] ? profile.dataAnalytics.awardContent[0] : null,
+            daHaveAwardContent1: profile.dataAnalytics.awardContent && profile.dataAnalytics.awardContent[1] ? profile.dataAnalytics.awardContent[1] : null,
+            daHaveAwardContent2: profile.dataAnalytics.awardContent && profile.dataAnalytics.awardContent[2] ? profile.dataAnalytics.awardContent[2] : null,
+            daHaveAwardProvider: profile.dataAnalytics.awardProviders && profile.dataAnalytics.awardProviders[0] ? profile.dataAnalytics.awardProviders[0] : null,
+            daHaveAwardProvider1: profile.dataAnalytics.awardProviders && profile.dataAnalytics.awardProviders[1] ? profile.dataAnalytics.awardProviders[1] : null,
+            daHaveAwardProvider2: profile.dataAnalytics.awardProviders && profile.dataAnalytics.awardProviders[2] ? profile.dataAnalytics.awardProviders[2] : null,
+            details: true,
+            files: null,
+            skills: profile.dataAnalytics.skills ? profile.dataAnalytics.skills : {},
+            width: "151px",
+          }
+          : null
+
+      let db = 
+        profile.design && Object.keys(profile.design).length > 0
+          ? {
+            db0: profile.design.personalWebsiteUrl ? profile.design.personalWebsiteUrl : null,
+            dbHave0: profile.design.personalWebsiteUrl ? "have" : "do not have",
+            dbHaveAward: profile.design.awardCategories ? "have" : "have not",
+            dbHaveAward1: profile.design.awardCategories && profile.design.awardCategories[1] ? "have" : "have not",
+            dbHaveAward2: profile.design.awardCategories && profile.design.awardCategories[2] ? "have" : "have not",
+            dbHaveAwardCategory: profile.design.awardCategories && profile.design.awardCategories[0] ? profile.design.awardCategories[0] : null,
+            dbHaveAwardCategory1: profile.design.awardCategories && profile.design.awardCategories[1] ? profile.design.awardCategories[1] : null,
+            dbHaveAwardCategory2: profile.design.awardCategories && profile.design.awardCategories[2] ? profile.design.awardCategories[2] : null,
+            dbHaveAwardContent: profile.design.awardContent && profile.design.awardContent[0] ? profile.design.awardContent[0] : null,
+            dbHaveAwardContent1: profile.design.awardContent && profile.design.awardContent[1] ? profile.design.awardContent[1] : null,
+            dbHaveAwardContent2: profile.design.awardContent && profile.design.awardContent[2] ? profile.design.awardContent[2] : null,
+            dbHaveAwardProvider: profile.design.awardProviders && profile.design.awardProviders[0] ? profile.design.awardProviders[0] : null,
+            dbHaveAwardProvider1: profile.design.awardProviders && profile.design.awardProviders[1] ? profile.design.awardProviders[1] : null,
+            dbHaveAwardProvider2: profile.design.awardProviders && profile.design.awardProviders[2] ? profile.design.awardProviders[2] : null,
+            details: true,
+            files: null,
+            haveFileUpload: "have",
+            skills: profile.design.skills ? profile.design.skills : {},
+            width: "151px",
+          }
+          : null
+
+      let ccm = 
+        profile.contentCreation && Object.keys(profile.contentCreation).length > 0
+          ? {
+            ccm0: profile.contentCreation.mediumUser ? profile.contentCreation.mediumUser : null,
+            ccm1: profile.contentCreation.instagramUser ? profile.contentCreation.instagramUser : null,
+            ccm2: profile.contentCreation.youtubeUser ? profile.contentCreation.youtubeUser : null,
+            ccm3: profile.contentCreation.personalWebsiteUrl ? profile.contentCreation.personalWebsiteUrl : null,
+            ccmHave0: profile.contentCreation.mediumUser ? "have" : "do not have",
+            ccmHave1: profile.contentCreation.instagramUser ? "have" : "do not have",
+            ccmHave2: profile.contentCreation.youtubeUser ? "have" : "do not have",
+            ccmHave3: profile.contentCreation.personalWebsiteUrl ? "have" : "do not have",
+            ccmHaveAward: profile.contentCreation.awardCategories ? "have" : "have not",
+            ccmHaveAward1: profile.contentCreation.awardCategories && profile.contentCreation.awardCategories[1] ? "have" : "have not",
+            ccmHaveAward2: profile.contentCreation.awardCategories && profile.contentCreation.awardCategories[2] ? "have" : "have not",
+            ccmHaveAwardCategory: profile.contentCreation.awardCategories && profile.contentCreation.awardCategories[0] ? profile.contentCreation.awardCategories[0] : null,
+            ccmHaveAwardCategory1: profile.contentCreation.awardCategories && profile.contentCreation.awardCategories[1] ? profile.contentCreation.awardCategories[1] : null,
+            ccmHaveAwardCategory2: profile.contentCreation.awardCategories && profile.contentCreation.awardCategories[2] ? profile.contentCreation.awardCategories[2] : null,
+            ccmHaveAwardContent: profile.contentCreation.awardContent && profile.contentCreation.awardContent[0] ? profile.contentCreation.awardContent[0] : null,
+            ccmHaveAwardContent1: profile.contentCreation.awardContent && profile.contentCreation.awardContent[1] ? profile.contentCreation.awardContent[1] : null,
+            ccmHaveAwardContent2: profile.contentCreation.awardContent && profile.contentCreation.awardContent[2] ? profile.contentCreation.awardContent[2] : null,
+            ccmHaveAwardProvider: profile.contentCreation.awardProviders && profile.contentCreation.awardProviders[0] ? profile.contentCreation.awardProviders[0] : null,
+            ccmHaveAwardProvider1: profile.contentCreation.awardProviders && profile.contentCreation.awardProviders[1] ? profile.contentCreation.awardProviders[1] : null,
+            ccmHaveAwardProvider2: profile.contentCreation.awardProviders && profile.contentCreation.awardProviders[2] ? profile.contentCreation.awardProviders[2] : null,
+            details: true,
+            files: null,
+            skills: profile.contentCreation.skills ? profile.contentCreation.skills : {},
+            width: "151px",
+          }
+          : null 
+
+
       this.setState({
         freelancerRef,
         freelancerInfo: snapshot.val(),
+
+        year: profile.education.year,
+        colleges: profile.education.school,
+        major: profile.education.majors,
+        minor: profile.education.minors ? profile.education.minors : [null, null],
+
+        city: profile.residenceInfo.city,
+        state: profile.residenceInfo.state,
+
+        role: profile.workExperience.companyRoles,
+        company: profile.workExperience.companies,
+        yearcompany: profile.workExperience.companyYears,
+
+        ecrole: profile.orgExperience.orgRoles,
+        ec: profile.orgExperience.organizations,
+        yearec: profile.orgExperience.orgYears,
+
+        da: da,
       });
     });
   };
 
   updateProfilePic = (profilePicFiles) => {
-    var fileErrorHandler = document.getElementById("file-error");
+    console.log("update profile pic being called")
+    var fileErrorHandler = document.getElementById("profile-file-error");
     if (profilePicFiles.length === 0) {
       fileErrorHandler.innerHTML = "Please upload a file.";
       return;
     }
+
+    // First check if a profile pic already exists - if so, delete it.
+    let prevProPic = this.props.storage.ref(
+      "images" + 
+      "/" +
+      this.props.userUid +
+      "/" +
+      "profilepic"
+    )
+    prevProPic.delete()
+      .then(() =>{
+        console.log("Previous profile picture deleted successfully")
+      })
+      .catch(() => {
+        console.log("Previous profile picture did not exist")
+      })
 
     const acceptedFileTypes = [".png", ".jpg", ".jpeg", ".svg"];
     // check file type is accepted and that it is below 10MB (in bytes)
@@ -83,8 +201,7 @@ class ProfileEdit extends React.Component {
           "/" +
           this.props.userUid +
           "/" +
-          "profilepic-" +
-          profilePicFiles[0].name
+          "profilepic"
       );
       let uploadTask = fileRef.put(profilePicFiles[0]);
 
@@ -296,18 +413,18 @@ class ProfileEdit extends React.Component {
               <h1>Edit Profile</h1>
               <>
                 <input
-                  id="fileInput"
+                  id="uploadProfilePic"
                   type="file"
                   onChange={(e) => {
                     this.updateProfilePic(e.target.files);
                   }}
                   required
                 />
-                <label for="fileInput">Test</label>
+                <label for="uploadProfilePic">Test</label>
               </>
               <div
                 className="subtitle"
-                id="file-error"
+                id="profile-file-error"
                 style={{ marginTop: "10px" }}
               ></div>
               <div className="student-dialogue">
@@ -360,7 +477,7 @@ class ProfileEdit extends React.Component {
               <div className="student-dialogue">
                 <div className="student-dialogue-block">
                   {FREELANCER_CATEGORIES.map((category, index) => {
-                    return this.state[category] ? (
+                    return Object.keys(this.state[category]).length > 0 ? (
                       <h3>
                         I am currently
                         <Select
