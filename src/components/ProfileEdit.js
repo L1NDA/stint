@@ -22,10 +22,10 @@ import { THANK_YOU_PATH } from "../constants/ROUTING_CONSTANTS";
 const { setFreelancerProfile, getFreelancerRef } = require("../api/freelancer");
 
 const FREELANCER_CATEGORIES = [
-  "dataAnalytics",
-  "contentCreation",
-  "design",
-  "softwareDev",
+  "da",
+  "ccm",
+  "db",
+  "sd",
 ];
 
 class ProfileEdit extends React.Component {
@@ -51,6 +51,7 @@ class ProfileEdit extends React.Component {
 
   componentDidMount = async () => {
     document.title = "Create Profile | Stint";
+    console.log("this.state.da", this.state[FREELANCER_CATEGORIES[0]])
 
     let freelancerRef = await getFreelancerRef(this.props.auth.uid);
     let freelancerInfo;
@@ -194,6 +195,8 @@ class ProfileEdit extends React.Component {
   submitProfile = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    console.log("state on submission", this.state)
 
     let temp = this.state;
 
@@ -357,7 +360,7 @@ class ProfileEdit extends React.Component {
               <div className="student-dialogue">
                 <div className="student-dialogue-block">
                   {FREELANCER_CATEGORIES.map((category, index) => {
-                    return this.state.freelancerInfo.profile[category] ? (
+                    return this.state[category] ? (
                       <h3>
                         I am currently
                         <Select
@@ -367,11 +370,11 @@ class ProfileEdit extends React.Component {
                           have={true}
                         />{" "}
                         for{" "}
-                        {category === "dataAnalytics"
+                        {category === "da"
                           ? "data analytics"
-                          : category === "contentCreation"
+                          : category === "ccm"
                           ? "content creation"
-                          : category === "design"
+                          : category === "db"
                           ? "design and branding"
                           : "software development"}
                         .
