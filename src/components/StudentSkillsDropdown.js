@@ -269,7 +269,7 @@ class StudentSkillsDropdown extends React.Component {
                 In Progress
               </div>
             ) : null}
-            {this.state.submitted ? (
+            {!this.props[this.props.section] && this.state.submitted ? (
               <div
                 className="student-skill-status"
                 style={{ backgroundColor: "#05D9B2" }}
@@ -724,28 +724,31 @@ class StudentSkillsDropdown extends React.Component {
               simple challenges that we'll spotlight to showcase your skills to
               companies.
             </div>
-            <button
-              className="button"
-              style={{
-                marginTop: "75px",
-                marginBottom: "50px",
-                alignSelf: "flex-start",
-              }}
-              type="submit"
-              disabled={
-                this.state[`${this.props.section}0`] ||
-                (this.state[`${this.props.section}HaveAwardCategory`] &&
-                  this.state[`${this.props.section}HaveAwardContent`] &&
-                  this.state[`${this.props.section}HaveAwardProvider`]) ||
-                Object.keys(this.state.skills).length !== 0
-                  ? false
-                  : true
-              }
-            >
-              {this.props[this.props.section]
-                ? `Update my info for ${this.props.title}.`
-                : `I'm done here! List me under ${this.props.title}.`}
-            </button>
+
+            <div className="flex-column save-button-container" style={{marginTop: "75px", marginBottom: "25px"}}>
+              <button
+                className="button save-button"
+                style={{
+                  alignSelf: "flex-start",
+                }}
+                type="submit"
+                disabled={
+                  this.state[`${this.props.section}0`] ||
+                  (this.state[`${this.props.section}HaveAwardCategory`] &&
+                    this.state[`${this.props.section}HaveAwardContent`] &&
+                    this.state[`${this.props.section}HaveAwardProvider`]) ||
+                  Object.keys(this.state.skills).length !== 0
+                    ? false
+                    : true
+                }
+              >
+                {this.props[this.props.section]
+                  ? `Update my info for ${this.props.title}.`
+                  : `I'm done here! List me under ${this.props.title}.`}
+              </button>
+              {this.props[this.props.section] ? <div className="subtitle">Clear info and remove me from {this.props.title}</div> : null}
+            </div>
+
           </form>
         ) : null}
       </div>
