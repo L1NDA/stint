@@ -312,6 +312,23 @@
   outline: -webkit-focus-ring-color auto 5px;
 }
 
+.save-button {
+  margin-bottom: 25px
+}
+
+.save-button-container {
+  font-weight: bold;
+}
+
+.save-button-container > .subtitle {
+  color: #8F8DFF;
+  cursor: pointer;
+}
+
+.save-button-container > .subtitle:hover {
+  text-decoration: underline;
+}
+
 /* Media Queries */
 
 /* Smaller Laptops ----------- */
