@@ -245,6 +245,14 @@ class StudentSkillsDropdown extends React.Component {
       });
   };
 
+  clearInfo = () => {
+    let clearedState = {}
+    Object.keys(this.state).forEach((key) => {
+      clearedState[key] = null
+    })
+    this.setState(clearedState, () => console.log(this.state))
+  }
+
   render() {
     return (
       <div className="student-dialogue-block">
@@ -305,7 +313,8 @@ class StudentSkillsDropdown extends React.Component {
                     name={`${this.props.section}Have${index}`}
                     saveData={this.saveState}
                     selected={
-                      Object.keys(this.props[this.props.section]).length > 0 &&
+                      this.props[this.props.section] &&
+                      Object.keys(this.props[this.props.section]).length !== 0 &&
                       this.props[this.props.section][`${this.props.section}${index}`]
                         ? "have"
                         : this.state[`${this.props.section}Have${index}`]
@@ -429,12 +438,14 @@ class StudentSkillsDropdown extends React.Component {
                         style={{
                           width:
                             this.props[this.props.section] &&
+                            this.props[this.props.section].skills && 
                             this.props[this.props.section].skills[skill]
                               ? `${
                                   this.props[this.props.section].skills[skill] *
                                   20
                                 }%`
                               : `${
+                                  this.state[SKILLS] &&
                                   this.state[SKILLS][skill]
                                     ? this.state[SKILLS][skill] * 20
                                     : 0
@@ -739,7 +750,8 @@ class StudentSkillsDropdown extends React.Component {
                   (this.state[`${this.props.section}HaveAwardCategory`] &&
                     this.state[`${this.props.section}HaveAwardContent`] &&
                     this.state[`${this.props.section}HaveAwardProvider`]) ||
-                  Object.keys(this.state.skills).length !== 0
+                  (this.state.skills &&
+                   Object.keys(this.state.skills).length !== 0)
                     ? false
                     : true
                 }
@@ -748,7 +760,7 @@ class StudentSkillsDropdown extends React.Component {
                   ? `Update my info for ${this.props.title}.`
                   : `I'm done here! List me under ${this.props.title}.`}
               </button>
-              {this.props[this.props.section] ? <div className="subtitle">Clear info and remove me from {this.props.title}</div> : null}
+              {this.props[this.props.section] ? <div className="subtitle" onClick={this.clearInfo}>Clear info and remove me from {this.props.title}</div> : null}
             </div>
 
           </form>

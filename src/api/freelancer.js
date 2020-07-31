@@ -42,6 +42,7 @@ const {
   FREELANCER_YOUTUBE,
 
   FREELANCER_PHONE_NUM,
+  FREELANCER_PREFERRED_NAME,
 
   FINISHED_AT,
 } = require("../constants/DB_CONSTANTS");
@@ -139,7 +140,8 @@ export const setFreelancerProfile = async (
   softwareAwardCategories = null,
   softwareAwardContent = null,
   softwareAwardProviders = null,
-  phoneNumber = null
+  phoneNumber = null,
+  preferredName = null,
 ) => {
   if (uid === null) {
     return;
@@ -215,6 +217,10 @@ export const setFreelancerProfile = async (
 
   if (phoneNumber) {
     freelancerInfo[FREELANCER_PROFILE][FREELANCER_PHONE_NUM] = phoneNumber;
+  }
+
+  if (preferredName) {
+    freelancerInfo[FREELANCER_PROFILE][FREELANCER_PREFERRED_NAME] = preferredName;
   }
 
   const freelancerRef = await getFreelancerRef(uid);

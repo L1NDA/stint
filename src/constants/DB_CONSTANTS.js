@@ -107,6 +107,7 @@ const FREELANCER_INSTAGRAM = "instagramUser";
 const FREELANCER_YOUTUBE = "youtubeUser";
 
 const FREELANCER_PHONE_NUM = "phoneNum";
+const FREELANCER_PREFERRED_NAME = "preferredName"
 
 /******************************************************
 COMPANIES
@@ -171,6 +172,7 @@ module.exports = {
   FREELANCER_YOUTUBE,
 
   FREELANCER_PHONE_NUM,
+  FREELANCER_PREFERRED_NAME,
 
   COMPANIES_REF_PATH,
   COMPANY_NAME,

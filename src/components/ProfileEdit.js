@@ -162,7 +162,7 @@ class ProfileEdit extends React.Component {
             skills: profile.softwareDev.skills ? profile.softwareDev.skills : {},
             width: "151px",
           }
-          : {} 
+          : {}
 
 
       this.setState({
@@ -350,10 +350,10 @@ class ProfileEdit extends React.Component {
       temp.phonenum = null;
     }
 
-    let doesData = Object.keys(temp.da).length !== 0;
-    let doesDesign = Object.keys(temp.db).length !== 0;
-    let doesContent = Object.keys(temp.ccm).length !== 0;
-    let doesSoftware = Object.keys(temp.sd).length !== 0;
+    let doesData = temp.da && Object.keys(temp.da).length !== 0;
+    let doesDesign = temp.db && Object.keys(temp.db).length !== 0;
+    let doesContent = temp.ccm && Object.keys(temp.ccm).length !== 0;
+    let doesSoftware = temp.sd && Object.keys(temp.sd).length !== 0;
 
     await setFreelancerProfile(
       this.props.auth.uid,
@@ -407,7 +407,8 @@ class ProfileEdit extends React.Component {
       temp.sd.awardContent,
       temp.sd.awardProviders,
 
-      temp.phonenum
+      temp.phonenum,
+      temp.preferredname,
     );
     await this.props.analytics.logEvent(SIGNUP_EVENT);
     this.props.history.push(THANK_YOU_PATH);
@@ -415,10 +416,10 @@ class ProfileEdit extends React.Component {
 
   render() {
     const temp = this.state;
-    let doesData = Object.keys(temp.da).length !== 0;
-    let doesDesign = Object.keys(temp.db).length !== 0;
-    let doesContent = Object.keys(temp.ccm).length !== 0;
-    let doesSoftware = Object.keys(temp.sd).length !== 0;
+    let doesData = temp.da && Object.keys(temp.da).length !== 0;
+    let doesDesign = temp.db && Object.keys(temp.db).length !== 0;
+    let doesContent = temp.ccm && Object.keys(temp.ccm).length !== 0;
+    let doesSoftware = temp.sd && Object.keys(temp.sd).length !== 0;
 
     let finishedApp =
       this.state.continue &&
@@ -447,7 +448,6 @@ class ProfileEdit extends React.Component {
                   onChange={(e) => {
                     this.updateProfilePic(e.target.files);
                   }}
-                  required
                 />
                 <label for="uploadProfilePic">Test</label>
               </>
@@ -506,7 +506,7 @@ class ProfileEdit extends React.Component {
               <div className="student-dialogue">
                 <div className="student-dialogue-block">
                   {FREELANCER_CATEGORIES.map((category, index) => {
-                    return Object.keys(this.state[category]).length > 0 ? (
+                    return this.state[category] && Object.keys(this.state[category]).length !== 0 ? (
                       <h3>
                         I am currently
                         <Select
