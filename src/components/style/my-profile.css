@@ -1,3 +1,223 @@
+.book-container {
+  position: fixed;
+  height: 100vh;
+  top: 90vh;
+  width: 100%;
+  background-color: #474448;
+  box-shadow: 0px -10px 20px rgba(71, 68, 72, 0.15);
+  z-index: 20;
+  padding: 0 10%;
+  transition: all 0.2s linear;
+  overflow-y: scroll;
+}
+
+.book-container-fullscreen {
+  top: 0;
+  transition: all 0.2s linear;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 50px 10%;
+
+}
+
+.book-title {
+  align-items: center;
+  justify-content: flex-start;
+  height: 10vh;
+  position: relative;
+}
+
+.book-title > img {
+  width: auto;
+  height: 50%;
+  border-radius: 50px;
+  margin-right: 20px;
+}
+
+.book-title-opened {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.book-title-opened > * {
+  color: white;
+}
+
+.book-title-opened > img {
+  height: 5vh;
+  border-radius: 50px;
+  margin-right: 20px;
+}
+
+.book-title > *{
+  color: white;
+}
+
+.booking-category-select {
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: bold;
+  font-family: "Source Sans Pro", sans-serif;
+  outline: none;
+  border: none;
+  background-color: #8F8DFF;
+  color: white;
+  padding-left: 5px;
+  margin-left: 5px;
+
+}
+
+.book-calendar {
+  padding: 0 !important;
+  border-radius: 0 !important;
+  max-width: 800px;
+}
+
+.dialog-date-picker {
+  border-radius: 0 !important
+}
+
+.react-google-flight-datepicker .date-picker-input, .react-google-flight-datepicker .date, .react-google-flight-datepicker .date.is-focus::after {
+  border-radius: 0 !important
+}
+
+.react-google-flight-datepicker .day.selected.hovered::after {
+  background-color: #8F8DFF !important
+}
+
+.react-google-flight-datepicker .day.hovered {
+  background-color: #e4e4f7 !important
+}
+
+.react-google-flight-datepicker .day.selected.hovered.end, .react-google-flight-datepicker .day.hovered.end {
+  background: linear-gradient(90deg, #e4e4f7 50%, #fff 50%) !important
+}
+
+.react-google-flight-datepicker .day.selected.hovered {
+  background: linear-gradient(90deg, #fff 50%, #e4e4f7 50%) !important
+}
+
+.react-google-flight-datepicker .day:hover::after {
+  border: 2px solid #8F8DFF !important;
+}
+
+.react-google-flight-datepicker .dialog-footer .submit-button {
+  background: #8F8DFF !important;
+  border-radius: 0 !important;
+}
+
+.date-placeholder {
+  font-size: 0.9rem !important;
+  line-height: normal !important;
+  letter-spacing: 0.2px !important;
+  font-family: "Source Sans Pro", sans-serif !important;
+}
+
+.book-hours-container, .book-price-container {
+  height: 66px;
+  width: 50%;
+  outline: none;
+  border: 1px solid lightgray;
+  border-left: none;
+  background-color: white;
+  padding: 0 13px;
+  font-size: 14px;
+  line-height: normal;
+  letter-spacing: 0.2px;
+  color: #3c4043;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.book-container-content {
+  font-size: 14px;
+  line-height: normal;
+  letter-spacing: 0.2px;
+  color: #3c4043;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5px;
+  width: 100%;
+}
+
+.book-hours-container {
+  width: 50%;
+  border-left: 1px solid lightgray;
+  border-right: none;
+}
+
+.book-container-content > svg {
+  margin-right: 10px;
+  color: #8F8DFF;
+  font-size: 20px;
+}
+
+.book-price, .book-hours {
+
+  /* font-weight: bold; */
+  font-size: 14px;
+  line-height: normal;
+  letter-spacing: 0.2px;
+  width: 25%;
+  flex-grow: 1;
+
+  color: #3c4043;
+
+  outline: none;
+  border: none;
+}
+
+.book-total {
+  text-align: right;
+  position: relative;
+}
+
+.book-total > * {
+  margin: 0;
+}
+
+.input-line {
+  height: 45px;
+  width: 1px;
+  background-color: lightgray;
+}
+
+.half-container > h1 {
+  font-size: 44px;
+  margin: 0;
+}
+
+.pricing-container {
+  width: 40%;
+  background-color: #f5f5f5;
+  box-shadow: 0px -10px 20px rgba(0, 0, 0, 0.15);
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.book-textarea {
+  outline: none;
+  height: 200px;
+  resize: none;
+  color: #474448;
+  padding: 20px;
+  font-family: "Source Sans", sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.book-price::placeholder, .book-textarea::placeholder, .book-hours::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgba(0,0,0,0.56);
+}
+
 .profile-item:first-of-type {
   padding-bottom: 0;
 }

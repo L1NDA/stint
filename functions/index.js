@@ -6,53 +6,145 @@ const htmlToText = require('html-to-text');
 const nodemailer = require("nodemailer")
 const algoliasearch = require('algoliasearch')
 
+const { mailConfig } = require("./config")
+
 const axios = require('axios')
 const moment = require('moment');
+const stripe = require('stripe')(functions.config().stripe.key);
 
+// GitHub
 const AUTH_HEADER = { 'headers':
                         { 'Authorization': functions.config().github.id + ":" + functions.config().github.key}
                     }
-
+// Algolia
 const APP_ID = functions.config().algolia.app;
 const ADMIN_KEY = functions.config().algolia.key;
 
-
 const client = algoliasearch(APP_ID, ADMIN_KEY)
 
+// For Firebase Realtime DB
+admin.initializeApp();
+
+
+// Node emailer
 const HOST_NAME = "smtp.gmail.com"
 const PORT = 465
 
-// let transporter = nodemailer.createTransport({
-//     host: HOST_NAME,
-//     port: PORT,
-//     secure: true, // true for 465, false for other ports
-//     auth: {
-//       user: mailConfig.address,
-//       pass: mailConfig.password,
-//     },
-// });
+let transporter = nodemailer.createTransport({
+    host: HOST_NAME,
+    port: PORT,
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: mailConfig.address,
+      pass: mailConfig.password,
+    },
+});
 
-// exports.sendEmail = functions.https.onRequest((req, res) => {
-//     cors(req, res, () => {
+exports.onCheckoutSessionCompleted = functions.https.onRequest((req, res) => {
+    cors(req, res, async () => {
+        const endpointSecret = functions.config().stripe.checkout_session_webhook.secret
 
-//         const {recipientAddress, subjectLine, htmlBody} = req.body;
+        const sig = req.headers["stripe-signature"];
 
-//         const mailOptions = {
-//             from: 'Stint <' + mailConfig.address + '>',
-//             to: recipientAddress,
-//             subject: subjectLine,
-//             html: htmlBody
-//         };
+        let event;
+        try {
+            event = stripe.webhooks.constructEvent(req.rawBody, sig, endpointSecret);
+        } catch (err) {
+            res.status(400).send(err);
+        }
 
-//         return transporter.sendMail(mailOptions, (error, info) => {
-//             if(error){
-//                 return res.send(error.toString());
-//             }
-//             return res.status(200).send('Sent', info);
-//         });
-//     });
-// });
+        // get freelancer uid
+        let freelancerUid = event.data.object.metadata.freelancerUid
+        let customerId = event.data.object.customer
 
+        console.log("event", event)
+        console.log("metadata", event.data.object.metadata)
+        console.log("customerid", customerId)
+
+        let customer = await stripe.customers.retrieve(customerId)
+
+        console.log("customer", customer)
+
+        let customerEmail = customer.email
+
+        let amountReceived = (event.data.object.amount_total * 0.971) - 30
+        let amountPaidOut = amountReceived * 0.85
+        let amountKept = amountReceived - amountPaidOut
+
+        let stintDetails = {
+            category: event.data.object.metadata.stintCategory,
+            description: event.data.object.metadata.stintDescription,
+            totalHours: event.data.object.metadata.totalHours,
+            hourlyRate: event.data.object.metadata.hourlyRate,
+            startDate: event.data.object.metadata.startDate,
+            endDate: event.data.object.metadata.endDate,
+        }
+
+        let transaction = {
+            [customerId]: {
+                customerEmail,
+                amountReceived,
+                amountPaidOut,
+                amountKept,
+                stintDetails,
+            },
+        }
+
+        return admin.database().ref('stripeEvents/' + freelancerUid).update(transaction)
+          .then((snapshot) => {
+            return res.json({ received: true });
+          })
+          .catch((err) => {
+            console.error(err);
+            return res.status(500).end();
+          });
+    })
+})
+
+exports.listAllCustomers = functions.https.onRequest((req, res) => {
+    cors(req, res, async () => {
+        const { emailFilter } = req.body
+        const customersList = await stripe.customers.list({
+            limit: 10,
+            email: emailFilter,
+        })
+
+        return res.status(200).send(customersList)
+    })
+})
+
+exports.createCheckoutSession = functions.https.onRequest((req, res) => {
+    cors(req, res, async () => {
+        const { product_data, unit_amount, success_url, cancel_url, metadata } = req.body
+        const session = await stripe.checkout.sessions.create({
+          payment_method_types: ['card'],
+          line_items: [{
+            price_data: {
+              currency: 'usd',
+              product_data: product_data,
+              unit_amount: unit_amount,
+            },
+            quantity: 1,
+          }],
+          mode: 'payment',
+          success_url: success_url, // 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}'
+          cancel_url: cancel_url, // 'https://example.com/cancel'
+          metadata: metadata,
+        });
+
+        return res.status(200).send(session.id)
+    })
+})
+
+exports.retrieveCheckoutSession = functions.https.onRequest((req, res) => {
+    cors(req, res, () => {
+        const { sessionId } = req.body
+        stripe.checkout.sessions.retrieve(sessionId, (err, session) => {
+            console.log("retrieved session", session)
+            res.status(200).send(session)
+        })
+    })
+})
 
 exports.updateIndex = functions.database.ref('/freelancers/{id}').onUpdate((snapshot, context) => {
     const index = client.initIndex(functions.config().algolia.index);

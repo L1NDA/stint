@@ -36,7 +36,7 @@ function App({ isLoggedIn }) {
         <Route exact path={Routes.HOMEPAGE_PATH} component={Homepage} />
         <Route exact path={Routes.COMPANY_PATH} component={Company} />
         <Route exact path={Routes.ABOUT_PATH} component={About} />
-        // <Route exact path={Routes.SEARCH_PATH} component={Search} />
+        <Route exact path={Routes.SEARCH_PATH} component={Search} />
         <Route
           exact
           path={Routes.PRIVACY_POLICY_PATH}

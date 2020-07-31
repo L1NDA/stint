@@ -39,7 +39,9 @@ import { PROFILE_CREATION_PATH } from "../constants/ROUTING_CONSTANTS";
 import { CREATED_AT } from "../constants/DB_CONSTANTS";
 import { getFreelancerRef } from "../api/freelancer";
 
-import moment from "moment";
+import { createCheckoutSession } from "../api/stripe"
+
+import moment from "moment"
 const axios = require("axios");
 const { setCompanyBetaInfo } = require("../api/company");
 
@@ -77,6 +79,9 @@ class Homepage extends React.Component {
 
   handleButtonClick = async (event) => {
     event.preventDefault();
+
+    console.log(await createCheckoutSession({"name": "stint stuff"}, 1000, "https://wearestint.com/hire", "https://wearestint.com/our-mission"))
+
     let temp = this.state.modal;
     this.setState({
       modal: !temp,

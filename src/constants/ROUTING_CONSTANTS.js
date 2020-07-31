@@ -18,6 +18,8 @@ export const PROFILE_EDIT_PATH = "/edit-profile";
 
 export const SEARCH_PATH = "/search";
 
+export const CHECKOUT_PATH = "/checkout";
+
 export const PROFILE_VIEW_PATH = (uid) => "/profile/" + uid;
 
 export const FOUR_OH_FOUR_PATH = "/404";
@@ -33,4 +35,6 @@ export default {
   PROFILE_EDIT_PATH,
   SEARCH_PATH,
   FOUR_OH_FOUR_PATH,
+  SEARCH_PATH,
+  CHECKOUT_PATH,
 };
