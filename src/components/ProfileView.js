@@ -102,6 +102,10 @@ class ProfileView extends React.Component {
     console.log("param uid", props.match.params.uid);
   }
 
+  componentDidMount() {
+    document.title = `${this.state.freelancerInfo.displayName.split(" ")[0]}'s Profile – Stint`;
+  }
+
   componentDidUpdate() {
     if (!this.state.width) {
       this.setWidth();
@@ -271,7 +275,7 @@ class ProfileView extends React.Component {
         numWeekdays: numWeekdays,
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
-      }, () => console.log(this.state))
+      }, () => console.log(startDate, startDate.$M, startDate.$D, endDate))
     }
   }
 
@@ -298,7 +302,7 @@ class ProfileView extends React.Component {
           <div className={this.state.bookCategory ? "book-container book-container-fullscreen" : "book-container"}>
             <div className={this.state.bookCategory ? "book-container-inner add-padding" : "book-container-inner"}>
             {this.state.bookCategory
-            ? <TiTimes className="modal-x" onClick={()=>this.setState({bookCategory: null})} style={{fontSize: "30px", top: "15px", right: "15px"}}/>
+            ? <TiTimes className="modal-x" onClick={()=>this.setState({bookCategory: null, savedStart: this.state.startDate ? this.state.startDate : null, savedEnd: this.state.endDate ? this.state.endDate : null})} style={{fontSize: "30px", top: "15px", right: "15px"}}/>
             : null}
             {this.state.bookCategory
               ? <div className="pricing-container flex-column">
@@ -307,6 +311,8 @@ class ProfileView extends React.Component {
                 <RangeDatePicker
                   startDatePlaceholder="Start Date"
                   endDatePlaceholder="End Date"
+                  startDate={this.state.savedStart ? moment(this.state.savedStart).format("YYYY MM DD") : null}
+                  endDate={this.state.savedEnd ? moment(this.state.savedEnd).format("YYYY MM DD") : null}
                   minDate={new Date()}
                   disabled={false}
                   className="book-calendar"
