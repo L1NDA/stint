@@ -149,6 +149,7 @@ a {
   transform: rotate(0deg);
   transition: transform 0.2s ease-in;
   z-index: 10;
+  color: white;
 }
 
 .modal-x:hover {
@@ -374,10 +375,6 @@ p {
 }
 
 .about-card {
-  width: 45%;
-}
-
-.half-container {
   width: 45%;
 }
 
@@ -723,10 +720,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
   .search-box-container {
     font-size: 18px;
-  }
-
-  .half-container {
-    width: 100%;
   }
 
   .hide {

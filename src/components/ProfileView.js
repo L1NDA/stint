@@ -351,11 +351,14 @@ class ProfileView extends React.Component {
         {this.state.freelancerInfo ? (
           <>
           <div className={this.state.bookCategory ? "book-container book-container-fullscreen" : "book-container"}>
-
+            <div className={this.state.bookCategory ? "book-container-inner add-padding" : "book-container-inner"}>
+            {this.state.bookCategory
+            ? <TiTimes className="modal-x" onClick={()=>this.setState({bookCategory: null})} style={{fontSize: "30px", top: "15px", right: "15px"}}/>
+            : null}
             {this.state.bookCategory
               ? <div className="pricing-container flex-column">
                 <div className="flex-column">
-                <p style={{marginTop: "0", marginBottom: "20px"}}><b>DETAILS</b></p>
+
                 <RangeDatePicker
                   startDatePlaceholder="Start Date"
                   endDatePlaceholder="End Date"
@@ -368,7 +371,7 @@ class ProfileView extends React.Component {
                 <br/>
                 <i className="subtitle">Please note: freelancers are only expected to work on business days. At Stint, we believe in a healthy work-life balance.</i>
                 <br/>
-                <div className="flex-row" style={{margin: "0", width: "100%", alignItems: "center"}}>
+                <div className="flex-row-comp" style={{margin: "0", width: "100%", alignItems: "center"}}>
                 <div className="book-hours-container">
                   <div className="subtitle" style={{fontWeight: "bold"}}>HOURS PER DAY</div>
                   <div className="book-container-content">
@@ -399,8 +402,9 @@ class ProfileView extends React.Component {
 
                 </div>
                 <br/>
-                <i className="subtitle">More text explaining pricing and benchmarks.</i>
-                <i className="subtitle">Information about money back for cancelled stints.</i>
+                <i className="subtitle">We respect that startups may be in varying stages of funding and allow you to set student wages based on what your budget permits. In return, please be courteous to our students. As a benchmark, the average hourly wage for past stints is <b>$23</b>.</i>
+                <br/>
+                <i className="subtitle">If you ever find that you are unsatisfied with a student’s progress, We’ll fully refund you for any stint canceled before the end of the first quarter.</i>
                 </div>
                 <div className="book-total">
                     <p><b>{this.state.numWeekdays && this.state.hours
@@ -418,31 +422,67 @@ class ProfileView extends React.Component {
               : null}
 
 
-            <div className={this.state.bookCategory ? "flex-column half-container" : null} style={{position: "relative"}}>
+            <div className={this.state.bookCategory ? "flex-column half-container-book" : null}>
               <div className={this.state.bookCategory ? "book-title-opened" : "flex-row book-title"}>
                 <img
                   src={this.state.freelancerInfo.avatarUrl}
                 ></img>
                 <p>Book {this.state.freelancerInfo.displayName.split(" ")[0]} for {" "}
-                  <select
-                    name="booking-category"
-                    className="booking-category-select"
-                    onChange={this.handleSelect}>
-                    <option value="">(insert task)</option>
-                    <optgroup label="design">
-                      <option value="web design">web design</option>
-                      <option value="wireframes">wireframes</option>
-                    </optgroup>
-                    <optgroup label="Software Development">
-                      <option value="front-end">front-end</option>
-                      <option value="app development">app development</option>
-                    </optgroup>
-                  </select></p>
+                  {this.state.bookCategory ?
+                    <b>{this.state.bookCategory}</b> :
+                    <select
+                      name="booking-category"
+                      className="booking-category-select"
+                      onChange={this.handleSelect}>
+                      <option value="">(insert task)</option>
+                      {this.state.freelancerInfo.profile.dataAnalytics ?
+                        <optgroup label="Analytics">
+                          {STINT_CATEGORIES.da.map(
+                            (category) => {
+                              return (
+                                <option value={category}>{category}</option>
+                              )})}
+                        </optgroup>
+                        : null
+                      }
+                      {this.state.freelancerInfo.profile.contentCreation ?
+                        <optgroup label="Content Creation">
+                          {STINT_CATEGORIES.ccm.map(
+                            (category) => {
+                              return (
+                                <option value={category}>{category}</option>
+                              )})}
+                        </optgroup>
+                        : null
+                      }
+                      {this.state.freelancerInfo.profile.design ?
+                        <optgroup label="Design">
+                          {STINT_CATEGORIES.db.map(
+                            (category) => {
+                              return (
+                                <option value={category}>{category}</option>
+                              )})}
+                        </optgroup>
+                        : null
+                      }
+                      {this.state.freelancerInfo.profile.softwareDev ?
+                        <optgroup label="Software Development">
+                          {STINT_CATEGORIES.sd.map(
+                            (category) => {
+                              return (
+                                <option value={category}>{category}</option>
+                              )})}
+                        </optgroup>
+                        : null
+                      }
+
+                    </select>
+                  }
+                  </p>
+
               </div>
 
-          <i className="subtitle" style={{color: "white"}}>First time booking on Stint? Learn more about our process here.</i>
-
-            <div className="flex-column">
+            <div className="flex-column" style={{marginTop: "30px"}}>
             <p style={{color: "white"}}><b>PROJECT OVERVIEW</b></p>
             <textarea
               className="book-textarea"
@@ -450,26 +490,31 @@ class ProfileView extends React.Component {
               onChange={(e) => this.setState({ stintDescription: e.target.value })}></textarea>
 
             </div>
-            <CheckoutButton
-              freelancerUid={this.props.match.params.uid}
-              startDate={this.state.startDate}
-              endDate={this.state.endDate}
-              freelancerName={this.state.freelancerInfo.displayName.split(" ")[0]}
-              totalDays={this.state.numWeekdays}
-              freelancerPhotoUrl={this.state.freelancerInfo.avatarUrl}
-              stintCategory={this.state.bookCategory}
-              stintDescription={this.state.stintDescription}
-              redirectOnSuccessUrl="https://www.wearestint.com/hire"
-              redirectOnFailUrl="https://www.wearestint.com/our-mission"
-              totalHours={this.state.hours * this.state.numWeekdays}
-              hourlyRate={this.state.price}
-              totalAmount={this.state.hours * this.state.numWeekdays * this.state.price * 100}
-              disabled={this.state.startDate
-                && this.state.endDate
-                && this.state.numWeekdays
-                && this.state.bookCategory
-                && this.state.hours
-                && this.state.price ? false : true}/>
+            <div className="flex-column button-container">
+              <CheckoutButton
+                freelancerUid={this.props.match.params.uid}
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
+                freelancerName={this.state.freelancerInfo.displayName.split(" ")[0]}
+                totalDays={this.state.numWeekdays}
+                freelancerPhotoUrl={this.state.freelancerInfo.avatarUrl}
+                stintCategory={this.state.bookCategory}
+                stintDescription={this.state.stintDescription}
+                redirectOnSuccessUrl="https://www.wearestint.com/hire"
+                redirectOnFailUrl="https://www.wearestint.com/our-mission"
+                totalHours={this.state.hours * this.state.numWeekdays}
+                hourlyRate={this.state.price}
+                totalAmount={this.state.hours * this.state.numWeekdays * this.state.price * 100}
+                disabled={this.state.startDate
+                  && this.state.endDate
+                  && this.state.numWeekdays
+                  && this.state.bookCategory
+                  && this.state.hours
+                  && this.state.price ? false : true}/>
+                <i className="subtitle" style={{color: "white", marginTop: "10px", textAlign: "right"}}>First time booking on Stint? Learn more about our process here.</i>
+            </div>
+
+          </div>
           </div>
 
           </div>

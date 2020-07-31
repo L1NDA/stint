@@ -76,7 +76,7 @@ class CheckoutButton extends React.Component {
 
     render() {
         return (
-          <button disabled={this.props.disabled} role="link" onClick={this.handleClick} className="button" style={{alignSelf: "flex-start", position: "absolute", right: "0", bottom: "0"}}>
+          <button disabled={this.props.disabled} role="link" onClick={this.handleClick} className="button" style={{alignSelf: "flex-end"}}>
             Checkout
           </button>
         );

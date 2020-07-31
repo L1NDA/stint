@@ -30,15 +30,36 @@ admin.initializeApp();
 const HOST_NAME = "smtp.gmail.com"
 const PORT = 465
 
-let transporter = nodemailer.createTransport({
-    host: HOST_NAME,
-    port: PORT,
-    secure: true, // true for 465, false for other ports
-    auth: {
-      user: mailConfig.address,
-      pass: mailConfig.password,
-    },
-});
+// let transporter = nodemailer.createTransport({
+//     host: HOST_NAME,
+//     port: PORT,
+//     secure: true, // true for 465, false for other ports
+//     auth: {
+//       user: mailConfig.address,
+//       pass: mailConfig.password,
+//     },
+// });
+
+// exports.sendEmail = functions.https.onRequest((req, res) => {
+//     cors(req, res, () => {
+
+//         const {recipientAddress, subjectLine, htmlBody} = req.body;
+
+//         const mailOptions = {
+//             from: 'Stint <' + mailConfig.address + '>',
+//             to: recipientAddress,
+//             subject: subjectLine,
+//             html: htmlBody
+//         };
+
+//         return transporter.sendMail(mailOptions, (error, info) => {
+//             if(error){
+//                 return res.send(error.toString());
+//             }
+//             return res.status(200).send('Sent', info);
+//         });
+//     });
+// });
 
 exports.onCheckoutSessionCompleted = functions.https.onRequest((req, res) => {
     cors(req, res, async () => {
@@ -56,6 +77,7 @@ exports.onCheckoutSessionCompleted = functions.https.onRequest((req, res) => {
         // get freelancer uid
         let freelancerUid = event.data.object.metadata.freelancerUid
         let customerId = event.data.object.customer
+        let checkoutSessionId = event.data.object.id
 
         console.log("event", event)
         console.log("metadata", event.data.object.metadata)
@@ -86,6 +108,7 @@ exports.onCheckoutSessionCompleted = functions.https.onRequest((req, res) => {
                 amountReceived,
                 amountPaidOut,
                 amountKept,
+                checkoutSessionId,
                 stintDetails,
             },
         }
