@@ -12,7 +12,12 @@ const SKILLS = "skills";
 
 class StudentSkillsDropdown extends React.Component {
   constructor(props) {
-    super();
+    super(props);
+    // let keyArray = []
+    // for (let key in this.props[this.props.section]) {
+    //   let keyEntry = {key, this.props[this.props.section][key]}
+    //   keyArray.append[key]
+    // }
     this.state = {
       details: false,
       [SKILLS]: {},
@@ -41,6 +46,12 @@ class StudentSkillsDropdown extends React.Component {
         section + "HaveAwardProvider2",
       ],
     };
+  }
+
+  componentDidMount() {
+    this.setState(
+      this.props[this.props.section], () => {console.log("StudentSkillsDropdown", this.state)}
+    )
   }
 
   componentDidUpdate() {
@@ -245,12 +256,12 @@ class StudentSkillsDropdown extends React.Component {
       });
   };
 
-  clearInfo = () => {
+  clearInfo = (e) => {
     let clearedState = {}
     Object.keys(this.state).forEach((key) => {
       clearedState[key] = null
     })
-    this.setState(clearedState, () => console.log(this.state))
+    this.setState(clearedState, () => this.handleSubmit(e))
   }
 
   render() {
@@ -313,17 +324,12 @@ class StudentSkillsDropdown extends React.Component {
                     name={`${this.props.section}Have${index}`}
                     saveData={this.saveState}
                     selected={
-                      this.props[this.props.section] &&
-                      Object.keys(this.props[this.props.section]).length !== 0 &&
-                      this.props[this.props.section][`${this.props.section}${index}`]
-                        ? "have"
-                        : this.state[`${this.props.section}Have${index}`]
+                      this.state[`${this.props.section}Have${index}`]
                     }
                     have={true}
                   />
                   {social[0]}
-                  {this.state[`${this.props.section}Have${index}`] === "have" ||
-                  Object.keys(this.props[this.props.section]).length > 0 ? (
+                  {this.state[`${this.props.section}Have${index}`] === "have" ? (
                     <span className="nobreak">
                       :{" "}
                       {social[1] === "url" ? (
@@ -333,9 +339,7 @@ class StudentSkillsDropdown extends React.Component {
                           saveData={this.saveState}
                           required={true}
                           val={
-                            Object.keys(this.props[this.props.section]).length > 0
-                              ? this.props[this.props.section][`${this.props.section}${index}`]
-                              : this.state[`${this.props.section}${index}`]
+                            this.state[`${this.props.section}${index}`]
                           }
                           type="url"
                         />
@@ -347,9 +351,7 @@ class StudentSkillsDropdown extends React.Component {
                           required={true}
                           username={true}
                           val={
-                            Object.keys(this.props[this.props.section]).length > 0
-                              ? this.props[this.props.section][`${this.props.section}${index}`]
-                              : this.state[`${this.props.section}${index}`]
+                            this.state[`${this.props.section}${index}`]
                           }
                         />
                       )}
@@ -437,19 +439,11 @@ class StudentSkillsDropdown extends React.Component {
                         className="skill-bar"
                         style={{
                           width:
-                            this.props[this.props.section] &&
-                            this.props[this.props.section].skills && 
-                            this.props[this.props.section].skills[skill]
-                              ? `${
-                                  this.props[this.props.section].skills[skill] *
-                                  20
-                                }%`
-                              : `${
-                                  this.state[SKILLS] &&
+                            `${   this.state[SKILLS] &&
                                   this.state[SKILLS][skill]
                                     ? this.state[SKILLS][skill] * 20
                                     : 0
-                                }%`,
+                                }%`
                         }}
                       ></div>
                     </div>
@@ -468,12 +462,7 @@ class StudentSkillsDropdown extends React.Component {
                 name={`${this.props.section}HaveAward`}
                 saveData={this.saveState}
                 selected={
-                  this.props[this.props.section] &&
-                  this.props[this.props.section].awardContent
-                    ? "have"
-                    : this.props[this.props.section]
-                    ? "have not"
-                    : this.state[`${this.props.section}HaveAward`]
+                  this.state[`${this.props.section}HaveAward`]
                 }
                 have={true}
               />
@@ -489,10 +478,7 @@ class StudentSkillsDropdown extends React.Component {
                   name={`${this.props.section}HaveAwardCategory`}
                   saveData={this.saveState}
                   selected={
-                    this.props[this.props.section] &&
-                    this.props[this.props.section].awardCategories
-                      ? this.props[this.props.section].awardCategories[0]
-                      : this.state[`${this.props.section}HaveAwardCategory`]
+                    this.state[`${this.props.section}HaveAwardCategory`]
                   }
                   required={true}
                 />
@@ -505,10 +491,7 @@ class StudentSkillsDropdown extends React.Component {
                     placeholder="(award name*)"
                     saveData={this.saveState}
                     val={
-                      this.props[this.props.section] &&
-                      this.props[this.props.section].awardContent
-                        ? this.props[this.props.section].awardContent[0]
-                        : this.state[`${this.props.section}HaveAwardContent`]
+                      this.state[`${this.props.section}HaveAwardContent`]
                     }
                     required={true}
                     maxLength="50"
@@ -520,10 +503,7 @@ class StudentSkillsDropdown extends React.Component {
                       placeholder="(award provider*)"
                       saveData={this.saveState}
                       val={
-                        this.props[this.props.section] &&
-                        this.props[this.props.section].awardProviders
-                          ? this.props[this.props.section].awardProviders[0]
-                          : this.state[`${this.props.section}HaveAwardProvider`]
+                        this.state[`${this.props.section}HaveAwardProvider`]
                       }
                       required={true}
                       maxLength="50"
@@ -553,11 +533,7 @@ class StudentSkillsDropdown extends React.Component {
                     saveData={this.saveState}
                     have={true}
                     selected={
-                      this.props[this.props.section] &&
-                      this.props[this.props.section].awardContent &&
-                      this.props[this.props.section].awardContent.length > 1
-                        ? "have"
-                        : this.state[`${this.props.section}HaveAward1`]
+                      this.state[`${this.props.section}HaveAward1`]
                     }
                   />
                   won another relevant{" "}
@@ -572,12 +548,7 @@ class StudentSkillsDropdown extends React.Component {
                       name={`${this.props.section}HaveAwardCategory1`}
                       saveData={this.saveState}
                       selected={
-                        this.props[this.props.section] &&
-                        this.props[this.props.section].awardCategories &&
-                        this.props[this.props.section].awardCategories.length >
-                          1
-                          ? this.props[this.props.section].awardCategories[1]
-                          : this.state[
+                        this.state[
                               `${this.props.section}HaveAwardCategory1`
                             ]
                       }
@@ -592,11 +563,7 @@ class StudentSkillsDropdown extends React.Component {
                         placeholder="(award name*)"
                         saveData={this.saveState}
                         val={
-                          this.props[this.props.section] &&
-                          this.props[this.props.section].awardContent &&
-                          this.props[this.props.section].awardContent.length > 1
-                            ? this.props[this.props.section].awardContent[1]
-                            : this.state[
+                          this.state[
                                 `${this.props.section}HaveAwardContent1`
                               ]
                         }
@@ -610,12 +577,7 @@ class StudentSkillsDropdown extends React.Component {
                           placeholder="(award provider*)"
                           saveData={this.saveState}
                           val={
-                            this.props[this.props.section] &&
-                            this.props[this.props.section].awardProviders &&
-                            this.props[this.props.section].awardProviders
-                              .length > 1
-                              ? this.props[this.props.section].awardProviders[1]
-                              : this.state[
+                            this.state[
                                   `${this.props.section}HaveAwardProvider1`
                                 ]
                           }
@@ -648,11 +610,7 @@ class StudentSkillsDropdown extends React.Component {
                     name={`${this.props.section}HaveAward2`}
                     saveData={this.saveState}
                     selected={
-                      this.props[this.props.section] &&
-                      this.props[this.props.section].awardContent &&
-                      this.props[this.props.section].awardContent.length > 2
-                        ? "have"
-                        : this.state[`${this.props.section}HaveAward2`]
+                      this.state[`${this.props.section}HaveAward2`]
                     }
                     have={true}
                   />
@@ -668,12 +626,7 @@ class StudentSkillsDropdown extends React.Component {
                       name={`${this.props.section}HaveAwardCategory2`}
                       saveData={this.saveState}
                       selected={
-                        this.props[this.props.section] &&
-                        this.props[this.props.section].awardCategories &&
-                        this.props[this.props.section].awardCategories.length >
-                          2
-                          ? this.props[this.props.section].awardCategories[2]
-                          : this.state[
+                        this.state[
                               `${this.props.section}HaveAwardCategory2`
                             ]
                       }
@@ -688,11 +641,7 @@ class StudentSkillsDropdown extends React.Component {
                         placeholder="(award name*)"
                         saveData={this.saveState}
                         val={
-                          this.props[this.props.section] &&
-                          this.props[this.props.section].awardContent &&
-                          this.props[this.props.section].awardContent.length > 2
-                            ? this.props[this.props.section].awardContent[2]
-                            : this.state[
+                          this.state[
                                 `${this.props.section}HaveAwardContent2`
                               ]
                         }
@@ -706,12 +655,7 @@ class StudentSkillsDropdown extends React.Component {
                           placeholder="(award provider*)"
                           saveData={this.saveState}
                           val={
-                            this.props[this.props.section] &&
-                            this.props[this.props.section].awardProviders &&
-                            this.props[this.props.section].awardProviders
-                              .length > 2
-                              ? this.props[this.props.section].awardProviders[2]
-                              : this.state[
+                            this.state[
                                   `${this.props.section}HaveAwardProvider2`
                                 ]
                           }
@@ -760,7 +704,7 @@ class StudentSkillsDropdown extends React.Component {
                   ? `Update my info for ${this.props.title}.`
                   : `I'm done here! List me under ${this.props.title}.`}
               </button>
-              {this.props[this.props.section] ? <div className="subtitle" onClick={this.clearInfo}>Clear info and remove me from {this.props.title}</div> : null}
+              {this.props[this.props.section] || this.state.submitted ? <div className="subtitle" onClick={(e) => this.clearInfo(e)}>Clear info and remove me from {this.props.title}</div> : null}
             </div>
 
           </form>
