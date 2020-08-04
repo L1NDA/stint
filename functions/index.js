@@ -4,7 +4,7 @@ const cors = require('cors')({origin: true});
 const htmlToText = require('html-to-text');
 
 const nodemailer = require("nodemailer")
-const algoliasearch = require('algoliasearch')
+// const algoliasearch = require('algoliasearch')
 
 const { mailConfig } = require("./config")
 
@@ -17,10 +17,10 @@ const AUTH_HEADER = { 'headers':
                         { 'Authorization': functions.config().github.id + ":" + functions.config().github.key}
                     }
 // Algolia
-const APP_ID = functions.config().algolia.app;
-const ADMIN_KEY = functions.config().algolia.key;
+// const APP_ID = functions.config().algolia.app;
+// const ADMIN_KEY = functions.config().algolia.key;
 
-const client = algoliasearch(APP_ID, ADMIN_KEY)
+// const client = algoliasearch(APP_ID, ADMIN_KEY)
 
 // For Firebase Realtime DB
 admin.initializeApp();
@@ -79,13 +79,7 @@ exports.onCheckoutSessionCompleted = functions.https.onRequest((req, res) => {
         let customerId = event.data.object.customer
         let checkoutSessionId = event.data.object.id
 
-        console.log("event", event)
-        console.log("metadata", event.data.object.metadata)
-        console.log("customerid", customerId)
-
         let customer = await stripe.customers.retrieve(customerId)
-
-        console.log("customer", customer)
 
         let customerEmail = customer.email
 
@@ -113,7 +107,7 @@ exports.onCheckoutSessionCompleted = functions.https.onRequest((req, res) => {
             },
         }
 
-        return admin.database().ref('stripeEvents/' + freelancerUid).update(transaction)
+        return admin.database().ref('transactions/' + freelancerUid).update(transaction)
           .then((snapshot) => {
             return res.json({ received: true });
           })
@@ -169,109 +163,109 @@ exports.retrieveCheckoutSession = functions.https.onRequest((req, res) => {
     })
 })
 
-exports.updateIndex = functions.database.ref('/freelancers/{id}').onUpdate((snapshot, context) => {
-    const index = client.initIndex(functions.config().algolia.index);
+// exports.updateIndex = functions.database.ref('/freelancers/{id}').onUpdate((snapshot, context) => {
+//     const index = client.initIndex(functions.config().algolia.index);
 
-    console.log("updateindex snapshot", snapshot)
-    console.log("updateindex context", context)
+//     console.log("updateindex snapshot", snapshot)
+//     console.log("updateindex context", context)
 
-    const id = context.params.id
-    const data = snapshot.after.val()
+//     const id = context.params.id
+//     const data = snapshot.after.val()
 
-    if (data.profile) {
-        if (data.profile.softwareDev) {
-          let info = data.profile.softwareDev
-          if (info.skills) {
-            data.profile.softwareDev.skillsArray = Object.keys(info.skills)
-          }
-        }
+//     if (data.profile) {
+//         if (data.profile.softwareDev) {
+//           let info = data.profile.softwareDev
+//           if (info.skills) {
+//             data.profile.softwareDev.skillsArray = Object.keys(info.skills)
+//           }
+//         }
 
-        if (data.profile.design) {
-          let info = data.profile.design
-          if (info.skills) {
-            data.profile.design.skillsArray = Object.keys(info.skills)
-          }
-        }
+//         if (data.profile.design) {
+//           let info = data.profile.design
+//           if (info.skills) {
+//             data.profile.design.skillsArray = Object.keys(info.skills)
+//           }
+//         }
 
-        if (data.profile.dataAnalytics) {
-          let info = data.profile.dataAnalytics
-          if (info.skills) {
-            data.profile.dataAnalytics.skillsArray = Object.keys(info.skills)
-          }
-        }
+//         if (data.profile.dataAnalytics) {
+//           let info = data.profile.dataAnalytics
+//           if (info.skills) {
+//             data.profile.dataAnalytics.skillsArray = Object.keys(info.skills)
+//           }
+//         }
 
-        if (data.profile.contentCreation) {
-          let info = data.profile.contentCreation
-          if (info.skills) {
-            data.profile.contentCreation.skillsArray = Object.keys(info.skills)
-          }
-        }
-    }
+//         if (data.profile.contentCreation) {
+//           let info = data.profile.contentCreation
+//           if (info.skills) {
+//             data.profile.contentCreation.skillsArray = Object.keys(info.skills)
+//           }
+//         }
+//     }
 
-    data['objectID'] = id
+//     data['objectID'] = id
 
-    return index.saveObject(data, (err, content) =>{
-        if (err) throw err
-        console.log("User updated in Algolia index")
-    })
-});
+//     return index.saveObject(data, (err, content) =>{
+//         if (err) throw err
+//         console.log("User updated in Algolia index")
+//     })
+// });
 
-exports.createIndex = functions.database.ref('/freelancers/{id}').onCreate((snapshot, context) => {
-    const index = client.initIndex(functions.config().algolia.index);
+// exports.createIndex = functions.database.ref('/freelancers/{id}').onCreate((snapshot, context) => {
+//     const index = client.initIndex(functions.config().algolia.index);
 
-    console.log("createindex snapshot", snapshot.val())
-    console.log("createindex context",context)
+//     console.log("createindex snapshot", snapshot.val())
+//     console.log("createindex context",context)
 
-    const id = context.params.id
-    const data = snapshot.val()
+//     const id = context.params.id
+//     const data = snapshot.val()
 
-    if (data.profile) {
-        if (data.profile.softwareDev) {
-          let info = data.profile.softwareDev
-          if (info.skills) {
-            data.profile.softwareDev.skillsArray = Object.keys(info.skills)
-          }
-        }
+//     if (data.profile) {
+//         if (data.profile.softwareDev) {
+//           let info = data.profile.softwareDev
+//           if (info.skills) {
+//             data.profile.softwareDev.skillsArray = Object.keys(info.skills)
+//           }
+//         }
 
-        if (data.profile.design) {
-          let info = data.profile.design
-          if (info.skills) {
-            data.profile.design.skillsArray = Object.keys(info.skills)
-          }
-        }
+//         if (data.profile.design) {
+//           let info = data.profile.design
+//           if (info.skills) {
+//             data.profile.design.skillsArray = Object.keys(info.skills)
+//           }
+//         }
 
-        if (data.profile.dataAnalytics) {
-          let info = data.profile.dataAnalytics
-          if (info.skills) {
-            data.profile.dataAnalytics.skillsArray = Object.keys(info.skills)
-          }
-        }
+//         if (data.profile.dataAnalytics) {
+//           let info = data.profile.dataAnalytics
+//           if (info.skills) {
+//             data.profile.dataAnalytics.skillsArray = Object.keys(info.skills)
+//           }
+//         }
 
-        if (data.profile.contentCreation) {
-          let info = data.profile.contentCreation
-          if (info.skills) {
-            data.profile.contentCreation.skillsArray = Object.keys(info.skills)
-          }
-        }
-    }
+//         if (data.profile.contentCreation) {
+//           let info = data.profile.contentCreation
+//           if (info.skills) {
+//             data.profile.contentCreation.skillsArray = Object.keys(info.skills)
+//           }
+//         }
+//     }
 
-    data['objectID'] = id
+//     data['objectID'] = id
 
-    return index.saveObject(data, (err, content) =>{
-        if (err) throw err
-        console.log("User updated in Algolia index")
-    })
-});
+//     return index.saveObject(data, (err, content) =>{
+//         if (err) throw err
+//         console.log("User updated in Algolia index")
+//     })
+// });
 
-exports.deleteIndex = functions.database.ref('/freelancers/{id}').onDelete((snapshot, context) => {
-    const index = client.initIndex(functions.config().algolia.index);
+// exports.deleteIndex = functions.database.ref('/freelancers/{id}').onDelete((snapshot, context) => {
+//     const index = client.initIndex(functions.config().algolia.index);
     
-    const id = context.params.id
+//     const id = context.params.id
 
-    return index.deleteObject(id, (err)=> {
-        console.log("User removed from index", id)
-    })
-});
+//     return index.deleteObject(id, (err)=> {
+//         console.log("User removed from index", id)
+//     })
+// });
 
 exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {

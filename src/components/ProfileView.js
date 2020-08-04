@@ -345,12 +345,14 @@ class ProfileView extends React.Component {
         .personalWebsiteUrl;
     }
 
+// code for edit profile button
+// {this.props.auth &&
+//         this.props.auth.uid === this.props.match.params.uid ? (
+//           <button onClick={this.redirectToEditProfile}>edit profile</button>
+//         ) : null}
+
     return (
       <div className="container-stint">
-        {this.props.auth &&
-        this.props.auth.uid === this.props.match.params.uid ? (
-          <button onClick={this.redirectToEditProfile}>edit profile</button>
-        ) : null}
         <Menu />
         {this.state.freelancerInfo ? (
           <>
@@ -427,7 +429,9 @@ class ProfileView extends React.Component {
               </div>
               : null}
 
-
+            {!this.props.auth ||
+             this.props.auth.uid !== this.props.match.params.uid ? (
+            <>
             <div className={this.state.bookCategory ? "flex-column half-container-book" : null}>
               <div className={this.state.bookCategory ? "book-title-opened" : "flex-row book-title"}>
                 <img
@@ -521,9 +525,12 @@ class ProfileView extends React.Component {
             </div>
 
           </div>
+          </>
+          ) : null}
           </div>
 
           </div>
+
 
             <section className="padding flex-row profile-item">
               <img
