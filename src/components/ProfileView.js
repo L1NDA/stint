@@ -509,8 +509,8 @@ class ProfileView extends React.Component {
                 freelancerPhotoUrl={this.state.freelancerInfo.avatarUrl}
                 stintCategory={this.state.bookCategory}
                 stintDescription={this.state.stintDescription}
-                redirectOnSuccessUrl="https://www.wearestint.com"
-                redirectOnFailUrl="https://www.wearestint.com"
+                redirectOnSuccessUrl="https://wearestint.com/hire"
+                redirectOnFailUrl="https://wearestint.com/our-mission"
                 totalHours={this.state.hours * this.state.numWeekdays}
                 hourlyRate={this.state.price}
                 totalAmount={this.state.hours * this.state.numWeekdays * this.state.price * 100}
