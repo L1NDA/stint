@@ -31,6 +31,17 @@ export class Autocomplete extends Component {
 
   componentDidMount() {
     this.setWidth();
+    if (this.props.val) {
+      if (!this.props.index) {
+        this.props.saveData(this.props.name, this.state.userInput);
+      } else {
+        this.props.saveData(
+          this.props.name,
+          this.state.userInput,
+          this.props.index
+        );
+      }
+    }
   }
 
   // componentDidUpdate (prevProps, prevState) {

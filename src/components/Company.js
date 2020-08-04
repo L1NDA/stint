@@ -15,7 +15,7 @@ import {
   Slide,
   ButtonBack,
   ButtonNext,
-  DotGroup
+  DotGroup,
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 import { TiMediaPlayReverse, TiMediaPlay } from "react-icons/ti";
@@ -46,7 +46,7 @@ class Company extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container-stint">
         <Menu />
 
         <div
@@ -129,13 +129,13 @@ class Company extends React.Component {
           </div>
         </div>
 
-
         <div
           className="flex-column center carousel-section"
           style={{ backgroundColor: "#f5f5f5", padding: "75px 10%" }}
         >
           <h3>
-            Stint taps into the overlooked workforce of college students – get access to top talent before they graduate.
+            Stint taps into the overlooked workforce of college students – get
+            access to top talent before they graduate.
           </h3>
           <CarouselProvider
             naturalSlideWidth={345}
@@ -239,7 +239,7 @@ class Company extends React.Component {
               <TiMediaPlay />
             </ButtonNext>
           </CarouselProvider>
-          <div className="flex-row center unis" style={{flexWrap: "wrap"}}>
+          <div className="flex-row center unis" style={{ flexWrap: "wrap" }}>
             <img src={require("./imgs/unis/bu.png")} className="uni" />
             <img src={require("./imgs/unis/harvard.png")} className="uni" />
             <img src={require("./imgs/unis/bc.png")} className="uni" />
@@ -248,76 +248,6 @@ class Company extends React.Component {
         </div>
 
         <div className="flex-column center padding process-container">
-        <h2
-          style={{
-            marginTop: "75px",
-            color: "#474448",
-            textAlign: "center",
-            marginBottom: "50px",
-          }}
-        >
-          Stint is the practical solution for companies and students to
-          achieve their goals.
-        </h2>
-        <CarouselProvider
-          naturalSlideWidth={400}
-          naturalSlideHeight={200}
-          isIntrinsicHeight={true}
-          totalSlides={4}
-          step={1}
-          infinite={true}
-          visibleSlides={1}
-          isPlaying={true}
-          interval={5000}
-          className="homepage-carousel"
-        >
-          <div className="homepage-carousel-container">
-            <Slider className="homepage-slider-container">
-              <Slide index={0} className="homepage-slide-container">
-                <div className="homepage-slide">
-                  <h3>
-                    A local flower boutique wants to update its old website to
-                    appeal to younger audiences. They hire a student designer
-                    to create a brand book and 3 new looks for the site.
-                  </h3>
-                </div>
-              </Slide>
-              <Slide index={1} className="homepage-slide-container">
-                <div className="homepage-slide">
-                  <h3>
-                    A startup company is creating a short video for marketing
-                    purposes. They hire one student to transform their film
-                    clips into a video and another student to perform a
-                    voiceover.
-                  </h3>
-                </div>
-              </Slide>
-              <Slide index={2} className="homepage-slide-container">
-                <div className="homepage-slide">
-                  <h3>
-                    A new startup needs to build a landing page, but they have
-                    endless other tasks to manage. They hire a student
-                    front-end engineer to quickly build a working site from
-                    scratch.
-                  </h3>
-                </div>
-              </Slide>
-              <Slide index={3} className="homepage-slide-container">
-                <div className="homepage-slide">
-                  <h3>
-                    A local bakery just added online ordering to their website
-                    and wants to see if this has increased site traffic. They
-                    hire an analytics student to track site activity and
-                    growth.
-                  </h3>
-                </div>
-              </Slide>
-            </Slider>
-            <DotGroup className="dot-group" />
-          </div>
-        </CarouselProvider>
-
-        <div className="flex-column center" style={{ width: "100%" }}>
           <h2
             style={{
               marginTop: "75px",
@@ -326,67 +256,140 @@ class Company extends React.Component {
               marginBottom: "50px",
             }}
           >
-            Stint is trusted and used by companies empowering students.
+            Stint is the practical solution for companies and students to
+            achieve their goals.
           </h2>
+          <CarouselProvider
+            naturalSlideWidth={400}
+            naturalSlideHeight={200}
+            isIntrinsicHeight={true}
+            totalSlides={4}
+            step={1}
+            infinite={true}
+            visibleSlides={1}
+            isPlaying={true}
+            interval={5000}
+            className="homepage-carousel"
+          >
+            <div className="homepage-carousel-container">
+              <Slider className="homepage-slider-container">
+                <Slide index={0} className="homepage-slide-container">
+                  <div className="homepage-slide">
+                    <h3>
+                      A local flower boutique wants to update its old website to
+                      appeal to younger audiences. They hire a student designer
+                      to create a brand book and 3 new looks for the site.
+                    </h3>
+                  </div>
+                </Slide>
+                <Slide index={1} className="homepage-slide-container">
+                  <div className="homepage-slide">
+                    <h3>
+                      A startup company is creating a short video for marketing
+                      purposes. They hire one student to transform their film
+                      clips into a video and another student to perform a
+                      voiceover.
+                    </h3>
+                  </div>
+                </Slide>
+                <Slide index={2} className="homepage-slide-container">
+                  <div className="homepage-slide">
+                    <h3>
+                      A new startup needs to build a landing page, but they have
+                      endless other tasks to manage. They hire a student
+                      front-end engineer to quickly build a working site from
+                      scratch.
+                    </h3>
+                  </div>
+                </Slide>
+                <Slide index={3} className="homepage-slide-container">
+                  <div className="homepage-slide">
+                    <h3>
+                      A local bakery just added online ordering to their website
+                      and wants to see if this has increased site traffic. They
+                      hire an analytics student to track site activity and
+                      growth.
+                    </h3>
+                  </div>
+                </Slide>
+              </Slider>
+              <DotGroup className="dot-group" />
+            </div>
+          </CarouselProvider>
 
-          <div className="flex-row center unis" style={{ width: "100%" }}>
-            <a
-              href="https://vivforyourv.com/"
-              target="_blank"
-              className="example-company-square-container"
+          <div className="flex-column center" style={{ width: "100%" }}>
+            <h2
+              style={{
+                marginTop: "75px",
+                color: "#474448",
+                textAlign: "center",
+                marginBottom: "50px",
+              }}
             >
-              <img
-                src={require("./imgs/companies/viv.png")}
-                className="example-company-square"
-              />
-            </a>
-            <a
-              href="https://fractalcomputers.com/"
-              target="_blank"
-              className="example-company-rect-container"
-            >
-              <img
-                src={require("./imgs/companies/fractal.png")}
-                className="example-company-rect"
-              />
-            </a>
-            <a
-              href="https://www.givecard.io/"
-              target="_blank"
-              className="example-company-rect-container"
-            >
-              <img
-                src={require("./imgs/companies/givecard.png")}
-                className="example-company-rect"
-              />
-            </a>
-          </div>
-          <div className="flex-row center unis" style={{ width: "100%" }}>
-            <a
-              href="http://sifty.io/"
-              target="_blank"
-              className="example-company-rect-container"
-            >
-              <img
-                src={require("./imgs/companies/sifty.png")}
-                className="example-company-rect"
-              />
-            </a>
-            <a
-              href="https://ourpet.app/"
-              target="_blank"
-              className="example-company-square-container"
-            >
-              <img
-                src={require("./imgs/companies/ourpet.png")}
-                className="example-company-square"
-              />
-            </a>
+              Stint is trusted and used by companies empowering students.
+            </h2>
+
+            <div className="flex-row center unis" style={{ width: "100%" }}>
+              <a
+                href="https://vivforyourv.com/"
+                target="_blank"
+                className="example-company-square-container"
+              >
+                <img
+                  src={require("./imgs/companies/viv.png")}
+                  className="example-company-square"
+                />
+              </a>
+              <a
+                href="https://fractalcomputers.com/"
+                target="_blank"
+                className="example-company-rect-container"
+              >
+                <img
+                  src={require("./imgs/companies/fractal.png")}
+                  className="example-company-rect"
+                />
+              </a>
+              <a
+                href="https://www.givecard.io/"
+                target="_blank"
+                className="example-company-rect-container"
+              >
+                <img
+                  src={require("./imgs/companies/givecard.png")}
+                  className="example-company-rect"
+                />
+              </a>
+            </div>
+            <div className="flex-row center unis" style={{ width: "100%" }}>
+              <a
+                href="http://sifty.io/"
+                target="_blank"
+                className="example-company-rect-container"
+              >
+                <img
+                  src={require("./imgs/companies/sifty.png")}
+                  className="example-company-rect"
+                />
+              </a>
+              <a
+                href="https://ourpet.app/"
+                target="_blank"
+                className="example-company-square-container"
+              >
+                <img
+                  src={require("./imgs/companies/ourpet.png")}
+                  className="example-company-square"
+                />
+              </a>
+            </div>
           </div>
         </div>
-      </div>
 
-        <div className="flex-column center company-cta" style={{backgroundColor: "#f5f5f5"}}>
+        <div
+          className="flex-column center company-cta"
+          style={{ backgroundColor: "#f5f5f5" }}
+        >
           <h1>Hire now.</h1>
           <h3 style={{ textAlign: "center" }}>
             Got a task you need extra hands for? Don’t have the resources to

@@ -122,9 +122,9 @@ const COMPANY_INTEREST_AREAS = "interestAreas";
 MISC
 *******************************************************/
 
-const CREATED_AT = "createdAt"
-const UPDATED_AT = "updatedAt"
-const FINISHED_AT = "finishedAt"
+const CREATED_AT = "createdAt";
+const UPDATED_AT = "updatedAt";
+const FINISHED_AT = "finishedAt";
 
 module.exports = {
   FREELANCERS_REF_PATH,

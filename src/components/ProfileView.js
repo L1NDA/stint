@@ -1,23 +1,32 @@
 import React from "react";
 import Menu from "./Menu.js";
 import Footer from "./Footer.js";
+import CheckoutButton from "./Payment/CheckoutButton.js";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
-import { firebaseConnect } from "react-redux-firebase";
+import { firebaseConnect, isLoaded, isEmpty } from "react-redux-firebase";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
 import "./style/my-profile.css";
 import { IoLogoGithub } from "react-icons/io";
 import { FiLink } from "react-icons/fi";
-import { AiFillMediumCircle, AiFillInstagram } from "react-icons/ai";
+import { AiFillMediumCircle, AiFillInstagram, AiFillClockCircle, AiFillDollarCircle } from "react-icons/ai";
 import { getFreelancerRef } from "../api/freelancer";
-import { TiSortNumericallyOutline } from "react-icons/ti";
+import { TiSortNumericallyOutline, TiTimes, TiEquals } from "react-icons/ti";
 import { getInstaInfo } from "../api/instagram";
 import medium, { getMediumInfo } from "../api/medium";
 import { getGithubInfo } from "../api/github";
 import ReactLoading from "react-loading";
+import { RangeDatePicker } from 'react-google-flight-datepicker';
+import 'react-google-flight-datepicker/dist/main.css';
+import moment from 'moment';
+import { WeekDayCalc } from 'moment-weekday-calc'
 
-import { PROFILE_CREATION_PATH, FOUR_OH_FOUR_PATH } from "../constants/ROUTING_CONSTANTS";
+import {
+  PROFILE_CREATION_PATH,
+  PROFILE_EDIT_PATH,
+  FOUR_OH_FOUR_PATH,
+} from "../constants/ROUTING_CONSTANTS";
 import {
   GITHUB_FUNCTIONS_ERROR,
   INSTAGRAM_FUNCTIONS_ERROR,
@@ -38,11 +47,66 @@ const DESIGN_SHOWCASE_PREFIX = "designshowcase-";
 const PERSONAL_WEBSITE_PREFIX = "personalwebsite-";
 const OTHER_FILES = "otherFiles";
 
+const STINT_CATEGORIES = {
+  da: [
+    "Data Entry",
+    "Data Visualization",
+    "Data Research & Analysis",
+    "Data Collection",
+    "Database Maintenance",
+    "Data Cleaning & Pipelining",
+    "Machine Learning",
+    "Other (Analytics)",
+  ],
+  ccm: [
+    "Blog Writing",
+    "Social Media Management",
+    "Digital Marketing",
+    "Listserv Management",
+    "Newsletter Creation",
+    "Video Creation & Editing",
+    "Photography & Editing",
+    "Voice-over",
+    "Music Recording",
+    "Language Translation",
+    "Other (Content Creation & Management)"
+  ],
+  db: [
+    "Design & Branding",
+    "Logo (Re)design",
+    "Website (Re)design",
+    "App (Re)design",
+    "Flyer & Print Design",
+    "Digital Illustration",
+    "Physical Illustration",
+    "UX Research",
+    "User Profiles & Journey Maps",
+    "Other (Design)"
+  ],
+  sd: [
+    "Web Development",
+    "Mobile Development",
+    "Native Development",
+    "MVPs & Landing Pages",
+    "QA Testing",
+    "Data Science",
+    "Cloud Computing",
+    "Cybersecurity",
+    "Blockchain",
+    "Other"
+  ]
+}
+
 class ProfileView extends React.Component {
   constructor(props) {
     super();
-    this.state = {};
-    console.log("param uid", props.match.params.uid);
+    this.state = {
+      bookCategory: null,
+    };
+  }
+
+  componentDidMount() {
+    document.title = `${this.state.freelancerInfo.displayName.split(" ")[0]}'s Profile – Stint`;
   }
 
   componentDidUpdate() {
@@ -59,23 +123,20 @@ class ProfileView extends React.Component {
     }
   };
 
-  updateProfilePic = (imgUrl) => {
-    this.state.freelancerRef.child("avatarUrl").set(imgUrl);
-    document.getElementById("profile-img").src = imgUrl;
-  };
-
   componentDidMount = async () => {
     let fileUrls = await this.getFilesFromStorage();
 
     let freelancerRef = await getFreelancerRef(this.props.match.params.uid);
+    console.log("freelancerRef", freelancerRef)
     freelancerRef.on(
       "value",
       async (snapshot) => {
         let info = snapshot.val();
 
+        console.log("freelancerinfo", info)
         if (!info) {
-          this.props.history.push(FOUR_OH_FOUR_PATH)
-          return
+          this.props.history.push(FOUR_OH_FOUR_PATH);
+          return;
         }
 
         let profile = info.profile;
@@ -168,6 +229,15 @@ class ProfileView extends React.Component {
     );
   };
 
+  handleSelect = (e) => {
+    if (e.target.value !== this.state.bookCategory) {
+      this.setState({
+        bookCategory: e.target.value
+      })
+    }
+
+  }
+
   getFilesFromStorage = async () => {
     let storageRef = this.props.storage.ref();
     let filesRef = storageRef.child(
@@ -194,6 +264,26 @@ class ProfileView extends React.Component {
     return fileUrls;
   };
 
+  handleInput = (e, stateName) => {
+    if (e.target.value < 0) {
+      e.target.value = ""
+    }
+    this.setState({
+      [stateName]: e.target.value
+    })
+  }
+
+  onDateChange = (startDate, endDate) => {
+    if (startDate && endDate) {
+      let numWeekdays = moment().weekdayCalc(startDate.toDate(), endDate.toDate(), [1,2,3,4,5])
+      this.setState({
+        numWeekdays: numWeekdays,
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+      })
+    }
+  }
+
   sortSkills = (skills) => {
     var items = Object.keys(skills).map(function (key) {
       return [key, skills[key]];
@@ -207,23 +297,241 @@ class ProfileView extends React.Component {
     return items;
   };
 
+  redirectToEditProfile = () => {
+    this.props.history.push(PROFILE_EDIT_PATH);
+  };
+
+  /* For Linda's edit profile button:
+  Use the following conditional to check whether to display the edit profile button or display a null:
+
+  this.props.auth && this.props.auth.uid === this.props.match.params.uid ?
+    <display edit profile redirect button> :
+    null or whatever u wanna display instead
+
+  Notes:
+  this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed - 
+  (because this.props.auth is null at first)
+*/
+
   render() {
     var personalwebsite = null;
-    if (this.state.freelancerInfo && this.state.freelancerInfo.profile.dataAnalytics && this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl) {
-      personalwebsite = this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl
-    } else if (this.state.freelancerInfo && this.state.freelancerInfo.profile.contentCreation && this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl) {
-      personalwebsite = this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl
-    } else if (this.state.freelancerInfo && this.state.freelancerInfo.profile.design && this.state.freelancerInfo.profile.design.personalWebsiteUrl) {
-      personalwebsite = this.state.freelancerInfo.profile.design.personalWebsiteUrl
-    } else if (this.state.freelancerInfo && this.state.freelancerInfo.profile.softwareDev && this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl) {
-      personalwebsite = this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl
+    if (
+      this.state.freelancerInfo &&
+      this.state.freelancerInfo.profile.dataAnalytics &&
+      this.state.freelancerInfo.profile.dataAnalytics.personalWebsiteUrl
+    ) {
+      personalwebsite = this.state.freelancerInfo.profile.dataAnalytics
+        .personalWebsiteUrl;
+    } else if (
+      this.state.freelancerInfo &&
+      this.state.freelancerInfo.profile.contentCreation &&
+      this.state.freelancerInfo.profile.contentCreation.personalWebsiteUrl
+    ) {
+      personalwebsite = this.state.freelancerInfo.profile.contentCreation
+        .personalWebsiteUrl;
+    } else if (
+      this.state.freelancerInfo &&
+      this.state.freelancerInfo.profile.design &&
+      this.state.freelancerInfo.profile.design.personalWebsiteUrl
+    ) {
+      personalwebsite = this.state.freelancerInfo.profile.design
+        .personalWebsiteUrl;
+    } else if (
+      this.state.freelancerInfo &&
+      this.state.freelancerInfo.profile.softwareDev &&
+      this.state.freelancerInfo.profile.softwareDev.personalWebsiteUrl
+    ) {
+      personalwebsite = this.state.freelancerInfo.profile.softwareDev
+        .personalWebsiteUrl;
     }
 
+// code for edit profile button
+// {this.props.auth &&
+//         this.props.auth.uid === this.props.match.params.uid ? (
+//           <button onClick={this.redirectToEditProfile}>edit profile</button>
+//         ) : null}
+
     return (
-      <div className="container">
+      <div className="container-stint">
         <Menu />
         {this.state.freelancerInfo ? (
           <>
+          <div className={this.state.bookCategory ? "book-container book-container-fullscreen" : "book-container"}>
+            <div className={this.state.bookCategory ? "book-container-inner add-padding" : "book-container-inner"}>
+            {this.state.bookCategory
+            ? <TiTimes className="modal-x" onClick={()=>this.setState({bookCategory: null, savedStart: this.state.startDate ? this.state.startDate : null, savedEnd: this.state.endDate ? this.state.endDate : null})} style={{fontSize: "30px", top: "15px", right: "15px"}}/>
+            : null}
+            {this.state.bookCategory
+              ? <div className="pricing-container flex-column">
+                <div className="flex-column">
+
+                <RangeDatePicker
+                  startDatePlaceholder="Start Date"
+                  endDatePlaceholder="End Date"
+                  startDate={this.state.savedStart ? moment(this.state.savedStart).format("YYYY MM DD") : null}
+                  endDate={this.state.savedEnd ? moment(this.state.savedEnd).format("YYYY MM DD") : null}
+                  minDate={new Date()}
+                  disabled={false}
+                  className="book-calendar"
+                  startWeekDay="sunday"
+                  onChange={(startDate, endDate) => this.onDateChange(startDate, endDate)}
+                />
+                <br/>
+                <i className="subtitle">Please note: freelancers are only expected to work on business days. At Stint, we believe in a healthy work-life balance.</i>
+                <br/>
+                <div className="flex-row-comp" style={{margin: "0", width: "100%", alignItems: "center"}}>
+                <div className="book-hours-container">
+                  <div className="subtitle" style={{fontWeight: "bold"}}>HOURS PER DAY</div>
+                  <div className="book-container-content">
+                    <AiFillClockCircle/>
+                    <input className="book-hours"
+                      type="number"
+                      placeholder="#"
+                      min="0"
+                      onChange={(e) => this.handleInput(e, "hours")}
+                      value={this.state.hours ? this.state.hours : ""}/>
+                    hrs / day
+                  </div>
+                </div>
+                <div className="input-line"></div>
+                <div className="book-price-container">
+                  <div className="subtitle" style={{fontWeight: "bold"}}>HOURLY WAGE</div>
+                  <div className="book-container-content">
+                      <AiFillDollarCircle/>
+                        <input className="book-price"
+                          type="number"
+                          placeholder="Price"
+                          min="0"
+                          onChange={(e) => this.handleInput(e, "price")}
+                          value={this.state.price ? this.state.price : ""}/>
+                    / hr
+                  </div>
+                </div>
+
+                </div>
+                <br/>
+                <i className="subtitle">We respect that startups may be in varying stages of funding and allow you to set student wages based on what your budget permits. In return, please be courteous to our students. As a benchmark, the average hourly wage for past stints is <b>$23</b>.</i>
+                <br/>
+                <i className="subtitle">If you ever find that you are unsatisfied with a student’s progress, we’ll fully refund you for any stint cancelled before the end of the first quarter.</i>
+                </div>
+                <div className="book-total">
+                    <p><b>{this.state.numWeekdays && this.state.hours
+                        ? <span><b>{this.state.numWeekdays * this.state.hours}</b> total</span>
+                        : "Total"} hours </b> </p>
+                      <div className="subtitle">({this.state.hours ? <span><b>{this.state.hours}</b> hours</span> : "Hours"} / day  x  {this.state.numWeekdays ? <span><b>{this.state.numWeekdays}</b> weekdays</span> : "Number of weekdays"})</div>
+                      <br/>
+                      <p><b><TiTimes style={{position: "absolute", left: "0"}}/> {this.state.price
+                        ? `$ ${this.state.price}`
+                        : "Price"} / hour </b></p>
+                      <br/>
+                      <p style={{borderTop: "1px solid lightgray", paddingTop: "20px"}}><b><TiEquals style={{position: "absolute", left: "0"}}/> {this.state.hours && this.state.numWeekdays && this.state.price ? `$ ${this.state.hours * this.state.numWeekdays * this.state.price} total` : "Total price"}</b></p></div>
+
+              </div>
+              : null}
+
+            {!this.props.auth ||
+             this.props.auth.uid !== this.props.match.params.uid ? (
+            <>
+            <div className={this.state.bookCategory ? "flex-column half-container-book" : null}>
+              <div className={this.state.bookCategory ? "book-title-opened" : "flex-row book-title"}>
+                <img
+                  src={this.state.freelancerInfo.avatarUrl}
+                ></img>
+                <p>Book {this.state.freelancerInfo.displayName.split(" ")[0]} for {" "}
+                  {this.state.bookCategory ?
+                    <b>{this.state.bookCategory}</b> :
+                    <select
+                      name="booking-category"
+                      className="booking-category-select"
+                      onChange={this.handleSelect}>
+                      <option value="">(insert task)</option>
+                      {this.state.freelancerInfo.profile.dataAnalytics ?
+                        <optgroup label="Analytics">
+                          {STINT_CATEGORIES.da.map(
+                            (category) => {
+                              return (
+                                <option value={category}>{category}</option>
+                              )})}
+                        </optgroup>
+                        : null
+                      }
+                      {this.state.freelancerInfo.profile.contentCreation ?
+                        <optgroup label="Content Creation">
+                          {STINT_CATEGORIES.ccm.map(
+                            (category) => {
+                              return (
+                                <option value={category}>{category}</option>
+                              )})}
+                        </optgroup>
+                        : null
+                      }
+                      {this.state.freelancerInfo.profile.design ?
+                        <optgroup label="Design">
+                          {STINT_CATEGORIES.db.map(
+                            (category) => {
+                              return (
+                                <option value={category}>{category}</option>
+                              )})}
+                        </optgroup>
+                        : null
+                      }
+                      {this.state.freelancerInfo.profile.softwareDev ?
+                        <optgroup label="Software Development">
+                          {STINT_CATEGORIES.sd.map(
+                            (category) => {
+                              return (
+                                <option value={category}>{category}</option>
+                              )})}
+                        </optgroup>
+                        : null
+                      }
+
+                    </select>
+                  }
+                  </p>
+
+              </div>
+
+            <div className="flex-column" style={{marginTop: "30px"}}>
+            <p style={{color: "white"}}><b>PROJECT OVERVIEW</b></p>
+            <textarea
+              className="book-textarea"
+              placeholder={`Give ${this.state.freelancerInfo.displayName.split(" ")[0]} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements.`}
+              onChange={(e) => this.setState({ stintDescription: e.target.value })}></textarea>
+
+            </div>
+            <div className="flex-column button-container">
+              <CheckoutButton
+                freelancerUid={this.props.match.params.uid}
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
+                freelancerName={this.state.freelancerInfo.displayName.split(" ")[0]}
+                totalDays={this.state.numWeekdays}
+                freelancerPhotoUrl={this.state.freelancerInfo.avatarUrl}
+                stintCategory={this.state.bookCategory}
+                stintDescription={this.state.stintDescription}
+                redirectOnSuccessUrl="https://www.wearestint.com"
+                redirectOnFailUrl="https://www.wearestint.com"
+                totalHours={this.state.hours * this.state.numWeekdays}
+                hourlyRate={this.state.price}
+                totalAmount={this.state.hours * this.state.numWeekdays * this.state.price * 100}
+                disabled={this.state.startDate
+                  && this.state.endDate
+                  && this.state.numWeekdays
+                  && this.state.bookCategory
+                  && this.state.hours
+                  && this.state.price ? false : true}/>
+                
+            </div>
+
+          </div>
+          </>
+          ) : null}
+          </div>
+
+          </div>
+
+
             <section className="padding flex-row profile-item">
               <img
                 id="profile-img"
@@ -323,50 +631,54 @@ class ProfileView extends React.Component {
               </div>
             </section>
 
-            { personalwebsite && personalwebsite.startsWith("https://") ?
+            {personalwebsite && personalwebsite.startsWith("https://") ? (
               <section className="profile-item">
-                <h2 style={{color: "#474448"}}>My Personal Website</h2>
-                  <a
-                    className="personal-website"
-                    href={
-                      personalwebsite
-                    }
-                    target="_blank"
-                  >
-                    <img
-                      src={require("./imgs/macbook.png")}
-                      className="works-laptop"
-                    ></img>
-                    <iframe
-                      src={
-                        personalwebsite
-                      }
-                      className="works-laptop-screen"
-                    ></iframe>
-                  </a>
-              </section> :
-              personalwebsite ?
-              <section className="profile-item">
-                <h2 style={{color: "#474448"}}>My Personal Website</h2>
-                  <a
-                    className="personal-website"
-                    href={
-                      personalwebsite
-                    }
-                    target="_blank"
-                  >
-                    <img
-                      src={require("./imgs/macbook.png")}
-                      className="works-laptop"
-                    ></img>
-                  <div className="works-laptop-screen flex-column center" style={{backgroundColor: "#474448"}}>
-                    <h1 style={{color: "white"}}>{personalwebsite.endsWith("/") ? personalwebsite.replace("http://", "").slice(0, -1) : personalwebsite.replace("http://", "")}</h1>
-                    <div className="subtitle" style={{color: "white"}}>This website cannot be previewed as it either does not use https or does not allow cross-origin previews. Please click to view.</div>
-                  </div>
-                  </a>
+                <h2 style={{ color: "#474448" }}>My Personal Website</h2>
+                <a
+                  className="personal-website"
+                  href={personalwebsite}
+                  target="_blank"
+                >
+                  <img
+                    src={require("./imgs/macbook.png")}
+                    className="works-laptop"
+                  ></img>
+                  <iframe
+                    src={personalwebsite}
+                    className="works-laptop-screen"
+                  ></iframe>
+                </a>
               </section>
-              : null
-            }
+            ) : personalwebsite ? (
+              <section className="profile-item">
+                <h2 style={{ color: "#474448" }}>My Personal Website</h2>
+                <a
+                  className="personal-website"
+                  href={personalwebsite}
+                  target="_blank"
+                >
+                  <img
+                    src={require("./imgs/macbook.png")}
+                    className="works-laptop"
+                  ></img>
+                  <div
+                    className="works-laptop-screen flex-column center"
+                    style={{ backgroundColor: "#474448" }}
+                  >
+                    <h1 style={{ color: "white" }}>
+                      {personalwebsite.endsWith("/")
+                        ? personalwebsite.replace("http://", "").slice(0, -1)
+                        : personalwebsite.replace("http://", "")}
+                    </h1>
+                    <div className="subtitle" style={{ color: "white" }}>
+                      This website cannot be previewed as it either does not use
+                      https or does not allow cross-origin previews. Please
+                      click to view.
+                    </div>
+                  </div>
+                </a>
+              </section>
+            ) : null}
 
             {this.state.freelancerInfo.profile.dataAnalytics ? (
               <section className="profile-item">
@@ -405,7 +717,8 @@ class ProfileView extends React.Component {
                   </div>
                 ) : null}
 
-                {this.state.freelancerInfo.profile.dataAnalytics && this.state.githubData ? (
+                {this.state.freelancerInfo.profile.dataAnalytics &&
+                this.state.githubData ? (
                   <div className="profile-works">
                     <div className="section-header">My work(s)</div>
                     <div className="works-container">
@@ -422,7 +735,8 @@ class ProfileView extends React.Component {
                             Github
                           </div>
 
-                          {this.state.githubData.data.repoNames.length !== 0 ? (
+                          {this.state.githubData.data &&
+                          this.state.githubData.data.repoNames.length !== 0 ? (
                             <div className="works-section">
                               <div className="works-section-header">
                                 - My recent repositories
@@ -849,7 +1163,8 @@ class ProfileView extends React.Component {
                   </div>
                 ) : null}
 
-                {this.state.freelancerInfo.profile.softwareDev && this.state.githubData ? (
+                {this.state.freelancerInfo.profile.softwareDev &&
+                this.state.githubData ? (
                   <div className="profile-works">
                     <div className="section-header">My work(s)</div>
                     <div className="works-container">
@@ -1045,9 +1360,11 @@ function parseInstaUser(user) {
 
 function mapStateToProps(state, props) {
   const { firebase } = props;
+
   return {
     storage: firebase.storage(),
     analytics: firebase.analytics(),
+    auth: state.firebase.auth,
   };
 }
 

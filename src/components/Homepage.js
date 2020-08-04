@@ -12,9 +12,9 @@ import { AiFillSchedule } from "react-icons/ai";
 import { TiTimes } from "react-icons/ti";
 import { getGithubInfo } from "../api/github";
 import Collapsible from "react-collapsible";
-import { getInstaInfo } from "../api/instagram";
-import { getMediumInfo } from "../api/medium";
-import { getYoutubeInfo } from "../api/youtube";
+// import { getInstaInfo } from "../api/instagram";
+// import { getMediumInfo } from "../api/medium";
+// import { getYoutubeInfo } from "../api/youtube";
 import { Link } from "react-router-dom";
 import {
   CarouselProvider,
@@ -24,7 +24,6 @@ import {
   ButtonNext,
   DotGroup,
 } from "pure-react-carousel";
-// import { TiMediaPlayReverse, TiMediaPlay } from "react-icons/ti";
 
 import GoogleButton from "./Auth/GoogleButton";
 import { firebaseConnect, isLoaded, isEmpty } from "react-redux-firebase";
@@ -37,8 +36,10 @@ import {
   LOGIN_EVENT,
 } from "../constants/ANALYTICS_CONSTANTS";
 import { PROFILE_CREATION_PATH } from "../constants/ROUTING_CONSTANTS";
-import { CREATED_AT } from "../constants/DB_CONSTANTS"
-import { getFreelancerRef } from "../api/freelancer"
+import { CREATED_AT } from "../constants/DB_CONSTANTS";
+import { getFreelancerRef } from "../api/freelancer";
+
+import { createCheckoutSession } from "../api/stripe"
 
 import moment from "moment"
 const axios = require("axios");
@@ -78,6 +79,7 @@ class Homepage extends React.Component {
 
   handleButtonClick = async (event) => {
     event.preventDefault();
+
     let temp = this.state.modal;
     this.setState({
       modal: !temp,
@@ -172,15 +174,16 @@ class Homepage extends React.Component {
               Connect with companies through virtual{" "}
               <span className="nobreak">short-term projects.</span>
             </h3>
-            {this.props.isLoggedIn ? null :
+            {this.props.isLoggedIn ? null : (
               <button
                 style={{ marginTop: "50px" }}
                 className="button"
                 onClick={this.handleButtonClick}
-              > Let's go 😎
-            </button>
-            }
-
+              >
+                {" "}
+                Let's go 😎
+              </button>
+            )}
           </div>
           <img src={homepageImage} className="homepage-image" />
         </div>
@@ -587,15 +590,15 @@ function mapStateToProps(state, props) {
         await firebase
           .login({ provider: provider, type: "popup" })
           .then(async (auth) => {
-            let uid = auth.user.uid
-            let freelancerRef = await getFreelancerRef(uid)
-            await freelancerRef.child(CREATED_AT).once("value", snapshot => {
+            let uid = auth.user.uid;
+            let freelancerRef = await getFreelancerRef(uid);
+            await freelancerRef.child(CREATED_AT).once("value", (snapshot) => {
               if (!snapshot.exists()) {
-                let now = moment().toISOString()
-                freelancerRef.child(CREATED_AT).set(now)
+                let now = moment().toISOString();
+                freelancerRef.child(CREATED_AT).set(now);
               }
-            })
-            history.push(PROFILE_CREATION_PATH)
+            });
+            history.push(PROFILE_CREATION_PATH);
           });
       } catch (err) {
         onError(err);
