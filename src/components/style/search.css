@@ -1,4 +1,4 @@
-em {
+/* em {
   background: cyan;
   font-style: normal;
 }
@@ -56,6 +56,7 @@ em {
 body {
   font-family: sans-serif;
 }
+
 .ais-SearchBox {
   margin: 1em 0;
 }
@@ -68,4 +69,4 @@ body {
 }
 .right-panel {
   margin-left: 260px;
-}
+} */
