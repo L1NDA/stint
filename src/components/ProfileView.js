@@ -309,7 +309,7 @@ class ProfileView extends React.Component {
     null or whatever u wanna display instead
 
   Notes:
-  this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed - 
+  this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed -
   (because this.props.auth is null at first)
 */
 
@@ -356,6 +356,8 @@ class ProfileView extends React.Component {
         <Menu />
         {this.state.freelancerInfo ? (
           <>
+          {(!this.props.auth ||
+           this.props.auth.uid !== this.props.match.params.uid) ?
           <div className={this.state.bookCategory ? "book-container book-container-fullscreen" : "book-container"}>
             <div className={this.state.bookCategory ? "book-container-inner add-padding" : "book-container-inner"}>
             {this.state.bookCategory
@@ -429,9 +431,6 @@ class ProfileView extends React.Component {
               </div>
               : null}
 
-            {!this.props.auth ||
-             this.props.auth.uid !== this.props.match.params.uid ? (
-            <>
             <div className={this.state.bookCategory ? "flex-column half-container-book" : null}>
               <div className={this.state.bookCategory ? "book-title-opened" : "flex-row book-title"}>
                 <img
@@ -521,15 +520,14 @@ class ProfileView extends React.Component {
                   && this.state.bookCategory
                   && this.state.hours
                   && this.state.price ? false : true}/>
-                
+
             </div>
 
           </div>
-          </>
-          ) : null}
-          </div>
 
           </div>
+
+        </div> : null}
 
 
             <section className="padding flex-row profile-item">
