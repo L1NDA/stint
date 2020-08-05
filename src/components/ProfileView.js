@@ -2,7 +2,7 @@ import React from "react";
 import Menu from "./Menu.js";
 import Footer from "./Footer.js";
 import CheckoutButton from "./Payment/CheckoutButton.js";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { firebaseConnect, isLoaded, isEmpty } from "react-redux-firebase";
 import { withRouter } from "react-router-dom";
@@ -495,7 +495,8 @@ class ProfileView extends React.Component {
             <p style={{color: "white"}}><b>PROJECT OVERVIEW</b></p>
             <textarea
               className="book-textarea"
-              placeholder={`Give ${this.state.freelancerInfo.displayName.split(" ")[0]} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements.`}
+              maxlength={499}
+              placeholder={`Give ${this.state.freelancerInfo.displayName.split(" ")[0]} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements. (Max 500 char.)`}
               onChange={(e) => this.setState({ stintDescription: e.target.value })}></textarea>
 
             </div>
@@ -520,6 +521,8 @@ class ProfileView extends React.Component {
                   && this.state.bookCategory
                   && this.state.hours
                   && this.state.price ? false : true}/>
+                <div className="subtitle" style={{color: "white", marginTop: "15px", textAlign: "right"}}>By checking out, you are agreeing to our{" "}
+              <Link to="/privacy-policy" style={{color: "white", fontWeight: "bold"}}>Privacy Policy</Link>.</div>
 
             </div>
 
