@@ -14,6 +14,7 @@ import ProfileEdit from "./components/ProfileEdit";
 import ProfileView from "./components/ProfileView";
 import ThankYou from "./components/ThankYou.js";
 import Search from "./components/Search";
+import PaymentSuccess from "./components/PaymentSuccess";
 
 import Routes from "./constants/ROUTING_CONSTANTS";
 
@@ -37,6 +38,7 @@ function App({ isLoggedIn }) {
         <Route exact path={Routes.COMPANY_PATH} component={Company} />
         <Route exact path={Routes.ABOUT_PATH} component={About} />
         <Route exact path={Routes.SEARCH_PATH} component={Search} />
+        <Route exact path={Routes.PAYMENT_SUCCESS} component={PaymentSuccess} />
         <Route
           exact
           path={Routes.PRIVACY_POLICY_PATH}
