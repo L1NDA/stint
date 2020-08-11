@@ -1,8 +1,8 @@
 const axios = require("axios");
-const { INDEX_URL } = require("../config");
+const { FUNCTIONS_INDEX_URL } = require("../config");
 
 const getInstaInfo = (user) => {
-  let targetUrl = INDEX_URL + "getInstaInfo";
+  let targetUrl = FUNCTIONS_INDEX_URL + "getInstaInfo";
   return axios
     .post(targetUrl, {
       instaUser: user,

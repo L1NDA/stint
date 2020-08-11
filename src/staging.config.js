@@ -1,4 +1,4 @@
-const INDEX_URL =
+const FUNCTIONS_INDEX_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:5001/stint-staging-eb100/us-central1/"
     : "https://us-central1-stint-staging-eb100.cloudfunctions.net/";
@@ -14,4 +14,4 @@ const firebaseConfig = {
   measurementId: "G-3D8HWH7J3R",
 };
 
-module.exports = { firebaseConfig, INDEX_URL };
+module.exports = { firebaseConfig, FUNCTIONS_INDEX_URL };

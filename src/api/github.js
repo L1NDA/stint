@@ -1,8 +1,8 @@
 const axios = require("axios");
-const { INDEX_URL } = require("../config");
+const { FUNCTIONS_INDEX_URL } = require("../config");
 
 const getGithubInfo = (user) => {
-  let targetUrl = INDEX_URL + "getGithubRepos";
+  let targetUrl = FUNCTIONS_INDEX_URL + "getGithubRepos";
   return axios
     .post(targetUrl, {
       githubUser: user,

@@ -1,8 +1,8 @@
 const axios = require("axios");
-const { INDEX_URL } = require("../config");
+const { FUNCTIONS_INDEX_URL } = require("../config");
 
 const listAllCustomers = (emailFilter=null) => {
-  let targetUrl = INDEX_URL + "listAllCustomers"
+  let targetUrl = FUNCTIONS_INDEX_URL + "listAllCustomers"
   return axios
     .post(targetUrl, {
       emailFilter,
@@ -23,7 +23,7 @@ const createCheckoutSession = (product_data, unit_amount, success_url, cancel_ur
     throw new Error("Cannot accept payments less than $0.50.")
   }
 
-  let targetUrl = INDEX_URL + "createCheckoutSession";
+  let targetUrl = FUNCTIONS_INDEX_URL + "createCheckoutSession";
   return axios
     .post(targetUrl, {
       product_data,
@@ -41,7 +41,7 @@ const createCheckoutSession = (product_data, unit_amount, success_url, cancel_ur
 };
 
 const retrieveCheckoutSession = (sessionId) => {
-  let targetUrl = INDEX_URL + "retrieveCheckoutSession"
+  let targetUrl = FUNCTIONS_INDEX_URL + "retrieveCheckoutSession"
   return axios
     .post(targetUrl, {
       sessionId

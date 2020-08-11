@@ -1,15 +1,27 @@
 import React from "react";
+import { compose } from "redux";
+import { withRouter } from "react-router-dom";
 import "./style/other.css";
 import Menu from "./Menu.js";
 import Footer from "./Footer.js";
 import paymentSuccess from "./imgs/payment-success.svg";
 import { NavLink } from "react-router-dom";
 
+import { HOMEPAGE_PATH } from "../constants/ROUTING_CONSTANTS"
+
 class PaymentSuccess extends React.Component {
   constructor() {
     super();
     this.state = {
     };
+  }
+
+  componentDidMount() {
+    let ref = document.referrer
+    console.log("ref:", ref)
+    if (!ref.match(/^https?:\/\/([^\/]+\.)?stripe\.com(\/|$)/i)) {
+      this.props.history.push(HOMEPAGE_PATH)
+    }
   }
 
   render() {
@@ -47,4 +59,4 @@ class PaymentSuccess extends React.Component {
   }
 }
 
-export default PaymentSuccess;
+export default compose(withRouter)(PaymentSuccess);

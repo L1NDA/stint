@@ -26,12 +26,16 @@ import {
   PROFILE_CREATION_PATH,
   PROFILE_EDIT_PATH,
   FOUR_OH_FOUR_PATH,
+  PAYMENT_SUCCESS_PATH,
 } from "../constants/ROUTING_CONSTANTS";
 import {
   GITHUB_FUNCTIONS_ERROR,
   INSTAGRAM_FUNCTIONS_ERROR,
   MEDIUM_FUNCTIONS_ERROR,
 } from "../constants/ANALYTICS_CONSTANTS";
+import {
+  INDEX_URL,
+} from "../config"
 
 const SKILLS = [
   "React",
@@ -519,7 +523,7 @@ class ProfileView extends React.Component {
                 freelancerPhotoUrl={this.state.freelancerInfo.avatarUrl}
                 stintCategory={this.state.bookCategory}
                 stintDescription={this.state.stintDescription}
-                redirectOnSuccessUrl="https://wearestint.com/hire"
+                redirectOnSuccessUrl={INDEX_URL + PAYMENT_SUCCESS_PATH}
                 redirectOnFailUrl="https://wearestint.com/our-mission"
                 totalHours={this.state.hours * this.state.numWeekdays}
                 hourlyRate={this.state.price}
@@ -537,9 +541,7 @@ class ProfileView extends React.Component {
 
           </div>
 
-          </div>
-
-        </div> : null}
+          </> ): null}
 
 
             <section className="padding flex-row profile-item">
