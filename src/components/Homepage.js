@@ -79,7 +79,6 @@ class Homepage extends React.Component {
 
   handleButtonClick = async (event) => {
     event.preventDefault();
-
     let temp = this.state.modal;
     this.setState({
       modal: !temp,

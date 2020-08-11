@@ -309,7 +309,11 @@ class ProfileView extends React.Component {
     null or whatever u wanna display instead
 
   Notes:
+<<<<<<< HEAD
   this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed -
+=======
+  this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed - 
+>>>>>>> develop
   (because this.props.auth is null at first)
 */
 
@@ -415,6 +419,7 @@ class ProfileView extends React.Component {
                 <i className="subtitle">We respect that startups may be in varying stages of funding and allow you to set student wages based on what your budget permits. In return, please be courteous to our students. As a benchmark, the average hourly wage for past stints is <b>$23</b>.</i>
                 <br/>
                 <i className="subtitle">If you ever find that you are unsatisfied with a student’s progress, we’ll fully refund you for any stint cancelled before the end of the first quarter.</i>
+
                 </div>
                 <div className="book-total">
                     <p><b>{this.state.numWeekdays && this.state.hours
@@ -431,6 +436,9 @@ class ProfileView extends React.Component {
               </div>
               : null}
 
+            {!this.props.auth ||
+             this.props.auth.uid !== this.props.match.params.uid ? (
+            <>
             <div className={this.state.bookCategory ? "flex-column half-container-book" : null}>
               <div className={this.state.bookCategory ? "book-title-opened" : "flex-row book-title"}>
                 <img
@@ -497,6 +505,7 @@ class ProfileView extends React.Component {
               className="book-textarea"
               maxlength={499}
               placeholder={`Give ${this.state.freelancerInfo.displayName.split(" ")[0]} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements. (Max 500 char.)`}
+
               onChange={(e) => this.setState({ stintDescription: e.target.value })}></textarea>
 
             </div>
