@@ -30,9 +30,6 @@ class CheckoutButton extends React.Component {
     }
 
     handleClick = async (event) => {
-
-      console.log("Props:", this.props)
-
       // Call your backend to create the Checkout Session—see previous step
       let product_data = {
         name: "Stint with " + this.props.freelancerName, // replace xxx with name of freelancer - probably from this.props

@@ -8,7 +8,6 @@ const listAllCustomers = (emailFilter=null) => {
       emailFilter,
     })
     .then((res) => {
-      console.log("listAllCustomers res", res)
       return res;
     })
     .catch((error) => {
@@ -34,7 +33,6 @@ const createCheckoutSession = (product_data, unit_amount, success_url, cancel_ur
       metadata,
     })
     .then((res) => {
-      console.log("RES", res)
       return res;
     })
     .catch((error) => {
@@ -49,7 +47,6 @@ const retrieveCheckoutSession = (sessionId) => {
       sessionId
     })
     .then((res) => {
-      console.log("retrieve checkout session res", res)
       return res;
     })
     .catch((error) => {

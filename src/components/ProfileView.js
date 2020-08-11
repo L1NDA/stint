@@ -2,7 +2,7 @@ import React from "react";
 import Menu from "./Menu.js";
 import Footer from "./Footer.js";
 import CheckoutButton from "./Payment/CheckoutButton.js";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { firebaseConnect, isLoaded, isEmpty } from "react-redux-firebase";
 import { withRouter } from "react-router-dom";
@@ -103,7 +103,6 @@ class ProfileView extends React.Component {
     this.state = {
       bookCategory: null,
     };
-    console.log("param uid", props.match.params.uid);
   }
 
   componentDidMount() {
@@ -128,11 +127,13 @@ class ProfileView extends React.Component {
     let fileUrls = await this.getFilesFromStorage();
 
     let freelancerRef = await getFreelancerRef(this.props.match.params.uid);
+    console.log("freelancerRef", freelancerRef)
     freelancerRef.on(
       "value",
       async (snapshot) => {
         let info = snapshot.val();
 
+        console.log("freelancerinfo", info)
         if (!info) {
           this.props.history.push(FOUR_OH_FOUR_PATH);
           return;
@@ -273,14 +274,13 @@ class ProfileView extends React.Component {
   }
 
   onDateChange = (startDate, endDate) => {
-    console.log("onDateChange Called")
     if (startDate && endDate) {
       let numWeekdays = moment().weekdayCalc(startDate.toDate(), endDate.toDate(), [1,2,3,4,5])
       this.setState({
         numWeekdays: numWeekdays,
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
-      }, () => console.log(startDate, startDate.$M, startDate.$D, endDate))
+      })
     }
   }
 
@@ -309,7 +309,11 @@ class ProfileView extends React.Component {
     null or whatever u wanna display instead
 
   Notes:
+<<<<<<< HEAD
   this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed - 
+=======
+  this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed -
+>>>>>>> master
   (because this.props.auth is null at first)
 */
 
@@ -356,6 +360,8 @@ class ProfileView extends React.Component {
         <Menu />
         {this.state.freelancerInfo ? (
           <>
+          {(!this.props.auth ||
+           this.props.auth.uid !== this.props.match.params.uid) ?
           <div className={this.state.bookCategory ? "book-container book-container-fullscreen" : "book-container"}>
             <div className={this.state.bookCategory ? "book-container-inner add-padding" : "book-container-inner"}>
             {this.state.bookCategory
@@ -412,7 +418,7 @@ class ProfileView extends React.Component {
                 <br/>
                 <i className="subtitle">We respect that startups may be in varying stages of funding and allow you to set student wages based on what your budget permits. In return, please be courteous to our students. As a benchmark, the average hourly wage for past stints is <b>$23</b>.</i>
                 <br/>
-                <i className="subtitle">If you ever find that you are unsatisfied with a student’s progress, We’ll fully refund you for any stint canceled before the end of the first quarter.</i>
+                <i className="subtitle">If you ever find that you are unsatisfied with a student’s progress, we’ll fully refund you for any stint cancelled before the end of the first quarter.</i>
                 </div>
                 <div className="book-total">
                     <p><b>{this.state.numWeekdays && this.state.hours
@@ -496,7 +502,8 @@ class ProfileView extends React.Component {
             <p style={{color: "white"}}><b>PROJECT OVERVIEW</b></p>
             <textarea
               className="book-textarea"
-              placeholder={`Give ${this.state.freelancerInfo.displayName.split(" ")[0]} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements.`}
+              maxlength={499}
+              placeholder={`Give ${this.state.freelancerInfo.displayName.split(" ")[0]} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements. (Max 500 char.)`}
               onChange={(e) => this.setState({ stintDescription: e.target.value })}></textarea>
 
             </div>
@@ -510,8 +517,8 @@ class ProfileView extends React.Component {
                 freelancerPhotoUrl={this.state.freelancerInfo.avatarUrl}
                 stintCategory={this.state.bookCategory}
                 stintDescription={this.state.stintDescription}
-                redirectOnSuccessUrl="https://www.wearestint.com/hire"
-                redirectOnFailUrl="https://www.wearestint.com/our-mission"
+                redirectOnSuccessUrl="https://wearestint.com/hire"
+                redirectOnFailUrl="https://wearestint.com/our-mission"
                 totalHours={this.state.hours * this.state.numWeekdays}
                 hourlyRate={this.state.price}
                 totalAmount={this.state.hours * this.state.numWeekdays * this.state.price * 100}
@@ -521,17 +528,16 @@ class ProfileView extends React.Component {
                   && this.state.bookCategory
                   && this.state.hours
                   && this.state.price ? false : true}/>
-                <i className="subtitle" style={{color: "white", marginTop: "10px", textAlign: "right"}}>First time booking on Stint? Learn more about our process here.</i>
+                <div className="subtitle" style={{color: "white", marginTop: "15px", textAlign: "right"}}>By checking out, you are agreeing to our{" "}
+              <Link to="/privacy-policy" style={{color: "white", fontWeight: "bold"}}>Privacy Policy</Link>.</div>
+
             </div>
 
           </div>
-          </>
-          ) : null}
-          </div>
 
           </div>
 
-
+        </div> : null}
             <section className="padding flex-row profile-item">
               <img
                 id="profile-img"
@@ -750,9 +756,7 @@ class ProfileView extends React.Component {
                                       target="_blank"
                                     >
                                       <b>{repoArray[0]}</b>
-                                      {repoArray[1] ? (
-                                        <>{repoArray[1]}</>
-                                      ) : null}
+                                      {repoArray[1]}
                                     </a>
                                   );
                                 }
@@ -805,12 +809,11 @@ class ProfileView extends React.Component {
                                 (orgArray, index) => {
                                   return (
                                     <a
-                                      className="works-section-item works-section-item-link"
+                                      className="works-section-item works-section-item-link flex-column"
                                       href={orgArray[2]}
                                       target="_blank"
                                     >
                                       <b>{orgArray[0]}</b>
-                                      <br />
                                       {orgArray[1]}
                                     </a>
                                   );
@@ -1195,11 +1198,7 @@ class ProfileView extends React.Component {
                                       target="_blank"
                                     >
                                       <b>{repoArray[0]}</b>
-                                      {repoArray[1] ? (
-                                        <>
-                                          <br /> {repoArray[1]}
-                                        </>
-                                      ) : null}
+                                      {repoArray[1]}
                                     </a>
                                   );
                                 }
@@ -1252,12 +1251,11 @@ class ProfileView extends React.Component {
                                 (orgArray, index) => {
                                   return (
                                     <a
-                                      className="works-section-item works-section-item-link"
+                                      className="works-section-item works-section-item-link flex-column"
                                       href={orgArray[2]}
                                       target="_blank"
                                     >
                                       <b>{orgArray[0]}</b>
-                                      <br />
                                       {orgArray[1]}
                                     </a>
                                   );
