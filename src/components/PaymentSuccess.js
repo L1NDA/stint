@@ -1,15 +1,22 @@
 import React from "react";
+import { compose } from "redux";
+import { withRouter } from "react-router-dom";
 import "./style/other.css";
 import Menu from "./Menu.js";
 import Footer from "./Footer.js";
 import paymentSuccess from "./imgs/payment-success.svg";
-import { NavLink } from "react-router-dom";
+
+import { COMPANY_PATH } from "../constants/ROUTING_CONSTANTS"
 
 class PaymentSuccess extends React.Component {
   constructor() {
     super();
     this.state = {
     };
+  }
+
+  redirectToHirePage = () => {
+    this.props.history.push(COMPANY_PATH)
   }
 
   render() {
@@ -34,7 +41,7 @@ class PaymentSuccess extends React.Component {
               If you’re not happy with the student’s work, no worries! Just let us know before the first quarter is up, and we’ll refund you in full.
             </p>
             <br/> <br/>
-            <NavLink to="/hire" className="button">Return to homepage</NavLink>
+            <button onClick={this.redirectToHirePage} className="button">Return to homepage</button>
           </div>
           <img src={paymentSuccess} className="homepage-image company-image" />
 
@@ -47,4 +54,4 @@ class PaymentSuccess extends React.Component {
   }
 }
 
-export default PaymentSuccess;
+export default compose(withRouter)(PaymentSuccess);

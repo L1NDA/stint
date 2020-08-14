@@ -50,7 +50,7 @@ class FourOhFour extends React.Component {
   render() {
     const { loading } = this.state;
     return (
-      <div className="container flex-column" style={{height: "100vh"}}>
+      <div className="container flex-column" style={{ height: "100vh" }}>
         <Menu />
         <div className="fof-container">
           <div className="fof">

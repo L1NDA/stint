@@ -24,7 +24,7 @@ export const PROFILE_VIEW_PATH = (uid) => "/profile/" + uid;
 
 export const FOUR_OH_FOUR_PATH = "/404";
 
-export const PAYMENT_SUCCESS = "/payment-success";
+export const PAYMENT_SUCCESS_PATH = "/payment-success";
 
 export const BOOKING_PROCESS = "/booking-process";
 
@@ -41,5 +41,5 @@ export default {
   FOUR_OH_FOUR_PATH,
   SEARCH_PATH,
   CHECKOUT_PATH,
-  PAYMENT_SUCCESS
+  PAYMENT_SUCCESS_PATH,
 };
