@@ -1,11 +1,10 @@
 import React from "react";
-import "./style/other.css";
+import "./style/homepage.css";
 import Menu from "./Menu.js";
 import Footer from "./Footer.js";
-import paymentSuccess from "./imgs/payment-success.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
-class PaymentSuccess extends React.Component {
+class BookingProcess extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -17,28 +16,81 @@ class PaymentSuccess extends React.Component {
       <div className="container flex-column" style={{height: "100vh"}}>
         <Menu />
 
-        <div
-          className="payment-container padding"
-          style={{flexDirection: "row"}}
-        >
-          <div className="company-text flex-column">
-            <h1>Thanks! We got your payment. 💸</h1>
-            <h3>
-              Your money is safe in our holdings for now. We’ve notified the student about your request, and we’ll get back to you with their response within 24 hours.
-            </h3>
-            <h3 style={{fontWeight: "bold"}}>What’s next?</h3>
-            <p>To encourage fair compensation for student work, students can negotiate for a pay amendment one time if they believe they deserve a higher wage than what is offered. We’ll notify you if this is the case.
-              <br/> <br/>
-              Once the student accepts your offer, work begins! After the first project quarter is up, we will begin to transfer the student’s payment to their bank account at the agreed upon hourly wage, including their pay for the first quarter.
-              <br/> <br/>
-              If you’re not happy with the student’s work, no worries! Just let us know before the first quarter is up, and we’ll refund you in full.
-            </p>
-            <br/> <br/>
-            <NavLink to="/hire" className="button">Return to homepage</NavLink>
-          </div>
-          <img src={paymentSuccess} className="homepage-image company-image" />
+          <div className="process-container flex-column center">
+            <h1 style={{ textAlign: "center" }}>Booking a Student Freelancer</h1>
+            <div className="process">
+              <div className="process-line"></div>
+              <div className="process-item">
+                <div className="process-label">1</div>
+                <div className="process-img-container">
+                <img
+                  src={require("./imgs/booking-1.jpeg")}
+                  className="process-img"
+                />
+                </div>
+                <div className="process-text">
+                  <h2>Reserve a Student</h2>
+                  <p>
+                    On a student profile listing, book the student freelancer by <b>selecting your specific task from the dropdown menu</b>.
+                  </p>
+                </div>
+              </div>
+              <div className="process-item">
+                <div className="process-label">2</div>
+                <div className="process-img-container">
+                  <img
+                    src={require("./imgs/booking-2.jpeg")}
+                    className="process-img"
+                  />
+                </div>
 
-        </div>
+                <div className="process-text">
+                  <h2>Structure Your Stint</h2>
+                  <p>
+                    Set your project details (<b>Start Date</b>, <b>End Date</b>, <b>Hours per Day</b>, <b>Hourly Wage</b>) and write a short <b>Project Overview</b> (max 500 char.) for your Stint. When you’re ready, click <b>Checkout</b>.
+                  </p>
+                </div>
+              </div>
+              <div className="process-item">
+                <div className="process-label">3</div>
+                <div className="process-img-container">
+                <img
+                  src={require("./imgs/booking-3.jpeg")}
+                  className="process-img"
+                /></div>
+                <div className="process-text">
+                  <h2>Submit Your Payment</h2>
+                  <p>
+                    Choose your payment method and add your payment information, click Pay. We’ll receive your payment immediately and hold onto it. If the student accepts your Stint request, the project begins.
+                  </p>
+                  <div className="subtitle" style={{marginTop: "10px"}}>
+                    You can cancel any time before the first quarter ends with a full refund if you’re unsatisfied in any way. After the first quarter, the student will start receiving their pay at the agreed hourly wage (including wages earned in the first quarter). If you decide to cancel the Stint after the first quarter, you’ll receive back all wages that have not been paid out yet, less transaction fees.
+                  </div>
+                </div>
+              </div>
+
+              <div className="process-item">
+                <div className="process-label">4</div>
+                <div className="process-img-container">
+                <img
+                  src={require("./imgs/booking-4.jpeg")}
+                  className="process-img"
+                /></div>
+                <div className="process-text">
+                  <h2>Receive Student Confirmation</h2>
+                  <p>
+                    Once you complete the payment process, the student will receive a notification with your proposed terms and description for the Stint – they can accept or deny the request.
+                  </p>
+                  <div className="subtitle" style={{marginTop: "10px"}}>
+                    To encourage fair compensation, students also have the ability to negotiate for a higher pay (up to 1 time), if they wish. We’ll notify you if this is the case.
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <p>Still confused? See our <Link to="/privacy-policy" className="url" style={{display: "inline-flex", color: "#474448"}}>Privacy Policy</Link> for more information or reach out to us at <a href="mailto:wearestint@gmail.com" className="url" style={{display: "inline-flex", color: "#474448"}}>wearestint@gmail.com.</a></p>
+          </div>
 
 
         <Footer />
@@ -47,4 +99,4 @@ class PaymentSuccess extends React.Component {
   }
 }
 
-export default PaymentSuccess;
+export default BookingProcess;

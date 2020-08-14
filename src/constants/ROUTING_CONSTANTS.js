@@ -26,6 +26,8 @@ export const FOUR_OH_FOUR_PATH = "/404";
 
 export const PAYMENT_SUCCESS = "/payment-success";
 
+export const BOOKING_PROCESS = "/booking-process";
+
 export default {
   HOMEPAGE_PATH,
   COMPANY_PATH,
