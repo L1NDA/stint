@@ -30,36 +30,36 @@ admin.initializeApp();
 const HOST_NAME = "smtp.gmail.com"
 const PORT = 465
 
-// let transporter = nodemailer.createTransport({
-//     host: HOST_NAME,
-//     port: PORT,
-//     secure: true, // true for 465, false for other ports
-//     auth: {
-//       user: mailConfig.address,
-//       pass: mailConfig.password,
-//     },
-// });
+let transporter = nodemailer.createTransport({
+    host: HOST_NAME,
+    port: PORT,
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: mailConfig.address,
+      pass: mailConfig.password,
+    },
+});
 
-// exports.sendEmail = functions.https.onRequest((req, res) => {
-//     cors(req, res, () => {
+exports.sendEmail = functions.https.onRequest((req, res) => {
+    cors(req, res, () => {
 
-//         const {recipientAddress, subjectLine, htmlBody} = req.body;
+        const {recipientAddress, subjectLine, htmlBody} = req.body;
 
-//         const mailOptions = {
-//             from: 'Stint <' + mailConfig.address + '>',
-//             to: recipientAddress,
-//             subject: subjectLine,
-//             html: htmlBody
-//         };
+        const mailOptions = {
+            from: 'Stint <' + mailConfig.address + '>',
+            to: recipientAddress,
+            subject: subjectLine,
+            html: htmlBody
+        };
 
-//         return transporter.sendMail(mailOptions, (error, info) => {
-//             if(error){
-//                 return res.send(error.toString());
-//             }
-//             return res.status(200).send('Sent', info);
-//         });
-//     });
-// });
+        return transporter.sendMail(mailOptions, (error, info) => {
+            if(error){
+                return res.send(error.toString());
+            }
+            return res.status(200).send('Sent', info);
+        });
+    });
+});
 
 exports.onCheckoutSessionCompleted = functions.https.onRequest((req, res) => {
     cors(req, res, async () => {
@@ -89,7 +89,7 @@ exports.onCheckoutSessionCompleted = functions.https.onRequest((req, res) => {
 
         let stintDetails = {
             category: event.data.object.metadata.stintCategory,
-            description: event.data.object.metadata.stintDescription,
+            description: event.data.object.metadata.stintDescription ? event.data.object.metadata.stintDescription : null,
             totalHours: event.data.object.metadata.totalHours,
             hourlyRate: event.data.object.metadata.hourlyRate,
             startDate: event.data.object.metadata.startDate,
