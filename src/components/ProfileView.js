@@ -316,7 +316,7 @@ class ProfileView extends React.Component {
 <<<<<<< HEAD
   this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed -
 =======
-  this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed - 
+  this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed -
 >>>>>>> develop
   (because this.props.auth is null at first)
 */
@@ -506,6 +506,7 @@ class ProfileView extends React.Component {
               maxlength={499}
               placeholder={`Give ${this.state.freelancerInfo.displayName.split(" ")[0]} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements. (Max 500 char.)`}
               onChange={(e) => this.setState({ stintDescription: e.target.value })}></textarea>
+            <p style={{color: "white", marginTop: "50px", fontStyle: "italic"}}>First time booking on Stint? Learn about our process <Link to="/booking-process" style={{color: "white", fontWeight: "bold"}} target="_blank">here</Link>.</p>
 
             </div>
             <div className="flex-column button-container">
@@ -519,18 +520,19 @@ class ProfileView extends React.Component {
                 stintCategory={this.state.bookCategory}
                 stintDescription={this.state.stintDescription}
                 redirectOnSuccessUrl={INDEX_URL + PAYMENT_SUCCESS_PATH}
-                redirectOnFailUrl="https://wearestint.com/our-mission"
+                redirectOnFailUrl="https://wearestint.com/payment-success"
                 totalHours={this.state.hours * this.state.numWeekdays}
                 hourlyRate={this.state.price}
                 totalAmount={this.state.hours * this.state.numWeekdays * this.state.price * 100}
                 disabled={this.state.startDate
                   && this.state.endDate
                   && this.state.numWeekdays
+                  && this.state.stintDescription
                   && this.state.bookCategory
                   && this.state.hours
                   && this.state.price ? false : true}/>
                 <div className="subtitle" style={{color: "white", marginTop: "15px", textAlign: "right"}}>By checking out, you are agreeing to our{" "}
-              <Link to="/privacy-policy" style={{color: "white", fontWeight: "bold"}}>Privacy Policy</Link>.</div>
+              <Link to="/privacy-policy" style={{color: "white", fontWeight: "bold"}} target="_blank">Privacy Policy</Link>.</div>
 
             </div>
 

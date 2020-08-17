@@ -259,7 +259,7 @@ exports.retrieveCheckoutSession = functions.https.onRequest((req, res) => {
 
 // exports.deleteIndex = functions.database.ref('/freelancers/{id}').onDelete((snapshot, context) => {
 //     const index = client.initIndex(functions.config().algolia.index);
-    
+
 //     const id = context.params.id
 
 //     return index.deleteObject(id, (err)=> {
@@ -278,7 +278,7 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
             .then(result => {
             }).catch(err => {
                 if (err.request && err.request.res.statusMessage == 'Not Found') {
-                    
+
                     return res.status(404).send(result)
                 }
                 else {
