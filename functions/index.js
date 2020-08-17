@@ -89,7 +89,7 @@ exports.onCheckoutSessionCompleted = functions.https.onRequest((req, res) => {
 
         let stintDetails = {
             category: event.data.object.metadata.stintCategory,
-            description: event.data.object.metadata.stintDescription,
+            description: event.data.object.metadata.stintDescription ? event.data.object.metadata.stintDescription : null,
             totalHours: event.data.object.metadata.totalHours,
             hourlyRate: event.data.object.metadata.hourlyRate,
             startDate: event.data.object.metadata.startDate,
