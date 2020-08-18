@@ -28,6 +28,8 @@ export const PAYMENT_SUCCESS_PATH = "/payment-success";
 
 export const BOOKING_PROCESS_PATH = "/booking-process";
 
+export const BOOKING_PATH = "/book";
+
 export default {
   HOMEPAGE_PATH,
   COMPANY_PATH,
@@ -43,4 +45,5 @@ export default {
   CHECKOUT_PATH,
   PAYMENT_SUCCESS_PATH,
   BOOKING_PROCESS_PATH,
+  BOOKING_PATH
 };
