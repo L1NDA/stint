@@ -747,6 +747,7 @@ class ProfileView extends React.Component {
                           </div>
 
                           {this.state.githubData.data &&
+                          this.state.githubData.data.repoNames &&
                           this.state.githubData.data.repoNames.length !== 0 ? (
                             <div className="works-section">
                               <div className="works-section-header">
@@ -775,7 +776,7 @@ class ProfileView extends React.Component {
                             </div>
                           )}
 
-                          {this.state.githubData.data.eventCount ? (
+                          {this.state.githubData.data && this.state.githubData.data.eventCount ? (
                             <div className="works-section">
                               <div className="works-section-header">
                                 - Number of contributions
@@ -805,7 +806,9 @@ class ProfileView extends React.Component {
                             </div>
                           )}
 
-                          {this.state.githubData.data.orgs.length !== 0 ? (
+                          {this.state.githubData.data &&
+                            this.state.githubData.data.orgs &&
+                            this.state.githubData.data.orgs.length !== 0 ? (
                             <div className="works-section">
                               <div className="works-section-header">
                                 - My organizations
@@ -1189,7 +1192,9 @@ class ProfileView extends React.Component {
                             Github
                           </div>
 
-                          {this.state.githubData.data.repoNames.length !== 0 ? (
+                          {this.state.githubData.data &&
+                          this.state.githubData.data.repoNames &&
+                          this.state.githubData.data.repoNames.length !== 0 ? (
                             <div className="works-section">
                               <div className="works-section-header">
                                 - My recent repositories
@@ -1217,7 +1222,7 @@ class ProfileView extends React.Component {
                             </div>
                           )}
 
-                          {this.state.githubData.data.eventCount ? (
+                          {this.state.githubData.data && this.state.githubData.data.eventCount ? (
                             <div className="works-section">
                               <div className="works-section-header">
                                 - Number of contributions
@@ -1247,7 +1252,9 @@ class ProfileView extends React.Component {
                             </div>
                           )}
 
-                          {this.state.githubData.data.orgs.length !== 0 ? (
+                          {this.state.githubData.data &&
+                            this.state.githubData.data.orgs &&
+                            this.state.githubData.data.orgs.length !== 0 ? (
                             <div className="works-section">
                               <div className="works-section-header">
                                 - My organizations
