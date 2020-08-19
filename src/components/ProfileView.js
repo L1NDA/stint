@@ -658,6 +658,21 @@ class ProfileView extends React.Component {
                     src={personalwebsite}
                     className="works-laptop-screen"
                   ></iframe>
+                  <div
+                    className="works-laptop-screen flex-column center"
+                    style={{ backgroundColor: "#474448", padding: "0 25px", zIndex: "0"}}
+                  >
+                    <h1 className={personalwebsite.length > 35 ? "h1-smaller" : null} style={{ color: "white"}}>
+                      {personalwebsite.endsWith("/")
+                        ? personalwebsite.replace("https://", "").slice(0, -1)
+                        : personalwebsite.replace("https://", "")}
+                    </h1>
+                    <div className="subtitle" style={{ color: "white" }}>
+                      This website cannot be previewed as it either does not use
+                      https or does not allow cross-origin previews. Please
+                      click to view.
+                    </div>
+                  </div>
                 </a>
               </section>
             ) : personalwebsite ? (
