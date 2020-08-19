@@ -173,7 +173,7 @@ class Booking extends React.Component {
                   </select>
 
                 <br/>
-                <i className="subtitle">Please note: freelancers are only expected to work on business days. At Stint, we believe in a healthy work-life balance.</i>
+                
                 <br/>
                 <div className="flex-row-comp" style={{margin: "0", width: "100%", alignItems: "center"}}>
                 <div className="book-hours-container">

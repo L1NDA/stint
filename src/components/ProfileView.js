@@ -253,6 +253,13 @@ class ProfileView extends React.Component {
   };
 
   onDateChange = (startDate, endDate) => {
+    if (!startDate && !endDate && this.state.startDate && this.state.endDate) {
+      this.setState({
+        numWeekdays: null,
+        startDate: null,
+        endDate: null,
+      })
+    }
     if (startDate && endDate) {
       let numWeekdays = moment().weekdayCalc(startDate.toDate(), endDate.toDate(), [1,2,3,4,5])
       this.setState({
@@ -367,30 +374,38 @@ class ProfileView extends React.Component {
              this.props.auth.uid !== this.props.match.params.uid) ?
 
             <div className="book-title">
-              <RangeDatePicker
-                  startDatePlaceholder="Start Date"
-                  endDatePlaceholder="End Date"
-                  startDate={this.state.savedStart ? moment(this.state.savedStart).format("YYYY MM DD") : null}
-                  endDate={this.state.savedEnd ? moment(this.state.savedEnd).format("YYYY MM DD") : null}
-                  minDate={new Date()}
-                  disabled={false}
-                  className="book-calendar"
-                  startWeekDay="sunday"
-                  onChange={(startDate, endDate) => this.onDateChange(startDate, endDate)}
-                />
+              <div className="flex-row" style={{justifyContent: "space-between"}}>
+                <RangeDatePicker
+                    startDatePlaceholder="Start Date"
+                    endDatePlaceholder="End Date"
+                    minDate={new Date()}
+                    disabled={false}
+                    className="book-calendar"
+                    startWeekDay="sunday"
+                    onChange={(startDate, endDate) => this.onDateChange(startDate, endDate)}
+                  />
 
-              <button className="button" disabled={this.state.bookCategory ? false : true}>
-                <Link to={{
-                    pathname: "/book",
-                    state: {
-                      freelancerName: this.state.freelancerInfo.displayName.split(" ")[0],
-                      avatarUrl: this.state.freelancerInfo.avatarUrl,
-                      bookCategory: this.state.bookCategory,
-                      freelancerUid: this.props.match.params.uid
-                    }
-                  }}
-                  style={{color: "white", pointerEvents: this.state.bookCategory ? "auto" : "none"}}
-                  >Request Booking</Link></button>
+                <div className="flex-row booking-week-info" style={{alignItems: "center"}}>
+                  {this.state.startDate && this.state.endDate ?
+                  <p><b>{this.state.numWeekdays}</b> total days</p> : null}
+                  <button className="button" disabled={(this.state.startDate && this.state.endDate) ? false : true}>
+                    <Link to={{
+                        pathname: "/book",
+                        state: {
+                          freelancerName: this.state.freelancerInfo.displayName.split(" ")[0],
+                          avatarUrl: this.state.freelancerInfo.avatarUrl,
+                          startDate: this.state.startDate,
+                          endDate: this.state.endDate,
+                          freelancerUid: this.props.match.params.uid
+                        }
+                      }}
+                      style={{color: "white", pointerEvents: (this.state.startDate && this.state.endDate) ? "auto" : "none"}}
+                      >Request Booking</Link></button>
+                </div>
+
+
+              </div>
+              {this.state.startDate && this.state.endDate ? <i className="subtitle" style={{marginTop: "10px"}}>Please note: freelancers are only expected to work on business days. At Stint, we believe in a healthy work-life balance.</i> : null}
 
             </div> : null}
 

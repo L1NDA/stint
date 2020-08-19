@@ -17,17 +17,14 @@
   top: 30px;
   z-index: 15;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   align-self: center;
   margin-top: 75px;
 }
 
-.book-title > div > img {
-  width: auto;
-  height: 40px;
-  border-radius: 50px;
-  margin-right: 20px;
+.booking-week-info > *:first-child {
+  margin: 0;
+  margin-right: 20px
 }
 
 .book-title-opened {
@@ -60,8 +57,16 @@
   height: 44px !important;
 }
 
+/* .date-picker-date-group > *:first-child {
+  width: 55% !important;
+}
+
+.date-picker-date-group > *:last-child {
+  width: 45% !important;
+} */
+
 .react-google-flight-datepicker {
-  width: 35%;
+  width: 40%;
   max-width: 800px;
 }
 
@@ -549,6 +554,11 @@
   .booking-category-select {
     font-size: 14px;
     margin-left: 0;
+  }
+
+  .booking-week-info > *:first-child {
+    margin: 0;
+    margin-bottom: 10px;
   }
 
   .half-container-book {
