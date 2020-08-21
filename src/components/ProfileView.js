@@ -658,6 +658,21 @@ class ProfileView extends React.Component {
                     src={personalwebsite}
                     className="works-laptop-screen"
                   ></iframe>
+                  <div
+                    className="works-laptop-screen flex-column center"
+                    style={{ backgroundColor: "#474448", padding: "0 25px", zIndex: "0"}}
+                  >
+                    <h1 className={personalwebsite.length > 35 ? "h1-smaller" : null} style={{ color: "white"}}>
+                      {personalwebsite.endsWith("/")
+                        ? personalwebsite.replace("https://", "").slice(0, -1)
+                        : personalwebsite.replace("https://", "")}
+                    </h1>
+                    <div className="subtitle" style={{ color: "white" }}>
+                      This website cannot be previewed as it either does not use
+                      https or does not allow cross-origin previews. Please
+                      click to view.
+                    </div>
+                  </div>
                 </a>
               </section>
             ) : personalwebsite ? (
@@ -747,6 +762,7 @@ class ProfileView extends React.Component {
                           </div>
 
                           {this.state.githubData.data &&
+                          this.state.githubData.data.repoNames &&
                           this.state.githubData.data.repoNames.length !== 0 ? (
                             <div className="works-section">
                               <div className="works-section-header">
@@ -775,7 +791,7 @@ class ProfileView extends React.Component {
                             </div>
                           )}
 
-                          {this.state.githubData.data.eventCount ? (
+                          {this.state.githubData.data && this.state.githubData.data.eventCount ? (
                             <div className="works-section">
                               <div className="works-section-header">
                                 - Number of contributions
@@ -805,7 +821,9 @@ class ProfileView extends React.Component {
                             </div>
                           )}
 
-                          {this.state.githubData.data.orgs.length !== 0 ? (
+                          {this.state.githubData.data &&
+                            this.state.githubData.data.orgs &&
+                            this.state.githubData.data.orgs.length !== 0 ? (
                             <div className="works-section">
                               <div className="works-section-header">
                                 - My organizations
@@ -1189,7 +1207,9 @@ class ProfileView extends React.Component {
                             Github
                           </div>
 
-                          {this.state.githubData.data.repoNames.length !== 0 ? (
+                          {this.state.githubData.data &&
+                          this.state.githubData.data.repoNames &&
+                          this.state.githubData.data.repoNames.length !== 0 ? (
                             <div className="works-section">
                               <div className="works-section-header">
                                 - My recent repositories
@@ -1217,7 +1237,7 @@ class ProfileView extends React.Component {
                             </div>
                           )}
 
-                          {this.state.githubData.data.eventCount ? (
+                          {this.state.githubData.data && this.state.githubData.data.eventCount ? (
                             <div className="works-section">
                               <div className="works-section-header">
                                 - Number of contributions
@@ -1247,7 +1267,9 @@ class ProfileView extends React.Component {
                             </div>
                           )}
 
-                          {this.state.githubData.data.orgs.length !== 0 ? (
+                          {this.state.githubData.data &&
+                            this.state.githubData.data.orgs &&
+                            this.state.githubData.data.orgs.length !== 0 ? (
                             <div className="works-section">
                               <div className="works-section-header">
                                 - My organizations
