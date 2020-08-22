@@ -17,7 +17,7 @@ import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import { SIGNUP_EVENT} from "../constants/ANALYTICS_CONSTANTS";
-import { PROFILE_VIEW_PATH } from "../constants/ROUTING_CONSTANTS";
+import { THANK_YOU_PATH, PROFILE_VIEW_PATH } from "../constants/ROUTING_CONSTANTS";
 
 const { setFreelancerProfile, getFreelancerRef } = require("../api/freelancer");
 
