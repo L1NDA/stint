@@ -85,6 +85,7 @@ exports.uploadBookingData = functions.https.onRequest((req, res) => {
             amountToBePaidOut,
             amountToBeKept,
             stintDetails,
+            customerEmail: req.body.email
         }
 
         return admin.database().ref('transactions/' + freelancerUid).push(transaction)

@@ -242,7 +242,8 @@ export const uploadBookingData = (
   hourlyRate,
   startDate,
   endDate,
-  numWeekdays
+  numWeekdays,
+  email
 ) => {
   let targetUrl = FUNCTIONS_INDEX_URL + "uploadBookingData";
   return axios
@@ -255,7 +256,8 @@ export const uploadBookingData = (
       hourlyRate,
       startDate,
       endDate,
-      numWeekdays
+      numWeekdays,
+      email
     })
     .then((res) => {
       console.log(res)
