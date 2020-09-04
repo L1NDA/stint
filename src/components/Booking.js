@@ -8,7 +8,7 @@ import { firebaseConnect, isLoaded, isEmpty } from "react-redux-firebase";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
 import "./style/my-profile.css";
-import { TiTimes, TiEquals } from "react-icons/ti";
+import { TiTimes, TiEquals, TiArrowRight } from "react-icons/ti";
 import { AiFillClockCircle, AiFillDollarCircle } from "react-icons/ai";
 
 import { getFreelancerRef } from "../api/freelancer";
@@ -118,66 +118,94 @@ class Booking extends React.Component {
 
 
     return (
-      <div className="container-stint">
+      <div className="container flex-column" style={{minHeight: "100vh"}}>
         <Menu />
-          <div className="book-container">
-                <div className="pricing-container flex-column">
-                <div className="flex-column">
+          <div className="book-container" style={{flexGrow: "1"}}>
 
-                  <select
-                    name="booking-category"
-                    className="booking-category-select"
-                    onChange={this.handleSelect}>
-                    <option value="">(select task)</option>
-                    {this.state.freelancerInfo.profile.dataAnalytics ?
-                      <optgroup label="Analytics">
-                        {STINT_CATEGORIES.da.map(
-                          (category) => {
-                            return (
-                              <option value={category}>{category}</option>
-                            )})}
-                      </optgroup>
-                      : null
-                    }
-                    {this.state.freelancerInfo.profile.contentCreation ?
-                      <optgroup label="Content Creation">
-                        {STINT_CATEGORIES.ccm.map(
-                          (category) => {
-                            return (
-                              <option value={category}>{category}</option>
-                            )})}
-                      </optgroup>
-                      : null
-                    }
-                    {this.state.freelancerInfo.profile.design ?
-                      <optgroup label="Design">
-                        {STINT_CATEGORIES.db.map(
-                          (category) => {
-                            return (
-                              <option value={category}>{category}</option>
-                            )})}
-                      </optgroup>
-                      : null
-                    }
-                    {this.state.freelancerInfo.profile.softwareDev ?
-                      <optgroup label="Software Development">
-                        {STINT_CATEGORIES.sd.map(
-                          (category) => {
-                            return (
-                              <option value={category}>{category}</option>
-                            )})}
-                      </optgroup>
-                      : null
-                    }
+            <div className="flex-column half-container-book">
+            <div className="flex-column">
 
-                  </select>
+              <div className="flex-row center">
+                <div className="flex-row center" style={{marginRight: "10px"}}>
+                  <div className={this.state.page2 ? "book-count" : "book-count-active book-count"}>1</div>
+                  Pricing
+                </div>
+                <TiArrowRight/>
+                <div className="flex-row center" style={{marginLeft: "10px"}}>
+                  <div className={this.state.page2 ? "book-count-active book-count" : "book-count"}>2</div>
+                  Details
+                </div>
 
-                <br/>
-                
-                <br/>
+              </div>
+
+              {this.state.page2
+                ? <div className="half-container-book-content">
+                <select
+                  name="booking-category"
+                  className="booking-category-select"
+                  onChange={this.handleSelect}>
+                  <option value="">(select task)</option>
+                  {this.state.freelancerInfo.profile.dataAnalytics ?
+                    <optgroup label="Analytics">
+                      {STINT_CATEGORIES.da.map(
+                        (category) => {
+                          return (
+                            <option value={category}>{category}</option>
+                          )})}
+                    </optgroup>
+                    : null
+                  }
+                  {this.state.freelancerInfo.profile.contentCreation ?
+                    <optgroup label="Content Creation">
+                      {STINT_CATEGORIES.ccm.map(
+                        (category) => {
+                          return (
+                            <option value={category}>{category}</option>
+                          )})}
+                    </optgroup>
+                    : null
+                  }
+                  {this.state.freelancerInfo.profile.design ?
+                    <optgroup label="Design">
+                      {STINT_CATEGORIES.db.map(
+                        (category) => {
+                          return (
+                            <option value={category}>{category}</option>
+                          )})}
+                    </optgroup>
+                    : null
+                  }
+                  {this.state.freelancerInfo.profile.softwareDev ?
+                    <optgroup label="Software Development">
+                      {STINT_CATEGORIES.sd.map(
+                        (category) => {
+                          return (
+                            <option value={category}>{category}</option>
+                          )})}
+                    </optgroup>
+                    : null
+                  }
+
+                </select>
+
+
+
+              <textarea
+                className="book-textarea"
+                maxlength={499}
+                placeholder={`Give ${this.state.freelancerName} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements. (Max 500 char.)`}
+                onChange={(e) => this.setState({ stintDescription: e.target.value })}></textarea>
+
+              <button className="button" style={{marginTop: "75px"}}>Send request</button>
+
+              </div>
+
+
+                : <div className="half-container-book-content">
+
                 <div className="flex-row-comp" style={{margin: "0", width: "100%", alignItems: "center"}}>
                 <div className="book-hours-container">
-                  <div className="subtitle" style={{fontWeight: "bold"}}>HOURS PER DAY</div>
+                  <div className="subtitle" style={{fontWeight: "bold"}}>(AVG) HOURS PER DAY</div>
                   <div className="book-container-content">
                     <AiFillClockCircle/>
                     <input className="book-hours"
@@ -205,36 +233,22 @@ class Booking extends React.Component {
                 </div>
 
                 </div>
-                <br/>
+
+                <div style={{margin: "40px 0 15px 0", fontStyle: "italic", fontWeight: "bold", color: "#474448"}}>First time booking on Stint? Learn about our process <Link to="/booking-process" style={{textDecoration: "underline"}} className="link" target="_blank">here</Link>.</div>
                 <i className="subtitle">We respect that startups may be in varying stages of funding and allow you to set student wages based on what your budget permits. In return, please be courteous to our students. As a benchmark, the average hourly wage for past stints is <b>$23</b>.</i>
-                <br/>
+                <br/><br/>
                 <i className="subtitle">If you ever find that you are unsatisfied with a student’s progress, we’ll fully refund you for any stint cancelled before the end of the first quarter.</i>
-                </div>
-                <div className="book-total">
-                    <p><b>{this.state.numWeekdays && this.state.hours
-                        ? <span><b>{this.state.numWeekdays * this.state.hours}</b> total</span>
-                        : "Total"} hours </b> </p>
-                      <div className="subtitle">({this.state.hours ? <span><b>{this.state.hours}</b> hours</span> : "Hours"} / day  x  {this.state.numWeekdays ? <span><b>{this.state.numWeekdays}</b> weekdays</span> : "Number of weekdays"})</div>
-                      <br/>
-                      <p><b><TiTimes style={{position: "absolute", left: "0"}}/> {this.state.price
-                        ? `$ ${this.state.price}`
-                        : "Price"} / hour </b></p>
-                      <br/>
-                      <p style={{borderTop: "1px solid lightgray", paddingTop: "20px"}}><b><TiEquals style={{position: "absolute", left: "0"}}/> {this.state.hours && this.state.numWeekdays && this.state.price ? `$ ${this.state.hours * this.state.numWeekdays * this.state.price} total` : "Total price"}</b></p></div>
+
+                <button className="button" style={{marginTop: "75px"}} onClick={() => {this.setState({page2: true})}}>Continue to details</button>
 
               </div>
 
-            <div className="flex-column half-container-book">
+              }
 
 
-            <div className="flex-column" style={{marginTop: "30px"}}>
-            <p style={{color: "white"}}><b>PROJECT OVERVIEW</b></p>
-            <textarea
-              className="book-textarea"
-              maxlength={499}
-              placeholder={`Give ${this.state.freelancerName} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements. (Max 500 char.)`}
-              onChange={(e) => this.setState({ stintDescription: e.target.value })}></textarea>
-            <p style={{color: "white", marginTop: "50px", fontStyle: "italic"}}>First time booking on Stint? Learn about our process <Link to="/booking-process" style={{color: "white", fontWeight: "bold"}} target="_blank">here</Link>.</p>
+
+
+
 
             </div>
             <div className="flex-column button-container">
@@ -264,6 +278,36 @@ class Booking extends React.Component {
             </div>
 
           </div>
+
+          <div className="pricing-container flex-column">
+          <div className="flex-column">
+
+            <div className="flex-row" style={{alignItems: "center"}}>
+              <img className="book-avatar" src={this.state.avatarUrl}></img>
+              <p>Book {this.state.freelancerName}</p>
+            </div>
+
+
+
+          <br/>
+
+          <br/>
+
+          <br/>
+          </div>
+          <div className="book-total">
+              <p><b>{this.state.numWeekdays && this.state.hours
+                  ? <span><b style={{color: "#8F8DFF"}}>{this.state.numWeekdays * this.state.hours}</b> total</span>
+                  : "Total"} hours </b> </p>
+                <div className="subtitle">({this.state.hours ? <span><b style={{color: "#8F8DFF"}}>{this.state.hours}</b> hours</span> : "Hours"} / day  x  {this.state.numWeekdays ? <span><b style={{color: "#8F8DFF"}}>{this.state.numWeekdays}</b> weekdays</span> : "Number of weekdays"})</div>
+                <br/>
+                <p><b><TiTimes style={{position: "absolute", left: "0"}}/> {this.state.price
+                  ? <b style={{color: "#8F8DFF"}}>$ {this.state.price}</b>
+                  : "Price"} / hour </b></p>
+                <br/>
+                <p style={{borderTop: "1px solid lightgray", paddingTop: "20px"}}><b><TiEquals style={{position: "absolute", left: "0"}}/> {this.state.hours && this.state.numWeekdays && this.state.price ? <b style={{color: "#8F8DFF"}}>$ {this.state.hours * this.state.numWeekdays * this.state.price} total</b> : "Total price"}</b></p></div>
+
+        </div>
 
         </div>
 

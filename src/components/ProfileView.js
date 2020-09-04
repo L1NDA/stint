@@ -388,7 +388,6 @@ class ProfileView extends React.Component {
                 <div className="flex-row booking-week-info" style={{alignItems: "center"}}>
                   {this.state.startDate && this.state.endDate ?
                   <p><b>{this.state.numWeekdays}</b> total days</p> : null}
-                  <button className="button" disabled={(this.state.startDate && this.state.endDate) ? false : true}>
                     <Link to={{
                         pathname: "/book",
                         state: {
@@ -396,11 +395,13 @@ class ProfileView extends React.Component {
                           avatarUrl: this.state.freelancerInfo.avatarUrl,
                           startDate: this.state.startDate,
                           endDate: this.state.endDate,
-                          freelancerUid: this.props.match.params.uid
+                          freelancerUid: this.props.match.params.uid,
+                          freelancerInfo: this.state.freelancerInfo,
                         }
                       }}
                       style={{color: "white", pointerEvents: (this.state.startDate && this.state.endDate) ? "auto" : "none"}}
-                      >Request Booking</Link></button>
+                      >
+                      <button className="button" disabled={(this.state.startDate && this.state.endDate) ? false : true}>Request Booking</button></Link>
                 </div>
 
 
