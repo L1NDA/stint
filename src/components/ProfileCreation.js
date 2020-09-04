@@ -16,8 +16,8 @@ import { firebaseConnect } from "react-redux-firebase";
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import { SIGNUP_EVENT } from "../constants/ANALYTICS_CONSTANTS";
-import { THANK_YOU_PATH } from "../constants/ROUTING_CONSTANTS";
+import { SIGNUP_EVENT} from "../constants/ANALYTICS_CONSTANTS";
+import { THANK_YOU_PATH, PROFILE_VIEW_PATH } from "../constants/ROUTING_CONSTANTS";
 
 const { setFreelancerProfile, getFreelancerRef } = require("../api/freelancer");
 
@@ -193,7 +193,8 @@ class ProfileCreation extends React.Component {
       temp.phonenum
     );
     await this.props.analytics.logEvent(SIGNUP_EVENT);
-    this.props.history.push(THANK_YOU_PATH);
+    let profileViewPath = PROFILE_VIEW_PATH(this.props.auth.uid)
+    this.props.history.push(profileViewPath);
   };
   render() {
     const temp = this.state;
