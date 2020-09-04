@@ -1,0 +1,5 @@
+10:28:02.428 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+10:28:02.606 [main] INFO com.firebase.server.forge.App$ - Listening at localhost:9000
+10:28:12.806 [NamespaceSystem-akka.actor.default-dispatcher-4] WARN com.firebase.server.forge.App$ - Received service account token ya29...PeLw, assuming ownership.
+11:40:16.597 [NamespaceSystem-akka.actor.default-dispatcher-23] WARN com.firebase.server.forge.App$ - Received service account token ya29...tbBQ, assuming ownership.
+11:40:47.633 [NamespaceSystem-akka.actor.default-dispatcher-30] WARN com.firebase.server.forge.App$ - Received service account token ya29...S6OA, assuming ownership.

@@ -115,11 +115,7 @@ class Booking extends React.Component {
     null or whatever u wanna display instead
 
   Notes:
-<<<<<<< HEAD
   this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed -
-=======
-  this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed -
->>>>>>> develop
   (because this.props.auth is null at first)
 */
 
