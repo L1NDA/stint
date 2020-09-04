@@ -170,7 +170,11 @@ class Booking extends React.Component {
               {this.state.page2
                 ? <form className="half-container-book-content" onSubmit={this.uploadBookingData}>
                 <div className="booking-category-select-container">
-                <div className="subtitle" style={{fontWeight: "bold"}}>BOOKING CATEGORY</div>
+                  <div className="subtitle" style={{fontWeight: "bold"}}>EMAIL ADDRESS*</div>
+                  <input type="email" className="booking-category-input" required placeholder="wearestint@gmail.com"></input>
+                </div>
+                <div className="booking-category-select-container">
+                <div className="subtitle" style={{fontWeight: "bold"}}>BOOKING CATEGORY*</div>
                 <select
                   name="booking-category"
                   required
@@ -222,12 +226,12 @@ class Booking extends React.Component {
                 </div>
 
               <div className="booking-category-textarea-container">
-              <div className="subtitle" style={{fontWeight: "bold"}}>STINT DESCRIPTION</div>
+              <div className="subtitle" style={{fontWeight: "bold"}}>STINT DESCRIPTION*</div>
               <textarea
                 className="book-textarea"
                 maxlength={499}
                 required
-                placeholder={`Give ${this.state.freelancerName} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements. (Max 500 char.)`}
+                placeholder={`Provide ${this.state.freelancerName} a brief description of what your Stint entails. There’s no need to explain every detail, but this should give the student a basic understanding of their role and requirements for the Stint. (Max. 500 char.)`}
                 onChange={(e) => this.setState({ stintDescription: e.target.value })}></textarea>
               </div>
 
@@ -237,7 +241,7 @@ class Booking extends React.Component {
 
               <Link to="/privacy-policy" style={{color: "#474448", fontWeight: "bold"}} target="_blank">Privacy Policy</Link>.</div>
               <br/>
-              <button className="button">Send request</button>
+              <button className="button">Reserve now</button>
 
               </form>
 
@@ -246,7 +250,7 @@ class Booking extends React.Component {
 
                 <div className="flex-row-comp" style={{margin: "0", width: "100%", alignItems: "center"}}>
                 <div className="book-hours-container">
-                  <div className="subtitle" style={{fontWeight: "bold"}}>(AVG) HOURS PER DAY</div>
+                  <div className="subtitle" style={{fontWeight: "bold"}}>(AVG) HOURS PER DAY*</div>
                   <div className="book-container-content">
                     <AiFillClockCircle/>
                     <input className="book-hours"
@@ -261,7 +265,7 @@ class Booking extends React.Component {
                 </div>
                 <div className="input-line"></div>
                 <div className="book-price-container">
-                  <div className="subtitle" style={{fontWeight: "bold"}}>HOURLY WAGE</div>
+                  <div className="subtitle" style={{fontWeight: "bold"}}>HOURLY WAGE*</div>
                   <div className="book-container-content">
                       <AiFillDollarCircle/>
                         <input className="book-price"
@@ -307,14 +311,8 @@ class Booking extends React.Component {
             <img className="book-avatar" src={this.state.avatarUrl}/>
           </div>
 
-
-
-          <br/>
-
-          <br/>
-
-          <br/>
           </div>
+
           <div className="book-total">
               <p><b>{this.state.numWeekdays && this.state.hours
                   ? <span><b style={{color: "#8F8DFF"}}>{this.state.numWeekdays * this.state.hours}</b> total</span>

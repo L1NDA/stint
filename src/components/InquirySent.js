@@ -26,7 +26,6 @@ class InquirySent extends React.Component {
 
         <div
           className="payment-container padding"
-          style={{flexDirection: "row"}}
         >
           <div className="company-text flex-column">
             <h1>Thanks! Your Stint booking has been sent. 🚀</h1>
