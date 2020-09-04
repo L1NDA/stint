@@ -11,7 +11,7 @@ import "./style/my-profile.css";
 import { TiTimes, TiEquals, TiArrowRight } from "react-icons/ti";
 import { AiFillClockCircle, AiFillDollarCircle } from "react-icons/ai";
 
-import { getFreelancerRef } from "../api/freelancer";
+import { uploadBookingData } from "../api/freelancer";
 
 import { RangeDatePicker } from 'react-google-flight-datepicker';
 import 'react-google-flight-datepicker/dist/main.css';
@@ -21,6 +21,7 @@ import { WeekDayCalc } from 'moment-weekday-calc';
 import {
   FOUR_OH_FOUR_PATH,
   PAYMENT_SUCCESS_PATH,
+  INQUIRY_SENT_PATH,
 } from "../constants/ROUTING_CONSTANTS";
 
 import {
@@ -105,6 +106,23 @@ class Booking extends React.Component {
 
   }
 
+  uploadBookingData = (e) => {
+    e.preventDefault();
+    console.log('state', this.state)
+    let res = uploadBookingData(
+      this.state.freelancerUid,
+      this.state.hours * this.state.price * this.state.numWeekdays,
+      this.state.bookCategory,
+      this.state.stintDescription,
+      this.state.hours,
+      this.state.price,
+      this.state.startDate,
+      this.state.endDate,
+      this.state.numWeekdays
+    )
+    this.props.history.push(INQUIRY_SENT_PATH)
+  }
+
 
 
   /* For Linda's edit profile button:
@@ -131,10 +149,16 @@ class Booking extends React.Component {
             <div className="flex-column">
 
               <div className="flex-row center">
-                <div className="flex-row center" style={{marginRight: "10px"}}>
+                {this.state.page2
+                ? <div className="flex-row center" style={{marginRight: "10px", cursor: "pointer"}} onClick={() => {this.setState({page2: false})}}>
                   <div className={this.state.page2 ? "book-count" : "book-count-active book-count"}>1</div>
                   Pricing
                 </div>
+                : <div className="flex-row center" style={{marginRight: "10px"}}>
+                  <div className={this.state.page2 ? "book-count" : "book-count-active book-count"}>1</div>
+                  Pricing
+                </div>}
+
                 <TiArrowRight/>
                 <div className="flex-row center" style={{marginLeft: "10px"}}>
                   <div className={this.state.page2 ? "book-count-active book-count" : "book-count"}>2</div>
@@ -144,7 +168,7 @@ class Booking extends React.Component {
               </div>
 
               {this.state.page2
-                ? <form className="half-container-book-content">
+                ? <form className="half-container-book-content" onSubmit={this.uploadBookingData}>
                 <div className="booking-category-select-container">
                 <div className="subtitle" style={{fontWeight: "bold"}}>BOOKING CATEGORY</div>
                 <select
