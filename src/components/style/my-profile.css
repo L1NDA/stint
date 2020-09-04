@@ -209,6 +209,7 @@
 .book-total {
   text-align: right;
   position: relative;
+  margin-top: 100px;
 }
 
 .book-total > * {
@@ -242,7 +243,11 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-right: 50px;
+  margin-right: 0;
+  align-self: flex-start;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 50px;
   /* position: fixed;
   right: 10%; */
 }
@@ -279,7 +284,7 @@
   padding: 20px 30px;
 }
 
-.booking-category-select {
+.booking-category-select, .booking-category-input {
   font-family: "Source Sans Pro", sans-serif;
   outline: none;
   border: none;
@@ -288,6 +293,14 @@
   width: 100%;
   margin-top: 2px;
   margin-left: -4px;
+}
+
+.booking-category-input {
+  margin-left: 0
+}
+
+.booking-category-input::placeholder {
+  color: gray;
 }
 
 .book-textarea {
@@ -626,6 +639,15 @@
 
 /* Large Phones */
 @media only screen and (max-height: 950px) and (max-width: 800px) {
+
+  .book-container {
+    flex-direction: column-reverse;
+    padding-top: 0;
+  }
+
+  .pricing-container {
+    position: relative;
+  }
 
   .booking-category-select {
     font-size: 14px;
