@@ -11,7 +11,7 @@ import "./style/my-profile.css";
 import { TiTimes, TiEquals, TiArrowRight } from "react-icons/ti";
 import { AiFillClockCircle, AiFillDollarCircle } from "react-icons/ai";
 
-import { getFreelancerRef } from "../api/freelancer";
+import { uploadBookingData } from "../api/freelancer";
 
 import { RangeDatePicker } from 'react-google-flight-datepicker';
 import 'react-google-flight-datepicker/dist/main.css';
@@ -96,6 +96,18 @@ class Booking extends React.Component {
     })
   }
 
+  uploadBookingData = () => {
+    uploadBookingData(
+      this.state.freelancerUid,
+      this.state.totalAmount,
+      this.state.stintCategory,
+      this.state.stintDescription,
+      this.state.totalHours,
+      this.state.hourlyRate,
+      this.state.startDate,
+      this.state.endDate
+    )
+  }
 
 
   /* For Linda's edit profile button:
@@ -196,7 +208,7 @@ class Booking extends React.Component {
                 placeholder={`Give ${this.state.freelancerName} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements. (Max 500 char.)`}
                 onChange={(e) => this.setState({ stintDescription: e.target.value })}></textarea>
 
-              <button className="button" style={{marginTop: "75px"}}>Send request</button>
+              <button className="button" style={{marginTop: "75px"}} onClick={this.uploadBookingData}>Send request</button>
 
               </div>
 
