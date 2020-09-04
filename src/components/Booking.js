@@ -143,7 +143,7 @@ class Booking extends React.Component {
     return (
       <div className="container flex-column" style={{minHeight: "100vh"}}>
         <Menu />
-          <div className="book-container">
+          <div className="book-container" style={{flexGrow: "1"}}>
 
             <div className="flex-column half-container-book">
             <div className="flex-column">
@@ -231,7 +231,7 @@ class Booking extends React.Component {
                 className="book-textarea"
                 maxlength={499}
                 required
-                placeholder={`Give ${this.state.freelancerName} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements. (Max 500 char.)`}
+                placeholder={`Provide ${this.state.freelancerName} a brief description of what your Stint entails. There’s no need to explain every detail, but this should give the student a basic understanding of their role and requirements for the Stint. (Max. 500 char.)`}
                 onChange={(e) => this.setState({ stintDescription: e.target.value })}></textarea>
               </div>
 
