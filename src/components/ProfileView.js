@@ -180,15 +180,6 @@ class ProfileView extends React.Component {
     );
   };
 
-  handleSelect = (e) => {
-    if (e.target.value !== this.state.bookCategory) {
-      this.setState({
-        bookCategory: e.target.value
-      })
-    }
-
-  }
-
   getFilesFromStorage = async () => {
     let storageRef = this.props.storage.ref();
     let filesRef = storageRef.child(

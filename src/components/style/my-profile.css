@@ -237,13 +237,13 @@
   margin-top: 50px;
 }
 
-.booking-category-select-container {
+.booking-category-select-container, .booking-category-textarea-container {
   height: 66px;
   outline: none;
   border: 1px solid lightgray;
   border-bottom: none;
   background-color: white;
-  padding: 0 13px;
+  padding: 0 30px;
   font-size: 14px;
   line-height: normal;
   letter-spacing: 0.2px;
@@ -254,27 +254,31 @@
   flex-direction: column;
 }
 
+.booking-category-textarea-container {
+  height: auto;
+  border-bottom: 1px solid lightgray;
+  padding: 20px 30px;
+}
+
 .booking-category-select {
-  font-size: 20px;
-  line-height: 25px;
-  font-weight: bold;
   font-family: "Source Sans Pro", sans-serif;
   outline: none;
+  border: none;
   background-color: white;
   color: #474448;
   width: 100%;
-
+  margin-top: 2px;
+  margin-left: -4px;
 }
 
 .book-textarea {
-  border: 1px solid #474448;
+  border: none;
   outline: none;
-  height: 200px;
+  height: 150px;
   resize: none;
   color: #474448;
-  padding: 30px;
   font-family: "Source Sans", sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 24px;
   width: 100%;
 }
