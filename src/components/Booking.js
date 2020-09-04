@@ -241,7 +241,7 @@ class Booking extends React.Component {
 
               <Link to="/privacy-policy" style={{color: "#474448", fontWeight: "bold"}} target="_blank">Privacy Policy</Link>.</div>
               <br/>
-              <button className="button">Send request</button>
+              <button className="button">Reserve now</button>
 
               </form>
 
