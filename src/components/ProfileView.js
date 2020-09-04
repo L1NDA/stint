@@ -215,17 +215,6 @@ class ProfileView extends React.Component {
     })
   }
 
-  onDateChange = (startDate, endDate) => {
-    if (startDate && endDate) {
-      let numWeekdays = moment().weekdayCalc(startDate.toDate(), endDate.toDate(), [1,2,3,4,5])
-      this.setState({
-        numWeekdays: numWeekdays,
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString(),
-      })
-    }
-  }
-
   sortSkills = (skills) => {
     var items = Object.keys(skills).map(function (key) {
       return [key, skills[key]];

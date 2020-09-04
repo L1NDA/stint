@@ -16,7 +16,7 @@ import { getFreelancerRef } from "../api/freelancer";
 import { RangeDatePicker } from 'react-google-flight-datepicker';
 import 'react-google-flight-datepicker/dist/main.css';
 import moment from 'moment';
-import { WeekDayCalc } from 'moment-weekday-calc'
+import { WeekDayCalc } from 'moment-weekday-calc';
 
 import {
   FOUR_OH_FOUR_PATH,
@@ -211,11 +211,12 @@ class Booking extends React.Component {
                 onChange={(e) => this.setState({ stintDescription: e.target.value })}></textarea>
               </div>
 
-              <div className="subtitle" style={{color: "#474448", marginTop: "75px"}}>By clicking this button below, you are agreeing to our{" "}
+              <div className="subtitle" style={{color: "#474448", marginTop: "75px"}}>Clicking the button below will initiate a stint request with {this.state.freelancerName}. Payment will not be required until both parties confirm this request.
+                <br/><br/>By continuing, you are agreeing to our{" "}
 
 
               <Link to="/privacy-policy" style={{color: "#474448", fontWeight: "bold"}} target="_blank">Privacy Policy</Link>.</div>
-
+              <br/>
               <button className="button">Send request</button>
 
               </form>
@@ -280,11 +281,11 @@ class Booking extends React.Component {
           <div className="pricing-container flex-column">
           <div className="flex-column">
 
-            <div className="flex-row" style={{alignItems: "center"}}>
-              <img className="book-avatar" src={this.state.avatarUrl}></img>
-              <p>Book {this.state.freelancerName}</p>
-              {this.state.bookCategory ? `for ${this.state.bookCategory}` : null}
-            </div>
+          <div className='book-avatar-container'>
+            <h3 style={{fontWeight: "bold", margin: "0"}}>Book {this.state.freelancerName}</h3>
+            <i className="subtitle">from {moment(this.state.startDate).format("MMM DD")} to {moment(this.state.endDate).format("MMM DD")}</i>
+            <img className="book-avatar" src={this.state.avatarUrl}/>
+          </div>
 
 
 

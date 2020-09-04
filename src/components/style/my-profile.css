@@ -22,11 +22,30 @@
   margin-top: 75px;
 }
 
+.book-avatar-container {
+  width: 100%;
+  height: 120px;
+  border-radius: 8px;
+  overflow-y: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px;
+}
+
+.book-avatar-container > h3, .book-avatar-container > i {
+  z-index: 4;
+  color: white;
+}
+
 .book-avatar {
-  height: 30px;
-  width: 30px;
-  border-radius: 15px;
-  margin-right: 10px;
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  filter: brightness(75%);
 }
 
 .book-count {
@@ -281,6 +300,8 @@
   font-size: 14px;
   line-height: 24px;
   width: 100%;
+  margin-left: -3px;
+  margin-top: 2px;
 }
 
 .book-price::placeholder, .book-textarea::placeholder, .book-hours::placeholder {
