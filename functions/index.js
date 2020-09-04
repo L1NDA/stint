@@ -65,7 +65,7 @@ exports.uploadBookingData = functions.https.onRequest((req, res) => {
     cors(req, res, async () => {
         let freelancerUid = req.body.freelancerUid
 
-        let amountToBeReceived = (req.body.amount_total * 0.971) - 30
+        let amountToBeReceived = (req.body.amountTotal * 0.971) - 30
         let amountToBePaidOut = amountToBeReceived * 0.85
         let amountToBeKept = amountToBeReceived - amountToBePaidOut
 
@@ -76,15 +76,15 @@ exports.uploadBookingData = functions.https.onRequest((req, res) => {
             hourlyRate: req.body.hourlyRate,
             startDate: req.body.startDate,
             endDate: req.body.endDate,
+            numWeekdays: req.body.numWeekdays
         }
 
         let transaction = {
-            [customerId]: {
-                amountToBeReceived,
-                amountToBePaidOut,
-                amountToBeKept,
-                stintDetails,
-            },
+            amountTotal: req.body.amountTotal,
+            amountToBeReceived,
+            amountToBePaidOut,
+            amountToBeKept,
+            stintDetails,
         }
 
         return admin.database().ref('transactions/' + freelancerUid).push(transaction)

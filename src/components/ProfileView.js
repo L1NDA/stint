@@ -391,6 +391,7 @@ class ProfileView extends React.Component {
                           avatarUrl: this.state.freelancerInfo.avatarUrl,
                           startDate: this.state.startDate,
                           endDate: this.state.endDate,
+                          numWeekdays: this.state.numWeekdays,
                           freelancerUid: this.props.match.params.uid,
                           freelancerInfo: this.state.freelancerInfo,
                         }

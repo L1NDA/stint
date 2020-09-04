@@ -21,6 +21,7 @@ import { WeekDayCalc } from 'moment-weekday-calc'
 import {
   FOUR_OH_FOUR_PATH,
   PAYMENT_SUCCESS_PATH,
+  INQUIRY_SENT_PATH,
 } from "../constants/ROUTING_CONSTANTS";
 
 import {
@@ -97,16 +98,19 @@ class Booking extends React.Component {
   }
 
   uploadBookingData = () => {
-    uploadBookingData(
+    console.log('state', this.state)
+    let res = uploadBookingData(
       this.state.freelancerUid,
-      this.state.totalAmount,
-      this.state.stintCategory,
+      this.state.hours * this.state.price * this.state.numWeekdays,
+      'this.state.stintCategory',
       this.state.stintDescription,
-      this.state.totalHours,
-      this.state.hourlyRate,
+      this.state.hours,
+      this.state.price,
       this.state.startDate,
-      this.state.endDate
+      this.state.endDate,
+      this.state.numWeekdays
     )
+    this.props.history.push(INQUIRY_SENT_PATH)
   }
 
 
@@ -151,9 +155,12 @@ class Booking extends React.Component {
               </div>
 
               {this.state.page2
-                ? <div className="half-container-book-content">
+                ? <form className="half-container-book-content">
+                <div className="booking-category-select-container">
+                <div className="subtitle" style={{fontWeight: "bold"}}>BOOKING CATEGORY</div>
                 <select
                   name="booking-category"
+                  required
                   className="booking-category-select"
                   onChange={this.handleSelect}>
                   <option value="">(select task)</option>
@@ -199,21 +206,27 @@ class Booking extends React.Component {
                   }
 
                 </select>
-
+                </div>
 
 
               <textarea
                 className="book-textarea"
                 maxlength={499}
+                required
                 placeholder={`Give ${this.state.freelancerName} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements. (Max 500 char.)`}
                 onChange={(e) => this.setState({ stintDescription: e.target.value })}></textarea>
 
-              <button className="button" style={{marginTop: "75px"}} onClick={this.uploadBookingData}>Send request</button>
-
-              </div>
+              <div className="subtitle" style={{color: "#474448", marginTop: "75px"}}>By clicking this button below, you are agreeing to our{" "}
 
 
-                : <div className="half-container-book-content">
+              <Link to="/privacy-policy" style={{color: "#474448", fontWeight: "bold"}} target="_blank">Privacy Policy</Link>.</div>
+
+              <button className="button" onClick={this.uploadBookingData}>Send request</button>
+
+              </form>
+
+
+                : <form className="half-container-book-content" onSubmit={(e) => {e.preventDefault(); this.setState({page2: true})}}>
 
                 <div className="flex-row-comp" style={{margin: "0", width: "100%", alignItems: "center"}}>
                 <div className="book-hours-container">
@@ -225,7 +238,8 @@ class Booking extends React.Component {
                       placeholder="#"
                       min="0"
                       onChange={(e) => this.handleInput(e, "hours")}
-                      value={this.state.hours ? this.state.hours : ""}/>
+                      value={this.state.hours ? this.state.hours : ""}
+                      required/>
                     hrs / day
                   </div>
                 </div>
@@ -239,7 +253,8 @@ class Booking extends React.Component {
                           placeholder="Price"
                           min="0"
                           onChange={(e) => this.handleInput(e, "price")}
-                          value={this.state.price ? this.state.price : ""}/>
+                          value={this.state.price ? this.state.price : ""}
+                          required/>
                     / hr
                   </div>
                 </div>
@@ -251,9 +266,10 @@ class Booking extends React.Component {
                 <br/><br/>
                 <i className="subtitle">If you ever find that you are unsatisfied with a student’s progress, we’ll fully refund you for any stint cancelled before the end of the first quarter.</i>
 
-                <button className="button" style={{marginTop: "75px"}} onClick={() => {this.setState({page2: true})}}>Continue to details</button>
+                <button className="button"
+                  style={{marginTop: "75px"}}>Continue to details</button>
 
-              </div>
+              </form>
 
               }
 
@@ -261,31 +277,6 @@ class Booking extends React.Component {
 
 
 
-
-            </div>
-            <div className="flex-column button-container">
-              <CheckoutButton
-                freelancerUid={this.state.freelancerUid}
-                startDate={this.state.startDate}
-                endDate={this.state.endDate}
-                freelancerName={this.state.freelancerName}
-                totalDays={this.state.numWeekdays}
-                freelancerPhotoUrl={this.state.avatarUrl}
-                stintCategory={this.state.bookCategory}
-                stintDescription={this.state.stintDescription}
-                redirectOnSuccessUrl={INDEX_URL + PAYMENT_SUCCESS_PATH}
-                redirectOnFailUrl="https://wearestint.com/payment-success"
-                totalHours={this.state.hours * this.state.numWeekdays}
-                hourlyRate={this.state.price}
-                totalAmount={this.state.hours * this.state.numWeekdays * this.state.price * 100}
-                disabled={this.state.startDate
-                  && this.state.endDate
-                  && this.state.numWeekdays
-                  && this.state.stintDescription
-                  && this.state.hours
-                  && this.state.price ? false : true}/>
-                <div className="subtitle" style={{color: "white", marginTop: "15px", textAlign: "right"}}>By checking out, you are agreeing to our{" "}
-              <Link to="/privacy-policy" style={{color: "white", fontWeight: "bold"}} target="_blank">Privacy Policy</Link>.</div>
 
             </div>
 
@@ -311,13 +302,13 @@ class Booking extends React.Component {
               <p><b>{this.state.numWeekdays && this.state.hours
                   ? <span><b style={{color: "#8F8DFF"}}>{this.state.numWeekdays * this.state.hours}</b> total</span>
                   : "Total"} hours </b> </p>
-                <div className="subtitle">({this.state.hours ? <span><b style={{color: "#8F8DFF"}}>{this.state.hours}</b> hours</span> : "Hours"} / day  x  {this.state.numWeekdays ? <span><b style={{color: "#8F8DFF"}}>{this.state.numWeekdays}</b> weekdays</span> : "Number of weekdays"})</div>
+                <div className="subtitle">({this.state.hours ? <span><b>{this.state.hours}</b> hours</span> : "Hours"} / day  x  {this.state.numWeekdays ? <span><b>{this.state.numWeekdays}</b> weekdays</span> : "Number of weekdays"})</div>
                 <br/>
                 <p><b><TiTimes style={{position: "absolute", left: "0"}}/> {this.state.price
                   ? <b style={{color: "#8F8DFF"}}>$ {this.state.price}</b>
                   : "Price"} / hour </b></p>
                 <br/>
-                <p style={{borderTop: "1px solid lightgray", paddingTop: "20px"}}><b><TiEquals style={{position: "absolute", left: "0"}}/> {this.state.hours && this.state.numWeekdays && this.state.price ? <b style={{color: "#8F8DFF"}}>$ {this.state.hours * this.state.numWeekdays * this.state.price} total</b> : "Total price"}</b></p></div>
+                <p style={{borderTop: "1px solid lightgray", paddingTop: "20px"}}><b><TiEquals style={{position: "absolute", left: "0"}}/> {this.state.hours && this.state.numWeekdays && this.state.price ? <b><span style={{color: "#8F8DFF"}}>$ {this.state.hours * this.state.numWeekdays * this.state.price}</span> total</b> : "Total price"}</b></p></div>
 
         </div>
 

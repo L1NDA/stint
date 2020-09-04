@@ -241,19 +241,21 @@ export const uploadBookingData = (
   totalHours,
   hourlyRate,
   startDate,
-  endDate
+  endDate,
+  numWeekdays
 ) => {
   let targetUrl = FUNCTIONS_INDEX_URL + "uploadBookingData";
   return axios
     .post(targetUrl, {
       freelancerUid,
-      amountTotal
+      amountTotal,
       stintCategory,
       stintDescription,
       totalHours,
       hourlyRate,
       startDate,
-      endDate
+      endDate,
+      numWeekdays
     })
     .then((res) => {
       console.log(res)
