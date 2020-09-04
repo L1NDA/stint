@@ -102,7 +102,7 @@ class Booking extends React.Component {
     let res = uploadBookingData(
       this.state.freelancerUid,
       this.state.hours * this.state.price * this.state.numWeekdays,
-      'this.state.stintCategory',
+      this.state.bookCategory,
       this.state.stintDescription,
       this.state.hours,
       this.state.price,
@@ -111,6 +111,15 @@ class Booking extends React.Component {
       this.state.numWeekdays
     )
     this.props.history.push(INQUIRY_SENT_PATH)
+  }
+  
+  handleSelect = (e) => {
+    if (e.target.value !== this.state.bookCategory) {
+      this.setState({
+        bookCategory: e.target.value
+      })
+    }
+
   }
 
 
@@ -208,13 +217,15 @@ class Booking extends React.Component {
                 </select>
                 </div>
 
-
+              <div className="booking-category-textarea-container">
+              <div className="subtitle" style={{fontWeight: "bold"}}>STINT DESCRIPTION</div>
               <textarea
                 className="book-textarea"
                 maxlength={499}
                 required
                 placeholder={`Give ${this.state.freelancerName} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements. (Max 500 char.)`}
                 onChange={(e) => this.setState({ stintDescription: e.target.value })}></textarea>
+              </div>
 
               <div className="subtitle" style={{color: "#474448", marginTop: "75px"}}>By clicking this button below, you are agreeing to our{" "}
 
@@ -288,6 +299,7 @@ class Booking extends React.Component {
             <div className="flex-row" style={{alignItems: "center"}}>
               <img className="book-avatar" src={this.state.avatarUrl}></img>
               <p>Book {this.state.freelancerName}</p>
+              {this.state.bookCategory ? `for ${this.state.bookCategory}` : null}
             </div>
 
 
