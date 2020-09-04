@@ -14,7 +14,7 @@ import ProfileEdit from "./components/ProfileEdit";
 import ProfileView from "./components/ProfileView";
 import ThankYou from "./components/ThankYou.js";
 import Search from "./components/Search";
-import PaymentSuccess from "./components/PaymentSuccess";
+import InquirySent from "./components/InquirySent";
 import BookingProcess from "./components/BookingProcess";
 import Booking from "./components/Booking";
 
@@ -41,7 +41,7 @@ function App({ isLoggedIn }) {
         <Route exact path={Routes.ABOUT_PATH} component={About} />
         <Route exact path={Routes.SEARCH_PATH} component={Search} />
         <Route exact path={DYNAMIC_PROFILE_VIEW_PATH} component={ProfileView} />
-        <Route exact path={Routes.PAYMENT_SUCCESS_PATH} component={PaymentSuccess} />
+        <Route exact path={Routes.INQUIRY_SENT_PATH} component={InquirySent} />
         <Route exact path={Routes.BOOKING_PROCESS_PATH} component={BookingProcess} />
         <Route exact path={Routes.BOOKING_PATH} component={Booking} />
         <Route

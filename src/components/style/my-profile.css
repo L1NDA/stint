@@ -67,20 +67,6 @@
   margin-right: 20px;
 }
 
-.booking-category-select {
-  font-size: 20px;
-  line-height: 25px;
-  font-weight: bold;
-  font-family: "Source Sans Pro", sans-serif;
-  outline: none;
-  border: none;
-  background-color: #8F8DFF;
-  color: white;
-  padding-left: 5px;
-  margin-left: 5px;
-
-}
-
 .date-picker-input {
   height: 44px !important;
 }
@@ -251,7 +237,37 @@
   margin-top: 50px;
 }
 
+.booking-category-select-container {
+  height: 66px;
+  outline: none;
+  border: 1px solid lightgray;
+  border-bottom: none;
+  background-color: white;
+  padding: 0 13px;
+  font-size: 14px;
+  line-height: normal;
+  letter-spacing: 0.2px;
+  color: #3c4043;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.booking-category-select {
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: bold;
+  font-family: "Source Sans Pro", sans-serif;
+  outline: none;
+  background-color: white;
+  color: #474448;
+  width: 100%;
+
+}
+
 .book-textarea {
+  border: 1px solid #474448;
   outline: none;
   height: 200px;
   resize: none;
@@ -260,6 +276,7 @@
   font-family: "Source Sans", sans-serif;
   font-size: 16px;
   line-height: 24px;
+  width: 100%;
 }
 
 .book-price::placeholder, .book-textarea::placeholder, .book-hours::placeholder {

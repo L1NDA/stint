@@ -8,7 +8,7 @@ import paymentSuccess from "./imgs/payment-success.svg";
 
 import { COMPANY_PATH } from "../constants/ROUTING_CONSTANTS"
 
-class PaymentSuccess extends React.Component {
+class InquirySent extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -54,4 +54,4 @@ class PaymentSuccess extends React.Component {
   }
 }
 
-export default compose(withRouter)(PaymentSuccess);
+export default compose(withRouter)(InquirySent);
