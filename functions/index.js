@@ -78,14 +78,14 @@ exports.uploadBookingData = functions.https.onRequest((req, res) => {
             endDate: req.body.endDate,
             numWeekdays: req.body.numWeekdays
         }
-
+        console.log('req:', req.body)
         let transaction = {
             amountTotal: req.body.amountTotal,
+            customerEmail: req.body.email,
             amountToBeReceived,
             amountToBePaidOut,
             amountToBeKept,
             stintDetails,
-            customerEmail: req.body.email
         }
 
         return admin.database().ref('transactions/' + freelancerUid).push(transaction)

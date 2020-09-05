@@ -108,7 +108,6 @@ class Booking extends React.Component {
 
   uploadBookingData = (e) => {
     e.preventDefault();
-    console.log('state', this.state)
     let res = uploadBookingData(
       this.state.freelancerUid,
       this.state.hours * this.state.price * this.state.numWeekdays,
@@ -118,7 +117,8 @@ class Booking extends React.Component {
       this.state.price,
       this.state.startDate,
       this.state.endDate,
-      this.state.numWeekdays
+      this.state.numWeekdays,
+      this.state.email
     )
     this.props.history.push(INQUIRY_SENT_PATH)
   }
@@ -171,7 +171,7 @@ class Booking extends React.Component {
                 ? <form className="half-container-book-content" onSubmit={this.uploadBookingData}>
                 <div className="booking-category-select-container">
                   <div className="subtitle" style={{fontWeight: "bold"}}>EMAIL ADDRESS*</div>
-                  <input type="email" className="booking-category-input" required placeholder="wearestint@gmail.com"></input>
+                  <input type="email" className="booking-category-input" onChange={(e) => this.setState({email:e.target.value})} required placeholder="wearestint@gmail.com"></input>
                 </div>
                 <div className="booking-category-select-container">
                 <div className="subtitle" style={{fontWeight: "bold"}}>BOOKING CATEGORY*</div>

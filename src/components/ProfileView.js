@@ -78,13 +78,11 @@ class ProfileView extends React.Component {
     let fileUrls = await this.getFilesFromStorage();
 
     let freelancerRef = await getFreelancerRef(this.props.match.params.uid);
-    console.log("freelancerRef", freelancerRef)
     freelancerRef.on(
       "value",
       async (snapshot) => {
         let info = snapshot.val();
 
-        console.log("freelancerinfo", info)
         if (!info) {
           this.props.history.push(FOUR_OH_FOUR_PATH);
           return;

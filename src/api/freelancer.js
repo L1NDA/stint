@@ -87,7 +87,6 @@ export const updateFreelancerInfo = async (
   if (photoUrl) {
     updatedFreelancer[FREELANCER_PHOTO_URL] = photoUrl;
   }
-  console.log(updatedFreelancer);
   freelancerRef.update(updatedFreelancer, function (error) {
     if (error) {
       console.error("Updating freelancer info failed.", error);
@@ -257,10 +256,9 @@ export const uploadBookingData = (
       startDate,
       endDate,
       numWeekdays,
-      email
+      email,
     })
     .then((res) => {
-      console.log(res)
       return res;
     })
     .catch((error) => {
