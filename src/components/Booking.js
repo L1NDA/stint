@@ -118,8 +118,7 @@ class Booking extends React.Component {
       this.state.price,
       this.state.startDate,
       this.state.endDate,
-      this.state.numWeekdays,
-      this.state.email
+      this.state.numWeekdays
     )
     this.props.history.push(INQUIRY_SENT_PATH)
   }
@@ -236,7 +235,7 @@ class Booking extends React.Component {
                 onChange={(e) => this.setState({ stintDescription: e.target.value })}></textarea>
               </div>
 
-              <div className="subtitle" style={{color: "#474448", marginTop: "75px"}}>Clicking the button below will initiate a stint request with {this.state.freelancerName}. Payment will not be required until both parties confirm this request.
+              <div className="subtitle" style={{color: "#474448", marginTop: "75px"}}>Clicking the button below will send a stint request to {this.state.freelancerName}. You will not be asked to pay until the student confirms your request.
                 <br/><br/>By continuing, you are agreeing to our{" "}
 
 
