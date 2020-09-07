@@ -78,7 +78,7 @@ exports.uploadBookingData = functions.https.onRequest((req, res) => {
             endDate: req.body.endDate,
             numWeekdays: req.body.numWeekdays
         }
-        console.log('req:', req.body)
+
         let transaction = {
             amountTotal: req.body.amountTotal,
             customerEmail: req.body.email,

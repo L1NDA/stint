@@ -118,7 +118,7 @@ class Booking extends React.Component {
       this.state.startDate,
       this.state.endDate,
       this.state.numWeekdays,
-      this.state.email
+      this.state.email,
     )
     this.props.history.push(INQUIRY_SENT_PATH)
   }

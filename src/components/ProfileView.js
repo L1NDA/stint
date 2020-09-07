@@ -213,17 +213,6 @@ class ProfileView extends React.Component {
     })
   }
 
-  onDateChange = (startDate, endDate) => {
-    if (startDate && endDate) {
-      let numWeekdays = moment().weekdayCalc(startDate.toDate(), endDate.toDate(), [1,2,3,4,5])
-      this.setState({
-        numWeekdays: numWeekdays,
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString(),
-      })
-    }
-  }
-
   sortSkills = (skills) => {
     var items = Object.keys(skills).map(function (key) {
       return [key, skills[key]];
@@ -261,21 +250,11 @@ class ProfileView extends React.Component {
 
   /* For Linda's edit profile button:
   Use the following conditional to check whether to display the edit profile button or display a null:
-
   this.props.auth && this.props.auth.uid === this.props.match.params.uid ?
     <display edit profile redirect button> :
     null or whatever u wanna display instead
-
   Notes:
-<<<<<<< HEAD
-<<<<<<< HEAD
-  this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed - 
-=======
   this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed -
->>>>>>> master
-=======
-  this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed -
->>>>>>> master
   (because this.props.auth is null at first)
 */
 
@@ -322,184 +301,7 @@ class ProfileView extends React.Component {
         <Menu />
         {this.state.freelancerInfo ? (
           <>
-          {(!this.props.auth ||
-           this.props.auth.uid !== this.props.match.params.uid) ?
-          <div className={this.state.bookCategory ? "book-container book-container-fullscreen" : "book-container"}>
-            <div className={this.state.bookCategory ? "book-container-inner add-padding" : "book-container-inner"}>
-            {this.state.bookCategory
-            ? <TiTimes className="modal-x" onClick={()=>this.setState({bookCategory: null, savedStart: this.state.startDate ? this.state.startDate : null, savedEnd: this.state.endDate ? this.state.endDate : null})} style={{fontSize: "30px", top: "15px", right: "15px"}}/>
-            : null}
-            {this.state.bookCategory
-              ? <div className="pricing-container flex-column">
-                <div className="flex-column">
 
-                <RangeDatePicker
-                  startDatePlaceholder="Start Date"
-                  endDatePlaceholder="End Date"
-                  startDate={this.state.savedStart ? moment(this.state.savedStart).format("YYYY MM DD") : null}
-                  endDate={this.state.savedEnd ? moment(this.state.savedEnd).format("YYYY MM DD") : null}
-                  minDate={new Date()}
-                  disabled={false}
-                  className="book-calendar"
-                  startWeekDay="sunday"
-                  onChange={(startDate, endDate) => this.onDateChange(startDate, endDate)}
-                />
-                <br/>
-                <i className="subtitle">Please note: freelancers are only expected to work on business days. At Stint, we believe in a healthy work-life balance.</i>
-                <br/>
-                <div className="flex-row-comp" style={{margin: "0", width: "100%", alignItems: "center"}}>
-                <div className="book-hours-container">
-                  <div className="subtitle" style={{fontWeight: "bold"}}>HOURS PER DAY</div>
-                  <div className="book-container-content">
-                    <AiFillClockCircle/>
-                    <input className="book-hours"
-                      type="number"
-                      placeholder="#"
-                      min="0"
-                      onChange={(e) => this.handleInput(e, "hours")}
-                      value={this.state.hours ? this.state.hours : ""}/>
-                    hrs / day
-                  </div>
-                </div>
-                <div className="input-line"></div>
-                <div className="book-price-container">
-                  <div className="subtitle" style={{fontWeight: "bold"}}>HOURLY WAGE</div>
-                  <div className="book-container-content">
-                      <AiFillDollarCircle/>
-                        <input className="book-price"
-                          type="number"
-                          placeholder="Price"
-                          min="0"
-                          onChange={(e) => this.handleInput(e, "price")}
-                          value={this.state.price ? this.state.price : ""}/>
-                    / hr
-                  </div>
-                </div>
-
-                </div>
-                <br/>
-                <i className="subtitle">We respect that startups may be in varying stages of funding and allow you to set student wages based on what your budget permits. In return, please be courteous to our students. As a benchmark, the average hourly wage for past stints is <b>$23</b>.</i>
-                <br/>
-                <i className="subtitle">If you ever find that you are unsatisfied with a student’s progress, we’ll fully refund you for any stint cancelled before the end of the first quarter.</i>
-                </div>
-                <div className="book-total">
-                    <p><b>{this.state.numWeekdays && this.state.hours
-                        ? <span><b>{this.state.numWeekdays * this.state.hours}</b> total</span>
-                        : "Total"} hours </b> </p>
-                      <div className="subtitle">({this.state.hours ? <span><b>{this.state.hours}</b> hours</span> : "Hours"} / day  x  {this.state.numWeekdays ? <span><b>{this.state.numWeekdays}</b> weekdays</span> : "Number of weekdays"})</div>
-                      <br/>
-                      <p><b><TiTimes style={{position: "absolute", left: "0"}}/> {this.state.price
-                        ? `$ ${this.state.price}`
-                        : "Price"} / hour </b></p>
-                      <br/>
-                      <p style={{borderTop: "1px solid lightgray", paddingTop: "20px"}}><b><TiEquals style={{position: "absolute", left: "0"}}/> {this.state.hours && this.state.numWeekdays && this.state.price ? `$ ${this.state.hours * this.state.numWeekdays * this.state.price} total` : "Total price"}</b></p></div>
-
-              </div>
-              : null}
-
-            {!this.props.auth ||
-             this.props.auth.uid !== this.props.match.params.uid ? (
-            <>
-            <div className={this.state.bookCategory ? "flex-column half-container-book" : null}>
-              <div className={this.state.bookCategory ? "book-title-opened" : "flex-row book-title"}>
-                <img
-                  src={this.state.freelancerInfo.avatarUrl}
-                ></img>
-                <p>Book {this.state.freelancerInfo.displayName.split(" ")[0]} for {" "}
-                  {this.state.bookCategory ?
-                    <b>{this.state.bookCategory}</b> :
-                    <select
-                      name="booking-category"
-                      className="booking-category-select"
-                      onChange={this.handleSelect}>
-                      <option value="">(insert task)</option>
-                      {this.state.freelancerInfo.profile.dataAnalytics ?
-                        <optgroup label="Analytics">
-                          {STINT_CATEGORIES.da.map(
-                            (category) => {
-                              return (
-                                <option value={category}>{category}</option>
-                              )})}
-                        </optgroup>
-                        : null
-                      }
-                      {this.state.freelancerInfo.profile.contentCreation ?
-                        <optgroup label="Content Creation">
-                          {STINT_CATEGORIES.ccm.map(
-                            (category) => {
-                              return (
-                                <option value={category}>{category}</option>
-                              )})}
-                        </optgroup>
-                        : null
-                      }
-                      {this.state.freelancerInfo.profile.design ?
-                        <optgroup label="Design">
-                          {STINT_CATEGORIES.db.map(
-                            (category) => {
-                              return (
-                                <option value={category}>{category}</option>
-                              )})}
-                        </optgroup>
-                        : null
-                      }
-                      {this.state.freelancerInfo.profile.softwareDev ?
-                        <optgroup label="Software Development">
-                          {STINT_CATEGORIES.sd.map(
-                            (category) => {
-                              return (
-                                <option value={category}>{category}</option>
-                              )})}
-                        </optgroup>
-                        : null
-                      }
-
-                    </select>
-                  }
-                  </p>
-
-              </div>
-
-            <div className="flex-column" style={{marginTop: "30px"}}>
-            <p style={{color: "white"}}><b>PROJECT OVERVIEW</b></p>
-            <textarea
-              className="book-textarea"
-              maxlength={499}
-              placeholder={`Give ${this.state.freelancerInfo.displayName.split(" ")[0]} a brief description of what your stint entails. No need to explain every little detail, but give enough that s/he has a basic understanding of the requirements. (Max 500 char.)`}
-              onChange={(e) => this.setState({ stintDescription: e.target.value })}></textarea>
-
-            </div>
-            <div className="flex-column button-container">
-              <CheckoutButton
-                freelancerUid={this.props.match.params.uid}
-                startDate={this.state.startDate}
-                endDate={this.state.endDate}
-                freelancerName={this.state.freelancerInfo.displayName.split(" ")[0]}
-                totalDays={this.state.numWeekdays}
-                freelancerPhotoUrl={this.state.freelancerInfo.avatarUrl}
-                stintCategory={this.state.bookCategory}
-                stintDescription={this.state.stintDescription}
-                redirectOnSuccessUrl="https://wearestint.com/hire"
-                redirectOnFailUrl="https://wearestint.com/our-mission"
-                totalHours={this.state.hours * this.state.numWeekdays}
-                hourlyRate={this.state.price}
-                totalAmount={this.state.hours * this.state.numWeekdays * this.state.price * 100}
-                disabled={this.state.startDate
-                  && this.state.endDate
-                  && this.state.numWeekdays
-                  && this.state.bookCategory
-                  && this.state.hours
-                  && this.state.price ? false : true}/>
-                <div className="subtitle" style={{color: "white", marginTop: "15px", textAlign: "right"}}>By checking out, you are agreeing to our{" "}
-              <Link to="/privacy-policy" style={{color: "white", fontWeight: "bold"}}>Privacy Policy</Link>.</div>
-
-            </div>
-
-          </div>
-
-          </div>
-
-        </div> : null}
             <section className="padding flex-row profile-item">
               <img
                 id="profile-img"

@@ -4,27 +4,12 @@ import { loadStripe } from '@stripe/stripe-js'
 import { STRIPE_PK } from "../../config"
 import StripeCheckout from 'react-stripe-checkout'
 import Loading from '../Auth/Loading'
+import { getFreelancerRef } from '../../api/freelancer'
+import { INDEX_URL } from '../../config'
 import firebase from '../../firebase'
 
 const stripePromise = loadStripe(STRIPE_PK);
 
-
-/*
-  Props:
-    freelancerName
-    totalDays
-    freelancerPhotoUrl
-    freelancerUid
-    startDate
-    endDate
-    stintCategory
-    stintDescription
-    totalHours
-    hourlyRate
-    totalAmount
-    redirectOnSuccessUrl
-    redirectOnFailUrl
-*/
 class RedirectToCheckout extends React.Component {
     constructor() {
         super();
@@ -44,13 +29,31 @@ class RedirectToCheckout extends React.Component {
       return params;
     };
 
-    redirectToCheckout = async (event) => {
+    componentWillMount = () => {
+      { freelanceruid, cusid } = getParams(window.location.href)
+      this.setState({
+        freelancerUid: freelanceruid,
+        cusId: cusid,
+      })
+    }
+
+    redirectIfNoTransactionExists = async () => {
+      let transactionRef = firebase.database.ref("transactions/" + this.state.freelancerUid)
+      transactionRef.on("value", (snapshot) => {
+        if (snapshot.hasChild(this.state.cusId)) {
+          this.props.history.push(INDEX_URL)
+        }
+      })
+    }
+
+    redirectToCheckout = async () => {
       { freelanceruid, cusid } = getParams(window.location.href)
 
       let transactionRef = firebase.database.ref("transactions/" + freelanceruid + "/" + cusid)
       transactionRef.on("value", (snapshot) => {
         this.setState({
           snapshot.amountTotal,
+          snapshot.customerEmail,
           snapshot.amountToBeReceived,
           snapshot.amountToBePaidOut,
           snapshot.amountToBeKept,
@@ -58,20 +61,30 @@ class RedirectToCheckout extends React.Component {
         })
       })
 
+      // read from freelancerref and get name, photourl 
+      let freelancerRef = getFreelancerRef(freelanceruid)
+      freelancerRef.on("value", (snapshot) => {
+        this.setState({
+          freelancerName: snapshot.displayName,
+          freelancerPhotoUrl: snapshot.avatarUrl,
+        })
+      })
+
       let product_data = {
-        name: "Stint with " + this.props.freelancerName, // replace xxx with name of freelancer - probably from this.props
-        description: "A " + this.props.totalDays + " day stint with " + this.props.freelancerName + " for " + this.props.stintCategory + ".",
-        images: [this.props.freelancerPhotoUrl], // image_url of freelancer
+        name: "Stint with " + this.state.freelancerName,
+        description: "A " + this.state.stintDetails.numWeekdays + " day stint with " +
+                            this.state.freelancerName + " for " +
+                            this.state.stintDetails.category + ".",
+        images: [this.state.freelancerPhotoUrl],
       }
 
       const sessionData  = await createCheckoutSession(
         product_data,
-        this.props.totalAmount, // Stripe takes cents, whereas our total amount is dollars currently
-        this.props.redirectOnSuccessUrl,
-        this.props.redirectOnFailUrl,
+        this.state.amountTotal,
+        "https://wearestint.com/hire" // redirectOnSuccessUrl
+        "https://wearestint.com/our-mission", // redirectOnFailureUrl
         metadata,
       )
-      // When the customer clicks on the button, redirect them to Checkout.
 
       const stripe = await stripePromise;
 
@@ -89,6 +102,7 @@ class RedirectToCheckout extends React.Component {
     };
 
     render() {
+        this.redirectIfNoTransactionExists()
         this.redirectToCheckout()
         return (
           <Loading />
