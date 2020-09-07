@@ -3,6 +3,8 @@ import { createCheckoutSession } from "../../api/stripe"
 import { loadStripe } from '@stripe/stripe-js'
 import { STRIPE_PK } from "../../config"
 import StripeCheckout from 'react-stripe-checkout'
+import Loading from '../Auth/Loading'
+import firebase from '../../firebase'
 
 const stripePromise = loadStripe(STRIPE_PK);
 
@@ -23,7 +25,7 @@ const stripePromise = loadStripe(STRIPE_PK);
     redirectOnSuccessUrl
     redirectOnFailUrl
 */
-class CheckoutButton extends React.Component {
+class RedirectToCheckout extends React.Component {
     constructor() {
         super();
         this.state = {};
@@ -42,22 +44,24 @@ class CheckoutButton extends React.Component {
       return params;
     };
 
-    handleClick = async (event) => {
-      // Call your backend to create the Checkout Session—see previous step
+    redirectToCheckout = async (event) => {
+      { freelanceruid, cusid } = getParams(window.location.href)
+
+      let transactionRef = firebase.database.ref("transactions/" + freelanceruid + "/" + cusid)
+      transactionRef.on("value", (snapshot) => {
+        this.setState({
+          snapshot.amountTotal,
+          snapshot.amountToBeReceived,
+          snapshot.amountToBePaidOut,
+          snapshot.amountToBeKept,
+          snapshot.stintDetails,
+        })
+      })
+
       let product_data = {
         name: "Stint with " + this.props.freelancerName, // replace xxx with name of freelancer - probably from this.props
         description: "A " + this.props.totalDays + " day stint with " + this.props.freelancerName + " for " + this.props.stintCategory + ".",
         images: [this.props.freelancerPhotoUrl], // image_url of freelancer
-      }
-
-      let metadata = {
-        freelancerUid: this.props.freelancerUid,
-        startDate: this.props.startDate,
-        endDate: this.props.endDate,
-        stintCategory: this.props.stintCategory,
-        stintDescription: this.props.stintDescription,
-        totalHours: this.props.totalHours,
-        hourlyRate: this.props.hourlyRate,
       }
 
       const sessionData  = await createCheckoutSession(
@@ -85,12 +89,11 @@ class CheckoutButton extends React.Component {
     };
 
     render() {
+        this.redirectToCheckout()
         return (
-          <button disabled={this.props.disabled} role="link" onClick={this.handleClick} className="button" style={{alignSelf: "flex-end"}}>
-            Checkout
-          </button>
+          <Loading />
         );
       }
 }
 
-export default CheckoutButton;
+export default RedirectToCheckout;

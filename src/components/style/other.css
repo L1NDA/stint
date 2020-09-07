@@ -48,6 +48,24 @@
   width: 150px;
 }
 
+.payment-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.company-text {
+  margin-top: 100px;
+  margin-bottom: 150px;
+  margin-right: 100px;
+}
+
+.payment-container > img {
+  margin-top: 75px;
+}
+
 /* Media Queries */
 
 /* Smaller Laptops ----------- */
@@ -68,6 +86,19 @@
 
   .fof-img {
     width: 100px;
+  }
+
+  .payment-container {
+    flex-direction: column-reverse;
+  }
+
+  .payment-container > img {
+    margin-top: 20px;
+    width: 90%;
+  }
+
+  .company-text {
+    width: 100%;
   }
 }
 

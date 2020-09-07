@@ -47,6 +47,9 @@ const {
 } = require("../constants/DB_CONSTANTS");
 const firebase = require("firebase");
 const moment = require("moment");
+const axios = require("axios");
+const { FUNCTIONS_INDEX_URL } = require("../config");
+
 // TODO: get rid of uid and instead make it return data for current signed in freelancer
 // Given freelancer's Google uid, returns all data associated with that freelancer
 export const getFreelancerRef = async (uid) => {
@@ -84,7 +87,6 @@ export const updateFreelancerInfo = async (
   if (photoUrl) {
     updatedFreelancer[FREELANCER_PHOTO_URL] = photoUrl;
   }
-  console.log(updatedFreelancer);
   freelancerRef.update(updatedFreelancer, function (error) {
     if (error) {
       console.error("Updating freelancer info failed.", error);
@@ -230,10 +232,45 @@ export const setFreelancerProfile = async (
   });
 };
 
+export const uploadBookingData = (
+  freelancerUid,
+  amountTotal,
+  stintCategory,
+  stintDescription,
+  totalHours,
+  hourlyRate,
+  startDate,
+  endDate,
+  numWeekdays,
+  email
+) => {
+  let targetUrl = FUNCTIONS_INDEX_URL + "uploadBookingData";
+  return axios
+    .post(targetUrl, {
+      freelancerUid,
+      amountTotal,
+      stintCategory,
+      stintDescription,
+      totalHours,
+      hourlyRate,
+      startDate,
+      endDate,
+      numWeekdays,
+      email,
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      throw error;
+    });
+}
+
 const toBeExported = {
   getFreelancerRef,
   updateFreelancerInfo,
   setFreelancerProfile,
+  uploadBookingData,
 };
 
 export default toBeExported;

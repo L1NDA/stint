@@ -221,10 +221,11 @@ class Homepage extends React.Component {
             <div className="process-line"></div>
             <div className="process-item">
               <div className="process-label">1</div>
+              <div className="process-img-container">
               <img
                 src={require("./imgs/process-1.png")}
                 className="process-img"
-              />
+              /></div>
               <div className="process-text">
                 <h2>Sign Up</h2>
                 <p>
@@ -237,10 +238,11 @@ class Homepage extends React.Component {
             </div>
             <div className="process-item">
               <div className="process-label">2</div>
+              <div className="process-img-container">
               <img
                 src={require("./imgs/process-2.jpg")}
                 className="process-img"
-              />
+              /></div>
               <div className="process-text">
                 <h2>Sit Back</h2>
                 <p>
@@ -251,10 +253,11 @@ class Homepage extends React.Component {
             </div>
             <div className="process-item">
               <div className="process-label">3</div>
+              <div className="process-img-container">
               <img
                 src={require("./imgs/process-3.png")}
                 className="process-img"
-              />
+              /></div>
               <div className="process-text">
                 <h2>Get Stintin’</h2>
                 <p>
@@ -265,10 +268,11 @@ class Homepage extends React.Component {
             </div>
             <div className="process-item">
               <div className="process-label">4</div>
+              <div className="process-img-container">
               <img
                 src={require("./imgs/process-4.jpg")}
                 className="process-img"
-              />
+              /></div>
               <div className="process-text">
                 <h2>Circle Back</h2>
                 <p>

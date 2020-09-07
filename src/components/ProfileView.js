@@ -47,55 +47,6 @@ const DESIGN_SHOWCASE_PREFIX = "designshowcase-";
 const PERSONAL_WEBSITE_PREFIX = "personalwebsite-";
 const OTHER_FILES = "otherFiles";
 
-const STINT_CATEGORIES = {
-  da: [
-    "Data Entry",
-    "Data Visualization",
-    "Data Research & Analysis",
-    "Data Collection",
-    "Database Maintenance",
-    "Data Cleaning & Pipelining",
-    "Machine Learning",
-    "Other (Analytics)",
-  ],
-  ccm: [
-    "Blog Writing",
-    "Social Media Management",
-    "Digital Marketing",
-    "Listserv Management",
-    "Newsletter Creation",
-    "Video Creation & Editing",
-    "Photography & Editing",
-    "Voice-over",
-    "Music Recording",
-    "Language Translation",
-    "Other (Content Creation & Management)"
-  ],
-  db: [
-    "Design & Branding",
-    "Logo (Re)design",
-    "Website (Re)design",
-    "App (Re)design",
-    "Flyer & Print Design",
-    "Digital Illustration",
-    "Physical Illustration",
-    "UX Research",
-    "User Profiles & Journey Maps",
-    "Other (Design)"
-  ],
-  sd: [
-    "Web Development",
-    "Mobile Development",
-    "Native Development",
-    "MVPs & Landing Pages",
-    "QA Testing",
-    "Data Science",
-    "Cloud Computing",
-    "Cybersecurity",
-    "Blockchain",
-    "Other"
-  ]
-}
 
 class ProfileView extends React.Component {
   constructor(props) {
@@ -127,13 +78,11 @@ class ProfileView extends React.Component {
     let fileUrls = await this.getFilesFromStorage();
 
     let freelancerRef = await getFreelancerRef(this.props.match.params.uid);
-    console.log("freelancerRef", freelancerRef)
     freelancerRef.on(
       "value",
       async (snapshot) => {
         let info = snapshot.val();
 
-        console.log("freelancerinfo", info)
         if (!info) {
           this.props.history.push(FOUR_OH_FOUR_PATH);
           return;
@@ -229,15 +178,6 @@ class ProfileView extends React.Component {
     );
   };
 
-  handleSelect = (e) => {
-    if (e.target.value !== this.state.bookCategory) {
-      this.setState({
-        bookCategory: e.target.value
-      })
-    }
-
-  }
-
   getFilesFromStorage = async () => {
     let storageRef = this.props.storage.ref();
     let filesRef = storageRef.child(
@@ -301,6 +241,24 @@ class ProfileView extends React.Component {
     this.props.history.push(PROFILE_EDIT_PATH);
   };
 
+  onDateChange = (startDate, endDate) => {
+    if (!startDate && !endDate && this.state.startDate && this.state.endDate) {
+      this.setState({
+        numWeekdays: null,
+        startDate: null,
+        endDate: null,
+      })
+    }
+    if (startDate && endDate) {
+      let numWeekdays = moment().weekdayCalc(startDate.toDate(), endDate.toDate(), [1,2,3,4,5])
+      this.setState({
+        numWeekdays: numWeekdays,
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+      })
+    }
+  }
+
   /* For Linda's edit profile button:
   Use the following conditional to check whether to display the edit profile button or display a null:
 
@@ -310,7 +268,11 @@ class ProfileView extends React.Component {
 
   Notes:
 <<<<<<< HEAD
+<<<<<<< HEAD
   this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed - 
+=======
+  this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed -
+>>>>>>> master
 =======
   this.props.auth loads asynchronously, so there may be a delay on initial load where null is displayed -
 >>>>>>> master
@@ -578,7 +540,48 @@ class ProfileView extends React.Component {
               </div>
             </section>
 
-            <section className="profile-item flex-row padding experience-section">
+            {(!this.props.auth ||
+             this.props.auth.uid !== this.props.match.params.uid) ?
+
+            <div className="book-title">
+              <div className="flex-row" style={{justifyContent: "space-between"}}>
+                <RangeDatePicker
+                    startDatePlaceholder="Start Date"
+                    endDatePlaceholder="End Date"
+                    minDate={new Date()}
+                    disabled={false}
+                    className="book-calendar"
+                    startWeekDay="sunday"
+                    onChange={(startDate, endDate) => this.onDateChange(startDate, endDate)}
+                  />
+
+                <div className="flex-row booking-week-info" style={{alignItems: "center"}}>
+                  {this.state.startDate && this.state.endDate ?
+                  <p><b>{this.state.numWeekdays}</b> total days</p> : null}
+                    <Link to={{
+                        pathname: "/book",
+                        state: {
+                          freelancerName: this.state.freelancerInfo.displayName.split(" ")[0],
+                          avatarUrl: this.state.freelancerInfo.avatarUrl,
+                          startDate: this.state.startDate,
+                          endDate: this.state.endDate,
+                          numWeekdays: this.state.numWeekdays,
+                          freelancerUid: this.props.match.params.uid,
+                          freelancerInfo: this.state.freelancerInfo,
+                        }
+                      }}
+                      style={{color: "white", pointerEvents: (this.state.startDate && this.state.endDate) ? "auto" : "none"}}
+                      >
+                      <button className="button" disabled={(this.state.startDate && this.state.endDate) ? false : true}>Request Booking</button></Link>
+                </div>
+
+
+              </div>
+              {this.state.startDate && this.state.endDate ? <i className="subtitle" style={{marginTop: "10px"}}>Please note: freelancers are only expected to work on business days. At Stint, we believe in a healthy work-life balance.</i> : null}
+
+            </div> : null}
+
+            <section className="profile-item flex-row padding experience-section" style={{paddingTop: "50px", paddingBottom: "50px"}}>
               <div className="experience">
                 <h2>Work Experience</h2>
                 <div className="experience-container">
@@ -653,6 +656,21 @@ class ProfileView extends React.Component {
                     src={personalwebsite}
                     className="works-laptop-screen"
                   ></iframe>
+                  <div
+                    className="works-laptop-screen flex-column center"
+                    style={{ backgroundColor: "#474448", padding: "0 25px", zIndex: "0"}}
+                  >
+                    <h1 className={personalwebsite.length > 35 ? "h1-smaller" : null} style={{ color: "white"}}>
+                      {personalwebsite.endsWith("/")
+                        ? personalwebsite.replace("https://", "").slice(0, -1)
+                        : personalwebsite.replace("https://", "")}
+                    </h1>
+                    <div className="subtitle" style={{ color: "white" }}>
+                      This website cannot be previewed as it either does not use
+                      https or does not allow cross-origin previews. Please
+                      click to view.
+                    </div>
+                  </div>
                 </a>
               </section>
             ) : personalwebsite ? (
@@ -742,6 +760,7 @@ class ProfileView extends React.Component {
                           </div>
 
                           {this.state.githubData.data &&
+                          this.state.githubData.data.repoNames &&
                           this.state.githubData.data.repoNames.length !== 0 ? (
                             <div className="works-section">
                               <div className="works-section-header">
@@ -770,7 +789,7 @@ class ProfileView extends React.Component {
                             </div>
                           )}
 
-                          {this.state.githubData.data.eventCount ? (
+                          {this.state.githubData.data && this.state.githubData.data.eventCount ? (
                             <div className="works-section">
                               <div className="works-section-header">
                                 - Number of contributions
@@ -800,7 +819,9 @@ class ProfileView extends React.Component {
                             </div>
                           )}
 
-                          {this.state.githubData.data.orgs.length !== 0 ? (
+                          {this.state.githubData.data &&
+                            this.state.githubData.data.orgs &&
+                            this.state.githubData.data.orgs.length !== 0 ? (
                             <div className="works-section">
                               <div className="works-section-header">
                                 - My organizations
@@ -1184,7 +1205,9 @@ class ProfileView extends React.Component {
                             Github
                           </div>
 
-                          {this.state.githubData.data.repoNames.length !== 0 ? (
+                          {this.state.githubData.data &&
+                          this.state.githubData.data.repoNames &&
+                          this.state.githubData.data.repoNames.length !== 0 ? (
                             <div className="works-section">
                               <div className="works-section-header">
                                 - My recent repositories
@@ -1212,7 +1235,7 @@ class ProfileView extends React.Component {
                             </div>
                           )}
 
-                          {this.state.githubData.data.eventCount ? (
+                          {this.state.githubData.data && this.state.githubData.data.eventCount ? (
                             <div className="works-section">
                               <div className="works-section-header">
                                 - Number of contributions
@@ -1242,7 +1265,9 @@ class ProfileView extends React.Component {
                             </div>
                           )}
 
-                          {this.state.githubData.data.orgs.length !== 0 ? (
+                          {this.state.githubData.data &&
+                            this.state.githubData.data.orgs &&
+                            this.state.githubData.data.orgs.length !== 0 ? (
                             <div className="works-section">
                               <div className="works-section-header">
                                 - My organizations

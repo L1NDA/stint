@@ -61,6 +61,44 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
     });
 });
 
+exports.uploadBookingData = functions.https.onRequest((req, res) => {
+    cors(req, res, async () => {
+        let freelancerUid = req.body.freelancerUid
+
+        let amountToBeReceived = (req.body.amountTotal * 0.971) - 30
+        let amountToBePaidOut = amountToBeReceived * 0.85
+        let amountToBeKept = amountToBeReceived - amountToBePaidOut
+
+        let stintDetails = {
+            category: req.body.stintCategory,
+            description: req.body.stintDescription ? req.body.stintDescription : null,
+            totalHours: req.body.totalHours,
+            hourlyRate: req.body.hourlyRate,
+            startDate: req.body.startDate,
+            endDate: req.body.endDate,
+            numWeekdays: req.body.numWeekdays
+        }
+        console.log('req:', req.body)
+        let transaction = {
+            amountTotal: req.body.amountTotal,
+            customerEmail: req.body.email,
+            amountToBeReceived,
+            amountToBePaidOut,
+            amountToBeKept,
+            stintDetails,
+        }
+
+        return admin.database().ref('transactions/' + freelancerUid).push(transaction)
+          .then((snapshot) => {
+            return res.json({ received: true, snapshot: snapshot });
+          })
+          .catch((err) => {
+            console.error(err);
+            return res.status(500).end();
+          });
+    })
+})
+
 exports.onCheckoutSessionCompleted = functions.https.onRequest((req, res) => {
     cors(req, res, async () => {
         const endpointSecret = functions.config().stripe.checkout_session_webhook.secret
@@ -259,7 +297,7 @@ exports.retrieveCheckoutSession = functions.https.onRequest((req, res) => {
 
 // exports.deleteIndex = functions.database.ref('/freelancers/{id}').onDelete((snapshot, context) => {
 //     const index = client.initIndex(functions.config().algolia.index);
-    
+
 //     const id = context.params.id
 
 //     return index.deleteObject(id, (err)=> {
@@ -278,7 +316,7 @@ exports.getGithubRepos = functions.https.onRequest(async (req, res) => {
             .then(result => {
             }).catch(err => {
                 if (err.request && err.request.res.statusMessage == 'Not Found') {
-                    
+
                     return res.status(404).send(result)
                 }
                 else {

@@ -14,6 +14,9 @@ import ProfileEdit from "./components/ProfileEdit";
 import ProfileView from "./components/ProfileView";
 import ThankYou from "./components/ThankYou.js";
 import Search from "./components/Search";
+import InquirySent from "./components/InquirySent";
+import BookingProcess from "./components/BookingProcess";
+import Booking from "./components/Booking";
 
 import Routes from "./constants/ROUTING_CONSTANTS";
 
@@ -37,12 +40,15 @@ function App({ isLoggedIn }) {
         <Route exact path={Routes.COMPANY_PATH} component={Company} />
         <Route exact path={Routes.ABOUT_PATH} component={About} />
         <Route exact path={Routes.SEARCH_PATH} component={Search} />
+        <Route exact path={DYNAMIC_PROFILE_VIEW_PATH} component={ProfileView} />
+        <Route exact path={Routes.INQUIRY_SENT_PATH} component={InquirySent} />
+        <Route exact path={Routes.BOOKING_PROCESS_PATH} component={BookingProcess} />
+        <Route exact path={Routes.BOOKING_PATH} component={Booking} />
         <Route
           exact
           path={Routes.PRIVACY_POLICY_PATH}
           component={PrivatePolicy}
         />
-        <Route exact path={DYNAMIC_PROFILE_VIEW_PATH} component={ProfileView} />
         <Route component={FourOhFour} />
       </Switch>
     </Router>
