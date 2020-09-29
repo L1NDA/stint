@@ -102,7 +102,6 @@ exports.uploadBookingData = functions.https.onRequest((req, res) => {
 exports.onCheckoutSessionCompleted = functions.https.onRequest((req, res) => {
     cors(req, res, async () => {
         const endpointSecret = functions.config().stripe.checkout_session_webhook.secret
-
         const sig = req.headers["stripe-signature"];
 
         let event;
@@ -112,45 +111,33 @@ exports.onCheckoutSessionCompleted = functions.https.onRequest((req, res) => {
             res.status(400).send(err);
         }
 
+        let metadata = event.data.object.metadata
         // get freelancer uid
-        let freelancerUid = event.data.object.metadata.freelancerUid
+        let freelancerUid = metadata.freelancerUid
         let customerId = event.data.object.customer
         let checkoutSessionId = event.data.object.id
 
         let customer = await stripe.customers.retrieve(customerId)
 
-        let customerEmail = customer.email
-
-        let amountReceived = (event.data.object.amount_total * 0.971) - 30
-        let amountPaidOut = amountReceived * 0.85
-        let amountKept = amountReceived - amountPaidOut
-
-        let stintDetails = {
-            category: event.data.object.metadata.stintCategory,
-            description: event.data.object.metadata.stintDescription ? event.data.object.metadata.stintDescription : null,
-            totalHours: event.data.object.metadata.totalHours,
-            hourlyRate: event.data.object.metadata.hourlyRate,
-            startDate: event.data.object.metadata.startDate,
-            endDate: event.data.object.metadata.endDate,
-        }
+        let stripeCustomerEmail = customer.email
 
         let transaction = {
             [customerId]: {
-                customerEmail,
-                amountReceived,
-                amountPaidOut,
-                amountKept,
+                stripeCustomerEmail,
                 checkoutSessionId,
-                stintDetails,
+                metadata,
             },
         }
 
         return admin.database().ref('transactions/' + freelancerUid).update(transaction)
           .then((snapshot) => {
+            let bookingRef = admin.database().ref('transactions/' + metadata.cusId)
+            bookingRef.remove()
+
             return res.json({ received: true });
           })
           .catch((err) => {
-            console.error(err);
+            console.error('Transaction was not recorded, booking data kept:', err);
             return res.status(500).end();
           });
     })

@@ -78,6 +78,17 @@ class RedirectToCheckout extends React.Component {
         images: [this.state.freelancerPhotoUrl],
       }
 
+      let metadata = {
+        freelancerUid: freelanceruid,
+        cusId: cusid,
+        this.state.amountTotal,
+        this.state.customerEmail,
+        this.state.amountToBeReceived,
+        this.state.amountToBePaidOut,
+        this.state.amountToBeKept,
+        this.state.stintDetails,
+      }
+
       const sessionData  = await createCheckoutSession(
         product_data,
         this.state.amountTotal,
